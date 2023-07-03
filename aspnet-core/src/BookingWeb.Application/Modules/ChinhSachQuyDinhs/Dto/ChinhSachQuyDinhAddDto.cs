@@ -1,13 +1,13 @@
-﻿using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BookingWeb.DbEntities
+namespace BookingWeb.Modules.ChinhSachQuyDinhs.Dto
 {
-    public class ChinhSachQuyDinh : FullAuditedEntity, IMayHaveTenant
+    public class ChinhSachQuyDinhAddDto
     {
-        public int? TenantId { get; set; }
-
         public string QuyDinhVeThuCung { get; set; }
 
         public string QuyDinhVeTreEm { get; set; }
@@ -15,5 +15,6 @@ namespace BookingWeb.DbEntities
         public string QuyDinhVeDatPhong { get; set; }
 
         public int HinhThucKinhDoanhId { get; set; }
+
     }
 }

@@ -14,7 +14,4 @@
   <ItemGroup>
     <ProjectReference Include="..\BookingWeb.Core\BookingWeb.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\ChinhSachQuyDinh\Dto\" />
-  </ItemGroup>
 </Project>
