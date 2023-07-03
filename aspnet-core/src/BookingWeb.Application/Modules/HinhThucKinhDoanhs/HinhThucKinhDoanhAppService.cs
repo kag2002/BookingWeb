@@ -50,14 +50,14 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         {
             try
             {
-                var csqd = new HinhThucKinhDoanh
+                var htkd = new HinhThucKinhDoanh
                 {
                     TenHinhThuc = input.TenHinhThuc,
                     TenDonViKinhDoanh = input.TenDonViKinhDoanh,
                     DiaChiChiTiet = input.DiaChiChiTiet
                 };
 
-                await _repository.InsertAsync(csqd);
+                await _repository.InsertAsync(htkd);
 
                 return true;
             }
