@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BookingWeb.DbEntities
 {
-    public class HinhThucKinhDoanh : FullAuditedEntity,  IMayHaveTenant
+    public class HinhThucKinhDoanh : FullAuditedEntity, IMayHaveTenant
     {
         public int? TenantId { get; set; }
 
