@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.ChinhSachQuyDinhs.Dto
 {
-    public class ChinhSachQuyDinhAddDto
+    public class ChinhSachQuyDinhDto
     {
         public string QuyDinhVeThuCung { get; set; }
 

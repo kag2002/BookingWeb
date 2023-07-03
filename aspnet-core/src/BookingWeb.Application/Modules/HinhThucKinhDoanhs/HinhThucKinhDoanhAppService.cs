@@ -22,14 +22,15 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<HinhThucKinhDoanhAddDto>> GetAllList()
+        public async Task<List<HinhThucKinhDoanhFullDto>> GetAllList()
         {
             try
             {
                 var lst = await _repository.GetAllListAsync();
 
-                var dtoList = lst.Select(entity => new HinhThucKinhDoanhAddDto
+                var dtoList = lst.Select(entity => new HinhThucKinhDoanhFullDto
                 {
+                    Id = entity.Id,
                     TenHinhThuc = entity.TenHinhThuc,
                     TenDonViKinhDoanh = entity.TenDonViKinhDoanh,
                     DiaChiChiTiet = entity.DiaChiChiTiet
@@ -46,7 +47,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         }
 
 
-        public async Task<bool> AddNewItem(HinhThucKinhDoanhAddDto input)
+        public async Task<bool> AddNewItem(HinhThucKinhDoanhDto input)
         {
             try
             {
@@ -68,7 +69,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             }
         }
 
-        public async Task<bool> UpdateItem(HinhThucKinhDoanhDto input)
+        public async Task<bool> UpdateItem(HinhThucKinhDoanhFullDto input)
         {
             try
             {
