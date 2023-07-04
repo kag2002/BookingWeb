@@ -21,9 +21,5 @@ namespace BookingWeb.Modules.LoaiPhongs.Dto
         public float GiaGoiDichVuThem { get; set; }
 
         public float UuDai { get; set; }
-
-        public string TenDichVuTienIch { get; set; }
-
-        public string MoTaDv { get; set; }
     }
 }

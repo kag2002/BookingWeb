@@ -8,6 +8,8 @@ namespace BookingWeb.Modules.LoaiPhongs.Dto
 {
     public class LoaiPhongDto
     {
+        public int Id { get; set; }
+
         public string TenLoaiPhong { get; set; }
 
         public string MoTaLoaiPhong { get; set; }

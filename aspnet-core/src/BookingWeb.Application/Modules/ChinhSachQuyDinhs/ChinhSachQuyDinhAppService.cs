@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.ChinhSachQuyDinhs.Dto;
+using BookingWeb.Modules.ChinhSachQuyDinhs.Dto.Custom;
 using BookingWeb.Modules.HinhThucKinhDoanhs.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -84,7 +85,7 @@ namespace BookingWeb.Modules.ChinhSachQuyDinhs
             }
         }
 
-        public async Task<bool> UpdatePolicy(ChinhSachQuyDinhFullDto input)
+        public async Task<bool> UpdatePolicy(ChinhSachQuyDinhInput input)
         {
             try
             {
@@ -100,7 +101,6 @@ namespace BookingWeb.Modules.ChinhSachQuyDinhs
                     item.QuyDinhVeDatPhong = input.QuyDinhVeDatPhong;
                     item.QuyDinhVeThuCung = input.QuyDinhVeThuCung;
                     item.QuyDinhVeTreEm = input.QuyDinhVeTreEm;
-                    item.HinhThucKinhDoanhId = input.HinhThucKinhDoanhId;
 
                     await _repositoryCs.UpdateAsync(item);
                     return true;
@@ -127,7 +127,6 @@ namespace BookingWeb.Modules.ChinhSachQuyDinhs
                 }
 
                 await _repositoryCs.DeleteAsync(item);
-                await _httpContextAccessor.HttpContext.Response.WriteAsync("Successfully Deleted !");
                 return true;
             }
             catch (Exception ex)
