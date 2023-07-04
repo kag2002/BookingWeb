@@ -12,16 +12,19 @@ namespace BookingWeb.Modules.DichVuTienIchs
 {
     public class DichVuTienIchAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<DichVuTienIch> _repository;
+        private readonly IRepository<DichVuTienIch> _dichVuTienIch;
 
-        private readonly IRepository<LoaiPhong> _repository1;
+        private readonly IRepository<LoaiPhong> _loaiPhong;
+
+        private readonly IRepository<NhanXetDanhGia> _nhanXet;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DichVuTienIchAppService(IRepository<DichVuTienIch> repository, IRepository<LoaiPhong> repository1, IHttpContextAccessor httpContextAccessor)
+        public DichVuTienIchAppService(IRepository<DichVuTienIch> dichVuTienIch, IRepository<LoaiPhong> loaiPhong, IRepository<NhanXetDanhGia> nhanXet, IHttpContextAccessor httpContextAccessor)
         {
-            _repository = repository;
-            _repository1 = repository1;
+            _dichVuTienIch = dichVuTienIch;
+            _loaiPhong = loaiPhong;
+            _nhanXet = nhanXet;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -29,7 +32,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
         {
             try
             {
-                var lstDv = await _repository.GetAllListAsync();
+                var lstDv = await _dichVuTienIch.GetAllListAsync();
 
                 var dtoLst = lstDv.Select(entity => new  DichVuTienIchOutputDto
                 {
@@ -54,7 +57,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
         {
             try
             {
-                var check = await _repository1.FirstOrDefaultAsync(p => p.Id == input.LoaiPhongId);
+                var check = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == input.LoaiPhongId);
 
                 if (check != null)
                 {
@@ -65,7 +68,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
                         LoaiPhongId = input.LoaiPhongId
                     };
 
-                    await _repository.InsertAsync(dv);
+                    await _dichVuTienIch.InsertAsync(dv);
                     return true;
                 }
                 else
@@ -84,14 +87,14 @@ namespace BookingWeb.Modules.DichVuTienIchs
         {
             try
             {
-                var check = await _repository.FirstOrDefaultAsync(p=>p.Id == input.Id);
+                var check = await _dichVuTienIch.FirstOrDefaultAsync(p=>p.Id == input.Id);
 
                 if (check != null)
                 {
                     check.TenDichVuTienIch = input.TenDichVuTienIch;
                     check.MoTa = input.MoTa;
 
-                    await _repository.UpdateAsync(check);
+                    await _dichVuTienIch.UpdateAsync(check);
                     return true;
                 }
                 else
@@ -111,11 +114,18 @@ namespace BookingWeb.Modules.DichVuTienIchs
         {
             try
             {
-                var check = await _repository.FirstOrDefaultAsync(p=>p.Id == id);
-                if (check != null)
+                var checkDv = await _dichVuTienIch.FirstOrDefaultAsync(p=>p.Id == id);
+                if (checkDv != null)
                 {
-                    await _repository.DeleteAsync(check);
+                    var checNx = await _nhanXet.FirstOrDefaultAsync(p => p.DichVuTienIchId == checkDv.Id);
+
+                    if (checNx != null)
+                    {
+                        await _nhanXet.DeleteAsync(checNx);
+                    }
+                    await _dichVuTienIch.DeleteAsync(checkDv);
                     return true;
+
                 }else 
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay dvu voi id = {id}");
