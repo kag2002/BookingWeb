@@ -12,13 +12,17 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
 {
     public class HinhThucKinhDoanhAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<HinhThucKinhDoanh> _repository;
+        private readonly IRepository<HinhThucKinhDoanh> _hinhThuc;
+        private readonly IRepository<ChinhSachQuyDinh> _chinhSach;
+        private readonly IRepository<Phong> _phong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HinhThucKinhDoanhAppService(IRepository<HinhThucKinhDoanh> repository, IHttpContextAccessor httpContextAccessor)
+        public HinhThucKinhDoanhAppService(IRepository<HinhThucKinhDoanh> hinhThuc, IRepository<ChinhSachQuyDinh> chinhSach, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
         {
-            _repository = repository;
+            _hinhThuc = hinhThuc;
+            _chinhSach = chinhSach;
+            _phong = phong;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -26,7 +30,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         {
             try
             {
-                var lst = await _repository.GetAllListAsync();
+                var lst = await _hinhThuc.GetAllListAsync();
 
                 var dtoList = lst.Select(entity => new HinhThucKinhDoanhFullDto
                 {
@@ -58,7 +62,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                     DiaChiChiTiet = input.DiaChiChiTiet
                 };
 
-                await _repository.InsertAsync(htkd);
+                await _hinhThuc.InsertAsync(htkd);
 
                 return true;
             }
@@ -73,10 +77,10 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         {
             try
             {
-                var item = await _repository.FirstOrDefaultAsync(p => p.Id == input.Id);
+                var item = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == input.Id);
                 if (item == null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync("Product not found");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay loai phong voi id = {input.Id}");
                     return false;
                 }
 
@@ -84,12 +88,12 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 item.TenDonViKinhDoanh = input.TenDonViKinhDoanh;
                 item.DiaChiChiTiet = input.DiaChiChiTiet;
 
-                await _repository.UpdateAsync(item);
+                await _hinhThuc.UpdateAsync(item);
                 return true;
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Internal server error: {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
         }
@@ -98,19 +102,33 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         {
             try
             {
-                var product = await _repository.FirstOrDefaultAsync(p => p.Id == id);
-                if (product == null)
+                var checkHt = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == id);
+                if (checkHt == null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync("Product not found");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay loai phong voi id = {id}");
                     return false;
                 }
+                else
+                {
+                    var checkPhong = await _phong.FirstOrDefaultAsync(p=>p.HinhThucKinhDoanhId == checkHt.Id);
 
-                await _repository.DeleteAsync(product);
-                return true;
+                    var checkCs = await _chinhSach.FirstOrDefaultAsync(p=>p.HinhThucKinhDoanhId ==  checkHt.Id);
+
+                    if (checkPhong != null)
+                    {
+                        checkPhong.HinhThucKinhDoanhId = null;
+                    }
+
+                    await _chinhSach.DeleteAsync(checkCs);
+                    await _hinhThuc.DeleteAsync(checkHt);
+                    return true;
+
+                }
+
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Internal server error: {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
         }
