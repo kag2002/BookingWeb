@@ -12,13 +12,15 @@ namespace BookingWeb.Modules.DiaDiems
 {
     public class DiaDiemAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<DiaDiem> _repository;
+        private readonly IRepository<DiaDiem> _diaDiem;
+
+        private readonly IRepository<Phong> _phong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public DiaDiemAppService(IRepository<DiaDiem> repository, IHttpContextAccessor httpContextAccessor)
         {
-            _repository = repository;
+            _diaDiem = repository;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -26,7 +28,7 @@ namespace BookingWeb.Modules.DiaDiems
         {
             try
             {
-               var lst = await _repository.GetAllListAsync();
+               var lst = await _diaDiem.GetAllListAsync();
 
                 var dtoLst = lst.Select(entity => new DiaDiemFullDto
                 {
@@ -61,7 +63,7 @@ namespace BookingWeb.Modules.DiaDiems
                     TenFileAnhDD = input.TenFileAnhDD
                 };
 
-                await _repository.InsertAsync(item);
+                await _diaDiem.InsertAsync(item);
                 return true;
             }
             catch (Exception ex)
@@ -75,7 +77,7 @@ namespace BookingWeb.Modules.DiaDiems
         {
             try
             {
-                var item = await _repository.FirstOrDefaultAsync(p=>p.Id == input.Id);
+                var item = await _diaDiem.FirstOrDefaultAsync(p=>p.Id == input.Id);
 
                 if(item == null)
                 {
@@ -90,7 +92,7 @@ namespace BookingWeb.Modules.DiaDiems
                     item.MoTa = input.MoTa;
                     item.TenFileAnhDD = input.TenFileAnhDD;
 
-                    await _repository.UpdateAsync(item);
+                    await _diaDiem.UpdateAsync(item);
                     return true;
                 }
             }
@@ -105,20 +107,32 @@ namespace BookingWeb.Modules.DiaDiems
         {
             try
             {
-                var check = await _repository.FirstOrDefaultAsync(p=>p.Id==id);
-                if (check == null)
+                var checkDD = await _diaDiem.FirstOrDefaultAsync(p=>p.Id==id);
+                if (checkDD == null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync("Product not found");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong co dia diem voi id = {id}");
                     return false;
                 }
+                else
+                {
+                    var checkPhong = await _phong.FirstOrDefaultAsync(p=>p.DiaDiemId == checkDD.Id);
+                    if (checkPhong == null)
+                    {
+                        await _diaDiem.DeleteAsync(checkDD);
+                        return true;
+                    }
+                    else
+                    {
+                        await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong the xoa dia diem nay");
+                        return false;
+                    }
+                }
 
-                await _repository.DeleteAsync(check);
-                await _httpContextAccessor.HttpContext.Response.WriteAsync("Successfully Deleted !");
-                return true;
+                
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Internal server error: {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
 

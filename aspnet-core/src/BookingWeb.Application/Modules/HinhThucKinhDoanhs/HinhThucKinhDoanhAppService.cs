@@ -106,7 +106,6 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 }
 
                 await _repository.DeleteAsync(product);
-                await _httpContextAccessor.HttpContext.Response.WriteAsync("Successfully Deleted !");
                 return true;
             }
             catch (Exception ex)

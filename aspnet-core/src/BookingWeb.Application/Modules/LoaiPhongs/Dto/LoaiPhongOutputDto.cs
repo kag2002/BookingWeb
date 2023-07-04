@@ -8,6 +8,8 @@ namespace BookingWeb.Modules.LoaiPhongs.Dto
 {
     public class LoaiPhongOutputDto
     {
+        public int Id { get; set; }
+
         public string TenLoaiPhong { get; set; }
 
         public string MoTaLoaiPhong { get; set; }
@@ -22,9 +24,7 @@ namespace BookingWeb.Modules.LoaiPhongs.Dto
 
         public float UuDai { get; set; }
 
-        public string TenDichVuTienIch { get; set; }
-
-        public string MotaDichVU { get; set; }
+        public List<string> TenDichVuTienIch { get; set; }
 
     }
 }
