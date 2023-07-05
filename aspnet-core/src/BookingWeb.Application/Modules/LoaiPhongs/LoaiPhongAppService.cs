@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Collections.Extensions;
+using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.LoaiPhongs.Dto;
 using BookingWeb.Modules.Phongs.Dto;
@@ -127,24 +128,40 @@ namespace BookingWeb.Modules.LoaiPhongs
 
                 if(checkLP != null)
                 {
-                    var checkPhong = await _phong.FirstOrDefaultAsync(p=>p.LoaiPhongId == checkLP.Id);
-
-                    if(checkPhong == null)
+                    var phong = await _phong.GetAllListAsync();
+                    var checkPhong = phong.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
+                    if (checkPhong.Count() != 0)
                     {
-                        var checkDv = await _dichVuTienIch.FirstOrDefaultAsync(p=>p.LoaiPhongId == checkLP.Id);
-                        var checkNX = await _nhanXetDanhGia.FirstOrDefaultAsync(p=>p.DichVuTienIchId == checkDv.Id);
-
-                        await _nhanXetDanhGia.DeleteAsync(checkNX);
-                        await _dichVuTienIch.DeleteAsync(checkDv);
-                        await _loaiPhong.DeleteAsync(checkLP);
-
-                        return true;
+                        foreach(var i in checkPhong)
+                        {
+                            i.LoaiPhongId = null;
+                        }
                     }
-                    else
+
+                    var dichVu = await _dichVuTienIch.GetAllListAsync();
+                    var checkDv = dichVu.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
+                    if(checkDv.Count() != 0)
                     {
-                        await _httpContextAccessor.HttpContext.Response.WriteAsync("khong the xoa loai phong nay vi dang ton tai phong");
-                        return false;
+                        var nhanXet = await _nhanXetDanhGia.GetAllListAsync();
+                        foreach(var i in checkDv)
+                        {
+                            var checkNx = nhanXet.Where(p => p.DichVuTienIchId == i.Id).ToList();
+                            foreach(var j in checkNx)
+                            {
+                                await _nhanXetDanhGia.DeleteAsync(j);
+                                await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa nhan xet {j}");
+
+                            }
+                            await _dichVuTienIch.DeleteAsync(i);
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu {i}");
+
+                        }
                     }
+
+                    await _loaiPhong.DeleteAsync(checkLP);
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa thuc the loai phong: {checkLP}");
+                    return true;
+
                 }
                 else
                 {

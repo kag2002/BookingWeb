@@ -122,11 +122,12 @@ namespace BookingWeb.Modules.ChinhSachQuyDinhs
                 var item = await _repositoryCs.FirstOrDefaultAsync(p => p.Id == id);
                 if (item == null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync("Product not found");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay chinh sach voi id = {id}");
                     return false;
                 }
 
                 await _repositoryCs.DeleteAsync(item);
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa chinh sach {item}");
                 return true;
             }
             catch (Exception ex)
