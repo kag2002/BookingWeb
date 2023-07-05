@@ -110,19 +110,31 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 }
                 else
                 {
-                    var checkPhong = await _phong.FirstOrDefaultAsync(p=>p.HinhThucKinhDoanhId == checkHt.Id);
+                    var phong = await _phong.GetAllListAsync();
+                    var checkPhong = phong.Where(p => p.HinhThucKinhDoanhId == checkHt.Id).ToList();
 
-                    var checkCs = await _chinhSach.FirstOrDefaultAsync(p=>p.HinhThucKinhDoanhId ==  checkHt.Id);
-
-                    if (checkPhong != null)
+                    if (checkPhong.Count() != 0)
                     {
-                        checkPhong.HinhThucKinhDoanhId = null;
+                        foreach(var i in checkPhong)
+                        {
+                            i.HinhThucKinhDoanhId = null;
+                        }
                     }
 
-                    await _chinhSach.DeleteAsync(checkCs);
-                    await _hinhThuc.DeleteAsync(checkHt);
-                    return true;
+                    var chinhSach = await _chinhSach.GetAllListAsync();
+                    var checkCs = chinhSach.Where(p => p.HinhThucKinhDoanhId == checkHt.Id).ToList();
+                    if(checkCs.Count() != 0)
+                    {
+                        foreach(var i in checkCs)
+                        {
+                            await _chinhSach.DeleteAsync(i);
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa chinh sanh {i}");
+                        }
+                    }
 
+                    await _hinhThuc.DeleteAsync(checkHt);
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa hinh thuc kinh doanh {checkHt}");
+                    return true;
                 }
 
             }

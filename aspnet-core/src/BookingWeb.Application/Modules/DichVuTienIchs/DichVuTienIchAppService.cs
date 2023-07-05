@@ -117,13 +117,19 @@ namespace BookingWeb.Modules.DichVuTienIchs
                 var checkDv = await _dichVuTienIch.FirstOrDefaultAsync(p=>p.Id == id);
                 if (checkDv != null)
                 {
-                    var checNx = await _nhanXet.FirstOrDefaultAsync(p => p.DichVuTienIchId == checkDv.Id);
+                    var nhanXet = await _nhanXet.GetAllListAsync();
+                    var checNx = nhanXet.Where(p=>p.DichVuTienIchId == checkDv.Id).ToList();
 
-                    if (checNx != null)
+                    if (checNx.Count() != 0)
                     {
-                        await _nhanXet.DeleteAsync(checNx);
+                        foreach(var i in checNx)
+                        {
+                            await _nhanXet.DeleteAsync(i);
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa nhan xet {i}");
+                        }
                     }
                     await _dichVuTienIch.DeleteAsync(checkDv);
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu {checkDv}");
                     return true;
 
                 }else 
