@@ -20,9 +20,9 @@ namespace BookingWeb.DbEntities
 
         public string Email { get; set; }
 
-        public int LoaiKhachHangId { get; set; }
+        public int? LoaiKhachHangId { get; set; }
 
-        public int TaiKhoanId { get; set; }
+        public int? TaiKhoanId { get; set; }
 
         public ICollection<NhanXetDanhGia> NhanXetDanhGias { get; set; }
 
