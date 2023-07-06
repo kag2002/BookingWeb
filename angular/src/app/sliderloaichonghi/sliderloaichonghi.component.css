@@ -1,7 +1,7 @@
 .slide {
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
   background-size: cover;
   background-position: center;
   margin: 0 40px;
@@ -32,4 +32,17 @@
   color: dodgerblue;
   z-index: 1;
   cursor: pointer;
+}
+.slide-content {
+  color: crimson;
+  background-color: cornsilk;
+  border-radius: 10px;
+  border: 1px solid crimson;
+  margin-left: -50px;
+  padding: 4px 15px;
+  width: fit-content;
+}
+.slide-content p {
+  margin: 0;
+  font-weight: bold;
 }

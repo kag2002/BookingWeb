@@ -93,7 +93,7 @@ namespace BookingWeb.Modules.TrangThaiPhongs
             }
         }
 
-        public async Task<bool> DeleteStatus(int id)
+/*        public async Task<bool> DeleteStatus(int id)
         {
             try
             {
@@ -134,6 +134,7 @@ namespace BookingWeb.Modules.TrangThaiPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
+
         }
     }
 }
