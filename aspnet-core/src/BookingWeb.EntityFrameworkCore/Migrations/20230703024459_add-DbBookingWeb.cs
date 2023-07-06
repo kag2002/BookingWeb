@@ -206,7 +206,7 @@ namespace BookingWeb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Mota = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    /*TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),*/
                     TenFileAnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: true),
 
                     DiaDiemId = table.Column<int>(type: "int", nullable: false),
@@ -391,7 +391,7 @@ namespace BookingWeb.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    /*TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),*/
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SLNguoiLon = table.Column<int>(type: "int", nullable: false),

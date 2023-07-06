@@ -51,13 +51,54 @@ namespace BookingWeb.Modules.DatPhongs
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"erorr : {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return null;
             }
-
-
         }
 
+        public async Task<bool> CreateNewTicket(DatPhongInputDto input)
+        {
+            try
+            {
+                var newTicket = new DatPhong
+                {
+                    NgayDatDuKien = input.NgayDatDuKien,
+                    NgayTraDuKien = input.NgayTraDuKien,
+                    KhachHangId = input.KhachHangId,
+                    NhanVienId = input.NhanVienId
+                };
 
-    }
+                await _datPhong.InsertAsync(newTicket);
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateTicket(DatPhongOutputDto input)
+        {
+            try
+            {
+                var check = await _datPhong.FirstOrDefaultAsync(p => p.Id == input.Id);
+                if(check != null)
+                {
+                    check.NgayDatDuKien = input.NgayDatDuKien;
+                    check.NgayTraDuKien = input.NgayTraDuKien;
+
+                    await _datPhong.UpdateAsync(check);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return false;
+            }
+        }
+   }
 }
