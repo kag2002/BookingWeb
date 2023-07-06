@@ -52,6 +52,7 @@ import { DiadiemComponent } from "./diadiem/diadiem.component";
             component: ChangePasswordComponent,
             canActivate: [AppRouteGuard],
           },
+
           // { path: "other/:index", component: DiadiemComponent },
         ],
       },
