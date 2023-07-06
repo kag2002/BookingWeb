@@ -9,7 +9,7 @@ namespace BookingWeb.DbEntities
 {
     public class ChiTietDatPhong : FullAuditedEntity
     {
-        public string TrangThaiPhong { get; set; }
+        public int? TrangThaiPhongId { get; set; }
 
         public DateTime CheckIn { get; set; }
 
@@ -27,12 +27,11 @@ namespace BookingWeb.DbEntities
 
         public float TongTien { get; set; }
 
-        public ICollection<NhanXetDanhGia> NhanXetDanhGias { get; set; }
-
         public int PhongId { get; set; }
 
         public int DatPhongId { get; set; }
 
+        public ICollection<NhanXetDanhGia> NhanXetDanhGias { get; set; }
 
     }
 }
