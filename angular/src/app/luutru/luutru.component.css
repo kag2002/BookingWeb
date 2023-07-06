@@ -1,0 +1,65 @@
+.intro-header {
+  color: white;
+  background-color: darkblue;
+  padding: 45px 0 65px 0;
+  height: 200px;
+}
+.intro-header .container h4 {
+  font-weight: 100;
+}
+
+.TimPhongContainer {
+  display: flex;
+  justify-content: center;
+}
+.TimPhong {
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  background-color: cornsilk;
+  width: 58rem;
+  padding: 3px;
+}
+.TimPhong div {
+  padding: 3px;
+}
+
+.CountRoom {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding-bottom: 15px;
+  background-color: aliceblue;
+  box-shadow: 5px 5px 5px 1px gray;
+  width: 21rem;
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  left: 44%;
+}
+.CountRoom p {
+  margin: 4px 0px 0px 0px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.CountRoom button {
+  border: 1px solid gray;
+  border-radius: 2px;
+  margin: 0 2px;
+  background-color: white;
+  color: dodgerblue;
+}
+.CountRoom input {
+  text-align: center;
+}
+.CountRoom div input::-webkit-inner-spin-button,
+.CountRoom div input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
+.GoiY {
+  display: inline;
+
+  margin: 50px 0;
+}

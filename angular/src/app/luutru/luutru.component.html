@@ -1,0 +1,106 @@
+<div class="intro-header">
+  <div class="container MoTa">
+    <h1>Tìm chỗ nghỉ tiếp theo</h1>
+    <h4>Tìm ưu đãi khách sạn, chỗ nghỉ, dạng nhà và nhiều hơn nữa...</h4>
+  </div>
+</div>
+<div class="container TimPhongContainer">
+  <form (ngSubmit)="onSubmit()" #f="ngForm" style="margin-top: -35px">
+    <div
+      ngModelGroup="timkiemData"
+      #timkiemData="ngModelGroup"
+      class="TimPhong"
+    >
+      <div>
+        <p-autoComplete
+          class="TimDiaDiem form-group"
+          [(ngModel)]="selectedDiadiem"
+          [dropdown]="true"
+          [suggestions]="filteredDiadiems"
+          (completeMethod)="filterDiadiem($event)"
+          field="name"
+          name="selectedDiadiem"
+          placeholder="Nhập địa điểm"
+        ></p-autoComplete>
+      </div>
+
+      <div class="">
+        <p-calendar
+          class="form-group"
+          [(ngModel)]="rangeDates"
+          selectionMode="range"
+          [readonlyInput]="true"
+          name="rangeDates"
+          placeholder="Ngày nhận - trả phòng"
+        ></p-calendar>
+      </div>
+
+      <div class="">
+        <div class="dropdown">
+          <button
+            (click)="toggleForm()"
+            class="btn btn-primary btn-lg dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="true"
+          >
+            Người lớn - Trẻ em - Phòng
+          </button>
+        </div>
+      </div>
+      <div class="" style="text-align: center">
+        <p-button
+          styleClass="p-button-raised"
+          (click)="onSubmit()"
+          label="Tìm kiếm"
+        ></p-button>
+      </div>
+    </div>
+
+    <div *ngIf="showForm" class="CountRoom form-group">
+      <p>Người lớn</p>
+      <div>
+        <button (click)="decrement('adults')">-</button>
+        <input
+          type="number"
+          id="adults"
+          [(ngModel)]="adults"
+          [ngModelOptions]="{ standalone: true }"
+          name="adults"
+        />
+        <button (click)="increment('adults')">+</button>
+      </div>
+
+      <p>Trẻ em</p>
+      <div>
+        <button (click)="decrement('children')">-</button>
+        <input
+          type="number"
+          id="children"
+          [(ngModel)]="children"
+          [ngModelOptions]="{ standalone: true }"
+          name="children"
+        />
+        <button (click)="increment('children')">+</button>
+      </div>
+
+      <p>Phòng</p>
+      <div>
+        <button (click)="decrement('rooms')">-</button>
+        <input
+          type="number"
+          id="rooms"
+          [(ngModel)]="rooms"
+          [ngModelOptions]="{ standalone: true }"
+          name="rooms"
+        />
+        <button (click)="increment('rooms')">+</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container GoiY">
+  <div style="width: 100%; height: 200px; margin: 0 auto">
+    <app-sliderloaichonghi [slides]="slides"></app-sliderloaichonghi>
+  </div>
+</div>

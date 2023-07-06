@@ -46,12 +46,13 @@ namespace BookingWeb.Modules.DatPhongs
 
                 }).ToList();
 
-
+                return dtoLstDP;
 
             }
             catch (Exception ex)
             {
-
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"erorr : {ex.Message}");
+                return null;
             }
 
 
