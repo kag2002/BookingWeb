@@ -1,0 +1,21 @@
+<div class="slider">
+  <div>
+    <div (click)="goToPrevious()" class="leftArrow">❰</div>
+    <div (click)="goToNext()" class="rightArrow">❱</div>
+  </div>
+
+  <div
+    *ngFor="let item of [].constructor(4); let i = index"
+    class="slide"
+    [ngStyle]="{
+      'background-image': getCurrentSlideUrl((currentIndex + i) % slides.length)
+    }"
+    (click)="onSlideClick((currentIndex + i) % slides.length)"
+    tabindex="0"
+  >
+    <div class="slide-content">
+      <h3>{{ slides[(currentIndex + i) % slides.length].title }}</h3>
+      <p>{{ slides[(currentIndex + i) % slides.length].number}}</p>
+    </div>
+  </div>
+</div>
