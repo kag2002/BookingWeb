@@ -117,17 +117,24 @@ namespace BookingWeb.Modules.TrangThaiPhongs
                         {
                             i.TrangThaiPhongId = null;
                         }
-                    }
+                        foreach(var j in checkCt)
+                        {
+                            j.TrangThaiPhongId = null;
+                        }
 
+                        await _trangThaiPhong.DeleteAsync(check);
+                        return true;
+                    }
                 }
+                return false;
 
             }
             catch (Exception ex)
             {
-
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
+                return false;
             }
-        }*/
 
-
+        }
     }
 }
