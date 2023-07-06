@@ -43,7 +43,7 @@ namespace BookingWeb.Modules.Phongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<PhongOutputDto>> GetAllRoom()
+        /*public async Task<List<PhongOutputDto>> GetAllRoom()
         {
             try
             {
@@ -88,10 +88,10 @@ namespace BookingWeb.Modules.Phongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
 
-        public async Task<bool> AddNewRoom(PhongDto input)
+        /*public async Task<bool> AddNewRoom(PhongDto input)
         {
             try
             {
@@ -113,10 +113,10 @@ namespace BookingWeb.Modules.Phongs
                 return false;
             }
 
-        }
+        }*/
 
 
-        public async Task<bool> UpdateRoom(PhongInputDto input)
+        /*public async Task<bool> UpdateRoom(PhongInputDto input)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace BookingWeb.Modules.Phongs
             }
 
         }
-
+*/
 
         public async Task<bool> DeleteRoom(int id)
         {
