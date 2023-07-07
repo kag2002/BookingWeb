@@ -16,8 +16,6 @@ namespace BookingWeb.DbEntities
 
         public string DiaDangXungQuanh { get; set; }
 
-        public string MoTa { get; set; }
-
         public string TenFileAnhDD { get; set; }
 
         public ICollection<Phong> Phongs { get; set; }
