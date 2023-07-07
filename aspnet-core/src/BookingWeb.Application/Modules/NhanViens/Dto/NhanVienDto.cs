@@ -20,6 +20,6 @@ namespace BookingWeb.Modules.NhanViens.Dto
 
         public string Password { get; set; }
 
-        public int PhanLoai { get; set; }
+        public DateTime NgaySinh { get; set; }
     }
 }
