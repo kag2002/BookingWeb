@@ -34,13 +34,13 @@ namespace BookingWeb.Modules.KhachHangs
         {
             try
             {
-                var lstNv = await _khachHang.GetAllListAsync();
+                var lstKh = await _khachHang.GetAllListAsync();
 
                 var taiKhoan = await _taiKhoan.GetAllListAsync();
 
                 var loaiKhachHang = await _loaiKhachHang.GetAllListAsync();
 
-                var dtoLst = lstNv.Select(entity => new KhachHangOutputDto
+                var dtoLst = lstKh.Select(entity => new KhachHangOutputDto
                 {
                     CCCD = entity.CCCD,
                     HoTen = entity.HoTen,
@@ -71,8 +71,7 @@ namespace BookingWeb.Modules.KhachHangs
                     return false;
                 }
 
-                var lstKh = await _khachHang.GetAllListAsync();
-                var checkCccd = lstKh.Where(p => p.CCCD == input.CCCD);
+                var checkCccd = await _khachHang.FirstOrDefaultAsync(p => p.CCCD == input.CCCD);
 
 
                 if (checkCccd != null)
@@ -81,7 +80,8 @@ namespace BookingWeb.Modules.KhachHangs
                     return false;
                 }
 
-                var checkEmail = checkCccd.Where(p => p.Email == input.Email);
+                var checkEmail = await _khachHang.FirstOrDefaultAsync(p => p.Email == input.Email);
+
                 if (checkEmail != null)
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"Email nay da duoc dang ki");

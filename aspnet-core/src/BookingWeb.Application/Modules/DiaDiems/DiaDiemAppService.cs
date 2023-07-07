@@ -25,7 +25,7 @@ namespace BookingWeb.Modules.DiaDiems
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<DiaDiemFullDto>> GetAllLocations()
+        /*public async Task<List<DiaDiemFullDto>> GetAllLocations()
         {
             try
             {
@@ -49,9 +49,9 @@ namespace BookingWeb.Modules.DiaDiems
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
-        public async Task<bool> AddNewLocation(DiaDiemDto input)
+        /*public async Task<bool> AddNewLocation(DiaDiemDto input)
         {
             try
             {
@@ -72,9 +72,9 @@ namespace BookingWeb.Modules.DiaDiems
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
-        public async Task<bool> UpdateLocation(DiaDiemFullDto input)
+        /*public async Task<bool> UpdateLocation(DiaDiemFullDto input)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace BookingWeb.Modules.DiaDiems
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
         public async Task<bool> DeleteLocation(int id)
         {
