@@ -45,8 +45,11 @@ import { KhachsanListComponent } from "./khachsan-list/khachsan-list.component";
 import { DiadiemComponent } from "./diadiem/diadiem.component";
 import { CaidatComponent } from "./caidat/caidat.component";
 import { LuutruComponent } from "./luutru/luutru.component";
-import { SliderloaichonghiComponent } from "./sliderloaichonghi/sliderloaichonghi.component";
-import { SliderdiadiemComponent } from "./sliderdiadiem/sliderdiadiem.component";
+import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloaichonghi.component";
+import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
+import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
+import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/sliderchonghinoibat.component";
+import { ClickOutsideDirective } from "@app/luutru/clickOutside.directive";
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +82,9 @@ import { SliderdiadiemComponent } from "./sliderdiadiem/sliderdiadiem.component"
     LuutruComponent,
     SliderloaichonghiComponent,
     SliderdiadiemComponent,
+    ChonghinoibatComponent,
+    SliderchonghinoibatComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     CommonModule,

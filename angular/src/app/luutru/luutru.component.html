@@ -38,7 +38,7 @@
         ></p-calendar>
       </div>
 
-      <div class="">
+      <div class="" (clickOutside)="clickedOutside()">
         <div class="dropdown">
           <i class="pi pi-user"></i>
           <button
@@ -47,6 +47,7 @@
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="true"
+            clickOutside
           >
             Người lớn - Trẻ em - Phòng
           </button>
@@ -125,7 +126,7 @@
     </div>
   </form>
 </div>
-<div class="container GoiY">
+<div class="container GoiY ChoNghiNoiBat">
   <div class="sliderLoaiChoNghi">
     <p>Tìm theo loại chỗ nghỉ</p>
     <div style="width: 100%; height: 350px; margin: 0 auto">
@@ -140,4 +141,5 @@
       <app-sliderdiadiem [slides]="slides"></app-sliderdiadiem>
     </div>
   </div>
+  <app-chonghinoibat></app-chonghinoibat>
 </div>

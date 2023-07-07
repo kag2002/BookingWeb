@@ -1,9 +1,16 @@
 <div class="slider">
-  <div class="card flex align-items-center gap-1 cardLeftArrow">
-    <div (click)="goToPrevious()" class="leftArrow">❰</div>
+  <div
+    (click)="goToPrevious()"
+    class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
+  >
+    ❰
   </div>
-  <div class="card flex align-items-center gap-1 cardRightArrow">
-    <div (click)="goToNext()" class="rightArrow">❱</div>
+
+  <div
+    (click)="goToNext()"
+    class="rightArrow card flex align-items-center gap-1 cardRightArrow"
+  >
+    ❱
   </div>
 
   <div

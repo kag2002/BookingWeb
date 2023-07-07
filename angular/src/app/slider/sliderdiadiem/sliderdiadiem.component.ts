@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { SlideInterface } from "./types/slide.interface";
+import { SlideDiaDiemInterface } from "../types/slide.interface";
 import { Router } from "@angular/router";
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./sliderdiadiem.component.css"],
 })
 export class SliderdiadiemComponent implements OnInit, OnDestroy {
-  @Input() slides: SlideInterface[] = [];
+  @Input() slides: SlideDiaDiemInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
   constructor(private router: Router) {}

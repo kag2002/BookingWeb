@@ -1,30 +1,15 @@
-import { Component, ViewChild } from "@angular/core";
-import { LuutruService } from "../luutru/luutru.service";
-import { NgForm } from "@angular/forms";
-import { SlideLoaiChoNghiInterface } from "@app/slider/types/slide.interface";
-import { SlideDiaDiemInterface } from "@app/slider/types/slide.interface";
-
-interface AutoCompleteCompleteEvent {
-  originalEvent: Event;
-  query: string;
-}
+import { Component } from "@angular/core";
+import {
+  SlideDiaDiemInterface,
+  SlideLoaiChoNghiInterface,
+} from "@app/slider/types/slide.interface";
 
 @Component({
-  selector: "app-luutru",
-  templateUrl: "./luutru.component.html",
-  styleUrls: ["./luutru.component.css"],
+  selector: "app-chonghinoibat",
+  templateUrl: "./chonghinoibat.component.html",
+  styleUrls: ["./chonghinoibat.component.css"],
 })
-export class LuutruComponent {
-  diadiems: any[];
-  selectedDiadiem: any;
-  filteredDiadiems: any[];
-  rangeDates: Date[];
-  showForm = false;
-  adults = 0;
-  children = 0;
-  rooms = 0;
-  selectedCities: string[] = [];
-  submitted = false;
+export class ChonghinoibatComponent {
   slides: SlideDiaDiemInterface[] = [
     {
       url: "/assets/img/img-diadanh/image-diadanh-1.jpg",
@@ -132,61 +117,4 @@ export class LuutruComponent {
     children: 0,
     room: 0,
   };
-
-  @ViewChild("f") signupForm: NgForm;
-
-  constructor(private luutruService: LuutruService) {}
-
-  ngOnInit() {
-    this.luutruService.getDiadiems().then((diadiems) => {
-      this.diadiems = diadiems;
-    });
-  }
-
-  filterDiadiem(event: AutoCompleteCompleteEvent) {
-    const query = event.query.toLowerCase();
-    this.filteredDiadiems = this.diadiems.filter((diadiem) =>
-      diadiem.name.toLowerCase().startsWith(query)
-    );
-  }
-
-  toggleForm() {
-    this.showForm = !this.showForm;
-  }
-  clickedOutside(): void {
-    this.showForm = false;
-  }
-  increment(field: string) {
-    this[field]++;
-  }
-
-  decrement(field: string) {
-    if (this[field] > 0) {
-      this[field]--;
-    }
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    this.TimPhong.selectedDiadiem = this.selectedDiadiem?.name || "";
-    this.TimPhong.adult = this.adults;
-    this.TimPhong.children = this.children;
-    this.TimPhong.room = this.rooms;
-
-    if (this.rangeDates && this.rangeDates.length === 2) {
-      const start = this.rangeDates[0];
-      const end = this.rangeDates[1];
-
-      const millisecondsPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-      const numberOfDays =
-        Math.floor((end.getTime() - start.getTime()) / millisecondsPerDay) + 1;
-
-      this.TimPhong.rangeDate = numberOfDays.toString(); // Store the number of days as a string
-    }
-
-    const formData = { ...this.TimPhong }; // Copy form data to a separate variable
-
-    // Perform desired action with the form data (e.g., display in the template)
-    console.log(formData);
-  }
 }
