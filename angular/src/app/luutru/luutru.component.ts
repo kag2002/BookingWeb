@@ -22,6 +22,7 @@ export class LuutruComponent {
   adults = 0;
   children = 0;
   rooms = 0;
+  selectedCities: string[] = [];
   submitted = false;
   slides: SlideInterface[] = [
     {
@@ -88,6 +89,38 @@ export class LuutruComponent {
       url: "/assets/img/img-diadanh/image-diadanh-13.jpg",
       title: "HoiAn",
       number: 2341232,
+    },
+  ];
+  slidesloaichonghi: SlideInterface[] = [
+    {
+      url: "/assets/img/img-loaichonghi/image-loaichonghi-1.jpg",
+      title: "Khách sạn",
+      number: 12343,
+    },
+    {
+      url: "/assets/img/img-loaichonghi/image-loaichonghi-2.jpg",
+      title: "Căn hộ",
+      number: 12343,
+    },
+    {
+      url: "/assets/img/img-loaichonghi/image-loaichonghi-3.jpg",
+      title: "Resort",
+      number: 12343,
+    },
+    {
+      url: "/assets/img/img-loaichonghi/image-loaichonghi-4.jpg",
+      title: "BIệt thự",
+      number: 12343,
+    },
+    {
+      url: "/assets/img/img-loaichonghi/image-loaichonghi-5.jpg",
+      title: "Nhà gỗ",
+      number: 12343,
+    },
+    {
+      url: "/assets/img/img-loaichonghi/image-loaichonghi-6.jpg",
+      title: "Phòng trọ",
+      number: 12343,
     },
   ];
 

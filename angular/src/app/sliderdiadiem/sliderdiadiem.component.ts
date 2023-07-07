@@ -3,12 +3,12 @@ import { SlideInterface } from "./types/slide.interface";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-sliderloaichonghi",
-  templateUrl: "./sliderloaichonghi.component.html",
-  styleUrls: ["./sliderloaichonghi.component.css"],
+  selector: "app-sliderdiadiem",
+  templateUrl: "./sliderdiadiem.component.html",
+  styleUrls: ["./sliderdiadiem.component.css"],
 })
-export class SliderloaichonghiComponent implements OnInit, OnDestroy {
-  @Input() slidesloaichonghi: SlideInterface[] = [];
+export class SliderdiadiemComponent implements OnInit, OnDestroy {
+  @Input() slides: SlideInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
   constructor(private router: Router) {}
@@ -34,9 +34,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
 
   goToPrevious(): void {
     const newIndex =
-      this.currentIndex === 0
-        ? this.slidesloaichonghi.length - 1
-        : this.currentIndex - 1;
+      this.currentIndex === 0 ? this.slides.length - 1 : this.currentIndex - 1;
 
     this.currentIndex = newIndex;
     this.resetTimer();
@@ -44,16 +42,14 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
 
   goToNext(): void {
     const newIndex =
-      this.currentIndex === this.slidesloaichonghi.length - 1
-        ? 0
-        : this.currentIndex + 1;
+      this.currentIndex === this.slides.length - 1 ? 0 : this.currentIndex + 1;
 
     this.currentIndex = newIndex;
     this.resetTimer();
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('${this.slidesloaichonghi[index].url}')`;
+    return `url('${this.slides[index].url}')`;
   }
 
   onSlideClick(index: number): void {

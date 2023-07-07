@@ -46,6 +46,7 @@ import { DiadiemComponent } from "./diadiem/diadiem.component";
 import { CaidatComponent } from "./caidat/caidat.component";
 import { LuutruComponent } from "./luutru/luutru.component";
 import { SliderloaichonghiComponent } from "./sliderloaichonghi/sliderloaichonghi.component";
+import { SliderdiadiemComponent } from "./sliderdiadiem/sliderdiadiem.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +78,7 @@ import { SliderloaichonghiComponent } from "./sliderloaichonghi/sliderloaichongh
     CaidatComponent,
     LuutruComponent,
     SliderloaichonghiComponent,
+    SliderdiadiemComponent,
   ],
   imports: [
     CommonModule,
