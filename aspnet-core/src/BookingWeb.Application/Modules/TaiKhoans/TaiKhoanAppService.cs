@@ -72,8 +72,6 @@ namespace BookingWeb.Modules.TaiKhoans
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"da ton tai tai khoan {input.Username}");
                     return false;
                 }
-                
-
             }
             catch (Exception ex)
             {
@@ -163,64 +161,7 @@ namespace BookingWeb.Modules.TaiKhoans
             }
         }
 
-        public async Task<bool> Register(RegisterDto input)
-        {
-            try
-            {
-                var checkUser = await _taiKhoan.FirstOrDefaultAsync(p => p.Username == input.Username);
-                if(checkUser != null)
-                {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.Username} da ton tai");
-                    return false;
-                }
-
-                var lstKh = await _khachHang.GetAllListAsync();
-                var checkCccd = lstKh.Where(p => p.CCCD == input.CCCD);
-
-
-                if (checkCccd != null)
-                {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"so cccd nay da duoc dang ki");
-                    return false;
-                }
-
-                var checkEmail = checkCccd.Where(p=>p.Email == input.Email);
-                if(checkEmail != null)
-                {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"Email nay da duoc dang ki");
-                    return false;
-                }
-
-                var newAccount = new TaiKhoan
-                {
-                    Username = input.Username,
-                    Password = input.Password,
-                    PhanLoai = 1
-                };
-
-                await _taiKhoan.InsertAsync(newAccount);
-
-                var newClient = new KhachHang
-                {
-                    TaiKhoanId = newAccount.Id,
-                    CCCD = input.CCCD,
-                    HoTen = input.HoTen,
-                    SoDienThoai = input.SoDienThoai,
-                    Email = input.Email,
-                    NgaySinh = input.NgaySinh,
-                    LoaiKhachHangId = 1
-                };
-
-                await _khachHang.InsertAsync(newClient);
-                return true;
-
-            }
-            catch(Exception ex)
-            {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
-                return false;
-            }
-        }
+        
 
 
     }

@@ -2,6 +2,7 @@
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.KhachHangs.Dto;
 using BookingWeb.Modules.NhanViens.Dto;
+using BookingWeb.Modules.TaiKhoans.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -59,30 +60,52 @@ namespace BookingWeb.Modules.KhachHangs
             }
         }
 
-        /*public async Task<bool> AddNewClient(KhachHangInputDto input)
+        public async Task<bool> RegisterForClient(RegisterDto input)
         {
             try
             {
+                var checkUser = await _taiKhoan.FirstOrDefaultAsync(p => p.Username == input.Username);
+                if (checkUser != null)
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.Username} da ton tai");
+                    return false;
+                }
+
+                var lstKh = await _khachHang.GetAllListAsync();
+                var checkCccd = lstKh.Where(p => p.CCCD == input.CCCD);
 
 
+                if (checkCccd != null)
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"so cccd nay da duoc dang ki");
+                    return false;
+                }
+
+                var checkEmail = checkCccd.Where(p => p.Email == input.Email);
+                if (checkEmail != null)
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"Email nay da duoc dang ki");
+                    return false;
+                }
 
                 var newAccount = new TaiKhoan
                 {
                     Username = input.Username,
                     Password = input.Password,
-                    PhanLoai = input.PhanLoai
+                    PhanLoai = 1
                 };
 
                 await _taiKhoan.InsertAsync(newAccount);
 
                 var newClient = new KhachHang
                 {
-                    Id = newAccount.Id,
+                    TaiKhoanId = newAccount.Id,
                     CCCD = input.CCCD,
                     HoTen = input.HoTen,
                     SoDienThoai = input.SoDienThoai,
                     Email = input.Email,
-                    LoaiKhachHangId = input.LoaiKhachHang
+                    NgaySinh = input.NgaySinh,
+                    LoaiKhachHangId = 1
                 };
 
                 await _khachHang.InsertAsync(newClient);
@@ -94,7 +117,7 @@ namespace BookingWeb.Modules.KhachHangs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
         public async Task<bool> UpdateInfoClient(KhachHangDto input)
         {
