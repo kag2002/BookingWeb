@@ -64,7 +64,7 @@ namespace BookingWeb.Modules.TrangThaiPhongs
                 return true;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
@@ -75,7 +75,7 @@ namespace BookingWeb.Modules.TrangThaiPhongs
         {
             try
             {
-                var check = await _trangThaiPhong.FirstOrDefaultAsync(p=>p.Id == input.Id);
+                var check = await _trangThaiPhong.FirstOrDefaultAsync(p => p.Id == input.Id);
 
                 if (check != null)
                 {
@@ -86,12 +86,14 @@ namespace BookingWeb.Modules.TrangThaiPhongs
                 }
                 return false;
             }
-            catch( Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
         }
+    }
+}
 
 /*        public async Task<bool> DeleteStatus(int id)
         {
@@ -138,3 +140,4 @@ namespace BookingWeb.Modules.TrangThaiPhongs
         }
     }
 }
+*/
