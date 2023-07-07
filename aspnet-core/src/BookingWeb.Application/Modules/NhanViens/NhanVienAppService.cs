@@ -53,7 +53,7 @@ namespace BookingWeb.Modules.NhanViens
             }
         }
 
-        public async Task<bool> AddNewStaff(NhanVienDto input)
+        public async Task<bool> RegisterForStaff(NhanVienDto input)
         {
             try
             {
