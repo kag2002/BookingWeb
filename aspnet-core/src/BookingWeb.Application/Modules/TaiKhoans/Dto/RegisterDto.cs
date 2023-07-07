@@ -1,11 +1,14 @@
-﻿using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace BookingWeb.DbEntities
+namespace BookingWeb.Modules.TaiKhoans.Dto
 {
-    public class TaiKhoan : FullAuditedEntity, IMayHaveTenant
+    public class RegisterDto
     {
         [Required(ErrorMessage = "Username is required")]
         [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Username must contain only letters and numbers")]
@@ -16,12 +19,16 @@ namespace BookingWeb.DbEntities
         [RegularExpression("^[a-z0-9]+$", ErrorMessage = "Password must contain only lowercase letters and numbers")]
         public string Password { get; set; }
 
-        public int PhanLoai { get; set; }
 
-        public ICollection<NhanVien> NhanViens { get; set; }
+        public long CCCD { get; set; }
+         
+        public string HoTen { get; set; }
 
-        public ICollection<KhachHang> KhachHangs { get; set; }
+        public long SoDienThoai { get; set; }
 
-        public int? TenantId { get; set; }
+        public string Email { get; set; }
+
+        public DateTime NgaySinh { get; set; }
+
     }
 }

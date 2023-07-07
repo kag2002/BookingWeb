@@ -57,27 +57,33 @@ namespace BookingWeb.Modules.NhanViens
         {
             try
             {
-                var newAccount = new TaiKhoan
+                var check = await _taiKhoan.FirstOrDefaultAsync(p=>p.Username == input.Username);
+                if (check == null)
                 {
-                    Username = input.Username,
-                    Password = input.Password,
-                    PhanLoai = input.PhanLoai
-                };
+                    var newAccount = new TaiKhoan
+                    {
+                        Username = input.Username,
+                        Password = input.Password,
+                        PhanLoai = 10
+                    };
 
-                await _taiKhoan.InsertAsync(newAccount);
+                    await _taiKhoan.InsertAsync(newAccount);
 
-                var newStaff = new NhanVien
-                {
-                    HoTen = input.HoTen,
-                    SoDienThoai= input.SoDienThoai,
-                    Que = input.Que,
-                    Email = input.Email,
-                    TaiKhoanId = newAccount.Id
-                };
+                    var newStaff = new NhanVien
+                    {
+                        TaiKhoanId = newAccount.Id,
+                        HoTen = input.HoTen,
+                        SoDienThoai = input.SoDienThoai,
+                        Que = input.Que,
+                        Email = input.Email,
+                        NgaySinh = input.NgaySinh
+                    };
 
-                await _nhanVien.InsertAsync(newStaff);
-
-                return true;
+                    await _nhanVien.InsertAsync(newStaff);
+                    return true;
+                }
+                return false;
+                
             }
             catch(Exception ex)
             {

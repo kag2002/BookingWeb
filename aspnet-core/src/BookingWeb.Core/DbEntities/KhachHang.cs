@@ -2,9 +2,6 @@
 using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingWeb.DbEntities
 {
@@ -19,6 +16,8 @@ namespace BookingWeb.DbEntities
         public long SoDienThoai { get; set; }
 
         public string Email { get; set; }
+
+        public DateTime NgaySinh { get; set; }
 
         public int? LoaiKhachHangId { get; set; }
 

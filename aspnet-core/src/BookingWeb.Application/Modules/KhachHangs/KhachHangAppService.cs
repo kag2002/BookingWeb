@@ -59,10 +59,13 @@ namespace BookingWeb.Modules.KhachHangs
             }
         }
 
-        public async Task<bool> AddNewClient(KhachHangInputDto input)
+        /*public async Task<bool> AddNewClient(KhachHangInputDto input)
         {
             try
             {
+
+
+
                 var newAccount = new TaiKhoan
                 {
                     Username = input.Username,
@@ -91,7 +94,7 @@ namespace BookingWeb.Modules.KhachHangs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
         public async Task<bool> UpdateInfoClient(KhachHangDto input)
         {
