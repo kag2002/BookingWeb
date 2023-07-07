@@ -12,13 +12,17 @@
   display: flex;
   justify-content: center;
 }
+
 .TimPhong {
   display: flex;
   justify-content: center;
   border-radius: 6px;
   background-color: cornsilk;
-  width: 58rem;
+  width: 66rem;
   padding: 3px;
+}
+.TimPhong div i {
+  padding: 0 5px 0 7px;
 }
 .TimPhong div {
   padding: 3px;
@@ -58,8 +62,28 @@
   margin: 0;
   display: none;
 }
+
+.checkBoxTimPhong {
+  display: flex;
+}
+.checkBoxTimPhong div {
+  padding: 5px;
+}
+.checkBoxTimPhong div label {
+  margin: 0;
+  font-weight: 400;
+  padding-left: 5px;
+}
 .GoiY {
   display: inline;
-
   margin: 50px 0;
+}
+.GoiY p {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.sliderDiaDiem {
+  margin-bottom: 100px;
 }

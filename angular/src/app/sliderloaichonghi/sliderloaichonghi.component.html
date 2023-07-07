@@ -1,24 +1,34 @@
 <div class="slider">
-  <div>
+  <div class="card flex align-items-center gap-1 cardLeftArrow">
     <div (click)="goToPrevious()" class="leftArrow">❰</div>
+  </div>
+  <div class="card flex align-items-center gap-1 cardRightArrow">
     <div (click)="goToNext()" class="rightArrow">❱</div>
   </div>
 
   <div
-    *ngFor="let item of [].constructor(5); let i = index"
+    *ngFor="let item of [].constructor(4); let i = index"
     class="slide"
     [ngStyle]="{
-      'background-image': getCurrentSlideUrl((currentIndex + i) % slides.length)
+      'background-image': getCurrentSlideUrl(
+        (currentIndex + i) % slidesloaichonghi.length
+      )
     }"
-    (click)="onSlideClick((currentIndex + i) % slides.length)"
+    (click)="onSlideClick((currentIndex + i) % slidesloaichonghi.length)"
     tabindex="0"
   >
     <div class="slide-content">
-      <p class="titleDiaDiem">
-        {{ slides[(currentIndex + i) % slides.length].title }}
-      </p>
-      <p class="numberDiaDiem">
-        {{ slides[(currentIndex + i) % slides.length].number }}
+      <h5 class="titleLoaiChoO">
+        {{
+          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length].title
+        }}
+      </h5>
+      <p class="numberLoaiChoO">
+        {{
+          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
+            .number
+        }}
+        chỗ ở
       </p>
     </div>
   </div>

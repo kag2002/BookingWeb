@@ -16,6 +16,7 @@ import { DiadiemComponent } from "./diadiem/diadiem.component";
       {
         path: "",
         component: AppComponent,
+        canActivate: [AppRouteGuard],
         children: [
           {
             path: "home",
