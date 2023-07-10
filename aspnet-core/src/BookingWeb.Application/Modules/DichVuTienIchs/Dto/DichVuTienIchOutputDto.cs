@@ -10,7 +10,7 @@ namespace BookingWeb.Modules.DichVuTienIchs.Dto
     {
         public int Id { get; set; }
 
-        public string TenDichVuTienIch { get; set; }
+        public string TenDichVu { get; set; }
 
         public string MoTa { get; set; }
 

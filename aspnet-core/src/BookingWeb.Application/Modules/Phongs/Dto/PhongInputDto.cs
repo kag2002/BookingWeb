@@ -12,7 +12,7 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string Mota { get; set; }
 
-        public string TrangThaiPhong { get; set; }
+        public int TrangThaiPhong { get; set; }
 
         public string DiaChiChiTiet { get; set; }
 

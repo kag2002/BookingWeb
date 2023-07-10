@@ -10,34 +10,35 @@ using System.Threading.Tasks;
 
 namespace BookingWeb.Module.HinhThucKinhDoanhs
 {
-    public class HinhThucKinhDoanhAppService : BookingWebAppServiceBase
+    public class HinhThucPhongAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<HinhThucKinhDoanh> _hinhThuc;
-        private readonly IRepository<ChinhSachQuyDinh> _chinhSach;
+        private readonly IRepository<HinhThucPhong> _hinhThuc;
         private readonly IRepository<Phong> _phong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HinhThucKinhDoanhAppService(IRepository<HinhThucKinhDoanh> hinhThuc, IRepository<ChinhSachQuyDinh> chinhSach, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
+        public HinhThucPhongAppService(IRepository<HinhThucPhong> hinhThuc, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
         {
             _hinhThuc = hinhThuc;
-            _chinhSach = chinhSach;
             _phong = phong;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<HinhThucKinhDoanhFullDto>> GetAllList()
+        public async Task<List<HinhThucPhongFullDto>> GetAllList()
         {
             try
             {
                 var lst = await _hinhThuc.GetAllListAsync();
 
-                var dtoList = lst.Select(entity => new HinhThucKinhDoanhFullDto
+                var dtoList = lst.Select(entity => new HinhThucPhongFullDto
                 {
                     Id = entity.Id,
                     TenHinhThuc = entity.TenHinhThuc,
-                    TenDonViKinhDoanh = entity.TenDonViKinhDoanh,
-                    DiaChiChiTiet = entity.DiaChiChiTiet
+                    TenDonVi = entity.TenDonVi,
+                    DiaChiChiTiet = entity.DiaChiChiTiet,
+                    ChinhSachVePhong = entity.ChinhSachVePhong,
+                    ChinhSachVeTreEm = entity.ChinhSachVeTreEm,
+                    ChinhSachVeThuCung = entity.ChinhSachVeThuCung
                 }).ToList();
 
                 return dtoList;
@@ -51,15 +52,18 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         }
 
 
-        public async Task<bool> AddNewItem(HinhThucKinhDoanhDto input)
+        public async Task<bool> AddNewItem(HinhThucPhongDto input)
         {
             try
             {
-                var htkd = new HinhThucKinhDoanh
+                var htkd = new HinhThucPhong
                 {
                     TenHinhThuc = input.TenHinhThuc,
-                    TenDonViKinhDoanh = input.TenDonViKinhDoanh,
-                    DiaChiChiTiet = input.DiaChiChiTiet
+                    TenDonVi = input.TenDonVi,
+                    DiaChiChiTiet = input.DiaChiChiTiet,
+                    ChinhSachVePhong =input.ChinhSachVePhong,
+                    ChinhSachVeTreEm = input.ChinhSachVeTreEm,
+                    ChinhSachVeThuCung = input.ChinhSachVeThuCung
                 };
 
                 await _hinhThuc.InsertAsync(htkd);
@@ -73,7 +77,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             }
         }
 
-        public async Task<bool> UpdateItem(HinhThucKinhDoanhFullDto input)
+        public async Task<bool> UpdateItem(HinhThucPhongFullDto input)
         {
             try
             {
@@ -85,8 +89,11 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 }
 
                 item.TenHinhThuc = input.TenHinhThuc;
-                item.TenDonViKinhDoanh = input.TenDonViKinhDoanh;
+                item.TenDonVi = input.TenDonVi;
                 item.DiaChiChiTiet = input.DiaChiChiTiet;
+                item.ChinhSachVePhong = input.ChinhSachVePhong;
+                item.ChinhSachVeTreEm = input.ChinhSachVeTreEm;
+                item.ChinhSachVeThuCung = input.ChinhSachVeThuCung;
 
                 await _hinhThuc.UpdateAsync(item);
                 return true;
@@ -111,24 +118,13 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 else
                 {
                     var phong = await _phong.GetAllListAsync();
-                    var checkPhong = phong.Where(p => p.HinhThucKinhDoanhId == checkHt.Id).ToList();
+                    var checkPhong = phong.Where(p => p.HinhThucPhongId == checkHt.Id).ToList();
 
                     if (checkPhong.Count() != 0)
                     {
-                        foreach(var i in checkPhong)
+                        foreach (var i in checkPhong)
                         {
-                            i.HinhThucKinhDoanhId = null;
-                        }
-                    }
-
-                    var chinhSach = await _chinhSach.GetAllListAsync();
-                    var checkCs = chinhSach.Where(p => p.HinhThucKinhDoanhId == checkHt.Id).ToList();
-                    if(checkCs.Count() != 0)
-                    {
-                        foreach(var i in checkCs)
-                        {
-                            await _chinhSach.DeleteAsync(i);
-                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa chinh sanh {i}");
+                            i.HinhThucPhongId = null;
                         }
                     }
 

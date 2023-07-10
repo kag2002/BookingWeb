@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.NhanViens
@@ -14,14 +13,11 @@ namespace BookingWeb.Modules.NhanViens
     {
         private readonly IRepository<NhanVien> _nhanVien;
 
-        private readonly IRepository<TaiKhoan> _taiKhoan;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public NhanVienAppService(IRepository<NhanVien> nhanVien, IRepository<TaiKhoan> taiKhoan, IHttpContextAccessor httpContextAccessor)
+        public NhanVienAppService(IRepository<NhanVien> nhanVien, IHttpContextAccessor httpContextAccessor)
         {
             _nhanVien = nhanVien;
-            _taiKhoan = taiKhoan;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -31,16 +27,17 @@ namespace BookingWeb.Modules.NhanViens
             {
                 var lstNv = await _nhanVien.GetAllListAsync();
 
-                var taiKhoan = await _taiKhoan.GetAllListAsync();
-
-
                 var dtoLst = lstNv.Select(entity => new NhanVienOutputDto
                 {
+                    Id = entity.Id,
                     HoTen = entity.HoTen,
                     SoDienThoai = entity.SoDienThoai,
-                    Que = entity.Que,
+                    QueQuan = entity.QueQuan,
                     Email = entity.Email,
-                    Username = taiKhoan.Where(p=>p.Id == entity.TaiKhoanId).Select(p=>p.Username).ToString()
+                    NgaySinh = entity.NgaySinh,
+                    DiaChi = entity.DiaChi,
+                    GioiTinh = entity.GioiTinh,
+                    UserName = entity.UserName
                 }).ToList();
 
                 return dtoLst;
@@ -57,35 +54,45 @@ namespace BookingWeb.Modules.NhanViens
         {
             try
             {
-                var check = await _taiKhoan.FirstOrDefaultAsync(p=>p.Username == input.Username);
-                if (check == null)
+                var checkUsername = await _nhanVien.FirstOrDefaultAsync(p=>p.UserName == input.UserName);
+                if (checkUsername != null)
                 {
-                    var newAccount = new TaiKhoan
-                    {
-                        Username = input.Username,
-                        Password = input.Password,
-                        PhanLoai = 10
-                    };
-
-                    await _taiKhoan.InsertAsync(newAccount);
-
-                    var newStaff = new NhanVien
-                    {
-                        TaiKhoanId = newAccount.Id,
-                        HoTen = input.HoTen,
-                        SoDienThoai = input.SoDienThoai,
-                        Que = input.Que,
-                        Email = input.Email,
-                        NgaySinh = input.NgaySinh
-                    };
-
-                    await _nhanVien.InsertAsync(newStaff);
-                    return true;
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.UserName} da ton tai");
+                    return false;
                 }
-                return false;
-                
+
+                var checkSDt = await _nhanVien.FirstOrDefaultAsync(p => p.UserName == input.UserName);
+                if (checkSDt != null)
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"SDT nay da duoc dang ki");
+                    return false;
+                }
+
+                var checkEmail = await _nhanVien.FirstOrDefaultAsync(p => p.Email == input.Email);
+                if (checkEmail != null)
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"Email nay da duoc dang ki");
+                    return false;
+                }
+
+                var newStaff = new NhanVien
+                {
+                    HoTen = input.HoTen,
+                    SoDienThoai = input.SoDienThoai,
+                    QueQuan = input.QueQuan,
+                    Email = input.Email,
+                    NgaySinh = input.NgaySinh,
+                    DiaChi = input.DiaChi,
+                    GioiTinh = input.GioiTinh,
+                    UserName = input.UserName,
+                    Password = input.Password,
+                };
+
+                await _nhanVien.InsertAsync(newStaff);
+                return true;
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
@@ -101,19 +108,60 @@ namespace BookingWeb.Modules.NhanViens
                 {
                     check.HoTen = input.HoTen;
                     check.SoDienThoai = input.SoDienThoai;
-                    check.Que = input.Que;
+                    check.QueQuan = input.QueQuan;
                     check.Email = input.Email;
+                    check.NgaySinh = input.NgaySinh;
+                    check.DiaChi =  input.DiaChi;
+                    check.GioiTinh = input .GioiTinh;
 
                     await _nhanVien.UpdateAsync(check);
                     return true;
                 }
                 return false;
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
+        }
+
+        public async Task<bool> ChangePasswordNV(NhanVienChangePasswordDto input)
+        {
+            try
+            {
+                var checkPass = await _nhanVien.FirstOrDefaultAsync(p => p.Id == input.Id);
+
+                if (checkPass != null)
+                {
+                    if (input.CurrentPassword == checkPass.Password)
+                    {
+                        if (input.NewPassWord == input.ConfirmPassWord)
+                        {
+                            checkPass.Password = input.NewPassWord;
+                            return true;
+                        }
+                        else
+                        {
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync("Xac nhan mat khau moi that bai!");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        await _httpContextAccessor.HttpContext.Response.WriteAsync("Mat khau cu khong chinh xac!");
+                        return false;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
+                return false;
+            }
+
+
         }
 
 

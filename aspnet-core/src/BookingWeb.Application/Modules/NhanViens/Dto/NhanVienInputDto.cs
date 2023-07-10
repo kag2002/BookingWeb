@@ -14,8 +14,14 @@ namespace BookingWeb.Modules.NhanViens.Dto
 
         public long SoDienThoai { get; set; }
 
-        public string Que { get; set; }
+        public string QueQuan { get; set; }
 
         public string Email { get; set; }
+
+        public DateTime NgaySinh { get; set; }
+
+        public string DiaChi { get; set; }
+
+        public int GioiTinh { get; set; }
     }
 }

@@ -1,13 +1,10 @@
 ﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.KhachHangs.Dto;
-using BookingWeb.Modules.NhanViens.Dto;
-using BookingWeb.Modules.TaiKhoans.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.KhachHangs
@@ -16,16 +13,13 @@ namespace BookingWeb.Modules.KhachHangs
     {
         private readonly IRepository<KhachHang> _khachHang;
 
-        private readonly IRepository<TaiKhoan> _taiKhoan;
-
         private readonly IRepository<LoaiKhachHang> _loaiKhachHang;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public KhachHangAppService(IRepository<KhachHang> khachHang, IRepository<TaiKhoan> taiKhoan, IRepository<LoaiKhachHang> loaiKhachHang, IHttpContextAccessor httpContextAccessor)
+        public KhachHangAppService(IRepository<KhachHang> khachHang, IRepository<LoaiKhachHang> loaiKhachHang, IHttpContextAccessor httpContextAccessor)
         {
             _khachHang = khachHang;
-            _taiKhoan = taiKhoan;
             _loaiKhachHang = loaiKhachHang;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -34,20 +28,22 @@ namespace BookingWeb.Modules.KhachHangs
         {
             try
             {
-                var lstNv = await _khachHang.GetAllListAsync();
-
-                var taiKhoan = await _taiKhoan.GetAllListAsync();
+                var lstKh = await _khachHang.GetAllListAsync();
 
                 var loaiKhachHang = await _loaiKhachHang.GetAllListAsync();
 
-                var dtoLst = lstNv.Select(entity => new KhachHangOutputDto
+                var dtoLst = lstKh.Select(entity => new KhachHangOutputDto
                 {
+                    Id = entity.Id,
                     CCCD = entity.CCCD,
                     HoTen = entity.HoTen,
                     SoDienThoai = entity.SoDienThoai,
                     Email = entity.Email,
-                    LoaiKhachHang = loaiKhachHang.Where(p=>p.Id == entity.LoaiKhachHangId).Select(p=>p.TenLoai).ToString(),
-                    Username = taiKhoan.Where(p => p.Id == entity.TaiKhoanId).Select(p => p.Username).ToString()
+                    NgaySinh = entity.NgaySinh,
+                    DiaChi = entity.DiaChi,
+                    GioiTinh = entity.GioiTinh,
+                    LoaiKhachHang = loaiKhachHang.Where(p => p.Id == entity.LoaiKhachHangId).Select(p => p.PhanLoai).ToString(),
+                    UserName = entity.UserName
                 }).ToList();
 
                 return dtoLst;
@@ -60,55 +56,54 @@ namespace BookingWeb.Modules.KhachHangs
             }
         }
 
-        public async Task<bool> RegisterForClient(RegisterDto input)
+        public async Task<bool> RegisterForClient(KhachHangInputDto input)
         {
             try
             {
-                var checkUser = await _taiKhoan.FirstOrDefaultAsync(p => p.Username == input.Username);
+                var checkUser = await _khachHang.FirstOrDefaultAsync(p => p.UserName == input.UserName);
                 if (checkUser != null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.Username} da ton tai");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.UserName} da ton tai");
                     return false;
                 }
 
-                var lstKh = await _khachHang.GetAllListAsync();
-                var checkCccd = lstKh.Where(p => p.CCCD == input.CCCD);
-
-
+                var checkCccd = await _khachHang.FirstOrDefaultAsync(p => p.CCCD == input.CCCD);
                 if (checkCccd != null)
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"so cccd nay da duoc dang ki");
                     return false;
                 }
 
-                var checkEmail = checkCccd.Where(p => p.Email == input.Email);
+                var checkEmail = await _khachHang.FirstOrDefaultAsync(p => p.Email == input.Email);
                 if (checkEmail != null)
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"Email nay da duoc dang ki");
                     return false;
                 }
 
-                var newAccount = new TaiKhoan
+                var checkSDt = await _khachHang.FirstOrDefaultAsync(p => p.SoDienThoai == input.SoDienThoai);
+                if (checkSDt != null)
                 {
-                    Username = input.Username,
-                    Password = input.Password,
-                    PhanLoai = 1
-                };
-
-                await _taiKhoan.InsertAsync(newAccount);
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"SDT nay da duoc dang ki");
+                    return false;
+                }
 
                 var newClient = new KhachHang
                 {
-                    TaiKhoanId = newAccount.Id,
+                    UserName = input.UserName,
+                    Password = input.Password,
                     CCCD = input.CCCD,
                     HoTen = input.HoTen,
                     SoDienThoai = input.SoDienThoai,
                     Email = input.Email,
                     NgaySinh = input.NgaySinh,
+                    GioiTinh = input.GioiTinh,
+                    DiaChi = input.DiaChi,
                     LoaiKhachHangId = 1
                 };
 
                 await _khachHang.InsertAsync(newClient);
+                //CurrentUnitOfWork.SaveChanges();
                 return true;
 
             }
@@ -130,7 +125,9 @@ namespace BookingWeb.Modules.KhachHangs
                     check.HoTen = input.HoTen;
                     check.SoDienThoai= input.SoDienThoai;
                     check.Email = input.Email;
-                    check.LoaiKhachHangId = input.LoaiKhachHangId;
+                    check.DiaChi = input.DiaChi;
+                    check.GioiTinh = input.GioiTinh;
+                    check.NgaySinh = input.NgaySinh;
 
                     await _khachHang.UpdateAsync(check);
                     return true;
@@ -142,6 +139,45 @@ namespace BookingWeb.Modules.KhachHangs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
+        }
+
+
+        public async Task<bool> ChangePasswordKH(KhachHangChangePasswordDto input)
+        {
+            try
+            {
+                var checkPass = await _khachHang.FirstOrDefaultAsync(p=>p.Id == input.Id);
+
+                if (checkPass != null)
+                {
+                    if(input.CurrentPassword == checkPass.Password)
+                    {
+                        if(input.NewPassWord == input.ConfirmPassWord)
+                        {
+                            checkPass.Password = input.NewPassWord;
+                            return true;
+                        }
+                        else
+                        {
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync("Xac nhan mat khau moi that bai!");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        await _httpContextAccessor.HttpContext.Response.WriteAsync("Mat khau cu khong chinh xac!");
+                        return false;
+                    }
+                }
+                return false;
+            }
+            catch(Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
+                return false;
+            }
+
+
         }
 
     }

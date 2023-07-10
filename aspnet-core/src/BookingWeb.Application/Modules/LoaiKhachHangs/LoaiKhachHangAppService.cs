@@ -35,7 +35,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
                 var dtoLst = lst.Select(entity => new LoaiKhachHangInputDto
                 {
                     Id = entity.Id,
-                    TenLoai = entity.TenLoai,
+                    PhanLoai = entity.PhanLoai,
                     MucGiamGia = entity.MucGiamGia
                 }).ToList();
 
@@ -55,7 +55,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
             {
                 var newItem = new LoaiKhachHang
                 {
-                    TenLoai = input.TenLoai,
+                    PhanLoai = input.PhanLoai,
                     MucGiamGia = input.MucGiamGia
                 };
 
@@ -77,7 +77,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
                 var check = await _loaiKhachHang.FirstOrDefaultAsync(p => p.Id == input.Id);
                 if (check != null)
                 {
-                   check.TenLoai = input.TenLoai;
+                    check.PhanLoai = input.PhanLoai;
                     check.MucGiamGia = input.MucGiamGia;
 
                     await _loaiKhachHang.UpdateAsync(check);
@@ -96,15 +96,15 @@ namespace BookingWeb.Modules.LoaiKhachHangs
         {
             try
             {
-                var check = await _loaiKhachHang.FirstOrDefaultAsync(p=>p.Id == id);
-                if(check != null)
+                var check = await _loaiKhachHang.FirstOrDefaultAsync(p => p.Id == id);
+                if (check != null)
                 {
                     var khachHang = await _khachHang.GetAllListAsync();
-                    var checkKH = khachHang.Where(p=>p.LoaiKhachHangId == check.Id).ToList();
+                    var checkKH = khachHang.Where(p => p.LoaiKhachHangId == check.Id).ToList();
 
                     if (checkKH.Count > 0)
                     {
-                        foreach(var i in checkKH)
+                        foreach (var i in checkKH)
                         {
                             i.LoaiKhachHangId = null;
                         }
@@ -117,7 +117,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
                 return false;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;

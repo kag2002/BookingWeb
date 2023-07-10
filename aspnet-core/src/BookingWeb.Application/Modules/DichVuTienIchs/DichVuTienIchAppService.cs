@@ -34,10 +34,10 @@ namespace BookingWeb.Modules.DichVuTienIchs
             {
                 var lstDv = await _dichVuTienIch.GetAllListAsync();
 
-                var dtoLst = lstDv.Select(entity => new  DichVuTienIchOutputDto
+                var dtoLst = lstDv.Select(entity => new DichVuTienIchOutputDto
                 {
                     Id = entity.Id,
-                    TenDichVuTienIch = entity.TenDichVuTienIch,
+                    TenDichVu = entity.TenDichVu,
                     MoTa = entity.MoTa,
                     LoaiPhongId = entity.LoaiPhongId,
 
@@ -63,7 +63,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
                 {
                     var dv = new DichVuTienIch
                     {
-                        TenDichVuTienIch = input.TenDichVuTienIch,
+                        TenDichVu = input.TenDichVu,
                         MoTa = input.MoTa,
                         LoaiPhongId = input.LoaiPhongId
                     };
@@ -77,7 +77,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
                     return false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
@@ -87,11 +87,11 @@ namespace BookingWeb.Modules.DichVuTienIchs
         {
             try
             {
-                var check = await _dichVuTienIch.FirstOrDefaultAsync(p=>p.Id == input.Id);
+                var check = await _dichVuTienIch.FirstOrDefaultAsync(p => p.Id == input.Id);
 
                 if (check != null)
                 {
-                    check.TenDichVuTienIch = input.TenDichVuTienIch;
+                    check.TenDichVu = input.TenDichVu;
                     check.MoTa = input.MoTa;
 
                     await _dichVuTienIch.UpdateAsync(check);
@@ -114,28 +114,19 @@ namespace BookingWeb.Modules.DichVuTienIchs
         {
             try
             {
-                var checkDv = await _dichVuTienIch.FirstOrDefaultAsync(p=>p.Id == id);
+                var checkDv = await _dichVuTienIch.FirstOrDefaultAsync(p => p.Id == id);
                 if (checkDv != null)
                 {
-                    var nhanXet = await _nhanXet.GetAllListAsync();
-                    var checNx = nhanXet.Where(p=>p.DichVuTienIchId == checkDv.Id).ToList();
-
-                    if (checNx.Count() != 0)
-                    {
-                        foreach(var i in checNx)
-                        {
-                            await _nhanXet.DeleteAsync(i);
-                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa nhan xet {i}");
-                        }
-                    }
+                    
                     await _dichVuTienIch.DeleteAsync(checkDv);
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu {checkDv}");
                     return true;
 
-                }else 
+                }
+                else
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay dvu voi id = {id}");
-                    return false; 
+                    return false;
                 }
             }
             catch (Exception ex)

@@ -12,7 +12,7 @@ namespace BookingWeb.Modules.DatPhongs
 {
     public class DatPhongAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<DatPhong> _datPhong;
+        private readonly IRepository<PhieuDatPhong> _datPhong;
 
         private readonly IRepository<NhanVien> _nhanVien;
 
@@ -20,7 +20,7 @@ namespace BookingWeb.Modules.DatPhongs
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DatPhongAppService(IRepository<DatPhong> datPhong, IRepository<NhanVien> nhanVien, IRepository<KhachHang> khachHang, IHttpContextAccessor httpContextAccessor)
+        public DatPhongAppService(IRepository<PhieuDatPhong> datPhong, IRepository<NhanVien> nhanVien, IRepository<KhachHang> khachHang, IHttpContextAccessor httpContextAccessor)
         {
             _datPhong = datPhong;
             _nhanVien = nhanVien;
@@ -28,7 +28,7 @@ namespace BookingWeb.Modules.DatPhongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<DatPhongDto>> GetAllList()
+        public async Task<List<PhieuDatPhongDto>> GetAllList()
         {
             try
             {
@@ -36,13 +36,13 @@ namespace BookingWeb.Modules.DatPhongs
                 var lstKH = await _khachHang.GetAllListAsync();
                 var lstNV = await _nhanVien.GetAllListAsync();
 
-                var dtoLstDP = lstDatPhong.Select(entity => new DatPhongDto
+                var dtoLstDP = lstDatPhong.Select(entity => new PhieuDatPhongDto
                 {
                     Id = entity.Id,
-                    NgayDatDuKien = entity.NgayDatDuKien,
-                    NgayTraDuKien = entity.NgayTraDuKien,
-                    KhachHang = lstKH.Where(p=>p.Id == entity.KhachHangId).Select(p=>p.HoTen).ToString(),
-                    NhanVien = lstNV.Where(p=>p.Id == entity.NhanVienId).Select(p=>p.HoTen).ToString()
+                    NgayBatDau = entity.NgayBatDau,
+                    NgayHenTra = entity.NgayHenTra,
+                    KhachHang = lstKH.Where(p => p.Id == entity.KhachHangId).Select(p => p.HoTen).ToString(),
+                    NhanVien = lstNV.Where(p => p.Id == entity.NhanVienId).Select(p => p.HoTen).ToString()
 
                 }).ToList();
 
@@ -56,14 +56,14 @@ namespace BookingWeb.Modules.DatPhongs
             }
         }
 
-        public async Task<bool> CreateNewTicket(DatPhongInputDto input)
+        public async Task<bool> CreateNewTicket(PhieuDatPhongInputDto input)
         {
             try
             {
-                var newTicket = new DatPhong
+                var newTicket = new PhieuDatPhong
                 {
-                    NgayDatDuKien = input.NgayDatDuKien,
-                    NgayTraDuKien = input.NgayTraDuKien,
+                    NgayBatDau = input.NgayBatDau,
+                    NgayHenTra = input.NgayHenTra,
                     KhachHangId = input.KhachHangId,
                     NhanVienId = input.NhanVienId
                 };
@@ -72,22 +72,22 @@ namespace BookingWeb.Modules.DatPhongs
                 return true;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
         }
 
-        public async Task<bool> UpdateTicket(DatPhongOutputDto input)
+        public async Task<bool> UpdateTicket(PhieuDatPhongOutputDto input)
         {
             try
             {
                 var check = await _datPhong.FirstOrDefaultAsync(p => p.Id == input.Id);
-                if(check != null)
+                if (check != null)
                 {
-                    check.NgayDatDuKien = input.NgayDatDuKien;
-                    check.NgayTraDuKien = input.NgayTraDuKien;
+                    check.NgayBatDau = input.NgayBatDau;
+                    check.NgayHenTra = input.NgayHenTra;
 
                     await _datPhong.UpdateAsync(check);
                     return true;
@@ -100,5 +100,5 @@ namespace BookingWeb.Modules.DatPhongs
                 return false;
             }
         }
-   }
+    }
 }

@@ -12,8 +12,6 @@ namespace BookingWeb.Modules.HinhAnhs.Dto
 
         public string TenFileAnh { get; set; }
 
-        public string ViTri { get; set; }
-
         public int PhongId { get; set; }
     }
 }
