@@ -8,3 +8,4 @@ export interface SlideDiaDiemInterface {
   title: string;
   number: number;
 }
+export interface ChoNghiNoiBatInterface {}

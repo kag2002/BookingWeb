@@ -22,7 +22,7 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   resetTimer() {
     this.clearTimer();
-    this.timeoutId = window.setTimeout(() => this.goToNext(), 3000);
+    this.timeoutId = window.setTimeout(() => this.goToNext(), 5000);
   }
 
   clearTimer() {

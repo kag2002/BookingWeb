@@ -19,6 +19,8 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { CalendarModule } from "primeng/calendar";
 import { DropdownModule } from "primeng/dropdown";
 import { CheckboxModule } from "primeng/checkbox";
+import { AnimateModule } from "primeng/animate";
+import { ToastModule } from "primeng/toast";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -48,8 +50,6 @@ import { LuutruComponent } from "./luutru/luutru.component";
 import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloaichonghi.component";
 import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
 import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
-import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/sliderchonghinoibat.component";
-import { ClickOutsideDirective } from "@app/luutru/clickOutside.directive";
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,8 +83,6 @@ import { ClickOutsideDirective } from "@app/luutru/clickOutside.directive";
     SliderloaichonghiComponent,
     SliderdiadiemComponent,
     ChonghinoibatComponent,
-    SliderchonghinoibatComponent,
-    ClickOutsideDirective,
   ],
   imports: [
     CommonModule,
@@ -106,6 +104,8 @@ import { ClickOutsideDirective } from "@app/luutru/clickOutside.directive";
     CalendarModule,
     DropdownModule,
     CheckboxModule,
+    AnimateModule,
+    ToastModule,
   ],
   providers: [],
 })
