@@ -25,42 +25,38 @@ namespace BookingWeb.Modules.DiaDiems
             _httpContextAccessor = httpContextAccessor;
         }
 
-        /*public async Task<List<DiaDiemFullDto>> GetAllLocations()
+        public async Task<List<DiaDiemFullDto>> GetAllLocations()
         {
             try
             {
-               var lst = await _diaDiem.GetAllListAsync();
+                var lst = await _diaDiem.GetAllListAsync();
 
                 var dtoLst = lst.Select(entity => new DiaDiemFullDto
                 {
                     Id = entity.Id,
                     TenDiaDiem = entity.TenDiaDiem,
-                    ThongTinViTriDiaLy = entity.ThongTinViTriDiaLy,
-                    DiaDangXungQuanh = entity.DiaDangXungQuanh,
-                    MoTa = entity.MoTa,
+                    ThongTinViTri = entity.ThongTinViTri,
                     TenFileAnhDD = entity.TenFileAnhDD
                 }).ToList();
 
                 return dtoLst;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return null;
             }
-        }*/
+        }
 
-        /*public async Task<bool> AddNewLocation(DiaDiemDto input)
+        public async Task<bool> AddNewLocation(DiaDiemDto input)
         {
             try
             {
                 var item = new DiaDiem
                 {
                     TenDiaDiem = input.TenDiaDiem,
-                    ThongTinViTriDiaLy = input.ThongTinViTriDiaLy,
-                    DiaDangXungQuanh = input.DiaDangXungQuanh,
-                    MoTa = input.MoTa,
+                    ThongTinViTri = input.ThongTinViTri,
                     TenFileAnhDD = input.TenFileAnhDD
                 };
 
@@ -72,15 +68,15 @@ namespace BookingWeb.Modules.DiaDiems
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
-        /*public async Task<bool> UpdateLocation(DiaDiemFullDto input)
+        public async Task<bool> UpdateLocation(DiaDiemFullDto input)
         {
             try
             {
-                var item = await _diaDiem.FirstOrDefaultAsync(p=>p.Id == input.Id);
+                var item = await _diaDiem.FirstOrDefaultAsync(p => p.Id == input.Id);
 
-                if(item == null)
+                if (item == null)
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong ton tai dia danh voi id = {input.Id}");
                     return false;
@@ -88,9 +84,7 @@ namespace BookingWeb.Modules.DiaDiems
                 else
                 {
                     item.TenDiaDiem = input.TenDiaDiem;
-                    item.ThongTinViTriDiaLy = input.ThongTinViTriDiaLy;
-                    item.DiaDangXungQuanh = input.DiaDangXungQuanh;
-                    item.MoTa = input.MoTa;
+                    item.ThongTinViTri = input.ThongTinViTri;
                     item.TenFileAnhDD = input.TenFileAnhDD;
 
                     await _diaDiem.UpdateAsync(item);
@@ -102,7 +96,7 @@ namespace BookingWeb.Modules.DiaDiems
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
         public async Task<bool> DeleteLocation(int id)
         {

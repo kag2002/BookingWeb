@@ -22,7 +22,7 @@ namespace BookingWeb.Modules.HinhAnhs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        /*public async Task<List<HinhAnhInputDto>> GetALlListImage()
+        public async Task<List<HinhAnhInputDto>> GetALlListImage()
         {
             try
             {
@@ -30,7 +30,6 @@ namespace BookingWeb.Modules.HinhAnhs
                 var dtoLst = lstAnh.Select(entity => new HinhAnhInputDto
                 {
                     TenFileAnh = entity.TenFileAnh,
-                    ViTri = entity.ViTri,
                     PhongId = entity.PhongId
                 }).ToList();
                 return dtoLst;
@@ -51,7 +50,6 @@ namespace BookingWeb.Modules.HinhAnhs
                 var ha = new HinhAnh
                 {
                     TenFileAnh = input.TenFileAnh,
-                    ViTri = input.ViTri,
                     PhongId = input.PhongId
                 };
 
@@ -77,7 +75,6 @@ namespace BookingWeb.Modules.HinhAnhs
                 }
 
                 item.TenFileAnh = input.TenFileAnh;
-                item.ViTri = input.ViTri;
                 item.PhongId = input.PhongId;
 
                 await _hinhAnh.UpdateAsync(item);
@@ -108,6 +105,6 @@ namespace BookingWeb.Modules.HinhAnhs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }*/
+        }
     }
 }

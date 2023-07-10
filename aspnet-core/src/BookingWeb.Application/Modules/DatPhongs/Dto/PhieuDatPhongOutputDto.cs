@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.DatPhongs.Dto
 {
-    public class DatPhongOutputDto
+    public class PhieuDatPhongOutputDto
     {
         public int Id { get; set; }
 
-        public DateTime NgayDatDuKien { get; set; }
+        public DateTime NgayBatDau { get; set; }
 
-        public DateTime NgayTraDuKien { get; set; }
-
+        public DateTime NgayHenTra { get; set; }
     }
 }

@@ -12,16 +12,17 @@ namespace BookingWeb.Modules.LoaiPhongs.Dto
 
         public string TenLoaiPhong { get; set; }
 
-        public string MoTaLoaiPhong { get; set; }
-
         public int SucChua { get; set; }
 
-        public string TienNghiPhong { get; set; }
+        public string MoTa { get; set; }
+
+        public string TienNghiTrongPhong { get; set; }
 
         public float GiaPhongTheoDem { get; set; }
 
         public float GiaGoiDichVuThem { get; set; }
 
         public float UuDai { get; set; }
+
     }
 }
