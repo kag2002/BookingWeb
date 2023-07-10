@@ -26,7 +26,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<LoaiKhachHangInputDto>> GetAllList()
+        /*public async Task<List<LoaiKhachHangInputDto>> GetAllList()
         {
             try
             {
@@ -122,7 +122,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
 
     }

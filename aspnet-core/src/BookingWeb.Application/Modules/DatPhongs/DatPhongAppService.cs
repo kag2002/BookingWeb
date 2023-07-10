@@ -28,7 +28,7 @@ namespace BookingWeb.Modules.DatPhongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<DatPhongDto>> GetAllList()
+        /*public async Task<List<DatPhongDto>> GetAllList()
         {
             try
             {
@@ -99,6 +99,6 @@ namespace BookingWeb.Modules.DatPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
    }
 }
