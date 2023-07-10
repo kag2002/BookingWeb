@@ -1,0 +1,54 @@
+.slide {
+  width: 270px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin: 0 10px;
+  border-radius: 5px;
+}
+.slider {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+}
+.cardRightArrow {
+  position: absolute;
+  top: 31%;
+  transform: translate(0, -50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  right: 141px;
+}
+.rightArrow {
+  font-size: 27px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.cardLeftArrow {
+  position: absolute;
+  top: 31%;
+  transform: translate(0, -50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  left: 141px;
+}
+.leftArrow {
+  font-size: 27px;
+  z-index: 1;
+  cursor: pointer;
+}
+.slide-content {
+  border-radius: 10px;
+  padding: 200px 0 0 0;
+  display: grid;
+}
+.titleLoaiChoO {
+  margin-top: 20px;
+}
+.numberLoaiChoO {
+  margin: 0;
+}

@@ -1,0 +1,143 @@
+<div class="intro-header">
+  <div class="container MoTa">
+    <h1>Tìm chỗ nghỉ tiếp theo</h1>
+    <h4>Tìm ưu đãi khách sạn, chỗ nghỉ, dạng nhà và nhiều hơn nữa...</h4>
+  </div>
+</div>
+<div class="container TimPhongContainer">
+  <form (ngSubmit)="onSubmit()" #f="ngForm" style="margin-top: -35px">
+    <div
+      ngModelGroup="timkiemData"
+      #timkiemData="ngModelGroup"
+      class="TimPhong"
+    >
+      <div class="">
+        <i class="pi pi-building"></i>
+
+        <p-autoComplete
+          class="TimDiaDiem form-group"
+          [(ngModel)]="selectedDiadiem"
+          [dropdown]="true"
+          [suggestions]="filteredDiadiems"
+          (completeMethod)="filterDiadiem($event)"
+          field="name"
+          name="selectedDiadiem"
+          placeholder="Nhập địa điểm"
+        ></p-autoComplete>
+      </div>
+
+      <div class="">
+        <p-calendar
+          class="form-group"
+          [(ngModel)]="rangeDates"
+          selectionMode="range"
+          [readonlyInput]="true"
+          name="rangeDates"
+          [showIcon]="true"
+          placeholder="Ngày nhận - trả phòng"
+        ></p-calendar>
+      </div>
+
+      <div class="">
+        <div class="dropdown">
+          <i class="pi pi-user"></i>
+          <button
+            (click)="toggleForm()"
+            class="btn btn-primary btn-lg dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="true"
+          >
+            Người lớn - Trẻ em - Phòng
+          </button>
+        </div>
+      </div>
+
+      <div class="" style="text-align: center">
+        <p-button
+          styleClass="p-button-raised"
+          (click)="onSubmit()"
+          label="Tìm kiếm"
+        ></p-button>
+      </div>
+    </div>
+
+    <div *ngIf="showForm" class="CountRoom form-group">
+      <p>Người lớn</p>
+      <div>
+        <button (click)="decrement('adults')">-</button>
+        <input
+          type="number"
+          id="adults"
+          [(ngModel)]="adults"
+          [ngModelOptions]="{ standalone: true }"
+          name="adults"
+        />
+        <button (click)="increment('adults')">+</button>
+      </div>
+
+      <p>Trẻ em</p>
+      <div>
+        <button (click)="decrement('children')">-</button>
+        <input
+          type="number"
+          id="children"
+          [(ngModel)]="children"
+          [ngModelOptions]="{ standalone: true }"
+          name="children"
+        />
+        <button (click)="increment('children')">+</button>
+      </div>
+
+      <p>Phòng</p>
+      <div>
+        <button (click)="decrement('rooms')">-</button>
+        <input
+          type="number"
+          id="rooms"
+          [(ngModel)]="rooms"
+          [ngModelOptions]="{ standalone: true }"
+          name="rooms"
+        />
+        <button (click)="increment('rooms')">+</button>
+      </div>
+    </div>
+    <div class="checkBoxTimPhong">
+      <div class="flex align-items-center gap-1">
+        <p-checkbox
+          name="group1"
+          value="Tim Nha"
+          [(ngModel)]="selectedCities"
+          inputId="tn"
+        ></p-checkbox>
+        <label for="tn">Cho tôi xem nhà nghỉ dưỡng</label>
+      </div>
+
+      <div class="flex align-items-center gap-1">
+        <p-checkbox
+          name="group1"
+          value="Cong Tac"
+          [(ngModel)]="selectedCities"
+          inputId="ct"
+        ></p-checkbox>
+        <label for="ct">Tôi đi công tác</label>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container GoiY">
+  <div class="sliderLoaiChoNghi">
+    <p>Tìm theo loại chỗ nghỉ</p>
+    <div style="width: 100%; height: 350px; margin: 0 auto">
+      <app-sliderloaichonghi
+        [slidesloaichonghi]="slidesloaichonghi"
+      ></app-sliderloaichonghi>
+    </div>
+  </div>
+  <div class="sliderDiaDiem">
+    <p>Các điểm đến thu hút nhất Việt Nam</p>
+    <div style="width: 100%; height: 200px; margin: 0 auto">
+      <app-sliderdiadiem [slides]="slides"></app-sliderdiadiem>
+    </div>
+  </div>
+</div>
