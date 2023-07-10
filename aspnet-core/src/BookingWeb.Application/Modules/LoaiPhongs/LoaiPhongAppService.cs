@@ -34,7 +34,7 @@ namespace BookingWeb.Modules.LoaiPhongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<LoaiPhongOutputDto>> GetAllKindOfRoom()
+        /*public async Task<List<LoaiPhongOutputDto>> GetAllKindOfRoom()
         {
             try
             {
@@ -175,7 +175,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
 
     }

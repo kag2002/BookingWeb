@@ -28,7 +28,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<DichVuTienIchOutputDto>> GetAllDv()
+        /*public async Task<List<DichVuTienIchOutputDto>> GetAllDv()
         {
             try
             {
@@ -143,7 +143,7 @@ namespace BookingWeb.Modules.DichVuTienIchs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
 
     }

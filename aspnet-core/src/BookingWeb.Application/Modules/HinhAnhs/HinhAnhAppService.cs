@@ -22,7 +22,7 @@ namespace BookingWeb.Modules.HinhAnhs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<HinhAnhInputDto>> GetALlListImage()
+        /*public async Task<List<HinhAnhInputDto>> GetALlListImage()
         {
             try
             {
@@ -108,6 +108,6 @@ namespace BookingWeb.Modules.HinhAnhs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
     }
 }
