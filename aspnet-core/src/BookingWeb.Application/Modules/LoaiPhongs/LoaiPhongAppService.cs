@@ -34,7 +34,7 @@ namespace BookingWeb.Modules.LoaiPhongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        /*public async Task<List<LoaiPhongOutputDto>> GetAllKindOfRoom()
+        public async Task<List<LoaiPhongOutputDto>> GetAllKindOfRoom()
         {
             try
             {
@@ -45,13 +45,13 @@ namespace BookingWeb.Modules.LoaiPhongs
                 {
                     Id = entity.Id,
                     TenLoaiPhong = entity.TenLoaiPhong,
-                    MoTaLoaiPhong = entity.MoTa,
                     SucChua = entity.SucChua,
-                    TienNghiPhong = entity.TienNghiPhong,
+                    MoTa = entity.MoTa,
+                    TienNghiTrongPhong = entity.TienNghiTrongPhong,
                     GiaPhongTheoDem = entity.GiaPhongTheoDem,
                     GiaGoiDichVuThem = entity.GiaGoiDichVuThem,
                     UuDai = entity.UuDai,
-                    TenDichVuTienIch = (from i in lstDv where i.LoaiPhongId == entity.Id select i.TenDichVuTienIch).ToList()
+                    TenDichVuTienIch = (from i in lstDv where i.LoaiPhongId == entity.Id select i.TenDichVu).ToList()
                 }).ToList();
 
                 return dtoLst;
@@ -70,15 +70,25 @@ namespace BookingWeb.Modules.LoaiPhongs
                 var lp = new LoaiPhong
                 {
                     TenLoaiPhong = input.TenLoaiPhong,
-                    MoTa = input.MoTaLoaiPhong,
+                    MoTa = input.MoTaLP,
                     SucChua = input.SucChua,
-                    TienNghiPhong = input.TienNghiPhong,
+                    TienNghiTrongPhong = input.TienNghiTrongPhong,
                     GiaGoiDichVuThem = input.GiaGoiDichVuThem,
                     GiaPhongTheoDem = input.GiaPhongTheoDem,
                     UuDai = input.UuDai
-
                 };
-                await _loaiPhong.InsertAsync(lp);
+                var id = await _loaiPhong.InsertAndGetIdAsync(lp);
+
+                var dv = new DichVuTienIch
+                {
+                    Id = id,
+                    TenDichVu = input.TenDichVu,
+                    MoTa = input.MoTaDV
+                };
+
+                await _dichVuTienIch.InsertAsync(dv);
+
+                CurrentUnitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -92,14 +102,14 @@ namespace BookingWeb.Modules.LoaiPhongs
         {
             try
             {
-                var check = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id == input.Id);
-                if(check != null)
+                var check = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == input.Id);
+                if (check != null)
                 {
                     check.TenLoaiPhong = input.TenLoaiPhong;
-                    check.MoTa = input.MoTaLoaiPhong;
+                    check.MoTa = input.MoTa;
                     check.SucChua = input.SucChua;
-                    check.TienNghiPhong = input.TienNghiPhong;
-                    check.GiaPhongTheoDem = input .GiaPhongTheoDem;
+                    check.TienNghiTrongPhong = input.TienNghiTrongPhong;
+                    check.GiaPhongTheoDem = input.GiaPhongTheoDem;
                     check.GiaGoiDichVuThem = input.GiaGoiDichVuThem;
                     check.UuDai = input.UuDai;
 
@@ -113,7 +123,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
@@ -124,15 +134,15 @@ namespace BookingWeb.Modules.LoaiPhongs
         {
             try
             {
-                var checkLP = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id == id);
+                var checkLP = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == id);
 
-                if(checkLP != null)
+                if (checkLP != null)
                 {
                     var phong = await _phong.GetAllListAsync();
                     var checkPhong = phong.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
                     if (checkPhong.Count() != 0)
                     {
-                        foreach(var i in checkPhong)
+                        foreach (var i in checkPhong)
                         {
                             i.LoaiPhongId = null;
                         }
@@ -140,18 +150,11 @@ namespace BookingWeb.Modules.LoaiPhongs
 
                     var dichVu = await _dichVuTienIch.GetAllListAsync();
                     var checkDv = dichVu.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
-                    if(checkDv.Count() != 0)
+                    if (checkDv.Count() != 0)
                     {
                         var nhanXet = await _nhanXetDanhGia.GetAllListAsync();
-                        foreach(var i in checkDv)
+                        foreach (var i in checkDv)
                         {
-                            var checkNx = nhanXet.Where(p => p.DichVuTienIchId == i.Id).ToList();
-                            foreach(var j in checkNx)
-                            {
-                                await _nhanXetDanhGia.DeleteAsync(j);
-                                await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa nhan xet {j}");
-
-                            }
                             await _dichVuTienIch.DeleteAsync(i);
                             await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu {i}");
 
@@ -175,7 +178,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
 
     }

@@ -10,7 +10,7 @@ namespace BookingWeb.Modules.ChiTietDatPhongs.Dto
     {
         public int Id { get; set; }
 
-        public string TrangThaiPhong { get; set; }
+        public int TrangThaiPhong { get; set; }
 
         public DateTime CheckIn { get; set; }
 
@@ -19,6 +19,8 @@ namespace BookingWeb.Modules.ChiTietDatPhongs.Dto
         public int SLNguoiLon { get; set; }
 
         public int SLTreEm { get; set; }
+
+        public int SLPhong { get; set; }
 
         public float TienPhongQuaHan { get; set; }
 
@@ -30,7 +32,7 @@ namespace BookingWeb.Modules.ChiTietDatPhongs.Dto
 
         public int PhongId { get; set; }
 
-        public int DatPhongId { get; set; }
+        public int PhieuDatPhongId { get; set; }
 
 
     }

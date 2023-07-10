@@ -57,7 +57,7 @@ namespace BookingWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BwHinhThucKinhDoanh",
+                name: "BwHinhThucPhong",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -81,7 +81,7 @@ namespace BookingWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BwHinhThucKinhDoanh", x => x.Id);
+                    table.PrimaryKey("PK_BwHinhThucPhong", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,6 +145,7 @@ namespace BookingWeb.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GioiTinh = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -254,9 +255,9 @@ namespace BookingWeb.Migrations
                         principalTable: "BwDiaDiem",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_BwPhong_BwHinhThucKinhDoanh_HinhThucPhongId",
+                        name: "FK_BwPhong_BwHinhThucPhong_HinhThucPhongId",
                         column: x => x.HinhThucPhongId,
-                        principalTable: "BwHinhThucKinhDoanh",
+                        principalTable: "BwHinhThucPhong",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BwPhong_BwLoaiPhong_LoaiPhongId",
@@ -272,7 +273,7 @@ namespace BookingWeb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenantId = table.Column<int>(type: "int", nullable: true),
-                    NgayDat = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NgayBatDau = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NgayHenTra = table.Column<DateTime>(type: "datetime2", nullable: false),
                     KhachHangId = table.Column<int>(type: "int", nullable: false),
                     NhanVienId = table.Column<int>(type: "int", nullable: false),
@@ -489,7 +490,7 @@ namespace BookingWeb.Migrations
                 name: "BwDiaDiem");
 
             migrationBuilder.DropTable(
-                name: "BwHinhThucKinhDoanh");
+                name: "BwHinhThucPhong");
 
             migrationBuilder.DropTable(
                 name: "BwLoaiPhong");

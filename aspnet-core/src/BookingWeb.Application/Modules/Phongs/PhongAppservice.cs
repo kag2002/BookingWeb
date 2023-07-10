@@ -41,7 +41,7 @@ namespace BookingWeb.Modules.Phongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        /*public async Task<List<PhongOutputDto>> GetAllRoom()
+        public async Task<List<PhongOutputDto>> GetAllRoom()
         {
             try
             {
@@ -49,32 +49,30 @@ namespace BookingWeb.Modules.Phongs
                 var lstHt = await _hinhThuc.GetAllListAsync();
                 var lstDd = await _diaDiem.GetAllListAsync();
                 var lstLp = await _loaiPhong.GetAllListAsync();
-                var lstCs = await _chinhSach.GetAllListAsync();
                 var lstDv = await _dichvu.GetAllListAsync();
                 var lstA = await _hinhAnh.GetAllListAsync();
 
                 var dtoLst = lstP.Select(entity => new PhongOutputDto
                 {
                     Id = entity.Id,
-                    HinhThucKinhDoanh = lstHt.Where(p => p.Id == entity.HinhThucKinhDoanhId)
+                    HinhThucPhong = lstHt.Where(p => p.Id == entity.HinhThucPhongId)
                                             .Select(p => p.TenHinhThuc).ToList(),
 
                     DiaDiem = lstDd.Where(p => p.Id == entity.DiaDiemId)
                                     .Select(p => p.TenDiaDiem).ToList(),
-                    
+
                     LoaiPhong = lstLp.Where(p => p.Id == entity.LoaiPhongId)
                                     .Select(p => p.TenLoaiPhong).ToList(),
 
                     Mota = entity.Mota,
                     TrangThaiPhong = entity.TrangThaiPhong,
-                    DiaChiChiTiet = entity.DiaChiChiTiet,
                     TenFileAnhDaiDien = entity.TenFileAnhDaiDien,
-                    ChinhSach = lstCs.Where(b => b.HinhThucKinhDoanhId == entity.HinhThucKinhDoanhId)
-                                    .Select(b => $"{b.QuyDinhVeThuCung}, {b.QuyDinhVeTreEm}, {b.QuyDinhVeDatPhong}")
+                    ChinhSach = lstHt.Where(b => b.Id == entity.HinhThucPhongId)
+                                    .Select(b => $"{b.ChinhSachVePhong}, {b.ChinhSachVeTreEm}, {b.ChinhSachVeThuCung}")
                                     .ToList(),
-                    DichVuTienIch = lstDv.Where(p=>p.LoaiPhongId == entity.LoaiPhongId)
-                                    .Select(p=>p.TenDichVuTienIch).ToList(),
-                    Anh = lstA.Where(p => p.PhongId == entity.Id).Select(p=>p.TenFileAnh).ToList()
+                    DichVuTienIch = lstDv.Where(p => p.LoaiPhongId == entity.LoaiPhongId)
+                                    .Select(p => p.TenDichVu).ToList(),
+                    Anh = lstA.Where(p => p.PhongId == entity.Id).Select(p => p.TenFileAnh).ToList()
 
                 }).ToList();
 
@@ -86,10 +84,10 @@ namespace BookingWeb.Modules.Phongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return null;
             }
-        }*/
+        }
 
 
-        /*public async Task<bool> AddNewRoom(PhongDto input)
+        public async Task<bool> AddNewRoom(PhongDto input)
         {
             try
             {
@@ -100,7 +98,7 @@ namespace BookingWeb.Modules.Phongs
                     TenFileAnhDaiDien = input.TenFileAnhDaiDien,
                     DiaDiemId = input.DiaDiemId,
                     LoaiPhongId = input.LoaiPhongId,
-                    HinhThucKinhDoanhId = input.HinhThucKinhDoanhId
+                    HinhThucPhongId = input.HinhThucPhongId
                 };
                 await _phong.InsertAsync(lp);
                 return true;
@@ -111,24 +109,23 @@ namespace BookingWeb.Modules.Phongs
                 return false;
             }
 
-        }*/
+        }
 
 
-        /*public async Task<bool> UpdateRoom(PhongInputDto input)
+        public async Task<bool> UpdateRoom(PhongInputDto input)
         {
             try
             {
-                var checkP = await _phong.FirstOrDefaultAsync(p=>p.Id == input.Id);
+                var checkP = await _phong.FirstOrDefaultAsync(p => p.Id == input.Id);
 
                 if (checkP != null)
                 {
                     checkP.Mota = input.Mota;
                     checkP.TrangThaiPhong = input.TrangThaiPhong;
-                    checkP.DiaChiChiTiet = input.DiaChiChiTiet;
                     checkP.TenFileAnhDaiDien = input.TenFileAnhDaiDien;
                     checkP.DiaDiemId = input.DiaDiemId;
                     checkP.LoaiPhongId = input.LoaiPhongId;
-                    checkP.HinhThucKinhDoanhId = input.HinhThucKinhDoanhId;
+                    checkP.HinhThucPhongId = input.HinhThucKinhDoanhId;
 
                     await _phong.UpdateAsync(checkP);
                     return true;
@@ -139,14 +136,14 @@ namespace BookingWeb.Modules.Phongs
                     return false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
 
         }
-*/
+
 
         public async Task<bool> DeleteRoom(int id)
         {

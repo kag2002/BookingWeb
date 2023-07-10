@@ -8,7 +8,7 @@ namespace BookingWeb.Modules.DichVuTienIchs.Dto
 {
     public class DichVuTienIchInputDto
     {
-        public string TenDichVuTienIch { get; set; }
+        public string TenDichVu { get; set; }
 
         public string MoTa { get; set; }
 

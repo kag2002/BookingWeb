@@ -8,7 +8,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs.Dto
 {
     public class LoaiKhachHangDto
     {
-        public string TenLoai { get; set; }
+        public string PhanLoai { get; set; }
 
         public float MucGiamGia { get; set; }
     }

@@ -19,7 +19,7 @@ namespace BookingWeb.EntityFrameworkCore
 
         public DbSet<HinhAnh> BwHinhAnh { get; set; }
 
-        public DbSet<HinhThucPhong> BwHinhThucKinhDoanh { get; set; }
+        public DbSet<HinhThucPhong> BwHinhThucPhong { get; set; }
 
         public DbSet<KhachHang> BwKhachHang { get; set; }
 

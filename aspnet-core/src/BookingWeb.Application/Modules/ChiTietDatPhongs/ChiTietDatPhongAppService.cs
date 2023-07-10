@@ -22,32 +22,37 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        /*public async Task<List<ChiTietDatPhongDto>> GetAllList()
+        public async Task<List<ChiTietDatPhongDto>> GetAllList()
         {
             try
             {
                 var lstChiTiet = await _chiTietDatPhong.GetAllListAsync();
-                var checkTt = await _trangThaiPhong.GetAllListAsync();
                 var dtoList = lstChiTiet.Select(e => new ChiTietDatPhongDto
                 {
                     Id = e.Id,
                     PhongId = e.PhongId,
-                    DatPhongId = e.DatPhongId,
-                    TrangThaiPhong = checkTt.Where(p=>p.Id == e.TrangThaiPhongId).Select(p=>p.TrangThai).ToString(),
+                    PhieuDatPhongId = e.PhieuDatPhongId,
+                    TrangThaiPhong = e.TrangThaiPhong,
                     CheckIn = e.CheckIn,
                     CheckOut = e.CheckOut,
-
-
+                    SLNguoiLon = e.SLNguoiLon,
+                    SLTreEm = e.SLTreEm,
+                    SLPhong = e.SLPhong,
+                    TienPhongQuaHan = e.TienPhongQuaHan,
+                    NgayHuy = e.NgayHuy,
+                    ChiPhiHuyPhong = e.ChiPhiHuyPhong,
+                    TongTien = e.TongTien
 
                 }).ToList();
-
+                return dtoList;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
             }
         }
-*/
+
 
 
 

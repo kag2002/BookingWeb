@@ -18,7 +18,11 @@ namespace BookingWeb.Modules.KhachHangs.Dto
 
         public string Email { get; set; }
 
-        public int? LoaiKhachHangId { get; set; }
+        public DateTime NgaySinh { get; set; }
+
+        public string DiaChi { get; set; }
+
+        public int GioiTinh { get; set; }
 
     }
 }
