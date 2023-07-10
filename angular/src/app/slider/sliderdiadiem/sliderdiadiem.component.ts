@@ -1,14 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { SlideInterface } from "./types/slide.interface";
+import { SlideDiaDiemInterface } from "../types/slide.interface";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-sliderloaichonghi",
-  templateUrl: "./sliderloaichonghi.component.html",
-  styleUrls: ["./sliderloaichonghi.component.css"],
+  selector: "app-sliderdiadiem",
+  templateUrl: "./sliderdiadiem.component.html",
+  styleUrls: ["./sliderdiadiem.component.css"],
 })
-export class SliderloaichonghiComponent implements OnInit, OnDestroy {
-  @Input() slides: SlideInterface[] = [];
+export class SliderdiadiemComponent implements OnInit, OnDestroy {
+  @Input() slides: SlideDiaDiemInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
   constructor(private router: Router) {}
@@ -22,7 +22,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
 
   resetTimer() {
     this.clearTimer();
-    this.timeoutId = window.setTimeout(() => this.goToNext(), 3000);
+    this.timeoutId = window.setTimeout(() => this.goToNext(), 5000);
   }
 
   clearTimer() {

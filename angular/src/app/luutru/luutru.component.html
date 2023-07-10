@@ -39,69 +39,83 @@
       </div>
 
       <div class="">
-        <div class="dropdown">
-          <i class="pi pi-user"></i>
-          <button
-            (click)="toggleForm()"
-            class="btn btn-primary btn-lg dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="true"
-          >
-            Người lớn - Trẻ em - Phòng
-          </button>
-        </div>
+        <p-button
+          style="font-size: 2rem"
+          styleClass="p-button-raised"
+          (click)="toggleForm()"
+          label="Người lớn - Trẻ em - Phòng"
+          ><i class="pi pi-user"></i
+        ></p-button>
+
+        <p-overlay [(visible)]="overlayVisible">
+          <div class="CountRoom form-group">
+            <p>Người lớn</p>
+            <div>
+              <button type="button" (click)="incrementDecrement('adults', -1)">
+                -
+              </button>
+              <input
+                type="number"
+                id="adults"
+                [(ngModel)]="adults"
+                [ngModelOptions]="{ standalone: true }"
+                name="adults"
+              />
+              <button type="button" (click)="incrementDecrement('adults', 1)">
+                +
+              </button>
+            </div>
+
+            <p>Trẻ em</p>
+            <div>
+              <button type="button" (click)="incrementDecrement('children', 1)">
+                -
+              </button>
+              <input
+                type="number"
+                id="children"
+                [(ngModel)]="children"
+                [ngModelOptions]="{ standalone: true }"
+                name="children"
+              />
+              <button type="button" (click)="incrementDecrement('children', 1)">
+                +
+              </button>
+            </div>
+
+            <p>Phòng</p>
+            <div>
+              <button type="button" (click)="incrementDecrement('rooms', -1)">
+                -
+              </button>
+              <input
+                type="number"
+                id="rooms"
+                [(ngModel)]="rooms"
+                [ngModelOptions]="{ standalone: true }"
+                name="rooms"
+              />
+              <button type="button" (click)="incrementDecrement('rooms', 1)">
+                +
+              </button>
+            </div>
+          </div>
+        </p-overlay>
       </div>
 
       <div class="" style="text-align: center">
         <p-button
+          pRipple
+          (click)="show()"
           styleClass="p-button-raised"
           (click)="onSubmit()"
           label="Tìm kiếm"
+          ><i class="pi pi-search"></i
         ></p-button>
+        <p-toast></p-toast>
       </div>
     </div>
 
-    <div *ngIf="showForm" class="CountRoom form-group">
-      <p>Người lớn</p>
-      <div>
-        <button (click)="decrement('adults')">-</button>
-        <input
-          type="number"
-          id="adults"
-          [(ngModel)]="adults"
-          [ngModelOptions]="{ standalone: true }"
-          name="adults"
-        />
-        <button (click)="increment('adults')">+</button>
-      </div>
-
-      <p>Trẻ em</p>
-      <div>
-        <button (click)="decrement('children')">-</button>
-        <input
-          type="number"
-          id="children"
-          [(ngModel)]="children"
-          [ngModelOptions]="{ standalone: true }"
-          name="children"
-        />
-        <button (click)="increment('children')">+</button>
-      </div>
-
-      <p>Phòng</p>
-      <div>
-        <button (click)="decrement('rooms')">-</button>
-        <input
-          type="number"
-          id="rooms"
-          [(ngModel)]="rooms"
-          [ngModelOptions]="{ standalone: true }"
-          name="rooms"
-        />
-        <button (click)="increment('rooms')">+</button>
-      </div>
-    </div>
     <div class="checkBoxTimPhong">
       <div class="flex align-items-center gap-1">
         <p-checkbox
@@ -125,7 +139,7 @@
     </div>
   </form>
 </div>
-<div class="container GoiY">
+<div class="container GoiY ChoNghiNoiBat">
   <div class="sliderLoaiChoNghi">
     <p>Tìm theo loại chỗ nghỉ</p>
     <div style="width: 100%; height: 350px; margin: 0 auto">
@@ -140,4 +154,6 @@
       <app-sliderdiadiem [slides]="slides"></app-sliderdiadiem>
     </div>
   </div>
+
+  <app-chonghinoibat></app-chonghinoibat>
 </div>

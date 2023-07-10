@@ -1,7 +1,9 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ElementRef, Renderer2, ViewChild } from "@angular/core";
 import { LuutruService } from "../luutru/luutru.service";
 import { NgForm } from "@angular/forms";
-import { SlideInterface } from "@app/sliderloaichonghi/types/slide.interface";
+import { SlideLoaiChoNghiInterface } from "@app/slider/types/slide.interface";
+import { SlideDiaDiemInterface } from "@app/slider/types/slide.interface";
+import { MessageService } from "primeng/api";
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -12,8 +14,12 @@ interface AutoCompleteCompleteEvent {
   selector: "app-luutru",
   templateUrl: "./luutru.component.html",
   styleUrls: ["./luutru.component.css"],
+  providers: [MessageService],
 })
 export class LuutruComponent {
+  @ViewChild("f") signupForm: NgForm;
+  // @ViewChild("toggleButton") toggleButton: ElementRef;
+  // @ViewChild("menu") menu: ElementRef;
   diadiems: any[];
   selectedDiadiem: any;
   filteredDiadiems: any[];
@@ -24,7 +30,7 @@ export class LuutruComponent {
   rooms = 0;
   selectedCities: string[] = [];
   submitted = false;
-  slides: SlideInterface[] = [
+  slides: SlideDiaDiemInterface[] = [
     {
       url: "/assets/img/img-diadanh/image-diadanh-1.jpg",
       title: "HaLong",
@@ -91,36 +97,36 @@ export class LuutruComponent {
       number: 2341232,
     },
   ];
-  slidesloaichonghi: SlideInterface[] = [
+  slidesloaichonghi: SlideLoaiChoNghiInterface[] = [
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-1.jpg",
       title: "Khách sạn",
-      number: 12343,
+      ChoO: 12343,
     },
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-2.jpg",
       title: "Căn hộ",
-      number: 12343,
+      ChoO: 12343,
     },
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-3.jpg",
       title: "Resort",
-      number: 12343,
+      ChoO: 12343,
     },
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-4.jpg",
       title: "BIệt thự",
-      number: 12343,
+      ChoO: 12343,
     },
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-5.jpg",
       title: "Nhà gỗ",
-      number: 12343,
+      ChoO: 12343,
     },
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-6.jpg",
       title: "Phòng trọ",
-      number: 12343,
+      ChoO: 12343,
     },
   ];
 
@@ -132,9 +138,11 @@ export class LuutruComponent {
     room: 0,
   };
 
-  @ViewChild("f") signupForm: NgForm;
-
-  constructor(private luutruService: LuutruService) {}
+  constructor(
+    private luutruService: LuutruService,
+    private messageService: MessageService
+  ) {}
+  overlayVisible: boolean = false;
 
   ngOnInit() {
     this.luutruService.getDiadiems().then((diadiems) => {
@@ -149,20 +157,11 @@ export class LuutruComponent {
     );
   }
 
-  toggleForm() {
-    this.showForm = !this.showForm;
-  }
-
-  increment(field: string) {
-    this[field]++;
-  }
-
-  decrement(field: string) {
-    if (this[field] > 0) {
-      this[field]--;
+  incrementDecrement(field: string, value: number) {
+    if (this[field] + value >= 0) {
+      this[field] += value;
     }
   }
-
   onSubmit() {
     this.submitted = true;
     this.TimPhong.selectedDiadiem = this.selectedDiadiem?.name || "";
@@ -183,7 +182,19 @@ export class LuutruComponent {
 
     const formData = { ...this.TimPhong }; // Copy form data to a separate variable
 
-    // Perform desired action with the form data (e.g., display in the template)
     console.log(formData);
+  }
+
+  toggleForm() {
+    this.overlayVisible = !this.overlayVisible;
+    this.showForm = !this.showForm;
+  }
+
+  show() {
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Tìm thành công",
+    });
   }
 }
