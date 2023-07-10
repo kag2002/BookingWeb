@@ -4,6 +4,10 @@ import { NgForm } from "@angular/forms";
 import { SlideLoaiChoNghiInterface } from "@app/slider/types/slide.interface";
 import { SlideDiaDiemInterface } from "@app/slider/types/slide.interface";
 import { MessageService } from "primeng/api";
+import {
+  DiaDiemDto,
+  DiaDiemServiceProxy,
+} from "@shared/service-proxies/service-proxies";
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -18,8 +22,8 @@ interface AutoCompleteCompleteEvent {
 })
 export class LuutruComponent {
   @ViewChild("f") signupForm: NgForm;
-  // @ViewChild("toggleButton") toggleButton: ElementRef;
-  // @ViewChild("menu") menu: ElementRef;
+
+  diadiemDto: DiaDiemDto = new DiaDiemDto();
   diadiems: any[];
   selectedDiadiem: any;
   filteredDiadiems: any[];
@@ -30,6 +34,7 @@ export class LuutruComponent {
   rooms = 0;
   selectedCities: string[] = [];
   submitted = false;
+  slides2 = [];
   slides: SlideDiaDiemInterface[] = [
     {
       url: "/assets/img/img-diadanh/image-diadanh-1.jpg",
@@ -140,7 +145,8 @@ export class LuutruComponent {
 
   constructor(
     private luutruService: LuutruService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private _diadiemService: DiaDiemServiceProxy
   ) {}
   overlayVisible: boolean = false;
 
@@ -196,5 +202,31 @@ export class LuutruComponent {
       summary: "Success",
       detail: "Tìm thành công",
     });
+  }
+
+  AddDiaDiem() {
+    this.diadiemDto.tenDiaDiem = "dia diem 3";
+    this.diadiemDto.thongTinViTri = "hanoi 3";
+    this.diadiemDto.tenFileAnhDD =
+      "/assets/img/img-diadanh/image-diadanh-1.jpg";
+    this._diadiemService
+      .addNewLocation(this.diadiemDto)
+      .subscribe((result) => {});
+  }
+  DeleteDiaDiem(id: number) {
+    this._diadiemService.deleteLocation(id).subscribe((result) => {});
+  }
+
+  GetDiaDiem() {
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.slides2 = result.map((item) => {
+        return { TenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
+      });
+    });
+  }
+
+  currentIndex: number = 0;
+  getCurrentSlideUrl(index: number): string {
+    return `url('${this.slides[index].url}')`;
   }
 }

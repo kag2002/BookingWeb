@@ -106,3 +106,12 @@
 ::ng-deep .p-datepicker .p-datepicker-header {
   padding: 0.2rem;
 }
+
+.slide {
+  width: 130px;
+  height: 130px;
+  border-radius: 65px;
+  background-size: cover;
+  background-position: center;
+  margin: 40px;
+}
