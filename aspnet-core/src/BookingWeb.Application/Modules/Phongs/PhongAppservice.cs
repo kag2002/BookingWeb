@@ -14,10 +14,9 @@ namespace BookingWeb.Modules.Phongs
     public class PhongAppService : BookingWebAppServiceBase
     {
         private readonly IRepository<Phong> _phong;
-        private readonly IRepository<HinhThucKinhDoanh> _hinhThuc;
+        private readonly IRepository<HinhThucPhong> _hinhThuc;
         private readonly IRepository<HinhAnh> _hinhAnh;
         private readonly IRepository<DiaDiem> _diaDiem;
-        private readonly IRepository<ChinhSachQuyDinh> _chinhSach;
         private readonly IRepository<LoaiPhong> _loaiPhong;
         private readonly IRepository<DichVuTienIch> _dichvu;
         private readonly IRepository<NhanXetDanhGia> _nhanXet;
@@ -25,8 +24,8 @@ namespace BookingWeb.Modules.Phongs
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PhongAppService(IRepository<Phong> phong, IRepository<HinhThucKinhDoanh> hinhThuc,
-            IRepository<HinhAnh> hinhAnh, IRepository<DiaDiem> diaDiem, IRepository<ChinhSachQuyDinh> chinhSach,
+        public PhongAppService(IRepository<Phong> phong, IRepository<HinhThucPhong> hinhThuc,
+            IRepository<HinhAnh> hinhAnh, IRepository<DiaDiem> diaDiem,
             IRepository<LoaiPhong> loaiPhong, IRepository<DichVuTienIch> dichvu,
             IRepository<NhanXetDanhGia> nhanXet, IRepository<ChiTietDatPhong> chiTietDatPhong
             , IHttpContextAccessor httpContextAccessor)
@@ -35,7 +34,6 @@ namespace BookingWeb.Modules.Phongs
             _hinhThuc = hinhThuc;
             _hinhAnh = hinhAnh;
             _diaDiem = diaDiem;
-            _chinhSach = chinhSach;
             _loaiPhong = loaiPhong;
             _dichvu = dichvu;
             _nhanXet = nhanXet;

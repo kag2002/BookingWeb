@@ -14,18 +14,15 @@ namespace BookingWeb.Modules.NhanViens
     {
         private readonly IRepository<NhanVien> _nhanVien;
 
-        private readonly IRepository<TaiKhoan> _taiKhoan;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public NhanVienAppService(IRepository<NhanVien> nhanVien, IRepository<TaiKhoan> taiKhoan, IHttpContextAccessor httpContextAccessor)
+        public NhanVienAppService(IRepository<NhanVien> nhanVien, IHttpContextAccessor httpContextAccessor)
         {
             _nhanVien = nhanVien;
-            _taiKhoan = taiKhoan;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<NhanVienOutputDto>> GetAllList()
+        /*public async Task<List<NhanVienOutputDto>> GetAllList()
         {
             try
             {
@@ -52,8 +49,8 @@ namespace BookingWeb.Modules.NhanViens
                 return null;
             }
         }
-
-        public async Task<bool> RegisterForStaff(NhanVienDto input)
+*/
+        /*public async Task<bool> RegisterForStaff(NhanVienDto input)
         {
             try
             {
@@ -90,9 +87,9 @@ namespace BookingWeb.Modules.NhanViens
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
-        public async Task<bool> UpdateInfoStaff(NhanVienInputDto input)
+        /*public async Task<bool> UpdateInfoStaff(NhanVienInputDto input)
         {
             try
             {
@@ -114,7 +111,7 @@ namespace BookingWeb.Modules.NhanViens
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
 
     }

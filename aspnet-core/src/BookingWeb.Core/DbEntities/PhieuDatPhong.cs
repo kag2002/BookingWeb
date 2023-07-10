@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BookingWeb.DbEntities
 {
-    public class DatPhong : FullAuditedEntity, IMayHaveTenant
+    public class PhieuDatPhong : FullAuditedEntity, IMayHaveTenant
     {
         public int? TenantId { get; set; }
 
-        public DateTime NgayDatDuKien { get; set; }
+        public DateTime NgayDat { get; set; }
 
-        public DateTime NgayTraDuKien { get; set; }
+        public DateTime NgayHenTra { get; set; }
 
         public int KhachHangId { get; set; }
 

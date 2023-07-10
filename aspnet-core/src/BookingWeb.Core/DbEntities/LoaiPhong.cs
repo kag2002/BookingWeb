@@ -10,13 +10,15 @@ namespace BookingWeb.DbEntities
 {
     public class LoaiPhong : FullAuditedEntity, IMayHaveTenant
     {
-        public string TenLoaiPhong { get; set; }
+        public int? TenantId { get; set; }
 
-        public string MoTa { get; set; }
+        public string TenLoaiPhong { get; set; }
 
         public int SucChua { get; set; }
 
-        public string TienNghiPhong { get; set; }
+        public string MoTa { get; set; }
+
+        public string TienNghiTrongPhong { get; set; }
 
         public float GiaPhongTheoDem { get; set; }
 
@@ -28,6 +30,5 @@ namespace BookingWeb.DbEntities
 
         public ICollection<DichVuTienIch> DichVuTienIches { get; set; }
         
-        public int? TenantId { get; set; }
     }
 }

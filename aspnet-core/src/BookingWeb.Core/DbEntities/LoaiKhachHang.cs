@@ -9,7 +9,7 @@ namespace BookingWeb.DbEntities
 {
     public class LoaiKhachHang : FullAuditedEntity
     {
-        public string TenLoai { get; set; }
+        public string PhanLoai { get; set; }
 
         public float MucGiamGia { get; set; }
 

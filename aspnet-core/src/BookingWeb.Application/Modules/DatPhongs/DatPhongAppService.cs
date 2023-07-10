@@ -12,7 +12,7 @@ namespace BookingWeb.Modules.DatPhongs
 {
     public class DatPhongAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<DatPhong> _datPhong;
+        private readonly IRepository<PhieuDatPhong> _datPhong;
 
         private readonly IRepository<NhanVien> _nhanVien;
 
@@ -20,7 +20,7 @@ namespace BookingWeb.Modules.DatPhongs
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DatPhongAppService(IRepository<DatPhong> datPhong, IRepository<NhanVien> nhanVien, IRepository<KhachHang> khachHang, IHttpContextAccessor httpContextAccessor)
+        public DatPhongAppService(IRepository<PhieuDatPhong> datPhong, IRepository<NhanVien> nhanVien, IRepository<KhachHang> khachHang, IHttpContextAccessor httpContextAccessor)
         {
             _datPhong = datPhong;
             _nhanVien = nhanVien;
@@ -60,7 +60,7 @@ namespace BookingWeb.Modules.DatPhongs
         {
             try
             {
-                var newTicket = new DatPhong
+                var newTicket = new PhieuDatPhong
                 {
                     NgayDatDuKien = input.NgayDatDuKien,
                     NgayTraDuKien = input.NgayTraDuKien,

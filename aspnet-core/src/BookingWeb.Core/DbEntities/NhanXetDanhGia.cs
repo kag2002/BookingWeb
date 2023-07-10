@@ -10,15 +10,11 @@ namespace BookingWeb.DbEntities
 {
     public class NhanXetDanhGia : FullAuditedEntity, IMayHaveTenant
     {
+        public string NhanXet { get; set; }
+
         public float DiemDanhGia { get; set; }
 
         public float DanhGiaSao { get; set; }
-
-        public string NhanXet { get; set; }
-
-        public int DichVuTienIchId { get; set; }
-
-        public int KhachHangId { get; set; }
 
         public int ChiTietDatPhongId { get; set; }
 

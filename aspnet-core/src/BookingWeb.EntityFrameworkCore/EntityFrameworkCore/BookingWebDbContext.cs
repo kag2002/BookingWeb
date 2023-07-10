@@ -9,12 +9,9 @@ namespace BookingWeb.EntityFrameworkCore
 {
     public class BookingWebDbContext : AbpZeroDbContext<Tenant, Role, User, BookingWebDbContext>
     {
+        public DbSet<ChiTietDatPhong> BwChiTietDatPhong { get; set; }
 
-        public DbSet<ChinhSachQuyDinh> BwChinhSachQuyDinh { get; set; }
-
-        public DbSet<ChiTietDatPhong> BwChiTietDatPhongs { get; set; }
-
-        public DbSet<DatPhong> BwDatPhong { get; set; }
+        public DbSet<PhieuDatPhong> BwPhieuDatPhong { get; set; }
 
         public DbSet<DiaDiem> BwDiaDiem { get; set; }
 
@@ -22,7 +19,7 @@ namespace BookingWeb.EntityFrameworkCore
 
         public DbSet<HinhAnh> BwHinhAnh { get; set; }
 
-        public DbSet<HinhThucKinhDoanh> BwHinhThucKinhDoanh { get; set; }
+        public DbSet<HinhThucPhong> BwHinhThucKinhDoanh { get; set; }
 
         public DbSet<KhachHang> BwKhachHang { get; set; }
 
@@ -35,10 +32,6 @@ namespace BookingWeb.EntityFrameworkCore
         public DbSet<NhanXetDanhGia> BwNhanXetDanhGia { get; set; }
 
         public DbSet<Phong> BwPhong { get; set; }
-
-        public DbSet<TaiKhoan> BwTaiKhoan { get; set; }
-
-        public DbSet<TrangThaiPhong> BwTrangThaiPhong { get; set; }
 
         public BookingWebDbContext(DbContextOptions<BookingWebDbContext> options)
             : base(options)
