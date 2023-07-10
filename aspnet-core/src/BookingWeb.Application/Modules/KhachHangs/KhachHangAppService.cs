@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.KhachHangs
@@ -57,14 +56,14 @@ namespace BookingWeb.Modules.KhachHangs
             }
         }
 
-        public async Task<bool> RegisterForClient(RegisterDto input)
+        public async Task<bool> RegisterForClient(KhachHangInputDto input)
         {
             try
             {
-                var checkUser = await _khachHang.FirstOrDefaultAsync(p => p.UserName == input.Username);
+                var checkUser = await _khachHang.FirstOrDefaultAsync(p => p.UserName == input.UserName);
                 if (checkUser != null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.Username} da ton tai");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.UserName} da ton tai");
                     return false;
                 }
 
@@ -91,7 +90,7 @@ namespace BookingWeb.Modules.KhachHangs
 
                 var newClient = new KhachHang
                 {
-                    UserName = input.Username,
+                    UserName = input.UserName,
                     Password = input.Password,
                     CCCD = input.CCCD,
                     HoTen = input.HoTen,
@@ -143,7 +142,7 @@ namespace BookingWeb.Modules.KhachHangs
         }
 
 
-        public async Task<bool> ChangePassword(ChangePasswordDto input)
+        public async Task<bool> ChangePasswordKH(KhachHangChangePasswordDto input)
         {
             try
             {

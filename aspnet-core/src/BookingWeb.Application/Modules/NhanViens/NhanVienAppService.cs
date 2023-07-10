@@ -126,7 +126,7 @@ namespace BookingWeb.Modules.NhanViens
             }
         }
 
-        public async Task<bool> ChangePassword(ChangePasswordDto input)
+        public async Task<bool> ChangePasswordNV(NhanVienChangePasswordDto input)
         {
             try
             {

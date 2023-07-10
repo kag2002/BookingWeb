@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingWeb.Modules.NhanViens.Dto
+namespace BookingWeb.Modules.KhachHangs.Dto
 {
-    public class ChangePasswordDto
+    public class KhachHangChangePasswordDto
     {
         public int Id { get; set; }
 
@@ -15,5 +15,6 @@ namespace BookingWeb.Modules.NhanViens.Dto
         public string NewPassWord { get; set; }
 
         public string ConfirmPassWord { get; set; }
+
     }
 }
