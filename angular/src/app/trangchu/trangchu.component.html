@@ -1,0 +1,39 @@
+<!-- header -->
+<div class="header">
+  <!-- navigation header -->
+  <p-tabView styleClass="nav-header tabview-custom">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <i class="pi pi-fw pi-home"></i>
+        <span>Home</span>
+      </ng-template>
+      <app-luutru></app-luutru>
+    </p-tabPanel>
+
+    <p-tabPanel header="Header II">
+      <ng-template pTemplate="header">
+        <i class="pi pi-fw pi-map"></i>
+        <span>Địa điểm</span>
+      </ng-template>
+      <app-diadiem></app-diadiem>
+    </p-tabPanel>
+    <p-tabPanel header="Header III">
+      <ng-template pTemplate="header">
+        <i class="pi pi-search"></i>
+        <span>Khách sạn</span>
+      </ng-template>
+      <app-khachsan-list></app-khachsan-list>
+    </p-tabPanel>
+
+    <p-tabPanel header="Header III">
+      <ng-template pTemplate="header">
+        <i class="pi pi-spin pi-fw pi-cog"></i>
+        <span>Cài đặt</span>
+      </ng-template>
+      <app-caidat></app-caidat>
+    </p-tabPanel>
+  </p-tabView>
+  <!--End navigation header -->
+</div>
+
+<!-- end header -->
