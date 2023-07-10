@@ -12,16 +12,14 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
 {
     public class HinhThucKinhDoanhAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<HinhThucKinhDoanh> _hinhThuc;
-        private readonly IRepository<ChinhSachQuyDinh> _chinhSach;
+        private readonly IRepository<HinhThucPhong> _hinhThuc;
         private readonly IRepository<Phong> _phong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HinhThucKinhDoanhAppService(IRepository<HinhThucKinhDoanh> hinhThuc, IRepository<ChinhSachQuyDinh> chinhSach, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
+        public HinhThucKinhDoanhAppService(IRepository<HinhThucPhong> hinhThuc, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
         {
             _hinhThuc = hinhThuc;
-            _chinhSach = chinhSach;
             _phong = phong;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -36,7 +34,6 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 {
                     Id = entity.Id,
                     TenHinhThuc = entity.TenHinhThuc,
-                    TenDonViKinhDoanh = entity.TenDonViKinhDoanh,
                     DiaChiChiTiet = entity.DiaChiChiTiet
                 }).ToList();
 
@@ -55,10 +52,9 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         {
             try
             {
-                var htkd = new HinhThucKinhDoanh
+                var htkd = new HinhThucPhong
                 {
                     TenHinhThuc = input.TenHinhThuc,
-                    TenDonViKinhDoanh = input.TenDonViKinhDoanh,
                     DiaChiChiTiet = input.DiaChiChiTiet
                 };
 
@@ -85,7 +81,6 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 }
 
                 item.TenHinhThuc = input.TenHinhThuc;
-                item.TenDonViKinhDoanh = input.TenDonViKinhDoanh;
                 item.DiaChiChiTiet = input.DiaChiChiTiet;
 
                 await _hinhThuc.UpdateAsync(item);
@@ -98,7 +93,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             }
         }
 
-        public async Task<bool> DeleteItem(int id)
+        /*public async Task<bool> DeleteItem(int id)
         {
             try
             {
@@ -143,7 +138,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
     }
 }

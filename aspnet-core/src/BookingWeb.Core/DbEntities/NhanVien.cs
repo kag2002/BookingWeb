@@ -13,15 +13,19 @@ namespace BookingWeb.DbEntities
 
         public long SoDienThoai { get; set; }
 
-        public string Que { get; set; }
+        public string QueQuan { get; set; }
 
         public string Email { get; set; }
 
         public DateTime NgaySinh { get; set; }
 
-        public int TaiKhoanId { get; set; }
+        public string DiaChi { get; set; }
 
-        public ICollection<DatPhong> DatPhongs { get; set; }
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
+
+        public ICollection<PhieuDatPhong> DatPhongs { get; set; }
         
     }
 }

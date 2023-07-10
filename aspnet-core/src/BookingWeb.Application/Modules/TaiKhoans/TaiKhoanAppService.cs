@@ -12,7 +12,6 @@ namespace BookingWeb.Modules.TaiKhoans
 {
     public class TaiKhoanAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<TaiKhoan> _taiKhoan;
 
         private readonly IRepository<KhachHang> _khachHang;
 
@@ -20,38 +19,16 @@ namespace BookingWeb.Modules.TaiKhoans
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TaiKhoanAppService(IRepository<TaiKhoan> taiKhoan, IRepository<KhachHang> khachHang, IRepository<NhanVien> nhanVien, IHttpContextAccessor httpContextAccessor)
+        public TaiKhoanAppService(IRepository<KhachHang> khachHang, IRepository<NhanVien> nhanVien, IHttpContextAccessor httpContextAccessor)
         {
-            _taiKhoan = taiKhoan;
             _khachHang = khachHang;
             _nhanVien = nhanVien;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<TaiKhoanOuputDto>> GetAllAccount()
-        {
-            try
-            {
-                var lstAccount = await _taiKhoan.GetAllListAsync();
+        
 
-                var dtoLst = lstAccount.Select(entity => new TaiKhoanOuputDto
-                {
-                    Id = entity.Id,
-                    Username = entity.Username,
-                    Password = entity.Password,
-                    PhanLoai = entity.PhanLoai
-                }).ToList();
-
-                return dtoLst;
-            }
-            catch (Exception ex)
-            {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
-                return null;
-            }
-        }
-
-        public async Task<bool> AddNewAccount(TaiKhoanDto input)
+        /*public async Task<bool> AddNewAccount(TaiKhoanDto input)
         {
             try
             {
@@ -160,7 +137,7 @@ namespace BookingWeb.Modules.TaiKhoans
                 return false;
             }
         }
-
+*/
         
 
 

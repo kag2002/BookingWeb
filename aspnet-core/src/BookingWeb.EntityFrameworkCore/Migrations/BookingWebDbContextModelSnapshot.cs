@@ -1632,7 +1632,7 @@ namespace BookingWeb.Migrations
                     b.Property<float>("TongTien")
                         .HasColumnType("real");
 
-                    b.Property<int>("TrangThaiPhongId")
+                    b.Property<int?>("TrangThaiPhongId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1781,9 +1781,6 @@ namespace BookingWeb.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("MoTa")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenDiaDiem")
                         .HasColumnType("nvarchar(max)");
@@ -1985,6 +1982,9 @@ namespace BookingWeb.Migrations
                     b.Property<int?>("LoaiKhachHangId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("NgaySinh")
+                        .HasColumnType("datetime2");
+
                     b.Property<long>("SoDienThoai")
                         .HasColumnType("bigint");
 
@@ -2136,6 +2136,9 @@ namespace BookingWeb.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("NgaySinh")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Que")
                         .HasColumnType("nvarchar(max)");
 
@@ -2266,7 +2269,7 @@ namespace BookingWeb.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TrangThaiPhongId")
+                    b.Property<int?>("TrangThaiPhongId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -2312,6 +2315,7 @@ namespace BookingWeb.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhanLoai")
@@ -2321,6 +2325,7 @@ namespace BookingWeb.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -2663,9 +2668,7 @@ namespace BookingWeb.Migrations
 
                     b.HasOne("BookingWeb.DbEntities.TrangThaiPhong", null)
                         .WithMany("ChiTietDatPhongs")
-                        .HasForeignKey("TrangThaiPhongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TrangThaiPhongId");
                 });
 
             modelBuilder.Entity("BookingWeb.DbEntities.ChinhSachQuyDinh", b =>
@@ -2767,9 +2770,7 @@ namespace BookingWeb.Migrations
 
                     b.HasOne("BookingWeb.DbEntities.TrangThaiPhong", null)
                         .WithMany("Phongs")
-                        .HasForeignKey("TrangThaiPhongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TrangThaiPhongId");
                 });
 
             modelBuilder.Entity("BookingWeb.MultiTenancy.Tenant", b =>

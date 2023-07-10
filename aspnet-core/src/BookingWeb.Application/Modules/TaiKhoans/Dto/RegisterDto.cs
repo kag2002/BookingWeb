@@ -10,6 +10,7 @@ namespace BookingWeb.Modules.TaiKhoans.Dto
 {
     public class RegisterDto
     {
+
         [Required(ErrorMessage = "Username is required")]
         [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Username must contain only letters and numbers")]
         public string Username { get; set; }

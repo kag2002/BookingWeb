@@ -14,13 +14,10 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
     {
         private readonly IRepository<ChiTietDatPhong> _chiTietDatPhong;
 
-        private readonly IRepository<TrangThaiPhong> _trangThaiPhong;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ChiTietDatPhongAppService(IRepository<TrangThaiPhong> trangThaiPhong,IRepository<ChiTietDatPhong> chiTietDatPhong, IHttpContextAccessor httpContextAccessor)
+        public ChiTietDatPhongAppService(IRepository<ChiTietDatPhong> chiTietDatPhong, IHttpContextAccessor httpContextAccessor)
         {
-            _trangThaiPhong = trangThaiPhong;
             _chiTietDatPhong = chiTietDatPhong;
             _httpContextAccessor = httpContextAccessor;
         }

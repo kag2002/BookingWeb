@@ -16,21 +16,18 @@ namespace BookingWeb.Modules.KhachHangs
     {
         private readonly IRepository<KhachHang> _khachHang;
 
-        private readonly IRepository<TaiKhoan> _taiKhoan;
-
         private readonly IRepository<LoaiKhachHang> _loaiKhachHang;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public KhachHangAppService(IRepository<KhachHang> khachHang, IRepository<TaiKhoan> taiKhoan, IRepository<LoaiKhachHang> loaiKhachHang, IHttpContextAccessor httpContextAccessor)
+        public KhachHangAppService(IRepository<KhachHang> khachHang, IRepository<LoaiKhachHang> loaiKhachHang, IHttpContextAccessor httpContextAccessor)
         {
             _khachHang = khachHang;
-            _taiKhoan = taiKhoan;
             _loaiKhachHang = loaiKhachHang;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<KhachHangOutputDto>> GetAllListClient()
+        /*public async Task<List<KhachHangOutputDto>> GetAllListClient()
         {
             try
             {
@@ -58,9 +55,9 @@ namespace BookingWeb.Modules.KhachHangs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
-        public async Task<bool> RegisterForClient(RegisterDto input)
+        /*public async Task<bool> RegisterForClient(RegisterDto input)
         {
             try
             {
@@ -95,11 +92,20 @@ namespace BookingWeb.Modules.KhachHangs
                     PhanLoai = 1
                 };
 
-                await _taiKhoan.InsertAsync(newAccount);
+                var a = await _taiKhoan.InsertAndGetIdAsync(newAccount);
+                try
+                {
+                    CurrentUnitOfWork.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception();
+                }
 
                 var newClient = new KhachHang
                 {
-                    TaiKhoanId = newAccount.Id,
+                    TaiKhoanId = a,
                     CCCD = input.CCCD,
                     HoTen = input.HoTen,
                     SoDienThoai = input.SoDienThoai,
@@ -109,6 +115,15 @@ namespace BookingWeb.Modules.KhachHangs
                 };
 
                 await _khachHang.InsertAsync(newClient);
+                try
+                {
+                    CurrentUnitOfWork.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception();
+                }
                 return true;
 
             }
@@ -117,7 +132,7 @@ namespace BookingWeb.Modules.KhachHangs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
         public async Task<bool> UpdateInfoClient(KhachHangDto input)
         {

@@ -10,14 +10,12 @@ namespace BookingWeb.DbEntities
 {
     public class DichVuTienIch : FullAuditedEntity, IMayHaveTenant
     {
-        public string TenDichVuTienIch { get; set; }
+        public int? TenantId { get; set; }
+
+        public string TenDichVu { get; set; }
 
         public string MoTa { get; set; }
 
         public int LoaiPhongId { get; set; }
-
-        public ICollection<NhanXetDanhGia> NhanXetDanhGias { get; set; }
-        
-        public int? TenantId { get; set; }
     }
 }

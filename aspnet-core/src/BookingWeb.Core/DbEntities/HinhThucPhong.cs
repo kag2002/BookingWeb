@@ -4,17 +4,21 @@ using System.Collections.Generic;
 
 namespace BookingWeb.DbEntities
 {
-    public class HinhThucKinhDoanh : FullAuditedEntity, IMayHaveTenant
+    public class HinhThucPhong : FullAuditedEntity, IMayHaveTenant
     {
         public int? TenantId { get; set; }
 
         public string TenHinhThuc { get; set; }
 
-        public string TenDonViKinhDoanh { get; set; }
+        public string TenDonVi { get; set; }
 
         public string DiaChiChiTiet { get; set; }
 
-        public ICollection<ChinhSachQuyDinh> ChinhSachQuyDinhs { get; set; }
+        public string ChinhSachVePhong { get; set; }
+
+        public string ChinhSachVeTreEm { get; set; }
+
+        public string ChinhSachVeThuCung { get; set; }
 
         public ICollection<Phong> Phongs { get; set; }
     }
