@@ -1,6 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
+import {
+  HinhThucPhongServiceProxy,
+  PhongServiceProxy,
+} from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-sliderloaichonghi",
@@ -9,20 +12,28 @@ import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
 })
 export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   @Input() slidesloaichonghi = [];
+  @Input() slidesloaichonghiimage = [];
   currentIndex: number = 0;
   timeoutId?: number;
   constructor(
     private router: Router,
-    private _diadiemService: DiaDiemServiceProxy
+    private _hinhthucphongService: HinhThucPhongServiceProxy,
+    private _phongService: PhongServiceProxy
   ) {}
   ngOnInit(): void {
     this.resetTimer();
-    this._diadiemService.getAllLocations().subscribe((result) => {
+    this._hinhthucphongService.getAllList().subscribe((result) => {
       this.slidesloaichonghi = result.map((item) => {
         return {
-          tenFileAnhDD: item.tenFileAnhDD,
-          tenDiaDiem: item.tenDiaDiem,
-          thongTinViTri: item.thongTinViTri,
+          tenHinhThuc: item.tenHinhThuc,
+          tenDonVi: item.tenDonVi,
+        };
+      });
+    });
+    this._phongService.getAllRoom().subscribe((result) => {
+      this.slidesloaichonghiimage = result.map((item) => {
+        return {
+          tenFileAnhDaiDien: item.tenFileAnhDaiDien,
         };
       });
     });
@@ -65,7 +76,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-diadanh/${this.slidesloaichonghi[index].tenFileAnhDD}')`;
+    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index].tenFileAnhDaiDien}')`;
   }
 
   onSlideClick(index: number): void {
