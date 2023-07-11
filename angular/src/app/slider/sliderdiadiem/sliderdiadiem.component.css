@@ -29,8 +29,6 @@
   height: 45px;
   border-radius: 50%;
   right: 125px;
-}
-.rightArrow {
   font-size: 27px;
   z-index: 1;
   cursor: pointer;
@@ -44,8 +42,6 @@
   height: 45px;
   border-radius: 50%;
   left: 125px;
-}
-.leftArrow {
   font-size: 27px;
   z-index: 1;
   cursor: pointer;

@@ -1,0 +1,40 @@
+<div class="slider">
+  <div
+    (click)="goToPrevious()"
+    class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
+  >
+    ❰
+  </div>
+
+  <div
+    (click)="goToNext()"
+    class="rightArrow card flex align-items-center gap-1 cardRightArrow"
+  >
+    ❱
+  </div>
+
+  <div
+    *ngFor="let item of [].constructor(6); let i = index"
+    class="slide"
+    [ngStyle]="{
+      'background-image': getCurrentSlideUrl(
+        (currentIndex + i) % slidesdiadiem.length
+      )
+    }"
+    (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
+    tabindex="0"
+  >
+    <div class="slide-content">
+      <h5 class="titleLoaiChoNghi">
+        {{
+          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length].tenDiaDiem
+        }}
+      </h5>
+      <p class="numberLoaiChoNghi">
+        {{
+          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length].thongTinViTri
+        }}
+      </p>
+    </div>
+  </div>
+</div>

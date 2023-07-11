@@ -1,7 +1,13 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ElementRef, Renderer2, ViewChild } from "@angular/core";
 import { LuutruService } from "../luutru/luutru.service";
 import { NgForm } from "@angular/forms";
-import { SlideInterface } from "@app/sliderloaichonghi/types/slide.interface";
+import { SlideLoaiChoNghiInterface } from "@app/slider/types/slide.interface";
+import { SlideDiaDiemInterface } from "@app/slider/types/slide.interface";
+import { MessageService } from "primeng/api";
+import {
+  DiaDiemDto,
+  DiaDiemServiceProxy,
+} from "@shared/service-proxies/service-proxies";
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -12,8 +18,12 @@ interface AutoCompleteCompleteEvent {
   selector: "app-luutru",
   templateUrl: "./luutru.component.html",
   styleUrls: ["./luutru.component.css"],
+  providers: [MessageService],
 })
 export class LuutruComponent {
+  @ViewChild("f") signupForm: NgForm;
+
+  diadiemDto: DiaDiemDto = new DiaDiemDto();
   diadiems: any[];
   selectedDiadiem: any;
   filteredDiadiems: any[];
@@ -24,105 +34,9 @@ export class LuutruComponent {
   rooms = 0;
   selectedCities: string[] = [];
   submitted = false;
-  slides: SlideInterface[] = [
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-1.jpg",
-      title: "HaLong",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-2.jpg",
-      title: "HaNoi",
-      number: 123412,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-3.jpg",
-      title: "HoChiMinh",
-      number: 1234123,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-4.jpg",
-      title: "SaPa",
-      number: 13124,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-5.jpg",
-      title: "Hue",
-      number: 123214,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-6.jpg",
-      title: "DaNang",
-      number: 2342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-7.jpg",
-      title: "DaLat",
-      number: 123412,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-8.jpg",
-      title: "NhaTrang",
-      number: 1234234,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-9.jpg",
-      title: "HaiPhong",
-      number: 1341,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-10.jpg",
-      title: "PhuQuoc",
-      number: 23423,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-11.jpg",
-      title: "BinhThuan",
-      number: 232342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-12.jpg",
-      title: "HaGiang",
-      number: 1232342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-13.jpg",
-      title: "HoiAn",
-      number: 2341232,
-    },
-  ];
-  slidesloaichonghi: SlideInterface[] = [
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-1.jpg",
-      title: "Khách sạn",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-2.jpg",
-      title: "Căn hộ",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-3.jpg",
-      title: "Resort",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-4.jpg",
-      title: "BIệt thự",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-5.jpg",
-      title: "Nhà gỗ",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-6.jpg",
-      title: "Phòng trọ",
-      number: 12343,
-    },
-  ];
+  slidesdiadiem = [];
+
+  slidesloaichonghi: [] = [];
 
   TimPhong = {
     selectedDiadiem: "",
@@ -132,9 +46,12 @@ export class LuutruComponent {
     room: 0,
   };
 
-  @ViewChild("f") signupForm: NgForm;
-
-  constructor(private luutruService: LuutruService) {}
+  constructor(
+    private luutruService: LuutruService,
+    private messageService: MessageService,
+    private _diadiemService: DiaDiemServiceProxy
+  ) {}
+  overlayVisible: boolean = false;
 
   ngOnInit() {
     this.luutruService.getDiadiems().then((diadiems) => {
@@ -149,20 +66,11 @@ export class LuutruComponent {
     );
   }
 
-  toggleForm() {
-    this.showForm = !this.showForm;
-  }
-
-  increment(field: string) {
-    this[field]++;
-  }
-
-  decrement(field: string) {
-    if (this[field] > 0) {
-      this[field]--;
+  incrementDecrement(field: string, value: number) {
+    if (this[field] + value >= 0) {
+      this[field] += value;
     }
   }
-
   onSubmit() {
     this.submitted = true;
     this.TimPhong.selectedDiadiem = this.selectedDiadiem?.name || "";
@@ -183,7 +91,40 @@ export class LuutruComponent {
 
     const formData = { ...this.TimPhong }; // Copy form data to a separate variable
 
-    // Perform desired action with the form data (e.g., display in the template)
     console.log(formData);
+  }
+
+  toggleForm() {
+    this.overlayVisible = !this.overlayVisible;
+    this.showForm = !this.showForm;
+  }
+
+  show() {
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Tìm thành công",
+    });
+  }
+
+  AddDiaDiem() {
+    this.diadiemDto.tenDiaDiem = "dia diem 3";
+    this.diadiemDto.thongTinViTri = "hanoi 3";
+    this.diadiemDto.tenFileAnhDD =
+      "/assets/img/img-diadanh/image-diadanh-1.jpg";
+    this._diadiemService
+      .addNewLocation(this.diadiemDto)
+      .subscribe((result) => {});
+  }
+  DeleteDiaDiem(id: number) {
+    this._diadiemService.deleteLocation(id).subscribe((result) => {});
+  }
+
+  GetDiaDiem() {
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.slidesdiadiem = result.map((item) => {
+        return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
+      });
+    });
   }
 }

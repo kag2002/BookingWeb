@@ -1,9 +1,16 @@
 <div class="slider">
-  <div class="card flex align-items-center gap-1 cardLeftArrow">
-    <div (click)="goToPrevious()" class="leftArrow">❰</div>
+  <div
+    (click)="goToPrevious()"
+    class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
+  >
+    ❰
   </div>
-  <div class="card flex align-items-center gap-1 cardRightArrow">
-    <div (click)="goToNext()" class="rightArrow">❱</div>
+
+  <div
+    (click)="goToNext()"
+    class="rightArrow card flex align-items-center gap-1 cardRightArrow"
+  >
+    ❱
   </div>
 
   <div
@@ -20,13 +27,14 @@
     <div class="slide-content">
       <h5 class="titleLoaiChoO">
         {{
-          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length].title
+          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
+            .tenDiaDiem
         }}
       </h5>
       <p class="numberLoaiChoO">
         {{
           slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
-            .number
+            .thongTinViTri
         }}
         chỗ ở
       </p>

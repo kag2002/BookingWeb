@@ -19,6 +19,8 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { CalendarModule } from "primeng/calendar";
 import { DropdownModule } from "primeng/dropdown";
 import { CheckboxModule } from "primeng/checkbox";
+import { AnimateModule } from "primeng/animate";
+import { ToastModule } from "primeng/toast";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -45,8 +47,9 @@ import { KhachsanListComponent } from "./khachsan-list/khachsan-list.component";
 import { DiadiemComponent } from "./diadiem/diadiem.component";
 import { CaidatComponent } from "./caidat/caidat.component";
 import { LuutruComponent } from "./luutru/luutru.component";
-import { SliderloaichonghiComponent } from "./sliderloaichonghi/sliderloaichonghi.component";
-import { SliderdiadiemComponent } from "./sliderdiadiem/sliderdiadiem.component";
+import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloaichonghi.component";
+import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
+import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +82,7 @@ import { SliderdiadiemComponent } from "./sliderdiadiem/sliderdiadiem.component"
     LuutruComponent,
     SliderloaichonghiComponent,
     SliderdiadiemComponent,
+    ChonghinoibatComponent,
   ],
   imports: [
     CommonModule,
@@ -100,6 +104,8 @@ import { SliderdiadiemComponent } from "./sliderdiadiem/sliderdiadiem.component"
     CalendarModule,
     DropdownModule,
     CheckboxModule,
+    AnimateModule,
+    ToastModule,
   ],
   providers: [],
 })

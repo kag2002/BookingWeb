@@ -57,7 +57,6 @@ namespace BookingWeb.Modules.DiaDiems
                 {
                     TenDiaDiem = input.TenDiaDiem,
                     ThongTinViTri = input.ThongTinViTri,
-                    TenFileAnhDD = input.TenFileAnhDD
                 };
 
                 await _diaDiem.InsertAsync(item);

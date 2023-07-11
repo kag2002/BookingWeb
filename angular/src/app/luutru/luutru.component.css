@@ -1,6 +1,6 @@
 .intro-header {
   color: white;
-  background-color: darkblue;
+  background-color: #003b95;
   padding: 45px 0 65px 0;
   height: 200px;
 }
@@ -25,26 +25,24 @@
   padding: 0 5px 0 7px;
 }
 .TimPhong div {
-  padding: 3px;
+  padding: 3px 3px 10px 3px;
 }
 
 .CountRoom {
   border: 1px solid black;
   border-radius: 8px;
-  padding-bottom: 15px;
-  background-color: aliceblue;
-  box-shadow: 5px 5px 5px 1px gray;
+
+  background-color: white;
+  box-shadow: 1px 2px black;
   width: 21rem;
-  display: grid;
-  justify-content: center;
   text-align: center;
   position: absolute;
-  left: 44%;
+  left: -2rem;
 }
 .CountRoom p {
-  margin: 4px 0px 0px 0px;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600px;
+  margin: 0;
 }
 .CountRoom button {
   border: 1px solid gray;
@@ -86,4 +84,34 @@
 
 .sliderDiaDiem {
   margin-bottom: 100px;
+}
+.choNghiNoiBat {
+  justify-content: center;
+}
+/* Sizing Lịch */
+::ng-deep .p-datepicker table td {
+  padding: 0.2rem !important;
+}
+
+::ng-deep .p-datepicker table td > span {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+::ng-deep .p-datepicker table {
+  font-size: 10pt;
+  margin: -0.143rem 0;
+}
+
+::ng-deep .p-datepicker .p-datepicker-header {
+  padding: 0.2rem;
+}
+
+.slide {
+  width: 130px;
+  height: 130px;
+  border-radius: 65px;
+  background-size: cover;
+  background-position: center;
+  margin: 40px;
 }
