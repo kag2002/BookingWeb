@@ -77,16 +77,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                     GiaPhongTheoDem = input.GiaPhongTheoDem,
                     UuDai = input.UuDai
                 };
-                var id = await _loaiPhong.InsertAndGetIdAsync(lp);
-
-                var dv = new DichVuTienIch
-                {
-                    Id = id,
-                    TenDichVu = input.TenDichVu,
-                    MoTa = input.MoTaDV
-                };
-
-                await _dichVuTienIch.InsertAsync(dv);
+                await _loaiPhong.InsertAsync(lp);
 
                 CurrentUnitOfWork.SaveChanges();
                 return true;

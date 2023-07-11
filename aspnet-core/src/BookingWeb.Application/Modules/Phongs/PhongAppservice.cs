@@ -123,12 +123,35 @@ namespace BookingWeb.Modules.Phongs
 
                 if (checkP != null)
                 {
-                    checkP.Mota = input.Mota;
-                    checkP.TrangThaiPhong = input.TrangThaiPhong;
-                    checkP.TenFileAnhDaiDien = input.TenFileAnhDaiDien;
-                    checkP.DiaDiemId = input.DiaDiemId;
-                    checkP.LoaiPhongId = input.LoaiPhongId;
-                    checkP.HinhThucPhongId = input.HinhThucKinhDoanhId;
+                    if (input.Mota != null)
+                    {
+                        checkP.Mota = input.Mota;
+                    }
+
+                    if (input.TrangThaiPhong.ToString() != null)
+                    {
+                        checkP.TrangThaiPhong = input.TrangThaiPhong;
+                    }
+
+                    if (input.TenFileAnhDaiDien != null)
+                    {
+                        checkP.TenFileAnhDaiDien = input.TenFileAnhDaiDien;
+                    }
+
+                    if (input.DiaDiemId != null)
+                    {
+                        checkP.DiaDiemId = input.DiaDiemId;
+                    }
+
+                    if (input.LoaiPhongId != null)
+                    {
+                        checkP.LoaiPhongId = input.LoaiPhongId;
+                    }
+
+                    if (input.HinhThucKinhDoanhId != null)
+                    {
+                        checkP.HinhThucPhongId = input.HinhThucKinhDoanhId;
+                    }
 
                     await _phong.UpdateAsync(checkP);
                     return true;
@@ -144,8 +167,8 @@ namespace BookingWeb.Modules.Phongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-
         }
+
 
 
         public async Task<bool> DeleteRoom(int id)
@@ -213,12 +236,6 @@ namespace BookingWeb.Modules.Phongs
             try
             {
                 var phong = await _phong.FirstOrDefaultAsync(p=>p.DiaDiemId == id);
-                var diaDiem = await _diaDiem.FirstOrDefaultAsync(p=>p.Id == id);
-                var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id == phong.LoaiPhongId);
-                var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == phong.HinhThucPhongId);
-                var hinhAnh = await _hinhAnh.GetAllListAsync();
-                var dichVu = await _dichvu.GetAllListAsync();
-
                 if (phong == null)
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay!!");
@@ -226,6 +243,11 @@ namespace BookingWeb.Modules.Phongs
                 }
                 else
                 {
+                    var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
+                    var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == phong.LoaiPhongId);
+                    var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == phong.HinhThucPhongId);
+                    var hinhAnh = await _hinhAnh.GetAllListAsync();
+                    var dichVu = await _dichvu.GetAllListAsync();
 
                     var dtoP = new PhongByIdDto
                     {

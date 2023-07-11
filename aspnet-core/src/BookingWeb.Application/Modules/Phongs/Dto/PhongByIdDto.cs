@@ -10,9 +10,9 @@ namespace BookingWeb.Modules.Phongs.Dto
     {
         public int Id { get; set; }
 
-        public string TenDonVi { get; set; }
+        public string? TenDonVi { get; set; }
 
-        public string DiaChiChiTiet { get; set; }
+        public string? DiaChiChiTiet { get; set; }
 
         public string Mota { get; set; }
 
@@ -26,19 +26,19 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string DiaDiem { get; set; }
 
-        public string LoaiPhong { get; set; }
+        public string? LoaiPhong { get; set; }
 
-        public string HinhThucPhong { get; set; }
+        public string? HinhThucPhong { get; set; }
 
-        public List<string> DichVu { get; set; }
+        public List<string>? DichVu { get; set; }
 
-        public List<string> HinhAnh { get; set; }
+        public List<string>? HinhAnh { get; set; }
 
-        public string ChinhSachVePhong { get; set; }
+        public string? ChinhSachVePhong { get; set; }
 
-        public string ChinhSachVeTreEm { get; set; }
+        public string? ChinhSachVeTreEm { get; set; }
 
-        public string ChinhSachVeThuCung { get; set; }
+        public string? ChinhSachVeThuCung { get; set; }
 
     }
 }
