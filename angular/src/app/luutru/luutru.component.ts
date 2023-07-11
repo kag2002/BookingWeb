@@ -220,13 +220,8 @@ export class LuutruComponent {
   GetDiaDiem() {
     this._diadiemService.getAllLocations().subscribe((result) => {
       this.slides2 = result.map((item) => {
-        return { TenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
+        return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
       });
     });
-  }
-
-  currentIndex: number = 0;
-  getCurrentSlideUrl(index: number): string {
-    return `url('${this.slides[index].url}')`;
   }
 }

@@ -157,11 +157,18 @@
 
   <app-chonghinoibat></app-chonghinoibat>
 </div>
+
 <button (click)="AddDiaDiem()">Add dia diem</button>
 <button (click)="DeleteDiaDiem(1)">Delete dia diem</button>
 <button (click)="GetDiaDiem()">Get all</button>
 <div
   class="slide"
   *ngFor="let item of slides2; let i = index"
-  [ngStyle]="{ 'background-image': 'url(' + item.TenFileAnhDD + ')' }"
-></div>
+  [ngStyle]="{
+    'background-image':
+      'url(\'/assets/img/img-diadanh/' + item.tenFileAnhDD + '\')'
+  }"
+>
+  <div>Ten: {{ item.tenDiaDiem }}</div>
+  <div>Thongtinvtri: {{ item.thongTinViTri }}</div>
+</div>

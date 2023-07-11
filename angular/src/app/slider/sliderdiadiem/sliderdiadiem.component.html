@@ -33,3 +33,17 @@
     </div>
   </div>
 </div>
+
+<button (click)="GetDiaDiem()">Get all</button>
+
+<div
+  class="slide"
+  *ngFor="let item of slides2; let i = index"
+  [ngStyle]="{
+    'background-image':
+      'url(\'/assets/img/img-diadanh/' + item.tenFileAnhDD + '\')'
+  }"
+>
+  <div>Ten: {{ item.tenDiaDiem }}</div>
+  <div>Thongtinvtri: {{ item.thongTinViTri }}</div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { SlideDiaDiemInterface } from "../types/slide.interface";
 import { Router } from "@angular/router";
+import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-sliderdiadiem",
@@ -11,7 +12,11 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   @Input() slides: SlideDiaDiemInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
-  constructor(private router: Router) {}
+  slides2 = [];
+  constructor(
+    private router: Router,
+    private _diadiemService: DiaDiemServiceProxy
+  ) {}
   ngOnInit(): void {
     this.resetTimer();
   }
@@ -54,5 +59,12 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   onSlideClick(index: number): void {
     // this.router.navigate(["/other", index]);
+  }
+  GetDiaDiem() {
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.slides2 = result.map((item) => {
+        return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
+      });
+    });
   }
 }
