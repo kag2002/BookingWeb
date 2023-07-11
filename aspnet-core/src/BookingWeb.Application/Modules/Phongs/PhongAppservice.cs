@@ -230,59 +230,5 @@ namespace BookingWeb.Modules.Phongs
             }
 
         }
-
-        public async Task<PhongByIdDto> GetRoomByLocation(int id)
-        {
-            try
-            {
-                var phong = await _phong.FirstOrDefaultAsync(p=>p.DiaDiemId == id);
-                if (phong == null)
-                {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay!!");
-                    return null;
-                }
-                else
-                {
-                    var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
-                    var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == phong.LoaiPhongId);
-                    var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == phong.HinhThucPhongId);
-                    var hinhAnh = await _hinhAnh.GetAllListAsync();
-                    var dichVu = await _dichvu.GetAllListAsync();
-
-                    var dtoP = new PhongByIdDto
-                    {
-                        Id = phong.Id,
-                        TenDonVi = hinhThucPhong.TenDonVi,
-                        DiaChiChiTiet = hinhThucPhong.DiaChiChiTiet,
-                        Mota = phong.Mota,
-                        TrangThaiPhong = phong.TrangThaiPhong,
-                        DanhGiaSaoTb = phong.DanhGiaSaoTb,
-                        DiemDanhGiaTB = phong.DiemDanhGiaTB,
-                        DiaDiem = diaDiem.TenDiaDiem,
-                        LoaiPhong = loaiPhong.TenLoaiPhong,
-                        HinhThucPhong = hinhThucPhong.TenHinhThuc,
-                        HinhAnh = hinhAnh.Where(p=>p.PhongId == phong.Id).Select(p=>p.TenFileAnh).ToList(),
-                        DichVu = dichVu.Where(p=>p.LoaiPhongId == phong.LoaiPhongId).Select(p=>p.TenDichVu).ToList(),
-                        ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
-                        ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
-                        ChinhSachVeThuCung = hinhThucPhong.ChinhSachVeThuCung
-                    };
-
-                    return dtoP;
-                }
-
-
-
-            }
-            catch (Exception ex)
-            {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
-                return null;
-            }
-
-
-        }
-
-
     }
 }

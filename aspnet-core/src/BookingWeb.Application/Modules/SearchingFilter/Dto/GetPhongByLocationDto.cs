@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingWeb.Modules.Phongs.Dto
+namespace BookingWeb.Modules.SearchingFilter.Dto
 {
-    public class PhongByIdDto
+    public class GetPhongByLocationDto
     {
         public int Id { get; set; }
 
