@@ -35,73 +35,7 @@ export class LuutruComponent {
   selectedCities: string[] = [];
   submitted = false;
   slides2 = [];
-  slides: SlideDiaDiemInterface[] = [
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-1.jpg",
-      title: "HaLong",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-2.jpg",
-      title: "HaNoi",
-      number: 123412,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-3.jpg",
-      title: "HoChiMinh",
-      number: 1234123,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-4.jpg",
-      title: "SaPa",
-      number: 13124,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-5.jpg",
-      title: "Hue",
-      number: 123214,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-6.jpg",
-      title: "DaNang",
-      number: 2342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-7.jpg",
-      title: "DaLat",
-      number: 123412,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-8.jpg",
-      title: "NhaTrang",
-      number: 1234234,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-9.jpg",
-      title: "HaiPhong",
-      number: 1341,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-10.jpg",
-      title: "PhuQuoc",
-      number: 23423,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-11.jpg",
-      title: "BinhThuan",
-      number: 232342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-12.jpg",
-      title: "HaGiang",
-      number: 1232342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-13.jpg",
-      title: "HoiAn",
-      number: 2341232,
-    },
-  ];
+
   slidesloaichonghi: SlideLoaiChoNghiInterface[] = [
     {
       url: "/assets/img/img-loaichonghi/image-loaichonghi-1.jpg",

@@ -17,33 +17,20 @@
     *ngFor="let item of [].constructor(6); let i = index"
     class="slide"
     [ngStyle]="{
-      'background-image': getCurrentSlideUrl((currentIndex + i) % slides.length)
+      'background-image': getCurrentSlideUrl(
+        (currentIndex + i) % slides2.length
+      )
     }"
-    (click)="onSlideClick((currentIndex + i) % slides.length)"
+    (click)="onSlideClick((currentIndex + i) % slides2.length)"
     tabindex="0"
   >
     <div class="slide-content">
       <h5 class="titleLoaiChoNghi">
-        {{ slides[(currentIndex + i) % slides.length].title }}
+        {{ slides2[(currentIndex + i) % slides2.length].tenDiaDiem }}
       </h5>
       <p class="numberLoaiChoNghi">
-        Dân số:
-        {{ slides[(currentIndex + i) % slides.length].number }}
+        {{ slides2[(currentIndex + i) % slides2.length].thongTinViTri }}
       </p>
     </div>
   </div>
-</div>
-
-<button (click)="GetDiaDiem()">Get all</button>
-
-<div
-  class="slide"
-  *ngFor="let item of slides2; let i = index"
-  [ngStyle]="{
-    'background-image':
-      'url(\'/assets/img/img-diadanh/' + item.tenFileAnhDD + '\')'
-  }"
->
-  <div>Ten: {{ item.tenDiaDiem }}</div>
-  <div>Thongtinvtri: {{ item.thongTinViTri }}</div>
 </div>
