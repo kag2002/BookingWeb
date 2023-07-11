@@ -10,22 +10,22 @@ namespace BookingWeb.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
+            /*migrationBuilder.DropForeignKey(
                 name: "FK_BwPhong_BwHinhThucKinhDoanh_HinhThucPhongId",
                 table: "BwPhong");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_BwHinhThucKinhDoanh",
-                table: "BwHinhThucKinhDoanh");
+                table: "BwHinhThucKinhDoanh");*/
 
-            migrationBuilder.RenameTable(
+            /*migrationBuilder.RenameTable(
                 name: "BwHinhThucKinhDoanh",
-                newName: "BwHinhThucPhong");
+                newName: "BwHinhThucPhong");*/
 
-            migrationBuilder.RenameColumn(
+            /*migrationBuilder.RenameColumn(
                 name: "NgayDat",
                 table: "BwPhieuDatPhong",
-                newName: "NgayBatDau");
+                newName: "NgayBatDau");*/
 
             migrationBuilder.AddColumn<float>(
                 name: "DanhGiaSaoTb",
@@ -41,36 +41,36 @@ namespace BookingWeb.Migrations
                 nullable: false,
                 defaultValue: 0f);
 
-            migrationBuilder.AddColumn<int>(
+           /* migrationBuilder.AddColumn<int>(
                 name: "GioiTinh",
                 table: "BwNhanVien",
                 type: "int",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0)*/;
 
-            migrationBuilder.AddPrimaryKey(
+            /*migrationBuilder.AddPrimaryKey(
                 name: "PK_BwHinhThucPhong",
                 table: "BwHinhThucPhong",
-                column: "Id");
+                column: "Id");*/
 
-            migrationBuilder.AddForeignKey(
+            /*migrationBuilder.AddForeignKey(
                 name: "FK_BwPhong_BwHinhThucPhong_HinhThucPhongId",
                 table: "BwPhong",
                 column: "HinhThucPhongId",
                 principalTable: "BwHinhThucPhong",
-                principalColumn: "Id");
+                principalColumn: "Id");*/
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
+/*            migrationBuilder.DropForeignKey(
                 name: "FK_BwPhong_BwHinhThucPhong_HinhThucPhongId",
-                table: "BwPhong");
+                table: "BwPhong");*/
 
-            migrationBuilder.DropPrimaryKey(
+           /* migrationBuilder.DropPrimaryKey(
                 name: "PK_BwHinhThucPhong",
-                table: "BwHinhThucPhong");
+                table: "BwHinhThucPhong");*/
 
             migrationBuilder.DropColumn(
                 name: "DanhGiaSaoTb",
@@ -80,20 +80,20 @@ namespace BookingWeb.Migrations
                 name: "DiemDanhGiaTB",
                 table: "BwPhong");
 
-            migrationBuilder.DropColumn(
+            /*migrationBuilder.DropColumn(
                 name: "GioiTinh",
-                table: "BwNhanVien");
+                table: "BwNhanVien");*/
 
-            migrationBuilder.RenameTable(
+           /* migrationBuilder.RenameTable(
                 name: "BwHinhThucPhong",
-                newName: "BwHinhThucKinhDoanh");
+                newName: "BwHinhThucKinhDoanh");*/
 
-            migrationBuilder.RenameColumn(
+            /*migrationBuilder.RenameColumn(
                 name: "NgayBatDau",
                 table: "BwPhieuDatPhong",
-                newName: "NgayDat");
+                newName: "NgayDat");*/
 
-            migrationBuilder.AddPrimaryKey(
+           /* migrationBuilder.AddPrimaryKey(
                 name: "PK_BwHinhThucKinhDoanh",
                 table: "BwHinhThucKinhDoanh",
                 column: "Id");
@@ -103,7 +103,7 @@ namespace BookingWeb.Migrations
                 table: "BwPhong",
                 column: "HinhThucPhongId",
                 principalTable: "BwHinhThucKinhDoanh",
-                principalColumn: "Id");
+                principalColumn: "Id");*/
         }
     }
 }
