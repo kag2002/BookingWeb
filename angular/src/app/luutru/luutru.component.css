@@ -1,6 +1,6 @@
 .intro-header {
   color: white;
-  background-color: darkblue;
+  background-color: #003b95;
   padding: 45px 0 65px 0;
   height: 200px;
 }
@@ -105,4 +105,13 @@
 
 ::ng-deep .p-datepicker .p-datepicker-header {
   padding: 0.2rem;
+}
+
+.slide {
+  width: 130px;
+  height: 130px;
+  border-radius: 65px;
+  background-size: cover;
+  background-position: center;
+  margin: 40px;
 }

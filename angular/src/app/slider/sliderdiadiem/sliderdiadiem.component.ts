@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { SlideDiaDiemInterface } from "../types/slide.interface";
 import { Router } from "@angular/router";
+import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-sliderdiadiem",
@@ -11,9 +12,22 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   @Input() slides: SlideDiaDiemInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
-  constructor(private router: Router) {}
+  @Input() slidesdiadiem = [];
+  constructor(
+    private router: Router,
+    private _diadiemService: DiaDiemServiceProxy
+  ) {}
   ngOnInit(): void {
     this.resetTimer();
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.slidesdiadiem = result.map((item) => {
+        return {
+          tenFileAnhDD: item.tenFileAnhDD,
+          tenDiaDiem: item.tenDiaDiem,
+          thongTinViTri: item.thongTinViTri,
+        };
+      });
+    });
   }
 
   ngOnDestroy() {
@@ -34,7 +48,9 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   goToPrevious(): void {
     const newIndex =
-      this.currentIndex === 0 ? this.slides.length - 1 : this.currentIndex - 1;
+      this.currentIndex === 0
+        ? this.slidesdiadiem.length - 1
+        : this.currentIndex - 1;
 
     this.currentIndex = newIndex;
     this.resetTimer();
@@ -42,14 +58,16 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   goToNext(): void {
     const newIndex =
-      this.currentIndex === this.slides.length - 1 ? 0 : this.currentIndex + 1;
+      this.currentIndex === this.slidesdiadiem.length - 1
+        ? 0
+        : this.currentIndex + 1;
 
     this.currentIndex = newIndex;
     this.resetTimer();
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('${this.slides[index].url}')`;
+    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index].tenFileAnhDD}')`;
   }
 
   onSlideClick(index: number): void {
