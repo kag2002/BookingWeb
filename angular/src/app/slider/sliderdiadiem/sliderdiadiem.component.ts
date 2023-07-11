@@ -22,9 +22,9 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
     this._diadiemService.getAllLocations().subscribe((result) => {
       this.slidesdiadiem = result.map((item) => {
         return {
-          tenFileAnhDD: item.tenFileAnhDD,
-          tenDiaDiem: item.tenDiaDiem,
-          thongTinViTri: item.thongTinViTri,
+          tenFileAnhDD: item?.tenFileAnhDD,
+          tenDiaDiem: item?.tenDiaDiem,
+          thongTinViTri: item?.thongTinViTri,
         };
       });
     });
@@ -67,7 +67,7 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index].tenFileAnhDD}')`;
+    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index]?.tenFileAnhDD}')`;
   }
 
   onSlideClick(index: number): void {

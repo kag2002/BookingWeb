@@ -25,15 +25,16 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
     this._hinhthucphongService.getAllList().subscribe((result) => {
       this.slidesloaichonghi = result.map((item) => {
         return {
-          tenHinhThuc: item.tenHinhThuc,
-          tenDonVi: item.tenDonVi,
+          tenHinhThuc: item?.tenHinhThuc,
+          tenDonVi: item?.tenDonVi,
         };
       });
     });
+
     this._phongService.getAllRoom().subscribe((result) => {
       this.slidesloaichonghiimage = result.map((item) => {
         return {
-          tenFileAnhDaiDien: item.tenFileAnhDaiDien,
+          tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
         };
       });
     });
@@ -76,7 +77,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index].tenFileAnhDaiDien}')`;
+    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
   }
 
   onSlideClick(index: number): void {
