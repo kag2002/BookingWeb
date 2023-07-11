@@ -12,7 +12,7 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   @Input() slides: SlideDiaDiemInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
-  @Input() slides2 = [];
+  @Input() slidesdiadiem = [];
   constructor(
     private router: Router,
     private _diadiemService: DiaDiemServiceProxy
@@ -20,13 +20,12 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.resetTimer();
     this._diadiemService.getAllLocations().subscribe((result) => {
-      this.slides2 = result.map((item) => {
+      this.slidesdiadiem = result.map((item) => {
         return {
           tenFileAnhDD: item.tenFileAnhDD,
           tenDiaDiem: item.tenDiaDiem,
           thongTinViTri: item.thongTinViTri,
-        }; // Map the result to an array of objects with TenFileAnhDD property
-        // Map the result to an array of objects with TenFileAnhDD property
+        };
       });
     });
   }
@@ -49,7 +48,9 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   goToPrevious(): void {
     const newIndex =
-      this.currentIndex === 0 ? this.slides2.length - 1 : this.currentIndex - 1;
+      this.currentIndex === 0
+        ? this.slidesdiadiem.length - 1
+        : this.currentIndex - 1;
 
     this.currentIndex = newIndex;
     this.resetTimer();
@@ -57,18 +58,19 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   goToNext(): void {
     const newIndex =
-      this.currentIndex === this.slides2.length - 1 ? 0 : this.currentIndex + 1;
+      this.currentIndex === this.slidesdiadiem.length - 1
+        ? 0
+        : this.currentIndex + 1;
 
     this.currentIndex = newIndex;
     this.resetTimer();
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-diadanh/${this.slides2[index].tenFileAnhDD}')`;
+    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index].tenFileAnhDD}')`;
   }
 
   onSlideClick(index: number): void {
     // this.router.navigate(["/other", index]);
   }
-  GetDiaDiem() {}
 }

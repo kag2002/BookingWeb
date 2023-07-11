@@ -18,18 +18,22 @@
     class="slide"
     [ngStyle]="{
       'background-image': getCurrentSlideUrl(
-        (currentIndex + i) % slides2.length
+        (currentIndex + i) % slidesdiadiem.length
       )
     }"
-    (click)="onSlideClick((currentIndex + i) % slides2.length)"
+    (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
     tabindex="0"
   >
     <div class="slide-content">
       <h5 class="titleLoaiChoNghi">
-        {{ slides2[(currentIndex + i) % slides2.length].tenDiaDiem }}
+        {{
+          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length].tenDiaDiem
+        }}
       </h5>
       <p class="numberLoaiChoNghi">
-        {{ slides2[(currentIndex + i) % slides2.length].thongTinViTri }}
+        {{
+          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length].thongTinViTri
+        }}
       </p>
     </div>
   </div>

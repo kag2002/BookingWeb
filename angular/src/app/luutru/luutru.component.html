@@ -151,7 +151,7 @@
   <div class="sliderDiaDiem">
     <p>Các điểm đến thu hút nhất Việt Nam</p>
     <div style="width: 100%; height: 200px; margin: 0 auto">
-      <app-sliderdiadiem [slides2]="slides2"></app-sliderdiadiem>
+      <app-sliderdiadiem [slidesdiadiem]="slidesdiadiem"></app-sliderdiadiem>
     </div>
   </div>
 
@@ -163,7 +163,7 @@
 <button (click)="GetDiaDiem()">Get all</button>
 <div
   class="slide"
-  *ngFor="let item of slides2; let i = index"
+  *ngFor="let item of slidesdiadiem; let i = index"
   [ngStyle]="{
     'background-image':
       'url(\'/assets/img/img-diadanh/' + item.tenFileAnhDD + '\')'

@@ -34,40 +34,9 @@ export class LuutruComponent {
   rooms = 0;
   selectedCities: string[] = [];
   submitted = false;
-  slides2 = [];
+  slidesdiadiem = [];
 
-  slidesloaichonghi: SlideLoaiChoNghiInterface[] = [
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-1.jpg",
-      title: "Khách sạn",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-2.jpg",
-      title: "Căn hộ",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-3.jpg",
-      title: "Resort",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-4.jpg",
-      title: "BIệt thự",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-5.jpg",
-      title: "Nhà gỗ",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-6.jpg",
-      title: "Phòng trọ",
-      ChoO: 12343,
-    },
-  ];
+  slidesloaichonghi: [] = [];
 
   TimPhong = {
     selectedDiadiem: "",
@@ -153,7 +122,7 @@ export class LuutruComponent {
 
   GetDiaDiem() {
     this._diadiemService.getAllLocations().subscribe((result) => {
-      this.slides2 = result.map((item) => {
+      this.slidesdiadiem = result.map((item) => {
         return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
       });
     });

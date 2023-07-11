@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { SlideLoaiChoNghiInterface } from "../types/slide.interface";
 import { Router } from "@angular/router";
+import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-sliderloaichonghi",
@@ -8,12 +8,24 @@ import { Router } from "@angular/router";
   styleUrls: ["./sliderloaichonghi.component.css"],
 })
 export class SliderloaichonghiComponent implements OnInit, OnDestroy {
-  @Input() slidesloaichonghi: SlideLoaiChoNghiInterface[] = [];
+  @Input() slidesloaichonghi = [];
   currentIndex: number = 0;
   timeoutId?: number;
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private _diadiemService: DiaDiemServiceProxy
+  ) {}
   ngOnInit(): void {
     this.resetTimer();
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.slidesloaichonghi = result.map((item) => {
+        return {
+          tenFileAnhDD: item.tenFileAnhDD,
+          tenDiaDiem: item.tenDiaDiem,
+          thongTinViTri: item.thongTinViTri,
+        };
+      });
+    });
   }
 
   ngOnDestroy() {
@@ -53,7 +65,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('${this.slidesloaichonghi[index].url}')`;
+    return `url('/assets/img/img-diadanh/${this.slidesloaichonghi[index].tenFileAnhDD}')`;
   }
 
   onSlideClick(index: number): void {
