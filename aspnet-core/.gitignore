@@ -254,4 +254,4 @@ paket-files/
 src/BookingWeb.Web.Mvc/secrets.json
 src/BookingWeb.Web.Host/secrets.json
 src/BookingWeb.Migrator/secrets.json
-src/BookingWeb.Web.Host/appsettings.json
+/src/BookingWeb.Web.Host/appsettings.json

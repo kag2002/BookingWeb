@@ -4,6 +4,7 @@ using BookingWeb.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    partial class BookingWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230711015249_update_tb_Phong")]
+    partial class update_tb_Phong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1793,9 +1796,6 @@ namespace BookingWeb.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AnhDaiDien")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ChinhSachVePhong")
                         .HasColumnType("nvarchar(max)");

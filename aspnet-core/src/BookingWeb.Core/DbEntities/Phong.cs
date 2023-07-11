@@ -14,6 +14,10 @@ namespace BookingWeb.DbEntities
 
         public int TrangThaiPhong { get; set; }
 
+        public float DiemDanhGiaTB { get; set; }
+
+        public float DanhGiaSaoTb { get; set; }
+
         public int? DiaDiemId { get; set; }
 
         public int? LoaiPhongId { get; set; }
