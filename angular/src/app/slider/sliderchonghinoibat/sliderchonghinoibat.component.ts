@@ -1,9 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import {
-  HinhThucPhongServiceProxy,
-  PhongServiceProxy,
-} from "@shared/service-proxies/service-proxies";
+import { SearchingFilterServiceProxy } from "@shared/service-proxies/service-proxies";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -12,17 +9,17 @@ import { Subscription } from "rxjs";
   styleUrls: ["./sliderchonghinoibat.component.css"],
 })
 export class SliderchonghinoibatComponent {
-  @Input() slidesloaichonghi: any[] = [];
-  @Input() slidesloaichonghiimage: any[] = [];
+  @Input() slideschonghinoibat: any[] = [];
+  @Input() donViId: number;
   currentIndex = 0;
   timeoutId?: number;
-  private hinhThucPhongSubscription: Subscription;
-  private phongSubscription: Subscription;
+
+  private searchingfilterSubscription: Subscription;
 
   constructor(
     private router: Router,
-    private _hinhthucphongService: HinhThucPhongServiceProxy,
-    private _phongService: PhongServiceProxy
+
+    private _searchingfilterService: SearchingFilterServiceProxy
   ) {}
 
   ngOnInit(): void {
@@ -36,20 +33,12 @@ export class SliderchonghinoibatComponent {
   }
 
   loadData(): void {
-    this.hinhThucPhongSubscription = this._hinhthucphongService
-      .getAllList()
+    this.searchingfilterSubscription = this._searchingfilterService
+      .getRoomsByLocation(this.donViId)
       .subscribe((result) => {
-        this.slidesloaichonghi = result.map((item) => ({
-          tenHinhThuc: item?.tenHinhThuc,
-          tenDonVi: item?.tenDonVi,
-        }));
-      });
-
-    this.phongSubscription = this._phongService
-      .getAllRoom()
-      .subscribe((result) => {
-        this.slidesloaichonghiimage = result.map((item) => ({
+        this.slideschonghinoibat = result.map((item) => ({
           tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
+          tenDonVi: item?.tenDonVi,
         }));
       });
   }
@@ -67,29 +56,41 @@ export class SliderchonghinoibatComponent {
   }
 
   unsubscribeSubscriptions(): void {
-    this.hinhThucPhongSubscription.unsubscribe();
-    this.phongSubscription.unsubscribe();
+    this.searchingfilterSubscription.unsubscribe();
   }
 
   goToPrevious(): void {
     this.currentIndex =
       this.currentIndex === 0
-        ? this.slidesloaichonghi.length - 1
+        ? this.slideschonghinoibat.length - 1
         : this.currentIndex - 1;
     this.resetTimer();
   }
 
   goToNext(): void {
     this.currentIndex =
-      this.currentIndex === this.slidesloaichonghi.length - 1
+      this.currentIndex === this.slideschonghinoibat.length - 1
         ? 0
         : this.currentIndex + 1;
     this.resetTimer();
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-chonghinoibat/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
+    console.log(this.slideschonghinoibat[index]?.tenFileAnhDaiDien);
+    return `url('/assets/img/img-chonghinoibat/danang/${this.slideschonghinoibat[index]?.tenFileAnhDaiDien}')`;
   }
+  // getCurrentSlideUrlHaNoi(index: number): string {
+  //   return `url('/assets/img/img-chonghinoibat/hanoi/${this.slideschonghinoibatimage[index]?.tenFileAnhDaiDien}')`;
+  // }
+  // getCurrentSlideUrlHoChiMinh(index: number): string {
+  //   return `url('/assets/img/img-chonghinoibat/hochiminh/${this.slideschonghinoibatimage[index]?.tenFileAnhDaiDien}')`;
+  // }
+  // getCurrentSlideUrlNhaTrang(index: number): string {
+  //   return `url('/assets/img/img-chonghinoibat/nhatrang/${this.slideschonghinoibatimage[index]?.tenFileAnhDaiDien}')`;
+  // }
+  // getCurrentSlideUrlHaiPhong(index: number): string {
+  //   return `url('/assets/img/img-chonghinoibat/haiphong/${this.slideschonghinoibatimage[index]?.tenFileAnhDaiDien}')`;
+  // }
 
   onSlideClick(index: number): void {
     // this.router.navigate(["/other", index]);
