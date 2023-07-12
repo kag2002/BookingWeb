@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import {
   HinhThucPhongServiceProxy,
@@ -7,11 +7,11 @@ import {
 import { Subscription } from "rxjs";
 
 @Component({
-  selector: "app-sliderloaichonghi",
-  templateUrl: "./sliderloaichonghi.component.html",
-  styleUrls: ["./sliderloaichonghi.component.css"],
+  selector: "app-sliderchonghinoibat",
+  templateUrl: "./sliderchonghinoibat.component.html",
+  styleUrls: ["./sliderchonghinoibat.component.css"],
 })
-export class SliderloaichonghiComponent implements OnInit, OnDestroy {
+export class SliderchonghinoibatComponent {
   @Input() slidesloaichonghi: any[] = [];
   @Input() slidesloaichonghiimage: any[] = [];
   currentIndex = 0;
@@ -88,7 +88,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
+    return `url('/assets/img/img-chonghinoibat/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
   }
 
   onSlideClick(index: number): void {

@@ -1,120 +1,96 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import {
-  SlideDiaDiemInterface,
-  SlideLoaiChoNghiInterface,
-} from "@app/slider/types/slide.interface";
+  HinhThucPhongServiceProxy,
+  PhongServiceProxy,
+} from "@shared/service-proxies/service-proxies";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-chonghinoibat",
   templateUrl: "./chonghinoibat.component.html",
   styleUrls: ["./chonghinoibat.component.css"],
 })
-export class ChonghinoibatComponent {
-  slides: SlideDiaDiemInterface[] = [
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-1.jpg",
-      title: "HaLong",
-      number: 12343,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-2.jpg",
-      title: "HaNoi",
-      number: 123412,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-3.jpg",
-      title: "HoChiMinh",
-      number: 1234123,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-4.jpg",
-      title: "SaPa",
-      number: 13124,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-5.jpg",
-      title: "Hue",
-      number: 123214,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-6.jpg",
-      title: "DaNang",
-      number: 2342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-7.jpg",
-      title: "DaLat",
-      number: 123412,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-8.jpg",
-      title: "NhaTrang",
-      number: 1234234,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-9.jpg",
-      title: "HaiPhong",
-      number: 1341,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-10.jpg",
-      title: "PhuQuoc",
-      number: 23423,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-11.jpg",
-      title: "BinhThuan",
-      number: 232342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-12.jpg",
-      title: "HaGiang",
-      number: 1232342,
-    },
-    {
-      url: "/assets/img/img-diadanh/image-diadanh-13.jpg",
-      title: "HoiAn",
-      number: 2341232,
-    },
-  ];
-  slidesloaichonghi: SlideLoaiChoNghiInterface[] = [
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-1.jpg",
-      title: "Khách sạn",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-2.jpg",
-      title: "Căn hộ",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-3.jpg",
-      title: "Resort",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-4.jpg",
-      title: "BIệt thự",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-5.jpg",
-      title: "Nhà gỗ",
-      ChoO: 12343,
-    },
-    {
-      url: "/assets/img/img-loaichonghi/image-loaichonghi-6.jpg",
-      title: "Phòng trọ",
-      ChoO: 12343,
-    },
-  ];
+export class ChonghinoibatComponent implements OnInit, OnDestroy {
+  slides = [];
+  private hinhThucPhongSubscription: Subscription;
+  private phongSubscription: Subscription;
+  @Input() slidesloaichonghi = [];
+  @Input() slidesloaichonghiimage = [];
 
-  TimPhong = {
-    selectedDiadiem: "",
-    rangeDate: "",
-    adult: 0,
-    children: 0,
-    room: 0,
-  };
+  currentIndex: number = 0;
+  timeoutId?: number;
+  constructor(
+    private router: Router,
+    private _hinhthucphongService: HinhThucPhongServiceProxy,
+    private _phongService: PhongServiceProxy
+  ) {}
+  async ngOnInit(): Promise<void> {
+    this.resetTimer();
+
+    try {
+      const hinhThucPhongResult = await this._hinhthucphongService
+        .getAllList()
+        .toPromise();
+      this.slidesloaichonghi = hinhThucPhongResult.map((item) => ({
+        tenHinhThuc: item?.tenHinhThuc,
+        tenDonVi: item?.tenDonVi,
+      }));
+
+      const phongResult = await this._phongService.getAllRoom().toPromise();
+      this.slidesloaichonghiimage = phongResult.map((item) => ({
+        tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
+      }));
+    } catch (error) {
+      // Handle the error
+    }
+  }
+
+  ngOnDestroy() {
+    this.hinhThucPhongSubscription.unsubscribe();
+    this.phongSubscription.unsubscribe();
+    this.clearTimer();
+  }
+
+  resetTimer() {
+    this.clearTimer();
+    this.timeoutId = window.setTimeout(() => this.goToNext(), 3000);
+  }
+
+  clearTimer() {
+    if (this.timeoutId) {
+      window.clearTimeout(this.timeoutId);
+      this.timeoutId = undefined;
+    }
+  }
+
+  goToPrevious(): void {
+    const newIndex =
+      this.currentIndex === 0
+        ? this.slidesloaichonghi.length - 1
+        : this.currentIndex - 1;
+
+    this.currentIndex = newIndex;
+    this.resetTimer();
+  }
+
+  goToNext(): void {
+    const newIndex =
+      this.currentIndex === this.slidesloaichonghi.length - 1
+        ? 0
+        : this.currentIndex + 1;
+
+    this.currentIndex = newIndex;
+    this.resetTimer();
+  }
+
+  getCurrentSlideUrl(index: number): string {
+    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
+  }
+  print() {
+    console.log("helloghjklgfdsdfjklkjhgfdsfghjkl");
+  }
+  onSlideClick(index: number): void {
+    // this.router.navigate(["/other", index]);
+  }
 }

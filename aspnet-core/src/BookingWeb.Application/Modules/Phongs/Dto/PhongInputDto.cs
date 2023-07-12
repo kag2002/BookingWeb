@@ -22,7 +22,7 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public int? LoaiPhongId { get; set; }
 
-        public int? HinhThucKinhDoanhId { get; set; }
+        public int? HinhThucPhongId { get; set; }
 
     }
 }

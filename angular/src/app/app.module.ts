@@ -50,6 +50,7 @@ import { LuutruComponent } from "./luutru/luutru.component";
 import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloaichonghi.component";
 import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
 import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
+import { SliderchonghinoibatComponent } from './slider/sliderchonghinoibat/sliderchonghinoibat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +84,7 @@ import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.com
     SliderloaichonghiComponent,
     SliderdiadiemComponent,
     ChonghinoibatComponent,
+    SliderchonghinoibatComponent,
   ],
   imports: [
     CommonModule,

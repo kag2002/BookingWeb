@@ -149,9 +149,9 @@ namespace BookingWeb.Modules.Phongs
                         checkP.LoaiPhongId = input.LoaiPhongId;
                     }
 
-                    if (input.HinhThucKinhDoanhId != null)
+                    if (input.HinhThucPhongId != null)
                     {
-                        checkP.HinhThucPhongId = input.HinhThucKinhDoanhId;
+                        checkP.HinhThucPhongId = input.HinhThucPhongId;
                     }
 
                     await _phong.UpdateAsync(checkP);

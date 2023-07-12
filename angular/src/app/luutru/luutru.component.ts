@@ -1,8 +1,7 @@
-import { Component, ElementRef, Renderer2, ViewChild } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { LuutruService } from "../luutru/luutru.service";
 import { NgForm } from "@angular/forms";
-import { SlideLoaiChoNghiInterface } from "@app/slider/types/slide.interface";
-import { SlideDiaDiemInterface } from "@app/slider/types/slide.interface";
+
 import { MessageService } from "primeng/api";
 import {
   DiaDiemDto,
@@ -34,9 +33,6 @@ export class LuutruComponent {
   rooms = 0;
   selectedCities: string[] = [];
   submitted = false;
-  slidesdiadiem = [];
-
-  slidesloaichonghi: [] = [];
 
   TimPhong = {
     selectedDiadiem: "",
@@ -107,24 +103,24 @@ export class LuutruComponent {
     });
   }
 
-  AddDiaDiem() {
-    this.diadiemDto.tenDiaDiem = "dia diem 3";
-    this.diadiemDto.thongTinViTri = "hanoi 3";
-    this.diadiemDto.tenFileAnhDD =
-      "/assets/img/img-diadanh/image-diadanh-1.jpg";
-    this._diadiemService
-      .addNewLocation(this.diadiemDto)
-      .subscribe((result) => {});
-  }
-  DeleteDiaDiem(id: number) {
-    this._diadiemService.deleteLocation(id).subscribe((result) => {});
-  }
+  // AddDiaDiem() {
+  //   this.diadiemDto.tenDiaDiem = "dia diem 3";
+  //   this.diadiemDto.thongTinViTri = "hanoi 3";
+  //   this.diadiemDto.tenFileAnhDD =
+  //     "/assets/img/img-diadanh/image-diadanh-1.jpg";
+  //   this._diadiemService
+  //     .addNewLocation(this.diadiemDto)
+  //     .subscribe((result) => {});
+  // }
+  // DeleteDiaDiem(id: number) {
+  //   this._diadiemService.deleteLocation(id).subscribe((result) => {});
+  // }
 
-  GetDiaDiem() {
-    this._diadiemService.getAllLocations().subscribe((result) => {
-      this.slidesdiadiem = result.map((item) => {
-        return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
-      });
-    });
-  }
+  // GetDiaDiem() {
+  //   this._diadiemService.getAllLocations().subscribe((result) => {
+  //     this.slidesdiadiem = result.map((item) => {
+  //       return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
+  //     });
+  //   });
+  // }
 }

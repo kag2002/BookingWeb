@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { SlideDiaDiemInterface } from "../types/slide.interface";
 import { Router } from "@angular/router";
 import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
 
@@ -9,7 +8,6 @@ import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
   styleUrls: ["./sliderdiadiem.component.css"],
 })
 export class SliderdiadiemComponent implements OnInit, OnDestroy {
-  @Input() slides: SlideDiaDiemInterface[] = [];
   currentIndex: number = 0;
   timeoutId?: number;
   @Input() slidesdiadiem = [];
@@ -22,9 +20,9 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
     this._diadiemService.getAllLocations().subscribe((result) => {
       this.slidesdiadiem = result.map((item) => {
         return {
-          tenFileAnhDD: item.tenFileAnhDD,
-          tenDiaDiem: item.tenDiaDiem,
-          thongTinViTri: item.thongTinViTri,
+          tenFileAnhDD: item?.tenFileAnhDD,
+          tenDiaDiem: item?.tenDiaDiem,
+          thongTinViTri: item?.thongTinViTri,
         };
       });
     });
@@ -67,7 +65,7 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index].tenFileAnhDD}')`;
+    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index]?.tenFileAnhDD}')`;
   }
 
   onSlideClick(index: number): void {
