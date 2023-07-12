@@ -13,7 +13,7 @@ import { Subscription } from "rxjs";
 })
 export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   @Input() slidesloaichonghi: any[] = [];
-  @Input() slidesloaichonghiimage: any[] = [];
+
   currentIndex = 0;
   timeoutId?: number;
   private hinhThucPhongSubscription: Subscription;
@@ -21,8 +21,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private _hinhthucphongService: HinhThucPhongServiceProxy,
-    private _phongService: PhongServiceProxy
+    private _hinhthucphongService: HinhThucPhongServiceProxy
   ) {}
 
   ngOnInit(): void {
@@ -42,21 +41,14 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
         this.slidesloaichonghi = result.map((item) => ({
           tenHinhThuc: item?.tenHinhThuc,
           tenDonVi: item?.tenDonVi,
-        }));
-      });
-
-    this.phongSubscription = this._phongService
-      .getAllRoom()
-      .subscribe((result) => {
-        this.slidesloaichonghiimage = result.map((item) => ({
-          tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
+          anhDaiDien: item?.anhDaiDien,
         }));
       });
   }
 
   resetTimer(): void {
     this.clearTimer();
-    this.timeoutId = window.setTimeout(() => this.goToNext(), 3000);
+    this.timeoutId = window.setTimeout(() => this.goToNext(), 12000);
   }
 
   clearTimer(): void {
@@ -88,7 +80,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
+    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghi[index]?.anhDaiDien}')`;
   }
 
   onSlideClick(index: number): void {

@@ -36,6 +36,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                     TenHinhThuc = entity.TenHinhThuc,
                     TenDonVi = entity.TenDonVi,
                     DiaChiChiTiet = entity.DiaChiChiTiet,
+                    AnhDaiDien = entity.AnhDaiDien,
                     ChinhSachVePhong = entity.ChinhSachVePhong,
                     ChinhSachVeTreEm = entity.ChinhSachVeTreEm,
                     ChinhSachVeThuCung = entity.ChinhSachVeThuCung

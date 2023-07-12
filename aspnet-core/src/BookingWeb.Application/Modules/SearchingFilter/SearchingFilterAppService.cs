@@ -89,7 +89,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         MienPhiHuyPhong = i.MienPhiHuyPhong,
                         ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
                         ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
-                        ChinhSachVeThuCung = hinhThucPhong.ChinhSachVeThuCung
+                        ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung
                     };
 
                     dtoLstP.Add(dtoP);
