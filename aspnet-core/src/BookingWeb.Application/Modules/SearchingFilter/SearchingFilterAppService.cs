@@ -68,6 +68,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         {
                             Id = i.Id,
                             TenDonVi = hinhThucPhong.TenDonVi,
+                            TenFileAnhDaiDien = i.TenFileAnhDaiDien,
                             DiaChiChiTiet = hinhThucPhong.DiaChiChiTiet,
                             Mota = i.Mota,
                             TrangThaiPhong = i.TrangThaiPhong,
@@ -76,8 +77,10 @@ namespace BookingWeb.Modules.SearchingFilter
                             DiaDiem = diaDiem.TenDiaDiem,
                             LoaiPhong = loaiPhong.TenLoaiPhong,
                             HinhThucPhong = hinhThucPhong.TenHinhThuc,
+                            GiaPhongTheoDem = loaiPhong.GiaPhongTheoDem,
                             HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
                             DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
+                            MienPhiHuyPhong = i.MienPhiHuyPhong,
                             ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
                             ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
                             ChinhSachVeThuCung = hinhThucPhong.ChinhSachVeThuCung
@@ -97,7 +100,38 @@ namespace BookingWeb.Modules.SearchingFilter
             }
         }
 
+        public async Task<List<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
+        {
+            try
+            {
+                var lstInput = await GetRoomsByLocation(input.DiaDiemid);
 
+                var result = new List<GetPhongByLocationDto>();
+
+                if(input.HinhThucPhong == null && 
+                    input.GiaPhong.ToString() == null && 
+                    input.DanhGiaSao.ToString() ==null &&
+                    input.MienPhiHuyPhong.ToString() == null)
+                {
+                    return lstInput;
+                }
+                else
+                {
+                    foreach(var i in lstInput)
+                    {
+                       
+                    }
+
+                }
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
+            }
+        }
 
 
     }
