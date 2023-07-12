@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Application.Services.Dto;
+using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.SearchingFilter.Dto;
 using Microsoft.AspNetCore.Http;
@@ -17,15 +18,12 @@ namespace BookingWeb.Modules.SearchingFilter
         private readonly IRepository<DiaDiem> _diaDiem;
         private readonly IRepository<LoaiPhong> _loaiPhong;
         private readonly IRepository<DichVuTienIch> _dichvu;
-        private readonly IRepository<NhanXetDanhGia> _nhanXet;
-        private readonly IRepository<ChiTietDatPhong> _chiTietDatPhong;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public SearchingFilterAppService(IRepository<Phong> phong,
             IRepository<HinhThucPhong> hinhThuc, IRepository<HinhAnh> hinhAnh,
             IRepository<DiaDiem> diaDiem, IRepository<LoaiPhong> loaiPhong,
-            IRepository<DichVuTienIch> dichvu, IRepository<NhanXetDanhGia> nhanXet,
-            IRepository<ChiTietDatPhong> chiTietDatPhong, 
+            IRepository<DichVuTienIch> dichvu, 
             IHttpContextAccessor httpContextAccessor)
         {
             _phong = phong;
@@ -34,104 +32,139 @@ namespace BookingWeb.Modules.SearchingFilter
             _diaDiem = diaDiem;
             _loaiPhong = loaiPhong;
             _dichvu = dichvu;
-            _nhanXet = nhanXet;
-            _chiTietDatPhong = chiTietDatPhong;
             _httpContextAccessor = httpContextAccessor;
         }
 
 
-        public async Task<List<GetPhongByLocationDto>> GetRoomsByLocation(int id)
+        public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
         {
             try
             {
+                int pageSize = 10;
+
                 var phongLst = await _phong.GetAllListAsync();
                 var phong = phongLst.Where(p => p.DiaDiemId == id).ToList();
-                var dtoLstP = new List<GetPhongByLocationDto>();
 
-                if (phong == null)
+                if (!phong.Any())
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong tim thay!!");
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có Id = {id}!");
                     return null;
                 }
-                else
+
+                var totalItemCount = phong.Count;
+                var totalPages = (int)Math.Ceiling((double)totalItemCount / pageSize);
+
+                var pagedPhong = phong
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                var hinhAnh = await _hinhAnh.GetAllListAsync();
+                var dichVu = await _dichvu.GetAllListAsync();
+
+                var dtoLstP = new List<GetPhongByLocationDto>();
+
+                foreach (var i in pagedPhong)
                 {
-                    var hinhAnh = await _hinhAnh.GetAllListAsync();
-                    var dichVu = await _dichvu.GetAllListAsync();
+                    var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
+                    var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == i.LoaiPhongId);
+                    var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
 
-                    foreach (var i in phong)
+                    var dtoP = new GetPhongByLocationDto
                     {
-                        var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
-                        var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == i.LoaiPhongId);
-                        var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
-                        
-                        var dtoP = new GetPhongByLocationDto
-                        {
-                            Id = i.Id,
-                            TenDonVi = hinhThucPhong.TenDonVi,
-                            TenFileAnhDaiDien = i.TenFileAnhDaiDien,
-                            DiaChiChiTiet = hinhThucPhong.DiaChiChiTiet,
-                            Mota = i.Mota,
-                            TrangThaiPhong = i.TrangThaiPhong,
-                            DanhGiaSaoTb = i.DanhGiaSaoTb,
-                            DiemDanhGiaTB = i.DiemDanhGiaTB,
-                            DiaDiem = diaDiem.TenDiaDiem,
-                            LoaiPhong = loaiPhong.TenLoaiPhong,
-                            HinhThucPhong = hinhThucPhong.TenHinhThuc,
-                            GiaPhongTheoDem = loaiPhong.GiaPhongTheoDem,
-                            HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
-                            DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
-                            MienPhiHuyPhong = i.MienPhiHuyPhong,
-                            ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
-                            ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
-                            ChinhSachVeThuCung = hinhThucPhong.ChinhSachVeThuCung
-                        };
+                        Id = i.Id,
+                        TenDonVi = hinhThucPhong.TenDonVi,
+                        TenFileAnhDaiDien = i.TenFileAnhDaiDien,
+                        DiaChiChiTiet = hinhThucPhong.DiaChiChiTiet,
+                        Mota = i.Mota,
+                        TrangThaiPhong = i.TrangThaiPhong,
+                        DanhGiaSaoTb = i.DanhGiaSaoTb,
+                        DiemDanhGiaTB = i.DiemDanhGiaTB,
+                        DiaDiem = diaDiem.TenDiaDiem,
+                        LoaiPhong = loaiPhong.TenLoaiPhong,
+                        HinhThucPhong = hinhThucPhong.TenHinhThuc,
+                        GiaPhongTheoDem = loaiPhong.GiaPhongTheoDem,
+                        HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
+                        DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
+                        MienPhiHuyPhong = i.MienPhiHuyPhong,
+                        ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
+                        ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
+                        ChinhSachVeThuCung = hinhThucPhong.ChinhSachVeThuCung
+                    };
 
-                        dtoLstP.Add(dtoP);
-                    }
-                    
-
-                    return dtoLstP;
+                    dtoLstP.Add(dtoP);
                 }
+
+                return new PagedResultDto<GetPhongByLocationDto>(totalItemCount, dtoLstP);
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
         }
 
-        public async Task<List<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
+
+        public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
         {
             try
             {
-                var lstInput = await GetRoomsByLocation(input.DiaDiemid);
+                int pageSize = 10 ;
 
-                var result = new List<GetPhongByLocationDto>();
+                var lstInput = await GetRoomsByLocation(input.DiaDiemid, input.pageIndex);
 
-                if(input.HinhThucPhong == null && 
-                    input.GiaPhong.ToString() == null && 
-                    input.DanhGiaSao.ToString() ==null &&
-                    input.MienPhiHuyPhong.ToString() == null)
+                if (input.HinhThucPhong == null && input.MienPhiHuyPhong == 0 &&
+                    input.DanhGiaSao == 0 && input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0)
                 {
                     return lstInput;
                 }
-                else
-                {
-                    foreach(var i in lstInput)
-                    {
-                       
-                    }
 
+                if(input.MienPhiHuyPhong == 0)
+                {
+                    var filteredRooms = lstInput.Items.Where(room =>
+                    (string.IsNullOrEmpty(input.HinhThucPhong) || room.HinhThucPhong == input.HinhThucPhong) &&
+                    (input.GiaPhongNhoNhat <= room.GiaPhongTheoDem && room.GiaPhongTheoDem <= input.GiaPhongLonNhat) &&
+                    (input.DanhGiaSao <= room.DanhGiaSaoTb)).ToList();
+
+                    var totalCount = filteredRooms.Count;
+                    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+                    var pagedRooms = filteredRooms
+                        .Skip((input.pageIndex - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToList();
+
+                    return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
+                }
+                else if (input.MienPhiHuyPhong == 1)
+                {
+                    var filteredRooms = lstInput.Items.Where(room =>
+                    (string.IsNullOrEmpty(input.HinhThucPhong) || room.HinhThucPhong == input.HinhThucPhong) &&
+                    (input.GiaPhongNhoNhat <= room.GiaPhongTheoDem && room.GiaPhongTheoDem <= input.GiaPhongLonNhat) &&
+                    (input.DanhGiaSao <= room.DanhGiaSaoTb) &&
+                    (input.MienPhiHuyPhong == room.MienPhiHuyPhong)).ToList();
+
+                    var totalCount = filteredRooms.Count;
+                    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+                    var pagedRooms = filteredRooms
+                        .Skip((input.pageIndex - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToList();
+
+                    return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
                 }
 
-                return result;
+                return null;
+                
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
         }
+
 
 
     }

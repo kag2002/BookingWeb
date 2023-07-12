@@ -10,15 +10,15 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
     {
         public int DiaDiemid { get; set; }
 
-/*        public int pageIndex { get; set; }
-        
-        public int pageSize { get; set; }*/
+        public int pageIndex { get; set; }
 
         public string HinhThucPhong { get; set; }
 
         public int MienPhiHuyPhong { get; set; }
 
-        public float GiaPhong { get; set; }
+        public float GiaPhongNhoNhat { get; set; }
+
+        public float GiaPhongLonNhat { get; set; }
 
         public float DanhGiaSao { get; set; }
 
