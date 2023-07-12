@@ -2,6 +2,7 @@
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.DiaDiems.Dto;
 using BookingWeb.Modules.Phongs.Dto;
+using BookingWeb.Modules.SearchingFilter.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,68 @@ namespace BookingWeb.Modules.Phongs
             _chiTietDatPhong = chiTietDatPhong;
             _httpContextAccessor = httpContextAccessor;
         }
+
+        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int id)
+        {
+            try
+            {
+                var lstP = await _phong.GetAllListAsync();
+                var phongs = lstP.Where(p => p.DiaDiemId == id).ToList() ;
+
+                if (phongs == null || !phongs.Any())
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có id = {id}");
+                    return null;
+                }
+                else
+                {
+                    var hinhAnh = await _hinhAnh.GetAllListAsync();
+                    var dichVu = await _dichvu.GetAllListAsync();
+
+                    var dtoList = new List<GetPhongByLocationDto>();
+
+                    foreach (var i in phongs)
+                    {
+                        var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
+                        var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == i.LoaiPhongId);
+                        var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
+
+                        var dtoP = new GetPhongByLocationDto
+                        {
+                            Id = i.Id,
+                            TenDonVi = hinhThucPhong.TenDonVi,
+                            TenFileAnhDaiDien = i.TenFileAnhDaiDien,
+                            DiaChiChiTiet = hinhThucPhong.DiaChiChiTiet,
+                            Mota = i.Mota,
+                            TrangThaiPhong = i.TrangThaiPhong,
+                            DanhGiaSaoTb = i.DanhGiaSaoTb,
+                            DiemDanhGiaTB = i.DiemDanhGiaTB,
+                            DiaDiem = diaDiem.TenDiaDiem,
+                            LoaiPhong = loaiPhong.TenLoaiPhong,
+                            HinhThucPhong = hinhThucPhong.TenHinhThuc,
+                            GiaPhongTheoDem = loaiPhong.GiaPhongTheoDem,
+                            HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
+                            DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
+                            MienPhiHuyPhong = i.MienPhiHuyPhong,
+                            ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
+                            ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
+                            ChinhSachVeThuCung = hinhThucPhong.ChinhSachVeThuCung
+                        };
+
+                        dtoList.Add(dtoP);
+                    }
+                    return dtoList;
+                }
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
+                return null;
+            }
+        }
+
+
+
 
         public async Task<List<PhongOutputDto>> GetAllRoom()
         {
