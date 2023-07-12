@@ -100,7 +100,8 @@ namespace BookingWeb.Modules.Phongs
                     LoaiPhongId = input.LoaiPhongId,
                     HinhThucPhongId = input.HinhThucPhongId,
                     DiemDanhGiaTB = 0,
-                    DanhGiaSaoTb = 0
+                    DanhGiaSaoTb = 0,
+                    MienPhiHuyPhong = 0
                     
                 };
                 await _phong.InsertAsync(lp);
