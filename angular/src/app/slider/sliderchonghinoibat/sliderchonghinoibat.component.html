@@ -14,27 +14,29 @@
   </div>
 
   <div
-    *ngFor="let item of [].constructor(6); let i = index"
+    *ngFor="let item of [].constructor(4); let i = index"
     class="slide"
     [ngStyle]="{
       'background-image': getCurrentSlideUrl(
-        (currentIndex + i) % slidesdiadiem.length
+        (currentIndex + i) % slidesloaichonghi.length
       )
     }"
-    (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
+    (click)="onSlideClick((currentIndex + i) % slidesloaichonghi.length)"
     tabindex="0"
   >
     <div class="slide-content">
-      <h6 class="TenDiaDiem">
+      <h5 class="titleLoaiChoO">
         {{
-          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length]?.tenDiaDiem
+          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
+            ?.tenHinhThuc
         }}
-      </h6>
-      <p class="ThongTinViTri">
+      </h5>
+      <p class="numberLoaiChoO">
         {{
-          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length]
-            ?.thongTinViTri
+          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
+            ?.tenDonVi
         }}
+        chỗ ở
       </p>
     </div>
   </div>

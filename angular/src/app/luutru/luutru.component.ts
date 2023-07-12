@@ -33,9 +33,6 @@ export class LuutruComponent {
   rooms = 0;
   selectedCities: string[] = [];
   submitted = false;
-  slidesdiadiem = [];
-
-  slidesloaichonghi: [] = [];
 
   TimPhong = {
     selectedDiadiem: "",

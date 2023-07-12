@@ -47,13 +47,12 @@
   cursor: pointer;
 }
 
-.titleLoaiChoNghi {
+.TenDiaDiem {
   margin-top: 20px;
   text-align: center;
 }
-.numberLoaiChoNghi {
+.ThongTinViTri {
   margin: 0;
   text-align: center;
-
-  font-size: 15px;
+  font-size: 13px;
 }

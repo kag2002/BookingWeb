@@ -1,13 +1,11 @@
 <div class="choNghiNoiBat container">
   <h4>Những chỗ nổi bật khuyến nghị cho bạn</h4>
   <p-tabView class="alo">
-    <p-tabPanel header="Hồ Chí Minh">
+    <p-tabPanel header="Hồ Chí Minh" (click)="print()">
       <div class="ChoNghiNoiBatItem">
         <p>Hồ Chí Minh</p>
         <div style="width: 100%; height: 350px; margin: 0 auto">
-          <app-sliderloaichonghi
-            [slidesloaichonghi]="slidesloaichonghi"
-          ></app-sliderloaichonghi>
+          <app-sliderchonghinoibat></app-sliderchonghinoibat>
         </div>
       </div>
     </p-tabPanel>
@@ -16,9 +14,7 @@
       <div class="ChoNghiNoiBatItem">
         <p>Đà Nẵng</p>
         <div style="width: 100%; height: 350px; margin: 0 auto">
-          <app-sliderloaichonghi
-            [slidesloaichonghi]="slidesloaichonghi"
-          ></app-sliderloaichonghi>
+          <app-sliderchonghinoibat></app-sliderchonghinoibat>
         </div>
       </div>
     </p-tabPanel>
