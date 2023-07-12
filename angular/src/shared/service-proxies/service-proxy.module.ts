@@ -16,6 +16,7 @@ import * as ApiServiceProxies from "./service-proxies";
     ApiServiceProxies.DiaDiemServiceProxy,
     ApiServiceProxies.HinhThucPhongServiceProxy,
     ApiServiceProxies.PhongServiceProxy,
+    ApiServiceProxies.SearchingFilterServiceProxy,
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],
 })

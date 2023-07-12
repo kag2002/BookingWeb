@@ -84,12 +84,6 @@ export class ChonghinoibatComponent implements OnInit, OnDestroy {
     this.resetTimer();
   }
 
-  getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghiimage[index]?.tenFileAnhDaiDien}')`;
-  }
-  print() {
-    console.log("helloghjklgfdsdfjklkjhgfdsfghjkl");
-  }
   onSlideClick(index: number): void {
     // this.router.navigate(["/other", index]);
   }

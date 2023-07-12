@@ -18,22 +18,16 @@
     class="slide"
     [ngStyle]="{
       'background-image': getCurrentSlideUrl(
-        (currentIndex + i) % slidesloaichonghi.length
+        (currentIndex + i) % slideschonghinoibat.length
       )
     }"
-    (click)="onSlideClick((currentIndex + i) % slidesloaichonghi.length)"
+    (click)="onSlideClick((currentIndex + i) % slideschonghinoibat.length)"
     tabindex="0"
   >
     <div class="slide-content">
-      <h5 class="titleLoaiChoO">
-        {{
-          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
-            ?.tenHinhThuc
-        }}
-      </h5>
       <p class="numberLoaiChoO">
         {{
-          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]
+          slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
             ?.tenDonVi
         }}
         chỗ ở

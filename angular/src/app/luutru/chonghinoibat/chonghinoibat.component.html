@@ -1,11 +1,11 @@
 <div class="choNghiNoiBat container">
   <h4>Những chỗ nổi bật khuyến nghị cho bạn</h4>
   <p-tabView class="alo">
-    <p-tabPanel header="Hồ Chí Minh" (click)="print()">
+    <p-tabPanel header="Hồ Chí Minh">
       <div class="ChoNghiNoiBatItem">
         <p>Hồ Chí Minh</p>
         <div style="width: 100%; height: 350px; margin: 0 auto">
-          <app-sliderchonghinoibat></app-sliderchonghinoibat>
+          <app-sliderchonghinoibat [donViId]="8"></app-sliderchonghinoibat>
         </div>
       </div>
     </p-tabPanel>
@@ -14,42 +14,33 @@
       <div class="ChoNghiNoiBatItem">
         <p>Đà Nẵng</p>
         <div style="width: 100%; height: 350px; margin: 0 auto">
-          <app-sliderchonghinoibat></app-sliderchonghinoibat>
+          <app-sliderchonghinoibat [donViId]="12"></app-sliderchonghinoibat>
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="Vũng Tàu">
-      <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui
-        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-        et quas molestias excepturi sint occaecati cupiditate non provident,
-        similique sunt in culpa qui officia deserunt mollitia animi, id est
-        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-        distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-        cumque nihil impedit quo minus.
-      </p>
+    <p-tabPanel header="Hải Phòng">
+      <div class="ChoNghiNoiBatItem">
+        <p>Hải Phòng</p>
+        <div style="width: 100%; height: 350px; margin: 0 auto">
+          <app-sliderchonghinoibat [donViId]="15"></app-sliderchonghinoibat>
+        </div>
+      </div>
     </p-tabPanel>
     <p-tabPanel header="Nha Trang">
-      <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui
-        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-        et quas molestias excepturi sint occaecati cupiditate non provident,
-        similique sunt in culpa qui officia deserunt mollitia animi, id est
-        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-        distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-        cumque nihil impedit quo minus.
-      </p>
+      <div class="ChoNghiNoiBatItem">
+        <p>NhaTrang</p>
+        <div style="width: 100%; height: 350px; margin: 0 auto">
+          <app-sliderchonghinoibat [donViId]="14"></app-sliderchonghinoibat>
+        </div>
+      </div>
     </p-tabPanel>
     <p-tabPanel header="Hà Nội">
-      <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui
-        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-        et quas molestias excepturi sint occaecati cupiditate non provident,
-        similique sunt in culpa qui officia deserunt mollitia animi, id est
-        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-        distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-        cumque nihil impedit quo minus.
-      </p>
+      <div class="ChoNghiNoiBatItem">
+        <p>Hà Nội</p>
+        <div style="width: 100%; height: 350px; margin: 0 auto">
+          <app-sliderchonghinoibat [donViId]="7"></app-sliderchonghinoibat>
+        </div>
+      </div>
     </p-tabPanel>
   </p-tabView>
 </div>
