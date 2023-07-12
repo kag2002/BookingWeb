@@ -22,5 +22,15 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public float DanhGiaSao { get; set; }
 
+
+        public int GiaCaoNhat { get; set; }
+
+        public int GiaNhoNhat { get; set; }
+
+        public int DiemDanhGia { get; set; }
+
+        public int DoPhoBien { get; set; }
+
+
     }
 }
