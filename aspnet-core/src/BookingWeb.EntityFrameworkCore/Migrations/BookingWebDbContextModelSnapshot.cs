@@ -2039,6 +2039,9 @@ namespace BookingWeb.Migrations
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PhongId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SucChua")
                         .HasColumnType("int");
 
@@ -2055,6 +2058,8 @@ namespace BookingWeb.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhongId");
 
                     b.ToTable("BwLoaiPhong");
                 });
@@ -2268,9 +2273,6 @@ namespace BookingWeb.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("LoaiPhongId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MienPhiHuyPhong")
                         .HasColumnType("int");
 
@@ -2291,8 +2293,6 @@ namespace BookingWeb.Migrations
                     b.HasIndex("DonViKinhDoanhId");
 
                     b.HasIndex("HinhThucPhongId");
-
-                    b.HasIndex("LoaiPhongId");
 
                     b.ToTable("BwPhong");
                 });
@@ -2626,6 +2626,15 @@ namespace BookingWeb.Migrations
                         .HasForeignKey("LoaiKhachHangId");
                 });
 
+            modelBuilder.Entity("BookingWeb.DbEntities.LoaiPhong", b =>
+                {
+                    b.HasOne("BookingWeb.DbEntities.Phong", null)
+                        .WithMany("LoaiPhongs")
+                        .HasForeignKey("PhongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BookingWeb.DbEntities.NhanXetDanhGia", b =>
                 {
                     b.HasOne("BookingWeb.DbEntities.ChiTietDatPhong", null)
@@ -2659,10 +2668,6 @@ namespace BookingWeb.Migrations
                     b.HasOne("BookingWeb.DbEntities.HinhThucPhong", null)
                         .WithMany("Phongs")
                         .HasForeignKey("HinhThucPhongId");
-
-                    b.HasOne("BookingWeb.DbEntities.LoaiPhong", null)
-                        .WithMany("Phongs")
-                        .HasForeignKey("LoaiPhongId");
                 });
 
             modelBuilder.Entity("BookingWeb.MultiTenancy.Tenant", b =>
@@ -2796,8 +2801,6 @@ namespace BookingWeb.Migrations
             modelBuilder.Entity("BookingWeb.DbEntities.LoaiPhong", b =>
                 {
                     b.Navigation("DichVuTienIches");
-
-                    b.Navigation("Phongs");
                 });
 
             modelBuilder.Entity("BookingWeb.DbEntities.NhanVien", b =>
@@ -2815,6 +2818,8 @@ namespace BookingWeb.Migrations
                     b.Navigation("ChiTietDatPhongs");
 
                     b.Navigation("HinhAnhs");
+
+                    b.Navigation("LoaiPhongs");
                 });
 #pragma warning restore 612, 618
         }

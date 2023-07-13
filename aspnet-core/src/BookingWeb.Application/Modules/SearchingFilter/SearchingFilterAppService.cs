@@ -38,7 +38,7 @@ namespace BookingWeb.Modules.SearchingFilter
         }
 
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
+        /*public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                 // Apply pagination
                 var totalCount = dtoLstP.Count;
-                /*var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);*/
+                *//*var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);*//*
                 var paginatedItems = dtoLstP.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
 
@@ -105,11 +105,11 @@ namespace BookingWeb.Modules.SearchingFilter
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
 
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
+        /*public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
 
                     var totalCount = result.Count;
-                    /*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*/
+                    *//*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*//*
 
                     var pagedRooms = result
                         .Skip((input.pageIndex - 1) * pageSize)
@@ -179,7 +179,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
 
                         var totalCount = filteredRooms.Count;
-                        /*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*/
+                        *//*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*//*
 
                         var pagedRooms = filteredRooms
                             .Skip((input.pageIndex - 1) * pageSize)
@@ -214,7 +214,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
 
                         var totalCount = filteredRooms.Count;
-                        /*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*/
+                        *//*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*//*
 
                         var pagedRooms = filteredRooms
                             .Skip((input.pageIndex - 1) * pageSize)
@@ -232,7 +232,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
 
 
