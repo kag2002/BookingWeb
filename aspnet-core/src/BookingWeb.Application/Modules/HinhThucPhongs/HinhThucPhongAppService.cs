@@ -34,8 +34,11 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 {
                     Id = entity.Id,
                     TenHinhThuc = entity.TenHinhThuc,
-                    AnhDaiDien = entity.AnhDaiDien
-                    
+                    TenDonVi = entity.TenDonVi,
+                    DiaChiChiTiet = entity.DiaChiChiTiet,
+                    ChinhSachVePhong = entity.ChinhSachVePhong,
+                    ChinhSachVeTreEm = entity.ChinhSachVeTreEm,
+                    ChinhSachVeThuCung = entity.ChinhSachVeThuCung
                 }).ToList();
 
                 return dtoList;

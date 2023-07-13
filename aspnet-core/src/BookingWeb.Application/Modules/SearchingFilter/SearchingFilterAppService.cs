@@ -66,27 +66,27 @@ namespace BookingWeb.Modules.SearchingFilter
                         var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == i.LoaiPhongId);
                         var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
 
-                        var dtoP = new GetPhongByLocationDto
-                        {
-                            Id = i.Id,
-                            TenDonVi = item?.TenDonVi,
-                            TenFileAnhDaiDien = i?.TenFileAnhDaiDien,
-                            DiaChiChiTiet = item?.DiaChiChiTiet,
-                            Mota = i.Mota,
-                            TrangThaiPhong = i.TrangThaiPhong,
-                            DanhGiaSaoTb = i.DanhGiaSaoTb,
-                            DiemDanhGiaTB = i.DiemDanhGiaTB,
-                            DiaDiem = diaDiem?.TenDiaDiem,
-                            LoaiPhong = loaiPhong?.TenLoaiPhong,
-                            HinhThucPhong = hinhThucPhong?.TenHinhThuc,
-                            GiaPhongTheoDem = loaiPhong.GiaPhongTheoDem,
-                            HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
-                            DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
-                            MienPhiHuyPhong = i.MienPhiHuyPhong,
-                            ChinhSachVePhong = item?.ChinhSachVePhong,
-                            ChinhSachVeTreEm = item?.ChinhSachVeTreEm,
-                            ChinhSachVeThuCung = item?.ChinhSachVeThuCung
-                        };
+                    var dtoP = new GetPhongByLocationDto
+                    {
+                        Id = i.Id,
+                        TenDonVi = hinhThucPhong?.TenDonVi,
+                        TenFileAnhDaiDien = i?.TenFileAnhDaiDien,
+                        DiaChiChiTiet = hinhThucPhong?.DiaChiChiTiet,
+                        Mota = i.Mota,
+                        TrangThaiPhong = i.TrangThaiPhong,
+                        DanhGiaSaoTb = i.DanhGiaSaoTb,
+                        DiemDanhGiaTB = i.DiemDanhGiaTB,
+                        DiaDiem = diaDiem?.TenDiaDiem,
+                        LoaiPhong = loaiPhong?.TenLoaiPhong,
+                        HinhThucPhong = hinhThucPhong?.TenHinhThuc,
+                        GiaPhongTheoDem = loaiPhong.GiaPhongTheoDem,
+                        HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
+                        DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
+                        MienPhiHuyPhong = i.MienPhiHuyPhong,
+                        ChinhSachVePhong = hinhThucPhong?.ChinhSachVePhong,
+                        ChinhSachVeTreEm = hinhThucPhong?.ChinhSachVeTreEm,
+                        ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung
+                    };
 
                         dtoLstP.Add(dtoP);
                     }
