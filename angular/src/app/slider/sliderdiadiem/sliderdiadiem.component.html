@@ -1,41 +1,47 @@
-<div class="slider">
-  <div
-    (click)="goToPrevious()"
-    class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
-  >
-    ❰
-  </div>
+<div class="sliderDiaDiem">
+  <h4 style="text-align: center">Các điểm đến thu hút nhất Việt Nam</h4>
+  <div style="width: 100%; height: 200px; margin: 0 auto">
+    <div class="slider">
+      <div
+        (click)="goToPrevious()"
+        class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
+      >
+        ❰
+      </div>
 
-  <div
-    (click)="goToNext()"
-    class="rightArrow card flex align-items-center gap-1 cardRightArrow"
-  >
-    ❱
-  </div>
+      <div
+        (click)="goToNext()"
+        class="rightArrow card flex align-items-center gap-1 cardRightArrow"
+      >
+        ❱
+      </div>
 
-  <div
-    *ngFor="let item of [].constructor(6); let i = index"
-    class="slide"
-    [ngStyle]="{
-      'background-image': getCurrentSlideUrl(
-        (currentIndex + i) % slidesdiadiem.length
-      )
-    }"
-    (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
-    tabindex="0"
-  >
-    <div class="slide-content">
-      <h6 class="TenDiaDiem">
-        {{
-          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length]?.tenDiaDiem
-        }}
-      </h6>
-      <p class="ThongTinViTri">
-        {{
-          slidesdiadiem[(currentIndex + i) % slidesdiadiem.length]
-            ?.thongTinViTri
-        }}
-      </p>
+      <div
+        *ngFor="let item of [].constructor(6); let i = index"
+        class="slide"
+        [ngStyle]="{
+          'background-image': getCurrentSlideUrl(
+            (currentIndex + i) % slidesdiadiem.length
+          )
+        }"
+        (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
+        tabindex="0"
+      >
+        <div class="slide-content">
+          <h6 class="TenDiaDiem">
+            {{
+              slidesdiadiem[(currentIndex + i) % slidesdiadiem.length]
+                ?.tenDiaDiem
+            }}
+          </h6>
+          <p class="ThongTinViTri">
+            {{
+              slidesdiadiem[(currentIndex + i) % slidesdiadiem.length]
+                ?.thongTinViTri
+            }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

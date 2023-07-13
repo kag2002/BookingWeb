@@ -83,6 +83,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
                         DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
                         MienPhiHuyPhong = i.MienPhiHuyPhong,
+
                         ChinhSachVePhong = hinhThucPhong?.ChinhSachVePhong,
                         ChinhSachVeTreEm = hinhThucPhong?.ChinhSachVeTreEm,
                         ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung

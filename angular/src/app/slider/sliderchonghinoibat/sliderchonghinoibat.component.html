@@ -1,7 +1,7 @@
 <div class="slider">
   <div
     *ngFor="let item of [].constructor(4); let i = index"
-    class="slide"
+    class="slide card"
     [ngStyle]="{
       'background-image': getCurrentSlideUrl(
         (currentIndex + i) % slideschonghinoibat.length
@@ -20,14 +20,28 @@
             ?.tenDonVi
         }}
       </p>
-      <p class="DiaDiem">
+
+      <div class="DiaDiem flex">
+        <p-rating
+          [iconOnStyle]="{
+            color: '#FFD200',
+            fontSize: '15px'
+          }"
+          [ngModel]="
+            slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
+              ?.danhGiaSaoTb
+          "
+          [readonly]="true"
+          [cancel]="false"
+        ></p-rating>
+
         <i class="pi pi-map-marker"></i>
-        Địa chỉ:
+
         {{
           slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
             ?.diaDiem
         }}
-      </p>
+      </div>
     </div>
   </div>
 </div>

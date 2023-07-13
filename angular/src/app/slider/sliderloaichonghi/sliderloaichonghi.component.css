@@ -13,6 +13,9 @@
   height: 100%;
   padding-top: 13px;
 }
+.sliderLoaiChoNghi {
+  padding-bottom: 130px;
+}
 .cardRightArrow {
   position: absolute;
   top: 31%;
