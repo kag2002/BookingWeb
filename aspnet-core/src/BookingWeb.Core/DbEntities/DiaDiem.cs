@@ -16,7 +16,7 @@ namespace BookingWeb.DbEntities
 
         public string TenFileAnhDD { get; set; }
 
-        public ICollection<Phong> Phongs { get; set; }
+        public ICollection<DonViKinhDoanh> DonViKinhDoanhs { get; set; }
 
         public int? TenantId { get; set; }
         

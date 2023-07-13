@@ -24,7 +24,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<HinhThucPhongFullDto>> GetAllList()
+        public async Task<List<HinhThucPhongFullDto>> GetAllForms()
         {
             try
             {
@@ -34,11 +34,8 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 {
                     Id = entity.Id,
                     TenHinhThuc = entity.TenHinhThuc,
-                    TenDonVi = entity.TenDonVi,
-                    DiaChiChiTiet = entity.DiaChiChiTiet,
-                    ChinhSachVePhong = entity.ChinhSachVePhong,
-                    ChinhSachVeTreEm = entity.ChinhSachVeTreEm,
-                    ChinhSachVeThuCung = entity.ChinhSachVeThuCung
+                    AnhDaiDien = entity.AnhDaiDien
+                    
                 }).ToList();
 
                 return dtoList;
@@ -52,18 +49,14 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
         }
 
 
-        public async Task<bool> AddNewItem(HinhThucPhongDto input)
+        public async Task<bool> AddNewForm(HinhThucPhongDto input)
         {
             try
             {
                 var htkd = new HinhThucPhong
                 {
                     TenHinhThuc = input.TenHinhThuc,
-                    TenDonVi = input.TenDonVi,
-                    DiaChiChiTiet = input.DiaChiChiTiet,
-                    ChinhSachVePhong =input.ChinhSachVePhong,
-                    ChinhSachVeTreEm = input.ChinhSachVeTreEm,
-                    ChinhSachVeThuCung = input.ChinhSachVeThuCung
+                    AnhDaiDien = input.AnhDaiDien
                 };
 
                 await _hinhThuc.InsertAsync(htkd);
@@ -77,7 +70,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             }
         }
 
-        public async Task<bool> UpdateItem(HinhThucPhongFullDto input)
+        public async Task<bool> UpdateForm(HinhThucPhongFullDto input)
         {
             try
             {
@@ -89,11 +82,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
                 }
 
                 item.TenHinhThuc = input.TenHinhThuc;
-                item.TenDonVi = input.TenDonVi;
-                item.DiaChiChiTiet = input.DiaChiChiTiet;
-                item.ChinhSachVePhong = input.ChinhSachVePhong;
-                item.ChinhSachVeTreEm = input.ChinhSachVeTreEm;
-                item.ChinhSachVeThuCung = input.ChinhSachVeThuCung;
+                item.AnhDaiDien = input.AnhDaiDien;
 
                 await _hinhThuc.UpdateAsync(item);
                 return true;
@@ -105,7 +94,7 @@ namespace BookingWeb.Module.HinhThucKinhDoanhs
             }
         }
 
-        public async Task<bool> DeleteItem(int id)
+        public async Task<bool> DeleteForm(int id)
         {
             try
             {
