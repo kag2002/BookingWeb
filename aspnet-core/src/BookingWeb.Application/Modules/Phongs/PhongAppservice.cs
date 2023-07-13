@@ -75,7 +75,7 @@ namespace BookingWeb.Modules.Phongs
                             DiaChiChiTiet = hinhThucPhong?.DiaChiChiTiet,
                             Mota = i?.Mota,
                             TrangThaiPhong = 1/*i.TrangThaiPhong*/,
-                            DanhGiaSaoTb = 1/*i.DanhGiaSaoTb*/,
+                            DanhGiaSaoTb = i.DanhGiaSaoTb/*i.DanhGiaSaoTb*/,
                             DiemDanhGiaTB = 1 /*i.DiemDanhGiaTB*/,
                             DiaDiem = diaDiem?.TenDiaDiem,
                             LoaiPhong = loaiPhong?.TenLoaiPhong,

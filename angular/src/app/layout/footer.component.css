@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+* h5 {
+  font-family: Serif;
+}
+.container {
+  display: inline-grid;
+}
+.DangKy p button {
+  padding-left: 10px;
+}
+.AboutLogo {
+  align-content: center;
+}
+.LogoWebsite {
+  width: 155px;
+  margin-bottom: 24px;
+}
+.LogoOtherWeb {
+  height: 55px;
+  width: 100px;
+  margin: 10px 5px 0 5px;
+}
+.LogoConfirm {
+  width: 115px;
+  margin-top: 15px;
+}
+.LogoThanhToan {
+  margin: 25px 0;
+}
+.LogoThanhToan h5 {
+  margin-bottom: 8px;
+}
+.LogoThanhToan img {
+  width: 320px;
+}
+.AboutList ul li a {
+  color: #a4a8ad;
+  font-size: 15px;
+  font-weight: 300;
+  text-decoration: none;
+}
+.AboutList ul {
+  list-style-type: none;
+}
+
+.SocialList {
+  margin-top: 10px;
+}
+.SocialList li {
+  display: flex;
+  color: #a4a8ad;
+}
+.SocialList li a {
+  width: 30px;
+}
+
+.GridWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.DownloadApp a img {
+  margin: 3px;
+}
+.DownloadApp a {
+  margin: 3px;
+}
+.FooterCopyRight {
+  font-weight: 200;
+  background-color: rgba(0, 0, 0, 0.2);
+}

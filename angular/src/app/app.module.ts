@@ -21,6 +21,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { CheckboxModule } from "primeng/checkbox";
 import { AnimateModule } from "primeng/animate";
 import { ToastModule } from "primeng/toast";
+import { RatingModule } from "primeng/rating";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -50,7 +51,7 @@ import { LuutruComponent } from "./luutru/luutru.component";
 import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloaichonghi.component";
 import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
 import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
-import { SliderchonghinoibatComponent } from './slider/sliderchonghinoibat/sliderchonghinoibat.component';
+import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/sliderchonghinoibat.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,6 +109,7 @@ import { SliderchonghinoibatComponent } from './slider/sliderchonghinoibat/slide
     CheckboxModule,
     AnimateModule,
     ToastModule,
+    RatingModule,
   ],
   providers: [],
 })

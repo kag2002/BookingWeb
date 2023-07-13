@@ -1,10 +1,11 @@
-import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { AppComponentBase } from '@shared/app-component-base';
+import { Component, Injector, ChangeDetectionStrategy } from "@angular/core";
+import { AppComponentBase } from "@shared/app-component-base";
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-footer",
+  templateUrl: "./footer.component.html",
+  styleUrls: ["./footer.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent extends AppComponentBase {
   currentYear: number;
@@ -16,8 +17,8 @@ export class FooterComponent extends AppComponentBase {
     this.currentYear = new Date().getFullYear();
     this.versionText =
       this.appSession.application.version +
-      ' [' +
-      this.appSession.application.releaseDate.format('YYYYDDMM') +
-      ']';
+      " [" +
+      this.appSession.application.releaseDate.format("YYYYDDMM") +
+      "]";
   }
 }

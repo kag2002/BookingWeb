@@ -34,8 +34,8 @@ namespace BookingWeb.Modules.NhanXetDanhGias
             try
             {
                 var lstNx = await _nhanXetGiaDanh.GetAllListAsync();
-                var lstKh = await _khachHang.GetAllListAsync();
                 var lstPd = await _phieuDatPhong.GetAllListAsync();
+                var lstKh = await _khachHang.GetAllListAsync();
                 var lstCt = await _chiTietDatPhong.GetAllListAsync();
 
                 var result = (from nx in lstNx

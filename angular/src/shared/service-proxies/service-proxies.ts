@@ -8234,6 +8234,10 @@ export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto
     giaPhongNhoNhat: number;
     giaPhongLonNhat: number;
     danhGiaSao: number;
+    giaCaoNhat: number;
+    giaNhoNhat: number;
+    diemDanhGia: number;
+    doPhoBien: number;
 
     constructor(data?: ISearchingFilterRoomInputDto) {
         if (data) {
@@ -8253,6 +8257,10 @@ export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto
             this.giaPhongNhoNhat = _data["giaPhongNhoNhat"];
             this.giaPhongLonNhat = _data["giaPhongLonNhat"];
             this.danhGiaSao = _data["danhGiaSao"];
+            this.giaCaoNhat = _data["giaCaoNhat"];
+            this.giaNhoNhat = _data["giaNhoNhat"];
+            this.diemDanhGia = _data["diemDanhGia"];
+            this.doPhoBien = _data["doPhoBien"];
         }
     }
 
@@ -8272,6 +8280,10 @@ export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto
         data["giaPhongNhoNhat"] = this.giaPhongNhoNhat;
         data["giaPhongLonNhat"] = this.giaPhongLonNhat;
         data["danhGiaSao"] = this.danhGiaSao;
+        data["giaCaoNhat"] = this.giaCaoNhat;
+        data["giaNhoNhat"] = this.giaNhoNhat;
+        data["diemDanhGia"] = this.diemDanhGia;
+        data["doPhoBien"] = this.doPhoBien;
         return data;
     }
 
@@ -8291,6 +8303,10 @@ export interface ISearchingFilterRoomInputDto {
     giaPhongNhoNhat: number;
     giaPhongLonNhat: number;
     danhGiaSao: number;
+    giaCaoNhat: number;
+    giaNhoNhat: number;
+    diemDanhGia: number;
+    doPhoBien: number;
 }
 
 export enum TenantAvailabilityState {

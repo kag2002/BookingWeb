@@ -29,9 +29,13 @@
 .TenLoaiDonVi {
   margin: 0;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 15px;
 }
 .DiaDiem {
-  font-size: 14px;
+  font-size: 13px;
   color: dodgerblue;
+  display: flex;
+}
+.pi {
+  margin: 0 3px 0 19px;
 }

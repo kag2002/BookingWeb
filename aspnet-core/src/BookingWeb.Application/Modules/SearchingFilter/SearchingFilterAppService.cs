@@ -87,13 +87,8 @@ namespace BookingWeb.Modules.SearchingFilter
                         HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
                         DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
                         MienPhiHuyPhong = i.MienPhiHuyPhong,
-<<<<<<< HEAD
                         ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
                         ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
-=======
-                        ChinhSachVePhong = hinhThucPhong?.ChinhSachVePhong,
-                        ChinhSachVeTreEm = hinhThucPhong?.ChinhSachVeTreEm,
->>>>>>> db921facb6f9835d87c01bd834ed8c69ed578a67
                         ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung
                     };
 

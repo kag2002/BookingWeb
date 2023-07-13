@@ -44,8 +44,7 @@ export class LuutruComponent {
 
   constructor(
     private luutruService: LuutruService,
-    private messageService: MessageService,
-    private _diadiemService: DiaDiemServiceProxy
+    private messageService: MessageService
   ) {}
   overlayVisible: boolean = false;
 
