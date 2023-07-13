@@ -32,6 +32,9 @@ namespace BookingWeb.EntityFrameworkCore
         public DbSet<NhanXetDanhGia> BwNhanXetDanhGia { get; set; }
 
         public DbSet<Phong> BwPhong { get; set; }
+        
+        public DbSet<DonViKinhDoanh> BwDonViKinhDoanh { get; set; }
+
 
         public BookingWebDbContext(DbContextOptions<BookingWebDbContext> options)
             : base(options)

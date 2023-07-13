@@ -8,7 +8,7 @@ namespace BookingWeb.DbEntities
     {
         public int? TenantId { get; set; }
 
-        public string Mota { get; set; }
+        public string? Mota { get; set; }
 
         public string TenFileAnhDaiDien { get; set; }
 
@@ -20,12 +20,12 @@ namespace BookingWeb.DbEntities
 
         public int MienPhiHuyPhong { get; set; }
 
-        public int? DiaDiemId { get; set; }
-
-        public int? LoaiPhongId { get; set; }
+        public int? DonViKinhDoanhId { get; set; }
 
         public int? HinhThucPhongId { get; set; }
-        
+
+        public ICollection<LoaiPhong> LoaiPhongs { get; set; }
+
         public ICollection<HinhAnh> HinhAnhs { get; set; }
 
         public ICollection<ChiTietDatPhong> ChiTietDatPhongs { get; set; }

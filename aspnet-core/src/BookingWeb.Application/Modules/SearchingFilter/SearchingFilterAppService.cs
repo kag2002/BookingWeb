@@ -16,6 +16,7 @@ namespace BookingWeb.Modules.SearchingFilter
         private readonly IRepository<HinhThucPhong> _hinhThuc;
         private readonly IRepository<HinhAnh> _hinhAnh;
         private readonly IRepository<DiaDiem> _diaDiem;
+        private readonly IRepository<DonViKinhDoanh> _donViKinhDoanh;
         private readonly IRepository<LoaiPhong> _loaiPhong;
         private readonly IRepository<DichVuTienIch> _dichvu;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -24,7 +25,7 @@ namespace BookingWeb.Modules.SearchingFilter
             IRepository<HinhThucPhong> hinhThuc, IRepository<HinhAnh> hinhAnh,
             IRepository<DiaDiem> diaDiem, IRepository<LoaiPhong> loaiPhong,
             IRepository<DichVuTienIch> dichvu, 
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
         {
             _phong = phong;
             _hinhThuc = hinhThuc;
@@ -33,42 +34,37 @@ namespace BookingWeb.Modules.SearchingFilter
             _loaiPhong = loaiPhong;
             _dichvu = dichvu;
             _httpContextAccessor = httpContextAccessor;
+            _donViKinhDoanh = donViKinhDoanh;
         }
 
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
+        /*public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
         {
             try
             {
                 int pageSize = 10;
-
+                var dvkdLst = await _donViKinhDoanh.GetAllListAsync();
                 var phongLst = await _phong.GetAllListAsync();
-                var phong = phongLst.Where(p => p.DiaDiemId == id).ToList();
-
-                if (!phong.Any())
-                {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có Id = {id}!");
-                    return null;
-                }
-
-                var totalItemCount = phong.Count;
-                var totalPages = (int)Math.Ceiling((double)totalItemCount / pageSize);
-
-                var pagedPhong = phong
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                var hinhAnh = await _hinhAnh.GetAllListAsync();
-                var dichVu = await _dichvu.GetAllListAsync();
-
+                var dvkd = dvkdLst.Where(p => p.DiaDiemId == id).ToList();
                 var dtoLstP = new List<GetPhongByLocationDto>();
 
-                foreach (var i in pagedPhong)
+                foreach (var item in dvkd)
                 {
-                    var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
-                    var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == i.LoaiPhongId);
-                    var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
+                    var phong = phongLst.Where(p => p.DonViKinhDoanhId == item.Id).ToList();
+                    if (!phong.Any())
+                    {
+                        await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có Id = {id}!");
+                        return null;
+                    }
+
+                    var hinhAnh = await _hinhAnh.GetAllListAsync();
+                    var dichVu = await _dichvu.GetAllListAsync();
+
+                    foreach (var i in phong)
+                    {
+                        var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
+                        var loaiPhong = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == i.LoaiPhongId);
+                        var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
 
                     var dtoP = new GetPhongByLocationDto
                     {
@@ -87,25 +83,34 @@ namespace BookingWeb.Modules.SearchingFilter
                         HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
                         DichVu = dichVu.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
                         MienPhiHuyPhong = i.MienPhiHuyPhong,
-                        ChinhSachVePhong = hinhThucPhong.ChinhSachVePhong,
-                        ChinhSachVeTreEm = hinhThucPhong.ChinhSachVeTreEm,
+
+                        ChinhSachVePhong = hinhThucPhong?.ChinhSachVePhong,
+                        ChinhSachVeTreEm = hinhThucPhong?.ChinhSachVeTreEm,
                         ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung
                     };
 
-                    dtoLstP.Add(dtoP);
+                        dtoLstP.Add(dtoP);
+                    }
                 }
 
-                return new PagedResultDto<GetPhongByLocationDto>(totalItemCount, dtoLstP);
+                // Apply pagination
+                var totalCount = dtoLstP.Count;
+                *//*var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);*//*
+                var paginatedItems = dtoLstP.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+
+                return new PagedResultDto<GetPhongByLocationDto>(totalCount,paginatedItems);
             }
             catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
+
+        /*public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
         {
             try
             {
@@ -136,7 +141,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
 
                     var totalCount = result.Count;
-                    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                    *//*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*//*
 
                     var pagedRooms = result
                         .Skip((input.pageIndex - 1) * pageSize)
@@ -175,7 +180,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
 
                         var totalCount = filteredRooms.Count;
-                        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                        *//*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*//*
 
                         var pagedRooms = filteredRooms
                             .Skip((input.pageIndex - 1) * pageSize)
@@ -210,7 +215,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
 
                         var totalCount = filteredRooms.Count;
-                        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                        *//*var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);*//*
 
                         var pagedRooms = filteredRooms
                             .Skip((input.pageIndex - 1) * pageSize)
@@ -228,7 +233,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
 
 

@@ -12,6 +12,10 @@ namespace BookingWeb.Modules.Phongs.Dto
     {
         public int Id { get; set; }
 
+        public string DonViKinhDoanh { get; set; }
+
+        public string DiaChiChiTiet { get; set; }
+
         public List<string> HinhThucPhong { get; set; }
 
         public List<string> DiaDiem { get; set; }
@@ -22,11 +26,11 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public int TrangThaiPhong { get; set; }
 
-        public string TenFileAnhDaiDien { get; set; }
-
         public List<string> DichVuTienIch { get; set; }
 
         public List<string> ChinhSach { get; set; }
+
+        public string TenFileAnhDaiDien { get; set; }
 
         public List<string> Anh { get; set; }
 
