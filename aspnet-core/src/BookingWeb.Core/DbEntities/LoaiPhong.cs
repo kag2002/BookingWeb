@@ -26,7 +26,7 @@ namespace BookingWeb.DbEntities
 
         public float UuDai { get; set; }
 
-        public ICollection<Phong> Phongs { get; set; }
+        public int PhongId { get; set; }
 
         public ICollection<DichVuTienIch> DichVuTienIches { get; set; }
         

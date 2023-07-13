@@ -44,7 +44,7 @@ namespace BookingWeb.Modules.Phongs
             _donViKinhDoanh = donViKinhDoanh;
         }
 
-        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int id)
+        /*public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int id)
         {
             try
             {
@@ -110,11 +110,11 @@ namespace BookingWeb.Modules.Phongs
                 return null;
             }
         }
+*/
 
 
 
-
-        public async Task<List<PhongOutputDto>> GetAllRoom()
+        /*public async Task<List<PhongOutputDto>> GetAllRoom()
         {
             try
             {
@@ -134,8 +134,8 @@ namespace BookingWeb.Modules.Phongs
                     HinhThucPhong = lstHt.Where(p => p.Id == entity.HinhThucPhongId)
                                             .Select(p => p.TenHinhThuc).ToList(),
 
-                    /*DiaDiem = lstDd.Where(p => p.Id == (lstDvkd.Where(p => p.Id == entity.DonViKinhDoanhId).Select(p => p.DiaDiemId)).ToInt32() )
-                                    .Select(p => p.TenDiaDiem).ToList(),*/
+                    *//*DiaDiem = lstDd.Where(p => p.Id == (lstDvkd.Where(p => p.Id == entity.DonViKinhDoanhId).Select(p => p.DiaDiemId)).ToInt32() )
+                                    .Select(p => p.TenDiaDiem).ToList(),*//*
 
                     LoaiPhong = lstLp.Where(p => p.Id == entity.LoaiPhongId)
                                     .Select(p => p.TenLoaiPhong).ToList(),
@@ -160,10 +160,10 @@ namespace BookingWeb.Modules.Phongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
 
-        public async Task<bool> AddNewRoom(PhongDto input)
+        /*public async Task<bool> AddNewRoom(PhongDto input)
         {
             try
             {
@@ -189,10 +189,10 @@ namespace BookingWeb.Modules.Phongs
                 return false;
             }
 
-        }
+        }*/
 
 
-        public async Task<bool> UpdateRoom(PhongInputDto input)
+        /*public async Task<bool> UpdateRoom(PhongInputDto input)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace BookingWeb.Modules.Phongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
 
 

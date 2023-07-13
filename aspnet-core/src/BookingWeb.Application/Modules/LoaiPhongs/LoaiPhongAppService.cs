@@ -121,7 +121,7 @@ namespace BookingWeb.Modules.LoaiPhongs
             }
         }
 
-        public async Task<bool> DeleteLP(int id)
+        /*public async Task<bool> DeleteLP(int id)
         {
             try
             {
@@ -169,7 +169,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
 
     }
