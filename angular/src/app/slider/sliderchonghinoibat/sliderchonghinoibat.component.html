@@ -1,19 +1,5 @@
 <div class="slider">
   <div
-    (click)="goToPrevious()"
-    class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
-  >
-    ❰
-  </div>
-
-  <div
-    (click)="goToNext()"
-    class="rightArrow card flex align-items-center gap-1 cardRightArrow"
-  >
-    ❱
-  </div>
-
-  <div
     *ngFor="let item of [].constructor(4); let i = index"
     class="slide"
     [ngStyle]="{
@@ -25,12 +11,22 @@
     tabindex="0"
   >
     <div class="slide-content">
-      <p class="numberLoaiChoO">
+      <p class="TenLoaiDonVi">
         {{
+          slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
+            ?.hinhThucPhong
+        }}-{{
           slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
             ?.tenDonVi
         }}
-        chỗ ở
+      </p>
+      <p class="DiaDiem">
+        <i class="pi pi-map-marker"></i>
+        Địa chỉ:
+        {{
+          slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
+            ?.diaDiem
+        }}
       </p>
     </div>
   </div>

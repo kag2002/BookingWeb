@@ -2469,6 +2469,69 @@ export class PhongServiceProxy {
     }
 
     /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getRoomsByDiaDiemId(id: number | undefined): Observable<GetPhongByLocationDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Phong/GetRoomsByDiaDiemId?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRoomsByDiaDiemId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRoomsByDiaDiemId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetPhongByLocationDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetPhongByLocationDto[]>;
+        }));
+    }
+
+    protected processGetRoomsByDiaDiemId(response: HttpResponseBase): Observable<GetPhongByLocationDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(GetPhongByLocationDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @return Success
      */
     getAllRoom(): Observable<PhongOutputDto[]> {
@@ -3172,14 +3235,19 @@ export class SearchingFilterServiceProxy {
 
     /**
      * @param id (optional) 
+     * @param pageIndex (optional) 
      * @return Success
      */
-    getRoomsByLocation(id: number | undefined): Observable<GetPhongByLocationDto[]> {
+    getRoomsByLocation(id: number | undefined, pageIndex: number | undefined): Observable<GetPhongByLocationDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocation?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
             url_ += "id=" + encodeURIComponent("" + id) + "&";
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3197,14 +3265,14 @@ export class SearchingFilterServiceProxy {
                 try {
                     return this.processGetRoomsByLocation(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetPhongByLocationDto[]>;
+                    return _observableThrow(e) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<GetPhongByLocationDto[]>;
+                return _observableThrow(response_) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
         }));
     }
 
-    protected processGetRoomsByLocation(response: HttpResponseBase): Observable<GetPhongByLocationDto[]> {
+    protected processGetRoomsByLocation(response: HttpResponseBase): Observable<GetPhongByLocationDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3215,14 +3283,7 @@ export class SearchingFilterServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(GetPhongByLocationDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
+            result200 = GetPhongByLocationDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -3237,7 +3298,7 @@ export class SearchingFilterServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    searchingRoomFilter(body: SearchingFilterRoomInputDto | undefined): Observable<GetPhongByLocationDto[]> {
+    searchingRoomFilter(body: SearchingFilterRoomInputDto | undefined): Observable<GetPhongByLocationDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SearchingFilter/SearchingRoomFilter";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3260,14 +3321,14 @@ export class SearchingFilterServiceProxy {
                 try {
                     return this.processSearchingRoomFilter(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetPhongByLocationDto[]>;
+                    return _observableThrow(e) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<GetPhongByLocationDto[]>;
+                return _observableThrow(response_) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
         }));
     }
 
-    protected processSearchingRoomFilter(response: HttpResponseBase): Observable<GetPhongByLocationDto[]> {
+    protected processSearchingRoomFilter(response: HttpResponseBase): Observable<GetPhongByLocationDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3278,14 +3339,7 @@ export class SearchingFilterServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(GetPhongByLocationDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
+            result200 = GetPhongByLocationDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5708,6 +5762,61 @@ export interface IGetPhongByLocationDto {
     chinhSachVeThuCung: string | undefined;
 }
 
+export class GetPhongByLocationDtoPagedResultDto implements IGetPhongByLocationDtoPagedResultDto {
+    items: GetPhongByLocationDto[] | undefined;
+    totalCount: number;
+
+    constructor(data?: IGetPhongByLocationDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items.push(GetPhongByLocationDto.fromJS(item));
+            }
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any): GetPhongByLocationDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPhongByLocationDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["totalCount"] = this.totalCount;
+        return data;
+    }
+
+    clone(): GetPhongByLocationDtoPagedResultDto {
+        const json = this.toJSON();
+        let result = new GetPhongByLocationDtoPagedResultDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetPhongByLocationDtoPagedResultDto {
+    items: GetPhongByLocationDto[] | undefined;
+    totalCount: number;
+}
+
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {
     role: RoleEditDto;
     permissions: FlatPermissionDto[] | undefined;
@@ -5941,6 +6050,7 @@ export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
     tenHinhThuc: string | undefined;
     tenDonVi: string | undefined;
     diaChiChiTiet: string | undefined;
+    anhDaiDien: string | undefined;
     chinhSachVePhong: string | undefined;
     chinhSachVeTreEm: string | undefined;
     chinhSachVeThuCung: string | undefined;
@@ -5960,6 +6070,7 @@ export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
             this.tenHinhThuc = _data["tenHinhThuc"];
             this.tenDonVi = _data["tenDonVi"];
             this.diaChiChiTiet = _data["diaChiChiTiet"];
+            this.anhDaiDien = _data["anhDaiDien"];
             this.chinhSachVePhong = _data["chinhSachVePhong"];
             this.chinhSachVeTreEm = _data["chinhSachVeTreEm"];
             this.chinhSachVeThuCung = _data["chinhSachVeThuCung"];
@@ -5979,6 +6090,7 @@ export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
         data["tenHinhThuc"] = this.tenHinhThuc;
         data["tenDonVi"] = this.tenDonVi;
         data["diaChiChiTiet"] = this.diaChiChiTiet;
+        data["anhDaiDien"] = this.anhDaiDien;
         data["chinhSachVePhong"] = this.chinhSachVePhong;
         data["chinhSachVeTreEm"] = this.chinhSachVeTreEm;
         data["chinhSachVeThuCung"] = this.chinhSachVeThuCung;
@@ -5998,6 +6110,7 @@ export interface IHinhThucPhongFullDto {
     tenHinhThuc: string | undefined;
     tenDonVi: string | undefined;
     diaChiChiTiet: string | undefined;
+    anhDaiDien: string | undefined;
     chinhSachVePhong: string | undefined;
     chinhSachVeTreEm: string | undefined;
     chinhSachVeThuCung: string | undefined;
@@ -8115,9 +8228,11 @@ export interface IRoleListDtoListResultDto {
 
 export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto {
     diaDiemid: number;
+    pageIndex: number;
     hinhThucPhong: string | undefined;
     mienPhiHuyPhong: number;
-    giaPhong: number;
+    giaPhongNhoNhat: number;
+    giaPhongLonNhat: number;
     danhGiaSao: number;
 
     constructor(data?: ISearchingFilterRoomInputDto) {
@@ -8132,9 +8247,11 @@ export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto
     init(_data?: any) {
         if (_data) {
             this.diaDiemid = _data["diaDiemid"];
+            this.pageIndex = _data["pageIndex"];
             this.hinhThucPhong = _data["hinhThucPhong"];
             this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
-            this.giaPhong = _data["giaPhong"];
+            this.giaPhongNhoNhat = _data["giaPhongNhoNhat"];
+            this.giaPhongLonNhat = _data["giaPhongLonNhat"];
             this.danhGiaSao = _data["danhGiaSao"];
         }
     }
@@ -8149,9 +8266,11 @@ export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["diaDiemid"] = this.diaDiemid;
+        data["pageIndex"] = this.pageIndex;
         data["hinhThucPhong"] = this.hinhThucPhong;
         data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
-        data["giaPhong"] = this.giaPhong;
+        data["giaPhongNhoNhat"] = this.giaPhongNhoNhat;
+        data["giaPhongLonNhat"] = this.giaPhongLonNhat;
         data["danhGiaSao"] = this.danhGiaSao;
         return data;
     }
@@ -8166,9 +8285,11 @@ export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto
 
 export interface ISearchingFilterRoomInputDto {
     diaDiemid: number;
+    pageIndex: number;
     hinhThucPhong: string | undefined;
     mienPhiHuyPhong: number;
-    giaPhong: number;
+    giaPhongNhoNhat: number;
+    giaPhongLonNhat: number;
     danhGiaSao: number;
 }
 

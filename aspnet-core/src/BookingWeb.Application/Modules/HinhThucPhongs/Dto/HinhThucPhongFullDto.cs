@@ -10,6 +10,8 @@
 
         public string DiaChiChiTiet { get; set; }
 
+        public string AnhDaiDien { get; set; }
+
         public string ChinhSachVePhong { get; set; }
 
         public string ChinhSachVeTreEm { get; set; }
