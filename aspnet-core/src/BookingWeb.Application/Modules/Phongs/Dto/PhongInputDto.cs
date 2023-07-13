@@ -18,7 +18,7 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string TenFileAnhDaiDien { get; set; }
 
-        public int? DiaDiemId { get; set; }
+        public int? DonViKinhDoanhId { get; set; }
 
         public int? LoaiPhongId { get; set; }
 

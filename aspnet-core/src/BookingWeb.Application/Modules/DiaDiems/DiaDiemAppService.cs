@@ -14,13 +14,16 @@ namespace BookingWeb.Modules.DiaDiems
     {
         private readonly IRepository<DiaDiem> _diaDiem;
 
+        private readonly IRepository<DonViKinhDoanh> _donViKinhDoanh;
+
         private readonly IRepository<Phong> _phong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DiaDiemAppService(IRepository<DiaDiem> diaDiem, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
+        public DiaDiemAppService(IRepository<DiaDiem> diaDiem, IRepository<DonViKinhDoanh> donViKinhDoanh, IRepository<Phong> phong, IHttpContextAccessor httpContextAccessor)
         {
             _diaDiem = diaDiem;
+            _donViKinhDoanh = donViKinhDoanh;
             _phong = phong;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -110,7 +113,9 @@ namespace BookingWeb.Modules.DiaDiems
                 else
                 {
                     var phong = await _phong.GetAllListAsync();
-                    var checkPhong = phong.Where(p => p.DiaDiemId == checkDD.Id).ToList();
+                    var DVKD = await _donViKinhDoanh.GetAllListAsync();
+
+                    var checkPhong = DVKD.Where(p => p.DiaDiemId == checkDD.Id).ToList();
                     
                     if (checkPhong.Count() != 0)
                     {
