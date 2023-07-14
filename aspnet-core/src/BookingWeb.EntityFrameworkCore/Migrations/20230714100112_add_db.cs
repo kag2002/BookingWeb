@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookingWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class add_db_bookingweb : Migration
+    public partial class add_db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +63,7 @@ namespace BookingWeb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PhanLoai = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MucGiamGia = table.Column<float>(type: "real", nullable: false),
+                    MucGiamGia = table.Column<double>(type: "float", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
@@ -183,15 +183,15 @@ namespace BookingWeb.Migrations
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     TenLoaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SucChua = table.Column<int>(type: "int", nullable: false),
-                    TrangThaiPhong = table.Column<int>(type: "int", nullable: false),
+                    TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MoTa = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TienNghiTrongPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GiaPhongTheoDem = table.Column<float>(type: "real", nullable: false),
-                    GiaGoiDichVuThem = table.Column<float>(type: "real", nullable: false),
+                    GiaPhongTheoDem = table.Column<double>(type: "float", nullable: false),
+                    GiaGoiDichVuThem = table.Column<double>(type: "float", nullable: false),
                     MienPhiHuyPhong = table.Column<int>(type: "int", nullable: false),
-                    ChiPhiHuyPhong = table.Column<float>(type: "real", nullable: false),
-                    UuDai = table.Column<float>(type: "real", nullable: false),
-                    UuDaiDacBiet = table.Column<float>(type: "real", nullable: false),
+                    ChiPhiHuyPhong = table.Column<double>(type: "float", nullable: false),
+                    UuDai = table.Column<double>(type: "float", nullable: false),
+                    UuDaiDacBiet = table.Column<double>(type: "float", nullable: false),
                     DonViKinhDoanhId = table.Column<int>(type: "int", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -221,8 +221,8 @@ namespace BookingWeb.Migrations
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     Mota = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TenFileAnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DiemDanhGiaTB = table.Column<float>(type: "real", nullable: false),
-                    DanhGiaSaoTb = table.Column<float>(type: "real", nullable: false),
+                    DiemDanhGiaTB = table.Column<double>(type: "float", nullable: false),
+                    DanhGiaSaoTb = table.Column<double>(type: "float", nullable: false),
                     DonViKinhDoanhId = table.Column<int>(type: "int", nullable: true),
                     HinhThucPhongId = table.Column<int>(type: "int", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -347,17 +347,17 @@ namespace BookingWeb.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TrangThaiPhong = table.Column<int>(type: "int", nullable: false),
+                    TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckIn = table.Column<DateTime>(type: "datetime", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime", nullable: false),
                     SLNguoiLon = table.Column<int>(type: "int", nullable: false),
                     SLTreEm = table.Column<int>(type: "int", nullable: false),
                     SLPhong = table.Column<int>(type: "int", nullable: false),
-                    TienPhong = table.Column<float>(type: "real", nullable: false),
-                    TienPhongQuaHan = table.Column<float>(type: "real", nullable: false),
+                    TienPhong = table.Column<double>(type: "float", nullable: false),
+                    TienPhongQuaHan = table.Column<double>(type: "float", nullable: false),
                     NgayHuy = table.Column<DateTime>(type: "datetime", nullable: false),
-                    ChiPhiHuyPhong = table.Column<float>(type: "real", nullable: false),
-                    TongTien = table.Column<float>(type: "real", nullable: false),
+                    ChiPhiHuyPhong = table.Column<double>(type: "float", nullable: false),
+                    TongTien = table.Column<double>(type: "float", nullable: false),
                     PhongId = table.Column<int>(type: "int", nullable: false),
                     PhieuDatPhongId = table.Column<int>(type: "int", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),

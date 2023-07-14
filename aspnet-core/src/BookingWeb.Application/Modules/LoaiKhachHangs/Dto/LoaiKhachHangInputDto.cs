@@ -12,6 +12,6 @@ namespace BookingWeb.Modules.LoaiKhachHangs.Dto
 
         public string PhanLoai { get; set; }
 
-        public float MucGiamGia { get; set; }
+        public double MucGiamGia { get; set; }
     }
 }
