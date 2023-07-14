@@ -22,6 +22,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { AnimateModule } from "primeng/animate";
 import { ToastModule } from "primeng/toast";
 import { RatingModule } from "primeng/rating";
+// import { AgmCoreModule } from '@agm/core';
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -52,7 +53,7 @@ import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloa
 import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
 import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
 import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/sliderchonghinoibat.component";
-import { LienheComponent } from './luutru/lienhe/lienhe.component';
+import { LienheComponent } from "./luutru/lienhe/lienhe.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +90,9 @@ import { LienheComponent } from './luutru/lienhe/lienhe.component';
     SliderchonghinoibatComponent,
     LienheComponent,
   ],
+  // AgmCoreModule.forRoot({
+  //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'
+  // })
   imports: [
     CommonModule,
     FormsModule,
