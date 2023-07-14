@@ -22,6 +22,31 @@ namespace BookingWeb.Modules.HinhAnhs
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<List<HinhAnhInputDto>> GetImageByRoom(int id)
+        {
+            try
+            {
+                var lstHa = await _hinhAnh.GetAllListAsync();
+
+                var lst = lstHa.Where(p=>p.Id == id).ToList();
+
+                var dtoLst = lst.Select(entity => new HinhAnhInputDto
+                {
+                    ID = entity.Id,
+                    TenFileAnh = entity.TenFileAnh,
+                    PhongId = entity.PhongId
+                }).ToList();
+                return dtoLst;
+
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
+            }
+        }
+
+
         public async Task<List<HinhAnhInputDto>> GetALlListImage()
         {
             try
@@ -75,7 +100,6 @@ namespace BookingWeb.Modules.HinhAnhs
                 }
 
                 item.TenFileAnh = input.TenFileAnh;
-                item.PhongId = input.PhongId;
 
                 await _hinhAnh.UpdateAsync(item);
                 return true;

@@ -16,23 +16,23 @@ namespace BookingWeb.DbEntities
 
         public int SucChua { get; set; }
 
-        public int TrangThaiPhong { get; set; }
+        public string TrangThaiPhong { get; set; }
 
         public string MoTa { get; set; }
 
         public string TienNghiTrongPhong { get; set; }
 
-        public float GiaPhongTheoDem { get; set; }
+        public double GiaPhongTheoDem { get; set; }
 
-        public float GiaGoiDichVuThem { get; set; }
+        public double GiaGoiDichVuThem { get; set; }
 
-        public int MienPhiHuyPhong { get; set; }
+        public bool MienPhiHuyPhong { get; set; }
 
-        public float ChiPhiHuyPhong { get; set; }
+        public double ChiPhiHuyPhong { get; set; }
 
-        public float UuDai { get; set; }
+        public double UuDai { get; set; }
 
-        public float UuDaiDacBiet { get; set; }
+        public double UuDaiDacBiet { get; set; }
 
         public int DonViKinhDoanhId { get; set; }
 

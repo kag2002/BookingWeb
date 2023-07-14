@@ -11,7 +11,7 @@ namespace BookingWeb.DbEntities
     {
         public string PhanLoai { get; set; }
 
-        public float MucGiamGia { get; set; }
+        public double MucGiamGia { get; set; }
 
         public ICollection<KhachHang> KhachHangs { get; set; }
 

@@ -42,7 +42,7 @@ namespace BookingWeb.Modules.KhachHangs
                     NgaySinh = entity.NgaySinh,
                     DiaChi = entity.DiaChi,
                     GioiTinh = entity.GioiTinh,
-                    LoaiKhachHang = loaiKhachHang.Where(p => p.Id == entity.LoaiKhachHangId).Select(p => p.PhanLoai).ToString(),
+                    LoaiKhachHang = loaiKhachHang.FirstOrDefault(p => p.Id == entity.LoaiKhachHangId).PhanLoai,
                     UserName = entity.UserName
                 }).ToList();
 

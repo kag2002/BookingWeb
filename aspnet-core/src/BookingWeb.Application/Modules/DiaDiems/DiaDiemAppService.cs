@@ -112,18 +112,18 @@ namespace BookingWeb.Modules.DiaDiems
                 }
                 else
                 {
-                    var phong = await _phong.GetAllListAsync();
                     var DVKD = await _donViKinhDoanh.GetAllListAsync();
 
-                    var checkPhong = DVKD.Where(p => p.DiaDiemId == checkDD.Id).ToList();
-                    
-                    if (checkPhong.Count() != 0)
+                    var checkDvkd = DVKD.Where(p=>p.DiaDiemId == checkDD.Id).ToList();
+
+                    if (checkDvkd.Any())
                     {
-                        foreach(var i in checkPhong)
+                        foreach(var i in checkDvkd)
                         {
                             i.DiaDiemId = null;
                         }
                     }
+
                     await _diaDiem.DeleteAsync(checkDD);
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dia diem {checkDD}");
                     return true;
