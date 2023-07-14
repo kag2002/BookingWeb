@@ -16,6 +16,8 @@ namespace BookingWeb.DbEntities
 
         public int SucChua { get; set; }
 
+        public int TrangThaiPhong { get; set; }
+
         public string MoTa { get; set; }
 
         public string TienNghiTrongPhong { get; set; }
@@ -24,9 +26,15 @@ namespace BookingWeb.DbEntities
 
         public float GiaGoiDichVuThem { get; set; }
 
+        public int MienPhiHuyPhong { get; set; }
+
+        public float ChiPhiHuyPhong { get; set; }
+
         public float UuDai { get; set; }
 
-        public int PhongId { get; set; }
+        public float UuDaiDacBiet { get; set; }
+
+        public int DonViKinhDoanhId { get; set; }
 
         public ICollection<DichVuTienIch> DichVuTienIches { get; set; }
         
