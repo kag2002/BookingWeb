@@ -21,6 +21,8 @@ namespace BookingWeb.DbEntities
 
         public int SLPhong { get; set; }
 
+        public float TienPhong { get; set; }
+
         public float TienPhongQuaHan { get; set; }
 
         public DateTime NgayHuy { get; set; }

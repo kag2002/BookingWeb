@@ -28,6 +28,8 @@ namespace BookingWeb.DbEntities
 
         public ICollection<Phong> Phongs { get; set; }
 
+        public ICollection<LoaiPhong> LoaiPhongs { get; set; }
+
         public int? TenantId { get; set; }
     }
 }

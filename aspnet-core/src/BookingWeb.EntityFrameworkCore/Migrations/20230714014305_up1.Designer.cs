@@ -4,6 +4,7 @@ using BookingWeb.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    partial class BookingWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230714014305_up1")]
+    partial class up1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1629,9 +1632,6 @@ namespace BookingWeb.Migrations
                     b.Property<int>("SLTreEm")
                         .HasColumnType("int");
 
-                    b.Property<float>("TienPhong")
-                        .HasColumnType("real");
-
                     b.Property<float>("TienPhongQuaHan")
                         .HasColumnType("real");
 
@@ -2012,9 +2012,6 @@ namespace BookingWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<float>("ChiPhiHuyPhong")
-                        .HasColumnType("real");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -2026,9 +2023,6 @@ namespace BookingWeb.Migrations
 
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("DonViKinhDoanhId")
-                        .HasColumnType("int");
 
                     b.Property<float>("GiaGoiDichVuThem")
                         .HasColumnType("real");
@@ -2045,9 +2039,6 @@ namespace BookingWeb.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("MienPhiHuyPhong")
-                        .HasColumnType("int");
-
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
 
@@ -2063,18 +2054,10 @@ namespace BookingWeb.Migrations
                     b.Property<string>("TienNghiTrongPhong")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrangThaiPhong")
-                        .HasColumnType("int");
-
                     b.Property<float>("UuDai")
                         .HasColumnType("real");
 
-                    b.Property<float>("UuDaiDacBiet")
-                        .HasColumnType("real");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("DonViKinhDoanhId");
 
                     b.ToTable("BwLoaiPhong");
                 });
@@ -2288,6 +2271,12 @@ namespace BookingWeb.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("LoaiPhongId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MienPhiHuyPhong")
+                        .HasColumnType("int");
+
                     b.Property<string>("Mota")
                         .HasColumnType("nvarchar(max)");
 
@@ -2297,11 +2286,16 @@ namespace BookingWeb.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TrangThaiPhong")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DonViKinhDoanhId");
 
                     b.HasIndex("HinhThucPhongId");
+
+                    b.HasIndex("LoaiPhongId");
 
                     b.ToTable("BwPhong");
                 });
@@ -2635,15 +2629,6 @@ namespace BookingWeb.Migrations
                         .HasForeignKey("LoaiKhachHangId");
                 });
 
-            modelBuilder.Entity("BookingWeb.DbEntities.LoaiPhong", b =>
-                {
-                    b.HasOne("BookingWeb.DbEntities.DonViKinhDoanh", null)
-                        .WithMany("LoaiPhongs")
-                        .HasForeignKey("DonViKinhDoanhId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BookingWeb.DbEntities.NhanXetDanhGia", b =>
                 {
                     b.HasOne("BookingWeb.DbEntities.ChiTietDatPhong", null)
@@ -2677,6 +2662,10 @@ namespace BookingWeb.Migrations
                     b.HasOne("BookingWeb.DbEntities.HinhThucPhong", null)
                         .WithMany("Phongs")
                         .HasForeignKey("HinhThucPhongId");
+
+                    b.HasOne("BookingWeb.DbEntities.LoaiPhong", null)
+                        .WithMany("Phongs")
+                        .HasForeignKey("LoaiPhongId");
                 });
 
             modelBuilder.Entity("BookingWeb.MultiTenancy.Tenant", b =>
@@ -2789,8 +2778,6 @@ namespace BookingWeb.Migrations
 
             modelBuilder.Entity("BookingWeb.DbEntities.DonViKinhDoanh", b =>
                 {
-                    b.Navigation("LoaiPhongs");
-
                     b.Navigation("Phongs");
                 });
 
@@ -2812,6 +2799,8 @@ namespace BookingWeb.Migrations
             modelBuilder.Entity("BookingWeb.DbEntities.LoaiPhong", b =>
                 {
                     b.Navigation("DichVuTienIches");
+
+                    b.Navigation("Phongs");
                 });
 
             modelBuilder.Entity("BookingWeb.DbEntities.NhanVien", b =>

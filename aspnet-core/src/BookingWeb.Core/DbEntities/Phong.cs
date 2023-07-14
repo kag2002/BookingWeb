@@ -12,19 +12,14 @@ namespace BookingWeb.DbEntities
 
         public string TenFileAnhDaiDien { get; set; }
 
-        public int TrangThaiPhong { get; set; }
-
         public float DiemDanhGiaTB { get; set; }
 
         public float DanhGiaSaoTb { get; set; }
 
-        public int MienPhiHuyPhong { get; set; }
 
         public int? DonViKinhDoanhId { get; set; }
 
         public int? HinhThucPhongId { get; set; }
-
-        public ICollection<LoaiPhong> LoaiPhongs { get; set; }
 
         public ICollection<HinhAnh> HinhAnhs { get; set; }
 

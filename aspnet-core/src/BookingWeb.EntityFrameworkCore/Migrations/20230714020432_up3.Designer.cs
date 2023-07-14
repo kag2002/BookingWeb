@@ -4,6 +4,7 @@ using BookingWeb.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    partial class BookingWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230714020432_up3")]
+    partial class up3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1629,9 +1632,6 @@ namespace BookingWeb.Migrations
                     b.Property<int>("SLTreEm")
                         .HasColumnType("int");
 
-                    b.Property<float>("TienPhong")
-                        .HasColumnType("real");
-
                     b.Property<float>("TienPhongQuaHan")
                         .HasColumnType("real");
 
@@ -2012,9 +2012,6 @@ namespace BookingWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<float>("ChiPhiHuyPhong")
-                        .HasColumnType("real");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -2044,9 +2041,6 @@ namespace BookingWeb.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("MienPhiHuyPhong")
-                        .HasColumnType("int");
 
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
@@ -2287,6 +2281,9 @@ namespace BookingWeb.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("MienPhiHuyPhong")
+                        .HasColumnType("int");
 
                     b.Property<string>("Mota")
                         .HasColumnType("nvarchar(max)");
