@@ -23,9 +23,17 @@
   width: 100px;
   margin: 10px 5px 0 5px;
 }
+.LogoHoptac {
+  margin-right: 8px;
+  padding: 12px;
+  border: 1px solid white;
+  border-radius: 17px;
+  width: fit-content;
+  height: fit-content;
+}
 .LogoConfirm {
-  width: 115px;
-  margin-top: 15px;
+  width: 108px;
+  margin: 9px;
 }
 .LogoThanhToan {
   margin: 25px 0;
