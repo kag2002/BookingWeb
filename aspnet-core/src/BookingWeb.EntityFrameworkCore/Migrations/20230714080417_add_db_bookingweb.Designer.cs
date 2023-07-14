@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    [Migration("20230714020432_up3")]
-    partial class up3
+    [Migration("20230714080417_add_db_bookingweb")]
+    partial class add_db_bookingweb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1632,6 +1632,9 @@ namespace BookingWeb.Migrations
                     b.Property<int>("SLTreEm")
                         .HasColumnType("int");
 
+                    b.Property<float>("TienPhong")
+                        .HasColumnType("real");
+
                     b.Property<float>("TienPhongQuaHan")
                         .HasColumnType("real");
 
@@ -2012,6 +2015,9 @@ namespace BookingWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<float>("ChiPhiHuyPhong")
+                        .HasColumnType("real");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -2041,6 +2047,9 @@ namespace BookingWeb.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("MienPhiHuyPhong")
+                        .HasColumnType("int");
 
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
@@ -2281,9 +2290,6 @@ namespace BookingWeb.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("MienPhiHuyPhong")
-                        .HasColumnType("int");
 
                     b.Property<string>("Mota")
                         .HasColumnType("nvarchar(max)");
