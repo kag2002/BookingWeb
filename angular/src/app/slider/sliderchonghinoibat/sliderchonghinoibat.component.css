@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   position: relative;
-  height: 100%;
   padding-top: 13px;
 }
 
@@ -35,6 +34,9 @@
   font-size: 13px;
   color: dodgerblue;
   display: flex;
+}
+.GiaPhong h6 {
+  color: #003b95;
 }
 .pi {
   margin: 0 3px 0 19px;

@@ -83,19 +83,19 @@ namespace BookingWeb.Modules.Phongs
                             TenFileAnhDaiDien = i?.TenFileAnhDaiDien,
                             DiaChiChiTiet = hinhThucPhong?.DiaChiChiTiet,
                             Mota = i?.Mota,
-                            TrangThaiPhong = 1/*i.TrangThaiPhong*/,
-                            DanhGiaSaoTb = i.DanhGiaSaoTb/*i.DanhGiaSaoTb*/,
-                            DiemDanhGiaTB = 1 /*i.DiemDanhGiaTB*/,
+                            TrangThaiPhong = 1/*i.TrangThaiPhong*//*,
+                            DanhGiaSaoTb = i.DanhGiaSaoTb*//*i.DanhGiaSaoTb*//*,
+                            DiemDanhGiaTB = 1 *//*i.DiemDanhGiaTB*//*,
                             DiaDiem = diaDiem?.TenDiaDiem,
                             LoaiPhong = loaiPhong?.TenLoaiPhong,
                             HinhThucPhong = hinhThucPhong?.TenHinhThuc,
-                            GiaPhongTheoDem = 1 /*loaiPhong.GiaPhongTheoDem*/,
+                            GiaPhongTheoDem = 1 *//*loaiPhong.GiaPhongTheoDem*//*,
                             HinhAnh = hinhAnh?.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
                             DichVu = dichVu?.Where(p => p.LoaiPhongId == i.LoaiPhongId).Select(p => p.TenDichVu).ToList(),
-/*                            MienPhiHuyPhong = i.MienPhiHuyPhong,
+*//*                            MienPhiHuyPhong = i.MienPhiHuyPhong,
                             ChinhSachVePhong = hinhThucPhong?.ChinhSachVePhong,
                             ChinhSachVeTreEm = hinhThucPhong?.ChinhSachVeTreEm,
-                            ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung*/
+                            ChinhSachVeThuCung = hinhThucPhong?.ChinhSachVeThuCung*//*
                         };
 
                             dtoList.Add(dtoP);
@@ -111,7 +111,6 @@ namespace BookingWeb.Modules.Phongs
             }
         }
 */
-
 
 
         /*public async Task<List<PhongOutputDto>> GetAllRoom()

@@ -40,24 +40,24 @@ export class SliderchonghinoibatComponent {
   }
 
   loadData(): void {
-    this.phongSubscription = this._phongService
-      .getRoomsByDiaDiemId(this.donViId)
-      .subscribe((result) => {
-        this.slideschonghinoibat = result.map((item) => ({
-          tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
-          hinhThucPhong: item?.hinhThucPhong,
-          tenDonVi: item?.tenDonVi,
-          diaDiem: item?.diaDiem,
-          danhGiaSaoTb: item?.danhGiaSaoTb,
-        }));
-      });
-    this.loaiphongSubscription = this._loaiphongService
-      .getAllKindOfRoom()
-      .subscribe((result) => {
-        this.slideschonghinoibat1 = result.map((item) => ({
-          giaPhongTheoDem: item?.giaPhongTheoDem,
-        }));
-      });
+    // this.phongSubscription = this._phongService
+    //   .getRoomsByDiaDiemId(this.donViId)
+    //   .subscribe((result) => {
+    //     this.slideschonghinoibat = result.map((item) => ({
+    //       tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
+    //       hinhThucPhong: item?.hinhThucPhong,
+    //       tenDonVi: item?.tenDonVi,
+    //       diaDiem: item?.diaDiem,
+    //       danhGiaSaoTb: item?.danhGiaSaoTb,
+    //     }));
+    //   });
+    // this.loaiphongSubscription = this._loaiphongService
+    //   .getAllKindOfRoom()
+    //   .subscribe((result) => {
+    //     this.slideschonghinoibat1 = result.map((item) => ({
+    //       giaPhongTheoDem: item?.giaPhongTheoDem,
+    //     }));
+    //   });
   }
 
   unsubscribeSubscriptions(): void {

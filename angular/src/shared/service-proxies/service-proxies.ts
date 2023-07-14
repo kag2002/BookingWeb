@@ -1196,8 +1196,8 @@ export class HinhThucPhongServiceProxy {
     /**
      * @return Success
      */
-    getAllList(): Observable<HinhThucPhongFullDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/GetAllList";
+    getAllForms(): Observable<HinhThucPhongFullDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/GetAllForms";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1209,11 +1209,11 @@ export class HinhThucPhongServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllList(response_);
+            return this.processGetAllForms(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAllList(response_ as any);
+                    return this.processGetAllForms(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<HinhThucPhongFullDto[]>;
                 }
@@ -1222,7 +1222,7 @@ export class HinhThucPhongServiceProxy {
         }));
     }
 
-    protected processGetAllList(response: HttpResponseBase): Observable<HinhThucPhongFullDto[]> {
+    protected processGetAllForms(response: HttpResponseBase): Observable<HinhThucPhongFullDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1255,8 +1255,8 @@ export class HinhThucPhongServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    addNewItem(body: HinhThucPhongDto | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/AddNewItem";
+    addNewForm(body: HinhThucPhongDto | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/AddNewForm";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1272,11 +1272,11 @@ export class HinhThucPhongServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAddNewItem(response_);
+            return this.processAddNewForm(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAddNewItem(response_ as any);
+                    return this.processAddNewForm(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<boolean>;
                 }
@@ -1285,7 +1285,7 @@ export class HinhThucPhongServiceProxy {
         }));
     }
 
-    protected processAddNewItem(response: HttpResponseBase): Observable<boolean> {
+    protected processAddNewForm(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1312,8 +1312,8 @@ export class HinhThucPhongServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    updateItem(body: HinhThucPhongFullDto | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/UpdateItem";
+    updateForm(body: HinhThucPhongFullDto | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/UpdateForm";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1329,11 +1329,11 @@ export class HinhThucPhongServiceProxy {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateItem(response_);
+            return this.processUpdateForm(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUpdateItem(response_ as any);
+                    return this.processUpdateForm(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<boolean>;
                 }
@@ -1342,7 +1342,7 @@ export class HinhThucPhongServiceProxy {
         }));
     }
 
-    protected processUpdateItem(response: HttpResponseBase): Observable<boolean> {
+    protected processUpdateForm(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1369,8 +1369,8 @@ export class HinhThucPhongServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    deleteItem(id: number | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/DeleteItem?";
+    deleteForm(id: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/DeleteForm?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -1386,11 +1386,11 @@ export class HinhThucPhongServiceProxy {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteItem(response_);
+            return this.processDeleteForm(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processDeleteItem(response_ as any);
+                    return this.processDeleteForm(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<boolean>;
                 }
@@ -1399,7 +1399,7 @@ export class HinhThucPhongServiceProxy {
         }));
     }
 
-    protected processDeleteItem(response: HttpResponseBase): Observable<boolean> {
+    protected processDeleteForm(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2087,63 +2087,6 @@ export class LoaiPhongServiceProxy {
         }
         return _observableOf(null as any);
     }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    deleteLP(id: number | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/LoaiPhong/DeleteLP?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteLP(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeleteLP(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<boolean>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<boolean>;
-        }));
-    }
-
-    protected processDeleteLP(response: HttpResponseBase): Observable<boolean> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
 }
 
 @Injectable()
@@ -2466,241 +2409,6 @@ export class PhongServiceProxy {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getRoomsByDiaDiemId(id: number | undefined): Observable<GetPhongByLocationDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/Phong/GetRoomsByDiaDiemId?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetRoomsByDiaDiemId(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetRoomsByDiaDiemId(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetPhongByLocationDto[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetPhongByLocationDto[]>;
-        }));
-    }
-
-    protected processGetRoomsByDiaDiemId(response: HttpResponseBase): Observable<GetPhongByLocationDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(GetPhongByLocationDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @return Success
-     */
-    getAllRoom(): Observable<PhongOutputDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/Phong/GetAllRoom";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllRoom(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllRoom(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PhongOutputDto[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PhongOutputDto[]>;
-        }));
-    }
-
-    protected processGetAllRoom(response: HttpResponseBase): Observable<PhongOutputDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(PhongOutputDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    addNewRoom(body: PhongDto | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/Phong/AddNewRoom";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAddNewRoom(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processAddNewRoom(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<boolean>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<boolean>;
-        }));
-    }
-
-    protected processAddNewRoom(response: HttpResponseBase): Observable<boolean> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    updateRoom(body: PhongInputDto | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/Phong/UpdateRoom";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateRoom(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateRoom(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<boolean>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<boolean>;
-        }));
-    }
-
-    protected processUpdateRoom(response: HttpResponseBase): Observable<boolean> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
     }
 
     /**
@@ -3211,135 +2919,6 @@ export class RoleServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = RoleDtoPagedResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
-export class SearchingFilterServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param id (optional) 
-     * @param pageIndex (optional) 
-     * @return Success
-     */
-    getRoomsByLocation(id: number | undefined, pageIndex: number | undefined): Observable<GetPhongByLocationDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocation?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        if (pageIndex === null)
-            throw new Error("The parameter 'pageIndex' cannot be null.");
-        else if (pageIndex !== undefined)
-            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetRoomsByLocation(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetRoomsByLocation(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
-        }));
-    }
-
-    protected processGetRoomsByLocation(response: HttpResponseBase): Observable<GetPhongByLocationDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetPhongByLocationDtoPagedResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    searchingRoomFilter(body: SearchingFilterRoomInputDto | undefined): Observable<GetPhongByLocationDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/SearchingFilter/SearchingRoomFilter";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSearchingRoomFilter(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSearchingRoomFilter(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetPhongByLocationDtoPagedResultDto>;
-        }));
-    }
-
-    protected processSearchingRoomFilter(response: HttpResponseBase): Observable<GetPhongByLocationDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetPhongByLocationDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5635,188 +5214,6 @@ export interface IGetCurrentLoginInformationsOutput {
     tenant: TenantLoginInfoDto;
 }
 
-export class GetPhongByLocationDto implements IGetPhongByLocationDto {
-    id: number;
-    tenDonVi: string | undefined;
-    diaChiChiTiet: string | undefined;
-    mota: string | undefined;
-    tenFileAnhDaiDien: string | undefined;
-    trangThaiPhong: number;
-    diemDanhGiaTB: number;
-    danhGiaSaoTb: number;
-    diaDiem: string | undefined;
-    mienPhiHuyPhong: number;
-    loaiPhong: string | undefined;
-    hinhThucPhong: string | undefined;
-    giaPhongTheoDem: number;
-    dichVu: string[] | undefined;
-    hinhAnh: string[] | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
-
-    constructor(data?: IGetPhongByLocationDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.tenDonVi = _data["tenDonVi"];
-            this.diaChiChiTiet = _data["diaChiChiTiet"];
-            this.mota = _data["mota"];
-            this.tenFileAnhDaiDien = _data["tenFileAnhDaiDien"];
-            this.trangThaiPhong = _data["trangThaiPhong"];
-            this.diemDanhGiaTB = _data["diemDanhGiaTB"];
-            this.danhGiaSaoTb = _data["danhGiaSaoTb"];
-            this.diaDiem = _data["diaDiem"];
-            this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
-            this.loaiPhong = _data["loaiPhong"];
-            this.hinhThucPhong = _data["hinhThucPhong"];
-            this.giaPhongTheoDem = _data["giaPhongTheoDem"];
-            if (Array.isArray(_data["dichVu"])) {
-                this.dichVu = [] as any;
-                for (let item of _data["dichVu"])
-                    this.dichVu.push(item);
-            }
-            if (Array.isArray(_data["hinhAnh"])) {
-                this.hinhAnh = [] as any;
-                for (let item of _data["hinhAnh"])
-                    this.hinhAnh.push(item);
-            }
-            this.chinhSachVePhong = _data["chinhSachVePhong"];
-            this.chinhSachVeTreEm = _data["chinhSachVeTreEm"];
-            this.chinhSachVeThuCung = _data["chinhSachVeThuCung"];
-        }
-    }
-
-    static fromJS(data: any): GetPhongByLocationDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetPhongByLocationDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["tenDonVi"] = this.tenDonVi;
-        data["diaChiChiTiet"] = this.diaChiChiTiet;
-        data["mota"] = this.mota;
-        data["tenFileAnhDaiDien"] = this.tenFileAnhDaiDien;
-        data["trangThaiPhong"] = this.trangThaiPhong;
-        data["diemDanhGiaTB"] = this.diemDanhGiaTB;
-        data["danhGiaSaoTb"] = this.danhGiaSaoTb;
-        data["diaDiem"] = this.diaDiem;
-        data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
-        data["loaiPhong"] = this.loaiPhong;
-        data["hinhThucPhong"] = this.hinhThucPhong;
-        data["giaPhongTheoDem"] = this.giaPhongTheoDem;
-        if (Array.isArray(this.dichVu)) {
-            data["dichVu"] = [];
-            for (let item of this.dichVu)
-                data["dichVu"].push(item);
-        }
-        if (Array.isArray(this.hinhAnh)) {
-            data["hinhAnh"] = [];
-            for (let item of this.hinhAnh)
-                data["hinhAnh"].push(item);
-        }
-        data["chinhSachVePhong"] = this.chinhSachVePhong;
-        data["chinhSachVeTreEm"] = this.chinhSachVeTreEm;
-        data["chinhSachVeThuCung"] = this.chinhSachVeThuCung;
-        return data;
-    }
-
-    clone(): GetPhongByLocationDto {
-        const json = this.toJSON();
-        let result = new GetPhongByLocationDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IGetPhongByLocationDto {
-    id: number;
-    tenDonVi: string | undefined;
-    diaChiChiTiet: string | undefined;
-    mota: string | undefined;
-    tenFileAnhDaiDien: string | undefined;
-    trangThaiPhong: number;
-    diemDanhGiaTB: number;
-    danhGiaSaoTb: number;
-    diaDiem: string | undefined;
-    mienPhiHuyPhong: number;
-    loaiPhong: string | undefined;
-    hinhThucPhong: string | undefined;
-    giaPhongTheoDem: number;
-    dichVu: string[] | undefined;
-    hinhAnh: string[] | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
-}
-
-export class GetPhongByLocationDtoPagedResultDto implements IGetPhongByLocationDtoPagedResultDto {
-    items: GetPhongByLocationDto[] | undefined;
-    totalCount: number;
-
-    constructor(data?: IGetPhongByLocationDtoPagedResultDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items.push(GetPhongByLocationDto.fromJS(item));
-            }
-            this.totalCount = _data["totalCount"];
-        }
-    }
-
-    static fromJS(data: any): GetPhongByLocationDtoPagedResultDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetPhongByLocationDtoPagedResultDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        data["totalCount"] = this.totalCount;
-        return data;
-    }
-
-    clone(): GetPhongByLocationDtoPagedResultDto {
-        const json = this.toJSON();
-        let result = new GetPhongByLocationDtoPagedResultDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IGetPhongByLocationDtoPagedResultDto {
-    items: GetPhongByLocationDto[] | undefined;
-    totalCount: number;
-}
-
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {
     role: RoleEditDto;
     permissions: FlatPermissionDto[] | undefined;
@@ -5984,11 +5381,7 @@ export interface IHinhAnhInputDto {
 
 export class HinhThucPhongDto implements IHinhThucPhongDto {
     tenHinhThuc: string | undefined;
-    tenDonVi: string | undefined;
-    diaChiChiTiet: string | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
+    anhDaiDien: string | undefined;
 
     constructor(data?: IHinhThucPhongDto) {
         if (data) {
@@ -6002,11 +5395,7 @@ export class HinhThucPhongDto implements IHinhThucPhongDto {
     init(_data?: any) {
         if (_data) {
             this.tenHinhThuc = _data["tenHinhThuc"];
-            this.tenDonVi = _data["tenDonVi"];
-            this.diaChiChiTiet = _data["diaChiChiTiet"];
-            this.chinhSachVePhong = _data["chinhSachVePhong"];
-            this.chinhSachVeTreEm = _data["chinhSachVeTreEm"];
-            this.chinhSachVeThuCung = _data["chinhSachVeThuCung"];
+            this.anhDaiDien = _data["anhDaiDien"];
         }
     }
 
@@ -6020,11 +5409,7 @@ export class HinhThucPhongDto implements IHinhThucPhongDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tenHinhThuc"] = this.tenHinhThuc;
-        data["tenDonVi"] = this.tenDonVi;
-        data["diaChiChiTiet"] = this.diaChiChiTiet;
-        data["chinhSachVePhong"] = this.chinhSachVePhong;
-        data["chinhSachVeTreEm"] = this.chinhSachVeTreEm;
-        data["chinhSachVeThuCung"] = this.chinhSachVeThuCung;
+        data["anhDaiDien"] = this.anhDaiDien;
         return data;
     }
 
@@ -6038,22 +5423,13 @@ export class HinhThucPhongDto implements IHinhThucPhongDto {
 
 export interface IHinhThucPhongDto {
     tenHinhThuc: string | undefined;
-    tenDonVi: string | undefined;
-    diaChiChiTiet: string | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
+    anhDaiDien: string | undefined;
 }
 
 export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
     id: number;
     tenHinhThuc: string | undefined;
-    tenDonVi: string | undefined;
-    diaChiChiTiet: string | undefined;
     anhDaiDien: string | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
 
     constructor(data?: IHinhThucPhongFullDto) {
         if (data) {
@@ -6068,12 +5444,7 @@ export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
         if (_data) {
             this.id = _data["id"];
             this.tenHinhThuc = _data["tenHinhThuc"];
-            this.tenDonVi = _data["tenDonVi"];
-            this.diaChiChiTiet = _data["diaChiChiTiet"];
             this.anhDaiDien = _data["anhDaiDien"];
-            this.chinhSachVePhong = _data["chinhSachVePhong"];
-            this.chinhSachVeTreEm = _data["chinhSachVeTreEm"];
-            this.chinhSachVeThuCung = _data["chinhSachVeThuCung"];
         }
     }
 
@@ -6088,12 +5459,7 @@ export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["tenHinhThuc"] = this.tenHinhThuc;
-        data["tenDonVi"] = this.tenDonVi;
-        data["diaChiChiTiet"] = this.diaChiChiTiet;
         data["anhDaiDien"] = this.anhDaiDien;
-        data["chinhSachVePhong"] = this.chinhSachVePhong;
-        data["chinhSachVeTreEm"] = this.chinhSachVeTreEm;
-        data["chinhSachVeThuCung"] = this.chinhSachVeThuCung;
         return data;
     }
 
@@ -6108,12 +5474,7 @@ export class HinhThucPhongFullDto implements IHinhThucPhongFullDto {
 export interface IHinhThucPhongFullDto {
     id: number;
     tenHinhThuc: string | undefined;
-    tenDonVi: string | undefined;
-    diaChiChiTiet: string | undefined;
     anhDaiDien: string | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
 }
 
 export class Int64EntityDto implements IInt64EntityDto {
@@ -7458,267 +6819,6 @@ export interface IPhieuDatPhongOutputDto {
     ngayHenTra: moment.Moment;
 }
 
-export class PhongDto implements IPhongDto {
-    mota: string | undefined;
-    trangThaiPhong: number;
-    tenFileAnhDaiDien: string | undefined;
-    diaDiemId: number | undefined;
-    loaiPhongId: number | undefined;
-    hinhThucPhongId: number | undefined;
-
-    constructor(data?: IPhongDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.mota = _data["mota"];
-            this.trangThaiPhong = _data["trangThaiPhong"];
-            this.tenFileAnhDaiDien = _data["tenFileAnhDaiDien"];
-            this.diaDiemId = _data["diaDiemId"];
-            this.loaiPhongId = _data["loaiPhongId"];
-            this.hinhThucPhongId = _data["hinhThucPhongId"];
-        }
-    }
-
-    static fromJS(data: any): PhongDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PhongDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["mota"] = this.mota;
-        data["trangThaiPhong"] = this.trangThaiPhong;
-        data["tenFileAnhDaiDien"] = this.tenFileAnhDaiDien;
-        data["diaDiemId"] = this.diaDiemId;
-        data["loaiPhongId"] = this.loaiPhongId;
-        data["hinhThucPhongId"] = this.hinhThucPhongId;
-        return data;
-    }
-
-    clone(): PhongDto {
-        const json = this.toJSON();
-        let result = new PhongDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPhongDto {
-    mota: string | undefined;
-    trangThaiPhong: number;
-    tenFileAnhDaiDien: string | undefined;
-    diaDiemId: number | undefined;
-    loaiPhongId: number | undefined;
-    hinhThucPhongId: number | undefined;
-}
-
-export class PhongInputDto implements IPhongInputDto {
-    id: number;
-    mota: string | undefined;
-    trangThaiPhong: number;
-    diaChiChiTiet: string | undefined;
-    tenFileAnhDaiDien: string | undefined;
-    diaDiemId: number | undefined;
-    loaiPhongId: number | undefined;
-    hinhThucPhongId: number | undefined;
-
-    constructor(data?: IPhongInputDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.mota = _data["mota"];
-            this.trangThaiPhong = _data["trangThaiPhong"];
-            this.diaChiChiTiet = _data["diaChiChiTiet"];
-            this.tenFileAnhDaiDien = _data["tenFileAnhDaiDien"];
-            this.diaDiemId = _data["diaDiemId"];
-            this.loaiPhongId = _data["loaiPhongId"];
-            this.hinhThucPhongId = _data["hinhThucPhongId"];
-        }
-    }
-
-    static fromJS(data: any): PhongInputDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PhongInputDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["mota"] = this.mota;
-        data["trangThaiPhong"] = this.trangThaiPhong;
-        data["diaChiChiTiet"] = this.diaChiChiTiet;
-        data["tenFileAnhDaiDien"] = this.tenFileAnhDaiDien;
-        data["diaDiemId"] = this.diaDiemId;
-        data["loaiPhongId"] = this.loaiPhongId;
-        data["hinhThucPhongId"] = this.hinhThucPhongId;
-        return data;
-    }
-
-    clone(): PhongInputDto {
-        const json = this.toJSON();
-        let result = new PhongInputDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPhongInputDto {
-    id: number;
-    mota: string | undefined;
-    trangThaiPhong: number;
-    diaChiChiTiet: string | undefined;
-    tenFileAnhDaiDien: string | undefined;
-    diaDiemId: number | undefined;
-    loaiPhongId: number | undefined;
-    hinhThucPhongId: number | undefined;
-}
-
-export class PhongOutputDto implements IPhongOutputDto {
-    id: number;
-    hinhThucPhong: string[] | undefined;
-    diaDiem: string[] | undefined;
-    loaiPhong: string[] | undefined;
-    mota: string | undefined;
-    trangThaiPhong: number;
-    tenFileAnhDaiDien: string | undefined;
-    dichVuTienIch: string[] | undefined;
-    chinhSach: string[] | undefined;
-    anh: string[] | undefined;
-
-    constructor(data?: IPhongOutputDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            if (Array.isArray(_data["hinhThucPhong"])) {
-                this.hinhThucPhong = [] as any;
-                for (let item of _data["hinhThucPhong"])
-                    this.hinhThucPhong.push(item);
-            }
-            if (Array.isArray(_data["diaDiem"])) {
-                this.diaDiem = [] as any;
-                for (let item of _data["diaDiem"])
-                    this.diaDiem.push(item);
-            }
-            if (Array.isArray(_data["loaiPhong"])) {
-                this.loaiPhong = [] as any;
-                for (let item of _data["loaiPhong"])
-                    this.loaiPhong.push(item);
-            }
-            this.mota = _data["mota"];
-            this.trangThaiPhong = _data["trangThaiPhong"];
-            this.tenFileAnhDaiDien = _data["tenFileAnhDaiDien"];
-            if (Array.isArray(_data["dichVuTienIch"])) {
-                this.dichVuTienIch = [] as any;
-                for (let item of _data["dichVuTienIch"])
-                    this.dichVuTienIch.push(item);
-            }
-            if (Array.isArray(_data["chinhSach"])) {
-                this.chinhSach = [] as any;
-                for (let item of _data["chinhSach"])
-                    this.chinhSach.push(item);
-            }
-            if (Array.isArray(_data["anh"])) {
-                this.anh = [] as any;
-                for (let item of _data["anh"])
-                    this.anh.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): PhongOutputDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PhongOutputDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        if (Array.isArray(this.hinhThucPhong)) {
-            data["hinhThucPhong"] = [];
-            for (let item of this.hinhThucPhong)
-                data["hinhThucPhong"].push(item);
-        }
-        if (Array.isArray(this.diaDiem)) {
-            data["diaDiem"] = [];
-            for (let item of this.diaDiem)
-                data["diaDiem"].push(item);
-        }
-        if (Array.isArray(this.loaiPhong)) {
-            data["loaiPhong"] = [];
-            for (let item of this.loaiPhong)
-                data["loaiPhong"].push(item);
-        }
-        data["mota"] = this.mota;
-        data["trangThaiPhong"] = this.trangThaiPhong;
-        data["tenFileAnhDaiDien"] = this.tenFileAnhDaiDien;
-        if (Array.isArray(this.dichVuTienIch)) {
-            data["dichVuTienIch"] = [];
-            for (let item of this.dichVuTienIch)
-                data["dichVuTienIch"].push(item);
-        }
-        if (Array.isArray(this.chinhSach)) {
-            data["chinhSach"] = [];
-            for (let item of this.chinhSach)
-                data["chinhSach"].push(item);
-        }
-        if (Array.isArray(this.anh)) {
-            data["anh"] = [];
-            for (let item of this.anh)
-                data["anh"].push(item);
-        }
-        return data;
-    }
-
-    clone(): PhongOutputDto {
-        const json = this.toJSON();
-        let result = new PhongOutputDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPhongOutputDto {
-    id: number;
-    hinhThucPhong: string[] | undefined;
-    diaDiem: string[] | undefined;
-    loaiPhong: string[] | undefined;
-    mota: string | undefined;
-    trangThaiPhong: number;
-    tenFileAnhDaiDien: string | undefined;
-    dichVuTienIch: string[] | undefined;
-    chinhSach: string[] | undefined;
-    anh: string[] | undefined;
-}
-
 export class RegisterInput implements IRegisterInput {
     name: string;
     surname: string;
@@ -8224,89 +7324,6 @@ export class RoleListDtoListResultDto implements IRoleListDtoListResultDto {
 
 export interface IRoleListDtoListResultDto {
     items: RoleListDto[] | undefined;
-}
-
-export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto {
-    diaDiemid: number;
-    pageIndex: number;
-    hinhThucPhong: string | undefined;
-    mienPhiHuyPhong: number;
-    giaPhongNhoNhat: number;
-    giaPhongLonNhat: number;
-    danhGiaSao: number;
-    giaCaoNhat: number;
-    giaNhoNhat: number;
-    diemDanhGia: number;
-    doPhoBien: number;
-
-    constructor(data?: ISearchingFilterRoomInputDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.diaDiemid = _data["diaDiemid"];
-            this.pageIndex = _data["pageIndex"];
-            this.hinhThucPhong = _data["hinhThucPhong"];
-            this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
-            this.giaPhongNhoNhat = _data["giaPhongNhoNhat"];
-            this.giaPhongLonNhat = _data["giaPhongLonNhat"];
-            this.danhGiaSao = _data["danhGiaSao"];
-            this.giaCaoNhat = _data["giaCaoNhat"];
-            this.giaNhoNhat = _data["giaNhoNhat"];
-            this.diemDanhGia = _data["diemDanhGia"];
-            this.doPhoBien = _data["doPhoBien"];
-        }
-    }
-
-    static fromJS(data: any): SearchingFilterRoomInputDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new SearchingFilterRoomInputDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["diaDiemid"] = this.diaDiemid;
-        data["pageIndex"] = this.pageIndex;
-        data["hinhThucPhong"] = this.hinhThucPhong;
-        data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
-        data["giaPhongNhoNhat"] = this.giaPhongNhoNhat;
-        data["giaPhongLonNhat"] = this.giaPhongLonNhat;
-        data["danhGiaSao"] = this.danhGiaSao;
-        data["giaCaoNhat"] = this.giaCaoNhat;
-        data["giaNhoNhat"] = this.giaNhoNhat;
-        data["diemDanhGia"] = this.diemDanhGia;
-        data["doPhoBien"] = this.doPhoBien;
-        return data;
-    }
-
-    clone(): SearchingFilterRoomInputDto {
-        const json = this.toJSON();
-        let result = new SearchingFilterRoomInputDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface ISearchingFilterRoomInputDto {
-    diaDiemid: number;
-    pageIndex: number;
-    hinhThucPhong: string | undefined;
-    mienPhiHuyPhong: number;
-    giaPhongNhoNhat: number;
-    giaPhongLonNhat: number;
-    danhGiaSao: number;
-    giaCaoNhat: number;
-    giaNhoNhat: number;
-    diemDanhGia: number;
-    doPhoBien: number;
 }
 
 export enum TenantAvailabilityState {
