@@ -83,6 +83,39 @@
 .choNghiNoiBat {
   justify-content: center;
 }
+
+.DoiTacHotel h4 {
+  color: darkblue;
+  padding-top: 40px;
+}
+.DoiTacHotel h6 {
+  font-weight: 387;
+  color: dodgerblue;
+}
+.DoiTacHotel p {
+  font-weight: 377;
+  color: #003b95;
+  font-size: 17px;
+  padding-top: 10px;
+}
+.DoiTacHotel img {
+  width: 50%;
+}
+
+.WhyBook div ul {
+  list-style-type: none;
+  padding: 20px 0;
+}
+.WhyBook div ul li {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+}
+
 /* Sizing Lịch */
 ::ng-deep .p-datepicker table td {
   padding: 0.2rem !important;

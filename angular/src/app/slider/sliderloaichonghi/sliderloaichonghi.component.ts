@@ -36,11 +36,11 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
 
   loadData(): void {
     this.hinhThucPhongSubscription = this._hinhthucphongService
-      .getAllList()
+      .getAllForms()
       .subscribe((result) => {
         this.slidesloaichonghi = result.map((item) => ({
           tenHinhThuc: item?.tenHinhThuc,
-          tenDonVi: item?.tenDonVi,
+
           anhDaiDien: item?.anhDaiDien,
         }));
       });
