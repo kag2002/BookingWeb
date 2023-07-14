@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookingWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class add_db : Migration
+    public partial class add_db_bookingweb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -188,7 +188,7 @@ namespace BookingWeb.Migrations
                     TienNghiTrongPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GiaPhongTheoDem = table.Column<double>(type: "float", nullable: false),
                     GiaGoiDichVuThem = table.Column<double>(type: "float", nullable: false),
-                    MienPhiHuyPhong = table.Column<int>(type: "int", nullable: false),
+                    MienPhiHuyPhong = table.Column<bool>(type: "bit", nullable: false),
                     ChiPhiHuyPhong = table.Column<double>(type: "float", nullable: false),
                     UuDai = table.Column<double>(type: "float", nullable: false),
                     UuDaiDacBiet = table.Column<double>(type: "float", nullable: false),

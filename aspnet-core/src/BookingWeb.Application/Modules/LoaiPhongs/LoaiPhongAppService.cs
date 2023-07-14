@@ -18,19 +18,13 @@ namespace BookingWeb.Modules.LoaiPhongs
 
         private readonly IRepository<DichVuTienIch> _dichVuTienIch;
 
-        private readonly IRepository<NhanXetDanhGia> _nhanXetDanhGia;
-
-        private readonly IRepository<Phong> _phong;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoaiPhongAppService(IRepository<LoaiPhong> repository, IRepository<DichVuTienIch> repository1, IRepository<NhanXetDanhGia> repository2,
-            IRepository<Phong> repository3, IHttpContextAccessor httpContextAccessor)
+        public LoaiPhongAppService(IRepository<LoaiPhong> repository, IRepository<DichVuTienIch> repository1,
+            IHttpContextAccessor httpContextAccessor)
         {
             _loaiPhong = repository;
             _dichVuTienIch = repository1;
-            _nhanXetDanhGia = repository2;
-            _phong = repository3;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -121,7 +115,7 @@ namespace BookingWeb.Modules.LoaiPhongs
             }
         }
 
-        /*public async Task<bool> DeleteLP(int id)
+        public async Task<bool> DeleteLP(int id)
         {
             try
             {
@@ -129,26 +123,14 @@ namespace BookingWeb.Modules.LoaiPhongs
 
                 if (checkLP != null)
                 {
-                    var phong = await _phong.GetAllListAsync();
-                    var checkPhong = phong.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
-                    if (checkPhong.Count() != 0)
-                    {
-                        foreach (var i in checkPhong)
-                        {
-                            i.LoaiPhongId = null;
-                        }
-                    }
-
                     var dichVu = await _dichVuTienIch.GetAllListAsync();
                     var checkDv = dichVu.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
-                    if (checkDv.Count() != 0)
+                    if (checkDv.Any())
                     {
-                        var nhanXet = await _nhanXetDanhGia.GetAllListAsync();
-                        foreach (var i in checkDv)
+                        foreach(var i in checkDv)
                         {
                             await _dichVuTienIch.DeleteAsync(i);
-                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu {i}");
-
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu: {i}");
                         }
                     }
 
@@ -169,7 +151,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
 
     }

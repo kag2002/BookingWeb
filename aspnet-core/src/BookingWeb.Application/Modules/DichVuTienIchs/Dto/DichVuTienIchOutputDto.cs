@@ -14,7 +14,7 @@ namespace BookingWeb.Modules.DichVuTienIchs.Dto
 
         public string MoTa { get; set; }
 
-        public int LoaiPhongId { get; set; }
+        public string TenLoaiPhong { get; set; }
 
     }
 }

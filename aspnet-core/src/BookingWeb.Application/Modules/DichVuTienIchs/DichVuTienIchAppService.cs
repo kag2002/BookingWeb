@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.DichVuTienIchs.Dto;
 using Microsoft.AspNetCore.Http;
@@ -28,18 +29,49 @@ namespace BookingWeb.Modules.DichVuTienIchs
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<List<DichVuTienIchOutputDto>> GetServiceByKindOfRoom(int id)
+        {
+            try
+            {
+                var lstDv = await _dichVuTienIch.GetAllListAsync();
+                var lstLp = await _loaiPhong.GetAllListAsync();
+
+                var lst = lstDv.Where(x => x.LoaiPhongId == id).ToList();
+
+                var dtoLst = lst.Select(entity => new DichVuTienIchOutputDto
+                {
+                    Id = entity.Id,
+                    TenDichVu = entity.TenDichVu,
+                    MoTa = entity.MoTa,
+                    TenLoaiPhong = lstLp.FirstOrDefault(p => p.Id == entity.LoaiPhongId).TenLoaiPhong ?? string.Empty
+
+                }).ToList();
+
+                return dtoLst;
+
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
+            }
+        }
+
+
+
         public async Task<List<DichVuTienIchOutputDto>> GetAllDv()
         {
             try
             {
                 var lstDv = await _dichVuTienIch.GetAllListAsync();
+                var lstLp = await _loaiPhong.GetAllListAsync(); 
 
                 var dtoLst = lstDv.Select(entity => new DichVuTienIchOutputDto
                 {
                     Id = entity.Id,
                     TenDichVu = entity.TenDichVu,
                     MoTa = entity.MoTa,
-                    LoaiPhongId = entity.LoaiPhongId,
+                    TenLoaiPhong = lstLp.FirstOrDefault(p => p.Id == entity.LoaiPhongId)?.TenLoaiPhong ?? string.Empty
 
                 }).ToList();
 

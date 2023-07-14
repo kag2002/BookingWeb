@@ -26,6 +26,41 @@ namespace BookingWeb.Modules.LoaiKhachHangs
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<List<GetClientByTypeDto>> GetClientByType(int id)
+        {
+            try
+            {
+                var lstLkh = await _loaiKhachHang.GetAllListAsync();
+                var lstKh = await _khachHang.GetAllListAsync();
+
+                var khachHang = lstKh.Where(p=>p.LoaiKhachHangId == id).ToList();
+
+                var dtoKh = khachHang.Select(e => new GetClientByTypeDto
+                {
+                    LoaiKhachHangId = e.LoaiKhachHangId,
+                    PhanLoai = lstLkh.FirstOrDefault(p=>p.Id == e.LoaiKhachHangId).PhanLoai,
+                    KhachHangId = e.Id,
+                    CCCD = e.CCCD,
+                    HoTen = e.HoTen,
+                    Email = e.Email,
+                    SoDienThoai = e.SoDienThoai,
+                    NgaySinh = e.NgaySinh,
+                    DiaChi = e.DiaChi,
+                    GioiTinh = e.GioiTinh,
+                    UserName = e.UserName
+                }).ToList();
+
+                return dtoKh;
+
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
+                return null;
+            }
+
+        }
+
         public async Task<List<LoaiKhachHangInputDto>> GetAllList()
         {
             try
