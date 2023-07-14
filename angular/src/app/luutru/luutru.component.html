@@ -4,6 +4,8 @@
     <h4>Tìm ưu đãi khách sạn, chỗ nghỉ, dạng nhà và nhiều hơn nữa...</h4>
   </div>
 </div>
+
+<!-- Start Form tìm phòng -->
 <div class="container TimPhongContainer">
   <form (ngSubmit)="onSubmit()" #f="ngForm" style="margin-top: -35px">
     <div
@@ -13,7 +15,7 @@
     >
       <div class="">
         <i class="pi pi-building"></i>
-
+        <!-- Tìm theo địa điểm  -->
         <p-autoComplete
           class="TimDiaDiem form-group"
           [(ngModel)]="selectedDiadiem"
@@ -25,7 +27,7 @@
           placeholder="Nhập địa điểm"
         ></p-autoComplete>
       </div>
-
+      <!-- Tìm theo ngày  -->
       <div class="">
         <p-calendar
           class="form-group"
@@ -37,7 +39,7 @@
           placeholder="Ngày nhận - trả phòng"
         ></p-calendar>
       </div>
-
+      <!-- Tìm theo số người và số phòng  -->
       <div class="">
         <p-button
           styleClass="p-button-raised"
@@ -101,7 +103,7 @@
           </div>
         </p-overlay>
       </div>
-
+      <!-- Button tìm  -->
       <div class="" style="text-align: center">
         <p-button
           pRipple
@@ -114,7 +116,7 @@
         <p-toast></p-toast>
       </div>
     </div>
-
+    <!-- CheckBox  -->
     <div class="checkBoxTimPhong">
       <div class="flex align-items-center gap-1">
         <p-checkbox
@@ -138,13 +140,19 @@
     </div>
   </form>
 </div>
+<!-- End Form tìm phòng -->
+
+<!-- Start sliders gợi ý -->
 <div class="container GoiY">
   <app-sliderloaichonghi></app-sliderloaichonghi>
   <app-sliderdiadiem></app-sliderdiadiem>
   <app-chonghinoibat></app-chonghinoibat>
 </div>
+<!-- End sliders gợi ý -->
 
 <hr style="margin: 0 150px 40px 150px" />
+
+<!-- Start đối tác khách sạn  -->
 <div class="center-container">
   <div class="DoiTacHotel row container">
     <div class="AboutDoiTacHotel col-lg-6">
@@ -162,7 +170,18 @@
     <img class="col-lg-6" src="/assets/img/Logo/LogoHotel.png" alt="" />
   </div>
 </div>
+<!-- End đối tác khách sạn  -->
+
 <hr style="margin: 60px 150px" />
+
+<!-- Start form liên hệ ,câu hỏi -->
+<app-lienhe></app-lienhe
+><!-- End form liên hệ ,câu hỏi -->
+
+<hr style="margin: 60px 200px" />
+
+<!-- Start lý do dùng web -->
+<h4 style="text-align: center">Tại sao nên đặt phòng với StayEase ?</h4>
 <div class="center-container">
   <div class="container row WhyBook">
     <div class="col-lg-3 col-md-6">
@@ -220,7 +239,13 @@
     </div>
   </div>
 </div>
+<!-- End lý do dùng web -->
+
+<!-- Stat footer -->
 <app-footer></app-footer>
+<!-- End footer -->
+
+<!-- Test add delete button -->
 <!-- <button (click)="AddDiaDiem()">Add dia diem</button>
 <button (click)="DeleteDiaDiem(1)">Delete dia diem</button>
 <button (click)="GetDiaDiem()">Get all</button>
