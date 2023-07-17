@@ -65,7 +65,7 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-diadanh/${this.slidesdiadiem[index]?.tenFileAnhDD}')`;
+    return `url('/assets/img/DiaDiem/${this.slidesdiadiem[index]?.tenFileAnhDD}')`;
   }
 
   onSlideClick(index: number): void {

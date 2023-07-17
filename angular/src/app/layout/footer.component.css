@@ -30,6 +30,10 @@
   border-radius: 17px;
   width: fit-content;
   height: fit-content;
+  font-weight: 600;
+}
+.LogoHoptac i {
+  margin-right: 4px;
 }
 .LogoConfirm {
   width: 108px;
