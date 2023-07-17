@@ -12,15 +12,9 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string Mota { get; set; }
 
-        public int TrangThaiPhong { get; set; }
-
-        public string DiaChiChiTiet { get; set; }
-
         public string TenFileAnhDaiDien { get; set; }
 
-        public int? DonViKinhDoanhId { get; set; }
-
-        public int? LoaiPhongId { get; set; }
+/*        public int? DonViKinhDoanhId { get; set; }*/
 
         public int? HinhThucPhongId { get; set; }
 
