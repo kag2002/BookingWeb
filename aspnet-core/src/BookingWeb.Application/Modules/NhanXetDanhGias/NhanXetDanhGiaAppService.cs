@@ -44,11 +44,12 @@ namespace BookingWeb.Modules.NhanXetDanhGias
                              join kh in lstKh on pd.KhachHangId equals kh.Id
                              select new NhanXetDanhGiaDto
                              {
-                                 KhachHangId = kh.Id,
                                  KhachHang= kh.HoTen,
+                                 KhachHangId = kh.Id,
                                  NhanXet = nx.NhanXet,
                                  DanhGiaSao = nx.DanhGiaSao,
                                  DiemDanhGia = nx.DiemDanhGia,
+                                 ChiTietDatPhongId = ct.Id,
                                  PhongId = ct.PhongId
                              }).ToList();
 
