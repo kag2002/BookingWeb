@@ -43,11 +43,22 @@ namespace BookingWeb.Modules.Phongs
             _donViKinhDoanh = donViKinhDoanh;
         }
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
+        public async Task<GetPhongByLocationDto> GetRoomById(int Id)
         {
             try
             {
-                int pageSize = 10;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int id)
+        {
+            try
+            {
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
 
@@ -69,7 +80,8 @@ namespace BookingWeb.Modules.Phongs
                         var hinhAnh = await _hinhAnh.GetAllListAsync();
                         var dichVu = await _dichvu.GetAllListAsync();
                         var loaiPhong = await _loaiPhong.GetAllListAsync();
-
+                        var chiTiet = await _chiTietDatPhong.GetAllListAsync();
+                        var nhanXet = await _nhanXet.GetAllListAsync();
                         foreach (var i in phongs)
                         {
                             var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
@@ -86,8 +98,9 @@ namespace BookingWeb.Modules.Phongs
                                 TenFileAnhDaiDien = i.TenFileAnhDaiDien,
                                 DiaChiChiTiet = item.DiaChiChiTiet,
                                 Mota = i.Mota,
-                                DanhGiaSaoTb = i.DanhGiaSaoTb,
-                                DiemDanhGiaTB = i.DiemDanhGiaTB,
+                                DoPhoBien = chiTiet.Where(p => p.PhongId == i.Id).Count(),
+                                DanhGiaSaoTb = /*i.DanhGiaSaoTb,*/ nhanXet.Where(p=>p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q=>q.PhongId == i.Id).Id).Select(p=>p.DanhGiaSao).Sum() / nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DanhGiaSao).Count(),
+                                DiemDanhGiaTB = /*i.DiemDanhGiaTB,*/ nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DiemDanhGia).Sum() / nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DiemDanhGia).Count(),
                                 HinhThucPhongId = hinhThucPhong.Id,
                                 HinhThucPhong = hinhThucPhong?.TenHinhThuc,
 
@@ -120,14 +133,7 @@ namespace BookingWeb.Modules.Phongs
                         }
                     }
                 }
-
-                // Apply pagination
-                var totalCount = dtoList.Count;
-                /*var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);*/
-                var paginatedItems = dtoList.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-
-
-                return new PagedResultDto<GetPhongByLocationDto>(totalCount, paginatedItems);
+                return dtoList;
             }
             catch (Exception ex)
             {
@@ -135,6 +141,9 @@ namespace BookingWeb.Modules.Phongs
                 return null;
             }
         }
+
+
+        
 
 
         public async Task<List<PhongOutputDto>> GetAllRoom()
@@ -148,6 +157,8 @@ namespace BookingWeb.Modules.Phongs
                 var lstLp = await _loaiPhong.GetAllListAsync();
                 var lstDv = await _dichvu.GetAllListAsync();
                 var lstA = await _hinhAnh.GetAllListAsync();
+                var lstCt = await _chiTietDatPhong.GetAllListAsync();
+                var lstNx = await _nhanXet.GetAllListAsync();
 
                 var dtoLst = lstP.Select(entity => new PhongOutputDto
                 {
@@ -160,8 +171,9 @@ namespace BookingWeb.Modules.Phongs
                     TenFileAnhDaiDien = entity.TenFileAnhDaiDien,
                     DiaChiChiTiet = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).DiaChiChiTiet,
                     Mota = entity.Mota,
-                    DanhGiaSaoTb = entity.DanhGiaSaoTb,
-                    DiemDanhGiaTB = entity.DiemDanhGiaTB,
+                    DoPhoBien = lstCt.Where(p => p.PhongId == entity.Id).Count(),
+                    DanhGiaSaoTb = /*entity.DanhGiaSaoTb,*/lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DanhGiaSao).Sum() / lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DanhGiaSao).Count(),
+                    DiemDanhGiaTB = /*entity.DiemDanhGiaTB,*/lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DiemDanhGia).Sum() / lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DiemDanhGia).Count(),
                     HinhThucPhongId = lstHt.FirstOrDefault(p=>p.Id == entity.HinhThucPhongId).Id,
                     HinhThucPhong = lstHt.FirstOrDefault(p => p.Id == entity.HinhThucPhongId).TenHinhThuc,
 
@@ -212,8 +224,6 @@ namespace BookingWeb.Modules.Phongs
                     TenFileAnhDaiDien = input.TenFileAnhDaiDien,
                     DonViKinhDoanhId = input.DonViKinhDoanhId,
                     HinhThucPhongId = input.HinhThucPhongId,
-                    DiemDanhGiaTB = 0,
-                    DanhGiaSaoTb = 0,
 
                 };
                 await _phong.InsertAsync(lp);

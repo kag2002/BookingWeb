@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    [Migration("20230717020924_add_db_bookingweb")]
+    [Migration("20230717100523_add_db_bookingweb")]
     partial class add_db_bookingweb
     {
         /// <inheritdoc />
@@ -2267,20 +2267,11 @@ namespace BookingWeb.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("DanhGiaSaoTb")
-                        .HasColumnType("float");
-
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("DiemDanhGiaTB")
-                        .HasColumnType("float");
-
-                    b.Property<int>("DoPhoBien")
-                        .HasColumnType("int");
 
                     b.Property<int?>("DonViKinhDoanhId")
                         .HasColumnType("int");

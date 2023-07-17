@@ -12,12 +12,10 @@ namespace BookingWeb.DbEntities
 
         public string TenFileAnhDaiDien { get; set; }
 
-        public int DoPhoBien { get; set; }
-
-        public double DiemDanhGiaTB { get; set; }
+/*        public double DiemDanhGiaTB { get; set; }
 
         public double DanhGiaSaoTb { get; set; }
-
+*/
         public int? DonViKinhDoanhId { get; set; }
 
         public int? HinhThucPhongId { get; set; }
