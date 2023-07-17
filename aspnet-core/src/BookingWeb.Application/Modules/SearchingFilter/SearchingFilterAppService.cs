@@ -19,12 +19,16 @@ namespace BookingWeb.Modules.SearchingFilter
         private readonly IRepository<DonViKinhDoanh> _donViKinhDoanh;
         private readonly IRepository<LoaiPhong> _loaiPhong;
         private readonly IRepository<DichVuTienIch> _dichvu;
+        private readonly IRepository<ChiTietDatPhong> _chiTietDatPhong;
+        private readonly IRepository<NhanXetDanhGia> _nhanXet;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public SearchingFilterAppService(IRepository<Phong> phong,
             IRepository<HinhThucPhong> hinhThuc, IRepository<HinhAnh> hinhAnh,
             IRepository<DiaDiem> diaDiem, IRepository<LoaiPhong> loaiPhong,
-            IRepository<DichVuTienIch> dichvu, 
+            IRepository<DichVuTienIch> dichvu,
+            IRepository<ChiTietDatPhong> chiTietDatPhong,
+            IRepository<NhanXetDanhGia> nhanXet,
             IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
         {
             _phong = phong;
@@ -35,13 +39,16 @@ namespace BookingWeb.Modules.SearchingFilter
             _dichvu = dichvu;
             _httpContextAccessor = httpContextAccessor;
             _donViKinhDoanh = donViKinhDoanh;
+            _chiTietDatPhong = chiTietDatPhong;
+            _nhanXet = nhanXet;
         }
 
 
-        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int id)
+        public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
         {
             try
             {
+                int pageSize = 10;
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
 
@@ -63,7 +70,8 @@ namespace BookingWeb.Modules.SearchingFilter
                         var hinhAnh = await _hinhAnh.GetAllListAsync();
                         var dichVu = await _dichvu.GetAllListAsync();
                         var loaiPhong = await _loaiPhong.GetAllListAsync();
-
+                        var chiTiet = await _chiTietDatPhong.GetAllListAsync();
+                        var nhanXet = await _nhanXet.GetAllListAsync();
                         foreach (var i in phongs)
                         {
                             var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
@@ -80,8 +88,9 @@ namespace BookingWeb.Modules.SearchingFilter
                                 TenFileAnhDaiDien = i.TenFileAnhDaiDien,
                                 DiaChiChiTiet = item.DiaChiChiTiet,
                                 Mota = i.Mota,
-                                DanhGiaSaoTb = i.DanhGiaSaoTb,
-                                DiemDanhGiaTB = i.DiemDanhGiaTB,
+                                DoPhoBien = chiTiet.Where(p => p.PhongId == i.Id).Count(),
+                                DanhGiaSaoTb = /*i.DanhGiaSaoTb,*/ nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DanhGiaSao).Sum() / nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DanhGiaSao).Count(),
+                                DiemDanhGiaTB = /*i.DiemDanhGiaTB,*/ nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DiemDanhGia).Sum() / nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DiemDanhGia).Count(),
                                 HinhThucPhongId = hinhThucPhong.Id,
                                 HinhThucPhong = hinhThucPhong?.TenHinhThuc,
 
@@ -114,7 +123,17 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                     }
                 }
-                return dtoList;
+
+                //sort list by DoPhoBien
+                dtoList = dtoList.OrderByDescending(p => p.DoPhoBien).ToList();
+
+                // Apply pagination
+                var totalCount = dtoList.Count;
+                /*var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);*/
+                var paginatedItems = dtoList.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+
+                return new PagedResultDto<GetPhongByLocationDto>(totalCount, paginatedItems);
             }
             catch (Exception ex)
             {
@@ -125,40 +144,56 @@ namespace BookingWeb.Modules.SearchingFilter
 
 
 
-        /*public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
+        public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
         {
             try
             {
                 int pageSize = 10;
 
-                var lstInput = await GetRoomsByDiaDiemId(input.DiaDiemid);
+                var lstInput = await GetRoomsByLocation(input.DiaDiemid, input.pageIndex);
 
-                if (input.HinhThucPhong == null && input.MienPhiHuyPhong == 0 &&
-                    input.DanhGiaSao == 0 && input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0)
+                
+                if(input.MienPhiHuyPhong == "TRUE")
                 {
-                    var result = lstInput.ToList();
+                    var filteredRooms = lstInput.Items.Where(p => p.ListLoaiPhong.Select(q=>q.MienPhiHuyPhong).ToString().ToLower() == "true").ToList();
 
-                    if (input.GiaCaoNhat == 1 && input.GiaNhoNhat == 0 && input.DanhGiaSao == 0 && input.DoPhoBien == 0)
+                    if (input.GiaPhongNhoNhat != null && input.GiaPhongLonNhat != null)
                     {
-                        result = result.OrderByDescending(p => p..ListLoaiPhong.GiaPhongTheoDem)).ToList();
-                    }
-                    else if (input.GiaNhoNhat == 1 && input.GiaCaoNhat == 0 && input.DanhGiaSao == 0 && input.DoPhoBien == 0)
-                    {
-                        result = result.OrderBy(p => p.GiaPhongTheoDem).ToList();
-                    }
-                    else if (input.DanhGiaSao == 1 && input.GiaNhoNhat == 0 && input.GiaCaoNhat == 0 && input.DoPhoBien == 0)
-                    {
-                        result = result.OrderBy(p => p.DiemDanhGiaTB).ToList();
-                    }
-                    else
-                    {
-                        result = result.OrderBy(p => p.DiemDanhGiaTB).ToList();
+                        filteredRooms = filteredRooms.Where(room =>
+                                                   (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
+                                                   room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
+                                               ).ToList();
                     }
 
-                    var totalCount = result.Count;
-                    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                    if (input.DanhGiaSao != null)
+                    {
+                        filteredRooms = filteredRooms.Where(room => room.DanhGiaSaoTb >= input.DanhGiaSao).ToList();
+                    }
+                    if (input.HinhThucPhongId != null)
+                    {
+                        filteredRooms = filteredRooms.Where(room => room.HinhThucPhongId == input.HinhThucPhongId).ToList();
+                    }
 
-                    var pagedRooms = result
+                    if (input.GiaCaoNhat == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderByDescending(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
+                    }
+                    else if (input.GiaNhoNhat == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderBy(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
+                    }
+                    else if (input.DiemDanhGia == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderByDescending(q => q.DiemDanhGiaTB).ToList();
+                    }
+                    else if (input.DoPhoBien == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderByDescending(q => q.DoPhoBien).ToList();
+                    }
+
+                    var totalCount = filteredRooms.Count;
+
+                    var pagedRooms = filteredRooms
                         .Skip((input.pageIndex - 1) * pageSize)
                         .Take(pageSize)
                         .ToList();
@@ -167,80 +202,51 @@ namespace BookingWeb.Modules.SearchingFilter
                 }
                 else
                 {
-                    if (input.MienPhiHuyPhong == 0)
+                    var filteredRooms = lstInput.Items.ToList();
+
+                    if (input.GiaPhongNhoNhat != null && input.GiaPhongLonNhat != null)
                     {
-
-
-                        var filteredRooms = lstInput.Items.Where(room =>
-                        (string.IsNullOrEmpty(input.HinhThucPhong) || room.HinhThucPhong == input.HinhThucPhong) &&
-                        (input.GiaPhongNhoNhat <= room.GiaPhongTheoDem && room.GiaPhongTheoDem <= input.GiaPhongLonNhat) &&
-                        (input.DanhGiaSao <= room.DanhGiaSaoTb)).ToList();
-
-                        if (input.GiaCaoNhat == 1 && input.GiaNhoNhat == 0 && input.DanhGiaSao == 0 && input.DoPhoBien == 0)
-                        {
-                            filteredRooms = filteredRooms.OrderByDescending(p => p.GiaPhongTheoDem).ToList();
-                        }
-                        else if (input.GiaNhoNhat == 1 && input.GiaCaoNhat == 0 && input.DanhGiaSao == 0 && input.DoPhoBien == 0)
-                        {
-                            filteredRooms = filteredRooms.OrderBy(p => p.GiaPhongTheoDem).ToList();
-                        }
-                        else if (input.DanhGiaSao == 1 && input.GiaNhoNhat == 0 && input.GiaCaoNhat == 0 && input.DoPhoBien == 0)
-                        {
-                            filteredRooms = filteredRooms.OrderBy(p => p.DiemDanhGiaTB).ToList();
-                        }
-                        else
-                        {
-                            filteredRooms = filteredRooms.OrderBy(p => p.DiemDanhGiaTB).ToList();
-                        }
-
-
-                        var totalCount = filteredRooms.Count;
-                        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-                        var pagedRooms = filteredRooms
-                            .Skip((input.pageIndex - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-
-                        return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
+                        filteredRooms = filteredRooms.Where(room =>
+                                                   (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
+                                                   room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
+                                               ).ToList();
                     }
-                    else if (input.MienPhiHuyPhong == 1)
+                    if (input.DanhGiaSao != null)
                     {
-                        var filteredRooms = lstInput.Items.Where(room =>
-                        (string.IsNullOrEmpty(input.HinhThucPhong) || room.HinhThucPhong == input.HinhThucPhong) &&
-                        (input.GiaPhongNhoNhat <= room.GiaPhongTheoDem && room.GiaPhongTheoDem <= input.GiaPhongLonNhat) &&
-                        (input.DanhGiaSao <= room.DanhGiaSaoTb) &&
-                        (input.MienPhiHuyPhong == room.MienPhiHuyPhong)).ToList();
-
-                        if (input.GiaCaoNhat == 1 && input.GiaNhoNhat == 0 && input.DanhGiaSao == 0 && input.DoPhoBien == 0)
-                        {
-                            filteredRooms = filteredRooms.OrderByDescending(p => p.GiaPhongTheoDem).ToList();
-                        }
-                        else if (input.GiaNhoNhat == 1 && input.GiaCaoNhat == 0 && input.DanhGiaSao == 0 && input.DoPhoBien == 0)
-                        {
-                            filteredRooms = filteredRooms.OrderBy(p => p.GiaPhongTheoDem).ToList();
-                        }
-                        else if (input.DanhGiaSao == 1 && input.GiaNhoNhat == 0 && input.GiaCaoNhat == 0 && input.DoPhoBien == 0)
-                        {
-                            filteredRooms = filteredRooms.OrderBy(p => p.DiemDanhGiaTB).ToList();
-                        }
-                        else
-                        {
-                            filteredRooms = filteredRooms.OrderBy(p => p.DiemDanhGiaTB).ToList();
-                        }
-
-                        var totalCount = filteredRooms.Count;
-                        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-                        var pagedRooms = filteredRooms
-                            .Skip((input.pageIndex - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-
-                        return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
+                        filteredRooms = filteredRooms.Where(room => room.DanhGiaSaoTb >= input.DanhGiaSao).ToList();
                     }
+                    if (input.HinhThucPhongId != null)
+                    {
+                        filteredRooms = filteredRooms.Where(room => room.HinhThucPhongId == input.HinhThucPhongId).ToList();
+                    }
+
+                    if (input.GiaCaoNhat == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderByDescending(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
+                    }
+                    else if (input.GiaNhoNhat == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderBy(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
+                    }
+                    else if (input.DiemDanhGia == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderByDescending(q => q.DiemDanhGiaTB).ToList();
+                    }
+                    else if (input.DoPhoBien == 1)
+                    {
+                        filteredRooms = filteredRooms.OrderByDescending(q => q.DoPhoBien).ToList();
+                    }
+
+                    var totalCount = filteredRooms.Count;
+
+                    var pagedRooms = filteredRooms
+                        .Skip((input.pageIndex - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToList();
+
+                    return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
+
                 }
-                return null;
 
             }
             catch (Exception ex)
@@ -248,7 +254,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
                 return null;
             }
-        }*/
+        }
 
 
 

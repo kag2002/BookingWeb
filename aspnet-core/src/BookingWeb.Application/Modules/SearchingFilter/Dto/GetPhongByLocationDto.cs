@@ -1,6 +1,9 @@
-﻿using BookingWeb.DbEntities;
+﻿using Abp.Application.Services.Dto;
+using BookingWeb.DbEntities;
+using BookingWeb.Modules.SearchingFilter.Dto;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +29,8 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
         public string Mota { get; set; }
 
         public string TenFileAnhDaiDien { get; set; }
+
+        public int DoPhoBien { get; set; }
 
         public double DiemDanhGiaTB { get; set; }
 
