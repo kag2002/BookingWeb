@@ -105,4 +105,14 @@
 .contact .row .faq .box.active p {
   display: inline-block;
 }
+
+/* Hide the default increase and decrease buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
 /*End Css liên hệ */

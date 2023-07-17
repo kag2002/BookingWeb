@@ -2,8 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import {
   LoaiPhongServiceProxy,
-  NhanXetDanhGiaServiceProxy,
-  PhongServiceProxy,
+  SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { Subscription } from "rxjs";
 
@@ -21,13 +20,13 @@ export class SliderchonghinoibatComponent {
   value: number = 4;
   currentIndex = 0;
 
-  private phongSubscription: Subscription;
-  private loaiphongSubscription: Subscription;
+  private searchingfilterSubscription: Subscription;
+  private loaisearchingfilterSubscription: Subscription;
   private nhanxetdanhgiaSubscription: Subscription;
 
   constructor(
     private router: Router,
-    private _phongService: PhongServiceProxy,
+    private _searchingfilterService: SearchingFilterServiceProxy,
     private _loaiphongService: LoaiPhongServiceProxy
   ) {}
 
@@ -40,34 +39,35 @@ export class SliderchonghinoibatComponent {
   }
 
   loadData(): void {
-    // this.phongSubscription = this._phongService
-    //   .getRoomsByDiaDiemId(this.donViId)
-    //   .subscribe((result) => {
-    //     this.slideschonghinoibat = result.map((item) => ({
-    //       tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
-    //       hinhThucPhong: item?.hinhThucPhong,
-    //       tenDonVi: item?.tenDonVi,
-    //       diaDiem: item?.diaDiem,
-    //       danhGiaSaoTb: item?.danhGiaSaoTb,
-    //     }));
-    //   });
-    // this.loaiphongSubscription = this._loaiphongService
+    this.searchingfilterSubscription = this._searchingfilterService
+      .getRoomsByDiaDiemId(this.donViId)
+      .subscribe((result) => {
+        this.slideschonghinoibat = result.map((item) => ({
+          tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
+          hinhThucPhong: item?.hinhThucPhong,
+          tenDonVi: item?.tenDonVi,
+          diaDiem: item?.diaDiem,
+          danhGiaSaoTb: item?.danhGiaSaoTb,
+          giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
+        }));
+      });
+    // this.loaisearchingfilterSubscription = this._loaiphongService
     //   .getAllKindOfRoom()
     //   .subscribe((result) => {
     //     this.slideschonghinoibat1 = result.map((item) => ({
-    //       giaPhongTheoDem: item?.giaPhongTheoDem,
+    //       giaPhongTheoDem: item?.giaPhongTheoDem[1],
     //     }));
     //   });
   }
 
   unsubscribeSubscriptions(): void {
-    this.phongSubscription.unsubscribe();
-    this.loaiphongSubscription.unsubscribe();
+    this.searchingfilterSubscription.unsubscribe();
+    this.loaisearchingfilterSubscription.unsubscribe();
     this.nhanxetdanhgiaSubscription.unsubscribe();
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-chonghinoibat/${this.slideschonghinoibat[index]?.tenFileAnhDaiDien}')`;
+    return `url('/assets/img/DonViKinhDoanh/${this.slideschonghinoibat[index]?.tenFileAnhDaiDien}')`;
   }
 
   onSlideClick(index: number): void {

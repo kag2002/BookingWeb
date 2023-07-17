@@ -9,8 +9,7 @@
 }
 
 .TimPhongContainer {
-  display: flex;
-  justify-content: center;
+  margin-top: -34px;
 }
 
 .TimPhong {
@@ -19,7 +18,7 @@
   border-radius: 6px;
   background-color: cornsilk;
   width: 66rem;
-  padding: 3px;
+  padding-top: 5px;
 }
 .TimPhong div i {
   padding: 0 5px 0 7px;

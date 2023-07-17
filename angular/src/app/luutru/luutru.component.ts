@@ -1,17 +1,12 @@
 import { Component, ViewChild } from "@angular/core";
-import { LuutruService } from "../luutru/luutru.service";
-import { NgForm } from "@angular/forms";
-
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import {
   DiaDiemDto,
+  DiaDiemFullDto,
   DiaDiemServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-
-interface AutoCompleteCompleteEvent {
-  originalEvent: Event;
-  query: string;
-}
 
 @Component({
   selector: "app-luutru",
@@ -20,18 +15,19 @@ interface AutoCompleteCompleteEvent {
   providers: [MessageService],
 })
 export class LuutruComponent {
-  @ViewChild("f") signupForm: NgForm;
+  formData: FormGroup;
 
   diadiemDto: DiaDiemDto = new DiaDiemDto();
-  diadiems: any[];
+  suggestionsDiaDiem: DiaDiemFullDto[];
   selectedDiadiem: any;
   filteredDiadiems: any[];
   rangeDates: Date[];
   showForm = false;
+
   adults = 0;
   children = 0;
   rooms = 0;
-  selectedCities: string[] = [];
+
   submitted = false;
 
   TimPhong = {
@@ -43,35 +39,67 @@ export class LuutruComponent {
   };
 
   constructor(
-    private luutruService: LuutruService,
-    private messageService: MessageService
+    private _diadiemService: DiaDiemServiceProxy,
+    private messageService: MessageService,
+    private formBuilder: FormBuilder
   ) {}
+
   overlayVisible: boolean = false;
 
   ngOnInit() {
-    this.luutruService.getDiadiems().then((diadiems) => {
-      this.diadiems = diadiems;
+    this.createForm();
+  }
+
+  createForm() {
+    this.formData = this.formBuilder.group({
+      timkiemData: this.formBuilder.group({
+        locations: [null, Validators.required],
+        rangeDates: [null, Validators.required],
+        adults: [0, Validators.min(0)],
+        children: [0, Validators.min(0)],
+        rooms: [0, Validators.min(0)],
+      }),
+      group1: this.formBuilder.control([]), // Use this.formBuilder.control instead of array notation
     });
   }
 
-  filterDiadiem(event: AutoCompleteCompleteEvent) {
-    const query = event.query.toLowerCase();
-    this.filteredDiadiems = this.diadiems.filter((diadiem) =>
-      diadiem.name.toLowerCase().startsWith(query)
-    );
+  searchDiaDiem(event) {
+    const query = event.query;
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.suggestionsDiaDiem = this.filterDiadiem(query, result);
+    });
+  }
+
+  filterDiadiem(query, diaDiem: DiaDiemFullDto[]): any[] {
+    const filter: any[] = [];
+    for (const i of diaDiem) {
+      if (i.tenDiaDiem.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        filter.push(i);
+      }
+    }
+    return filter;
   }
 
   incrementDecrement(field: string, value: number) {
-    if (this[field] + value >= 0) {
-      this[field] += value;
+    if (this.formData.get(`timkiemData.${field}`).value + value >= 0) {
+      this.formData
+        .get(`timkiemData.${field}`)
+        .patchValue(this.formData.get(`timkiemData.${field}`).value + value);
     }
   }
+
   onSubmit() {
     this.submitted = true;
-    this.TimPhong.selectedDiadiem = this.selectedDiadiem?.name || "";
-    this.TimPhong.adult = this.adults;
-    this.TimPhong.children = this.children;
-    this.TimPhong.room = this.rooms;
+
+    if (this.formData.invalid) {
+      return;
+    }
+
+    this.TimPhong.selectedDiadiem =
+      this.formData.get("timkiemData.locations").value?.name || "";
+    this.TimPhong.adult = this.formData.get("timkiemData.adults").value;
+    this.TimPhong.children = this.formData.get("timkiemData.children").value;
+    this.TimPhong.room = this.formData.get("timkiemData.rooms").value;
 
     if (this.rangeDates && this.rangeDates.length === 2) {
       const start = this.rangeDates[0];
@@ -83,10 +111,6 @@ export class LuutruComponent {
 
       this.TimPhong.rangeDate = numberOfDays.toString(); // Store the number of days as a string
     }
-
-    const formData = { ...this.TimPhong }; // Copy form data to a separate variable
-
-    console.log(formData);
   }
 
   toggleForm() {
@@ -100,26 +124,14 @@ export class LuutruComponent {
       summary: "Success",
       detail: "Tìm thành công",
     });
+    const formData = {
+      locations: this.formData.get("timkiemData.locations").value,
+      rangeDates: this.formData.get("timkiemData.rangeDates").value,
+      adults: this.formData.get("timkiemData.adults").value,
+      children: this.formData.get("timkiemData.children").value,
+      rooms: this.formData.get("timkiemData.rooms").value,
+    };
+
+    console.log(formData);
   }
-
-  // AddDiaDiem() {
-  //   this.diadiemDto.tenDiaDiem = "dia diem 3";
-  //   this.diadiemDto.thongTinViTri = "hanoi 3";
-  //   this.diadiemDto.tenFileAnhDD =
-  //     "/assets/img/img-diadanh/image-diadanh-1.jpg";
-  //   this._diadiemService
-  //     .addNewLocation(this.diadiemDto)
-  //     .subscribe((result) => {});
-  // }
-  // DeleteDiaDiem(id: number) {
-  //   this._diadiemService.deleteLocation(id).subscribe((result) => {});
-  // }
-
-  // GetDiaDiem() {
-  //   this._diadiemService.getAllLocations().subscribe((result) => {
-  //     this.slidesdiadiem = result.map((item) => {
-  //       return { tenFileAnhDD: item.tenFileAnhDD }; // Map the result to an array of objects with TenFileAnhDD property
-  //     });
-  //   });
-  // }
 }
