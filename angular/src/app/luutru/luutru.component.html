@@ -6,140 +6,124 @@
 </div>
 
 <!-- Start Form tìm phòng -->
-<div class="container TimPhongContainer">
-  <form (ngSubmit)="onSubmit()" #f="ngForm" style="margin-top: -35px">
-    <div
-      ngModelGroup="timkiemData"
-      #timkiemData="ngModelGroup"
-      class="TimPhong"
-    >
-      <div class="">
-        <i class="pi pi-building"></i>
-        <!-- Tìm theo địa điểm  -->
-        <p-autoComplete
-          class="TimDiaDiem form-group"
-          [(ngModel)]="selectedDiadiem"
-          [dropdown]="true"
-          [suggestions]="filteredDiadiems"
-          (completeMethod)="filterDiadiem($event)"
-          field="name"
-          name="selectedDiadiem"
-          placeholder="Nhập địa điểm"
-        ></p-autoComplete>
-      </div>
-      <!-- Tìm theo ngày  -->
-      <div class="">
-        <p-calendar
-          class="form-group"
-          [(ngModel)]="rangeDates"
-          selectionMode="range"
-          [readonlyInput]="true"
-          name="rangeDates"
-          [showIcon]="true"
-          placeholder="Ngày nhận - trả phòng"
-        ></p-calendar>
-      </div>
-      <!-- Tìm theo số người và số phòng  -->
-      <div class="">
-        <p-button
-          styleClass="p-button-raised"
-          (click)="toggleForm()"
-          label="Người lớn - Trẻ em - Phòng"
-          ><i class="pi pi-user"></i
-        ></p-button>
+<form
+  [formGroup]="formData"
+  (ngSubmit)="onSubmit()"
+  #signInForm="ngForm"
+  class="container TimPhongContainer"
+>
+  <div formGroupName="timkiemData" class="TimPhong">
+    <div>
+      <i class="pi pi-building"></i>
+      <!-- Tìm theo địa điểm  -->
+      <p-autoComplete
+        class="TimDiaDiem form-group"
+        formControlName="locations"
+        [dropdown]="true"
+        [suggestions]="suggestionsDiaDiem"
+        (completeMethod)="searchDiaDiem($event)"
+        field="tenDiaDiem"
+        name="selectedDiadiem"
+        placeholder="Nhập địa điểm"
+      ></p-autoComplete>
+    </div>
+    <!-- Tìm theo ngày  -->
+    <div>
+      <p-calendar
+        class="form-group"
+        formControlName="rangeDates"
+        selectionMode="range"
+        [readonlyInput]="true"
+        name="rangeDates"
+        [showIcon]="true"
+        placeholder="Ngày nhận - trả phòng"
+      ></p-calendar>
+    </div>
+    <!-- Tìm theo số người và số phòng  -->
+    <div>
+      <p-button
+        styleClass="p-button-raised"
+        (click)="toggleForm()"
+        label="Người lớn - Trẻ em - Phòng"
+      >
+        <i class="pi pi-user"></i>
+      </p-button>
 
-        <p-overlay [(visible)]="overlayVisible">
-          <div class="CountRoom form-group">
-            <p>Người lớn</p>
-            <div>
-              <button type="button" (click)="incrementDecrement('adults', -1)">
-                -
-              </button>
-              <input
-                type="number"
-                id="adults"
-                [(ngModel)]="adults"
-                [ngModelOptions]="{ standalone: true }"
-                name="adults"
-              />
-              <button type="button" (click)="incrementDecrement('adults', 1)">
-                +
-              </button>
-            </div>
-
-            <p>Trẻ em</p>
-            <div>
-              <button type="button" (click)="incrementDecrement('children', 1)">
-                -
-              </button>
-              <input
-                type="number"
-                id="children"
-                [(ngModel)]="children"
-                [ngModelOptions]="{ standalone: true }"
-                name="children"
-              />
-              <button type="button" (click)="incrementDecrement('children', 1)">
-                +
-              </button>
-            </div>
-
-            <p>Phòng</p>
-            <div>
-              <button type="button" (click)="incrementDecrement('rooms', -1)">
-                -
-              </button>
-              <input
-                type="number"
-                id="rooms"
-                [(ngModel)]="rooms"
-                [ngModelOptions]="{ standalone: true }"
-                name="rooms"
-              />
-              <button type="button" (click)="incrementDecrement('rooms', 1)">
-                +
-              </button>
-            </div>
+      <p-overlay [(visible)]="overlayVisible">
+        <div class="CountRoom form-group">
+          <p>Người lớn</p>
+          <div>
+            <button type="button" (click)="incrementDecrement('adults', -1)">
+              -
+            </button>
+            <input type="number" formControlName="adults" name="adults" />
+            <button type="button" (click)="incrementDecrement('adults', 1)">
+              +
+            </button>
           </div>
-        </p-overlay>
-      </div>
-      <!-- Button tìm  -->
-      <div class="" style="text-align: center">
-        <p-button
-          pRipple
-          (click)="show()"
-          styleClass="p-button-raised"
-          (click)="onSubmit()"
-          label="Tìm kiếm"
-          ><i class="pi pi-search"></i
-        ></p-button>
-        <p-toast></p-toast>
-      </div>
-    </div>
-    <!-- CheckBox  -->
-    <div class="checkBoxTimPhong">
-      <div class="flex align-items-center gap-1">
-        <p-checkbox
-          name="group1"
-          value="Tim Nha"
-          [(ngModel)]="selectedCities"
-          inputId="tn"
-        ></p-checkbox>
-        <label for="tn">Cho tôi xem nhà nghỉ dưỡng</label>
-      </div>
 
-      <div class="flex align-items-center gap-1">
-        <p-checkbox
-          name="group1"
-          value="Cong Tac"
-          [(ngModel)]="selectedCities"
-          inputId="ct"
-        ></p-checkbox>
-        <label for="ct">Tôi đi công tác</label>
-      </div>
+          <p>Trẻ em</p>
+          <div>
+            <button type="button" (click)="incrementDecrement('children', -1)">
+              -
+            </button>
+            <input type="number" formControlName="children" name="children" />
+            <button type="button" (click)="incrementDecrement('children', 1)">
+              +
+            </button>
+          </div>
+
+          <p>Phòng</p>
+          <div>
+            <button type="button" (click)="incrementDecrement('rooms', -1)">
+              -
+            </button>
+            <input type="number" formControlName="rooms" name="rooms" />
+            <button type="button" (click)="incrementDecrement('rooms', 1)">
+              +
+            </button>
+          </div>
+        </div>
+      </p-overlay>
     </div>
-  </form>
-</div>
+    <!-- Button tìm  -->
+    <div style="text-align: center">
+      <p-button
+        pRipple
+        (click)="show()"
+        styleClass="p-button-raised"
+        (click)="onSubmit()"
+        label="Tìm kiếm"
+        ><i class="pi pi-search"></i
+      ></p-button>
+      <p-toast></p-toast>
+    </div>
+  </div>
+  <!-- CheckBox -->
+  <div class="checkBoxTimPhong">
+    <div class="flex align-items-center gap-1">
+      <p-checkbox
+        formControlName="group1"
+        value="TimNha"
+        inputId="tn"
+      ></p-checkbox>
+      <label for="tn">Cho tôi xem nhà nghỉ dưỡng</label>
+    </div>
+
+    <div class="flex align-items-center gap-1">
+      <p-checkbox
+        formControlName="group1"
+        value="Cong Tac"
+        inputId="ct"
+      ></p-checkbox>
+      <label for="ct">Tôi đi công tác</label>
+    </div>
+  </div>
+</form>
+
+<!-- <pre>
+  {{ signInForm.value | json }}
+</pre> -->
 <!-- End Form tìm phòng -->
 
 <!-- Start sliders gợi ý -->
@@ -175,8 +159,8 @@
 <hr style="margin: 60px 150px" />
 
 <!-- Start form liên hệ ,câu hỏi -->
-<app-lienhe></app-lienhe
-><!-- End form liên hệ ,câu hỏi -->
+<app-lienhe></app-lienhe>
+<!-- End form liên hệ ,câu hỏi -->
 
 <hr style="margin: 60px 200px" />
 
