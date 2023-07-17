@@ -2063,6 +2063,9 @@ namespace BookingWeb.Migrations
                     b.Property<string>("TienNghiTrongPhong")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TongSlPhong")
+                        .HasColumnType("int");
+
                     b.Property<string>("TrangThaiPhong")
                         .HasColumnType("nvarchar(max)");
 
@@ -2272,6 +2275,9 @@ namespace BookingWeb.Migrations
 
                     b.Property<double>("DiemDanhGiaTB")
                         .HasColumnType("float");
+
+                    b.Property<int>("DoPhoBien")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DonViKinhDoanhId")
                         .HasColumnType("int");

@@ -14,6 +14,8 @@ namespace BookingWeb.DbEntities
 
         public string TenLoaiPhong { get; set; }
 
+        public int TongSlPhong { get; set; }
+
         public int SucChua { get; set; }
 
         public string TrangThaiPhong { get; set; }
