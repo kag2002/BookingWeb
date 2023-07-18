@@ -18,7 +18,8 @@
     <PackageReference Include="Abp.AutoMapper" Version="8.2.0" />
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="8.2.0" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
   </ItemGroup>
 </Project>

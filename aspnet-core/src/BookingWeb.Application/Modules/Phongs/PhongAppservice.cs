@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Session;
+
 namespace BookingWeb.Modules.Phongs
 {
     public class PhongAppService : BookingWebAppServiceBase
@@ -22,13 +24,16 @@ namespace BookingWeb.Modules.Phongs
         private readonly IRepository<NhanXetDanhGia> _nhanXet;
         private readonly IRepository<ChiTietDatPhong>  _chiTietDatPhong;
 
+        private readonly ISession _session;
+
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public PhongAppService(IRepository<Phong> phong, IRepository<HinhThucPhong> hinhThuc,
             IRepository<HinhAnh> hinhAnh, IRepository<DiaDiem> diaDiem,
             IRepository<LoaiPhong> loaiPhong, IRepository<DichVuTienIch> dichvu,
             IRepository<NhanXetDanhGia> nhanXet, IRepository<ChiTietDatPhong> chiTietDatPhong
-            , IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
+            , IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh,
+            ISession session)
         {
             _phong = phong;
             _hinhThuc = hinhThuc;
@@ -40,6 +45,7 @@ namespace BookingWeb.Modules.Phongs
             _chiTietDatPhong = chiTietDatPhong;
             _httpContextAccessor = httpContextAccessor;
             _donViKinhDoanh = donViKinhDoanh;
+            _session = session;
         }
 
         public async Task<GetPhongByLocationDto> GetRoomById(int Id)
@@ -133,14 +139,14 @@ namespace BookingWeb.Modules.Phongs
             }
         }
 
-        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int id)
+        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int diaDienId)
         {
             try
             {
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
 
-                var dvkds = lstDVKD.Where(p => p.DiaDiemId == id).ToList();
+                var dvkds = lstDVKD.Where(p => p.DiaDiemId == diaDienId).ToList();
 
                 var dtoList = new List<GetPhongByLocationDto>();
 
@@ -150,7 +156,7 @@ namespace BookingWeb.Modules.Phongs
 
                     if (phongs == null || !phongs.Any())
                     {
-                        await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có id = {id}");
+                        await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có id = {diaDienId}");
                         return null;
                     }
                     else
@@ -162,7 +168,7 @@ namespace BookingWeb.Modules.Phongs
                         var nhanXet = await _nhanXet.GetAllListAsync();
                         foreach (var i in phongs)
                         {
-                            var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
+                            var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == diaDienId);
                             var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
 
                             var dtoP = new GetPhongByLocationDto
@@ -435,6 +441,52 @@ namespace BookingWeb.Modules.Phongs
                 return false;
             }
 
+        }
+
+
+        public async Task<GetInfoRoomToBookOutputDto> GetInfoRoomToBook(int loaiPhongId)
+        {
+            try
+            {
+                var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
+
+                var dvkd = await _donViKinhDoanh.FirstOrDefaultAsync(p => p.Id == info.DonViKinhDoanhId);
+
+
+                var dto = new GetInfoRoomToBookOutputDto
+                {
+
+
+                };
+
+                return dto;
+
+
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
+            }
+        }
+
+
+        public async Task<ClientBookRoomOutputDto> ClientBookRoom(int phongId,int loaiPhongId)
+        {
+            try
+            {
+                var infoRoom = await GetInfoRoomToBook(loaiPhongId);
+
+
+
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
+            }
         }
     }
 }

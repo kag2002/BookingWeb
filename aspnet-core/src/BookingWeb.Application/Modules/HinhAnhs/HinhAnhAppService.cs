@@ -28,7 +28,7 @@ namespace BookingWeb.Modules.HinhAnhs
             {
                 var lstHa = await _hinhAnh.GetAllListAsync();
 
-                var lst = lstHa.Where(p=>p.Id == id).ToList();
+                var lst = lstHa.Where(p=>p.PhongId == id).ToList();
 
                 var dtoLst = lst.Select(entity => new HinhAnhInputDto
                 {

@@ -117,7 +117,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
 
                 return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, paginatedItems);
-            }
+            }   
             catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
@@ -169,7 +169,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     {
                         filteredRooms = filteredRooms.OrderByDescending(q => q.DiemDanhGiaTB).ToList();
                     }
-                    else if (input.DoPhoBien == 1)
+                    else
                     {
                         filteredRooms = filteredRooms.OrderByDescending(q => q.DoPhoBien).ToList();
                     }
@@ -215,7 +215,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     {
                         filteredRooms = filteredRooms.OrderByDescending(q => q.DiemDanhGiaTB).ToList();
                     }
-                    else if (input.DoPhoBien == 1)
+                    else
                     {
                         filteredRooms = filteredRooms.OrderByDescending(q => q.DoPhoBien).ToList();
                     }
