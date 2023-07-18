@@ -1,9 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import {
-  LoaiPhongServiceProxy,
-  SearchingFilterServiceProxy,
-} from "@shared/service-proxies/service-proxies";
+import { PhongServiceProxy } from "@shared/service-proxies/service-proxies";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -14,21 +11,13 @@ import { Subscription } from "rxjs";
 export class SliderchonghinoibatComponent {
   @Input() donViId: number;
   slideschonghinoibat: any[] = [];
-  slideschonghinoibat1: any[] = [];
-  saoslideschonghinoibat: any[] = [];
 
   value: number = 4;
   currentIndex = 0;
 
-  private searchingfilterSubscription: Subscription;
-  private loaisearchingfilterSubscription: Subscription;
-  private nhanxetdanhgiaSubscription: Subscription;
+  private phongSubscription: Subscription;
 
-  constructor(
-    private router: Router,
-    private _searchingfilterService: SearchingFilterServiceProxy,
-    private _loaiphongService: LoaiPhongServiceProxy
-  ) {}
+  constructor(private _phongService: PhongServiceProxy) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -39,7 +28,7 @@ export class SliderchonghinoibatComponent {
   }
 
   loadData(): void {
-    this.searchingfilterSubscription = this._searchingfilterService
+    this.phongSubscription = this._phongService
       .getRoomsByDiaDiemId(this.donViId)
       .subscribe((result) => {
         this.slideschonghinoibat = result.map((item) => ({
@@ -51,19 +40,10 @@ export class SliderchonghinoibatComponent {
           giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
         }));
       });
-    // this.loaisearchingfilterSubscription = this._loaiphongService
-    //   .getAllKindOfRoom()
-    //   .subscribe((result) => {
-    //     this.slideschonghinoibat1 = result.map((item) => ({
-    //       giaPhongTheoDem: item?.giaPhongTheoDem[1],
-    //     }));
-    //   });
   }
 
   unsubscribeSubscriptions(): void {
-    this.searchingfilterSubscription.unsubscribe();
-    this.loaisearchingfilterSubscription.unsubscribe();
-    this.nhanxetdanhgiaSubscription.unsubscribe();
+    this.phongSubscription.unsubscribe();
   }
 
   getCurrentSlideUrl(index: number): string {
