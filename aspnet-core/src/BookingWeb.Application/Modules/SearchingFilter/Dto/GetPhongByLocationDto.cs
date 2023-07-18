@@ -1,12 +1,4 @@
-﻿using Abp.Application.Services.Dto;
-using BookingWeb.DbEntities;
-using BookingWeb.Modules.SearchingFilter.Dto;
-using System;
-using System.Collections.Generic;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BookingWeb.Modules.SearchingFilter.Dto
 {
@@ -18,17 +10,32 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public string ThongTinViTri { get; set; }
 
+
         public int DonViKinhDoanhId { get; set; }
 
         public string? TenDonVi { get; set; }
 
-        public int PhongId { get; set; }
-
         public string? DiaChiChiTiet { get; set; }
+
+        public string? ChinhSachVePhong { get; set; }
+
+        public string? ChinhSachVeTreEm { get; set; }
+
+        public string? ChinhSachVeThuCung { get; set; }
+
+
+        public int HinhThucPhongId { get; set; }
+
+        public string? HinhThucPhong { get; set; }
+
+
+        public int PhongId { get; set; }
 
         public string Mota { get; set; }
 
         public string TenFileAnhDaiDien { get; set; }
+
+
 
         public int DoPhoBien { get; set; }
 
@@ -36,19 +43,12 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public double DanhGiaSaoTb { get; set; }
 
-        public int HinhThucPhongId { get; set; }
-
-        public string? HinhThucPhong { get; set; }
         
         public List<LoaiPhongSearchingDto>? ListLoaiPhong { get; set; }
 
         public List<string>? HinhAnh { get; set; }
 
-        public string? ChinhSachVePhong { get; set; }
-
-        public string? ChinhSachVeTreEm { get; set; }
-
-        public string? ChinhSachVeThuCung { get; set; }
+        
 
     }
 }

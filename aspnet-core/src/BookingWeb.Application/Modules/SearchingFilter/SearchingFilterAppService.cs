@@ -44,7 +44,7 @@ namespace BookingWeb.Modules.SearchingFilter
         }
 
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> GetRoomsByLocation(int id, int pageIndex)
+        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocation(int id, int pageIndex)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                 var dvkds = lstDVKD.Where(p => p.DiaDiemId == id).ToList();
 
-                var dtoList = new List<GetPhongByLocationDto>();
+                var dtoList = new List<PhongSearchinhFilterDto>();
 
                 foreach (var item in dvkds)
                 {
@@ -72,51 +72,34 @@ namespace BookingWeb.Modules.SearchingFilter
                         var loaiPhong = await _loaiPhong.GetAllListAsync();
                         var chiTiet = await _chiTietDatPhong.GetAllListAsync();
                         var nhanXet = await _nhanXet.GetAllListAsync();
+
                         foreach (var i in phongs)
                         {
                             var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == id);
                             var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
+                            var lstCt = chiTiet.Where(p=>p.PhongId==i.Id).ToList();
+                            var lstCtIds = lstCt.Select(p=> p.Id).ToList();
 
-                            var dtoP = new GetPhongByLocationDto
+                            var dtoP = new PhongSearchinhFilterDto
                             {
-                                DiaDiemId = diaDiem.Id,
-                                DiaDiem = diaDiem.TenDiaDiem,
-                                ThongTinViTri = diaDiem.ThongTinViTri,
                                 DonViKinhDoanhId = item.Id,
                                 TenDonVi = item.TenDonVi,
                                 PhongId = i.Id,
                                 TenFileAnhDaiDien = i.TenFileAnhDaiDien,
                                 DiaChiChiTiet = item.DiaChiChiTiet,
-                                Mota = i.Mota,
-                                DoPhoBien = chiTiet.Where(p => p.PhongId == i.Id).Count(),
-                                DanhGiaSaoTb = /*i.DanhGiaSaoTb,*/ nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DanhGiaSao).Sum() / nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DanhGiaSao).Count(),
-                                DiemDanhGiaTB = /*i.DiemDanhGiaTB,*/ nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DiemDanhGia).Sum() / nhanXet.Where(p => p.ChiTietDatPhongId == chiTiet.FirstOrDefault(q => q.PhongId == i.Id).Id).Select(p => p.DiemDanhGia).Count(),
-                                HinhThucPhongId = hinhThucPhong.Id,
-                                HinhThucPhong = hinhThucPhong?.TenHinhThuc,
 
-                                ListLoaiPhong = loaiPhong.Where(p => p.DonViKinhDoanhId == i.DonViKinhDoanhId).Select(e => new LoaiPhongSearchingDto
+                                DoPhoBien = chiTiet.Where(p => p.PhongId == i.Id).ToList().Count(),
+                                DiemDanhGiaTB = nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Sum() / nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Count(),
+                                DanhGiaSaoTb = nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Sum() / nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Count(),
+
+                                HinhThucPhongId = hinhThucPhong.Id,
+                                ListLoaiPhong = loaiPhong.Where(p => p.DonViKinhDoanhId == i.DonViKinhDoanhId).Select(e => new LoaiPhongSearchingFilterDto
                                 {
                                     LoaiPhongId = e.Id,
-                                    LoaiPhong = e.TenLoaiPhong,
-                                    TongSLPhong = 100,/*e.TongSlPhong,*/
-                                    TrangThaiPhong = e.TrangThaiPhong,
-                                    MienPhiHuyPhong = e.MienPhiHuyPhong,
                                     GiaPhongTheoDem = e.GiaPhongTheoDem,
-                                    GiaGoiDVThem = e.GiaGoiDichVuThem,
-                                    DichVu = dichVu.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
-                                    {
-                                        DichVuId = q.Id,
-                                        TenDichVu = q.TenDichVu,
-                                        MoTa = q.MoTa
-
-                                    }).ToList()
+                                    UuDai = e.UuDai
 
                                 }).ToList(),
-
-                                HinhAnh = hinhAnh.Where(p => p.PhongId == i.Id).Select(p => p.TenFileAnh).ToList(),
-                                ChinhSachVePhong = item.ChinhSachVePhong,
-                                ChinhSachVeTreEm = item.ChinhSachVeTreEm,
-                                ChinhSachVeThuCung = item.ChinhSachVeThuCung
                             };
 
                             dtoList.Add(dtoP);
@@ -133,7 +116,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 var paginatedItems = dtoList.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
 
-                return new PagedResultDto<GetPhongByLocationDto>(totalCount, paginatedItems);
+                return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, paginatedItems);
             }
             catch (Exception ex)
             {
@@ -144,7 +127,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
 
 
-        public async Task<PagedResultDto<GetPhongByLocationDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
+        public async Task<PagedResultDto<PhongSearchinhFilterDto>> SearchingRoomFilter(SearchingFilterRoomInputDto input)
         {
             try
             {
@@ -198,7 +181,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         .Take(pageSize)
                         .ToList();
 
-                    return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
+                    return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
                 }
                 else
                 {
@@ -244,7 +227,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         .Take(pageSize)
                         .ToList();
 
-                    return new PagedResultDto<GetPhongByLocationDto>(totalCount, pagedRooms);
+                    return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
 
                 }
 
