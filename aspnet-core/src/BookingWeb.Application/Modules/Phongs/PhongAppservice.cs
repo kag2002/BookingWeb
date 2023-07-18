@@ -1,5 +1,4 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.Domain.Repositories;
+﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.Phongs.Dto;
 using BookingWeb.Modules.SearchingFilter.Dto;
@@ -43,7 +42,7 @@ namespace BookingWeb.Modules.Phongs
             _donViKinhDoanh = donViKinhDoanh;
         }
 
-        public async Task<PhongOutputDto> GetRoomById(int Id)
+        public async Task<GetPhongByLocationDto> GetRoomById(int Id)
         {
             try
             {
@@ -53,65 +52,79 @@ namespace BookingWeb.Modules.Phongs
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong ton tai phong voi id = {Id}");
                     return null;
                 }
-
-                var lstHt = await _hinhThuc.GetAllListAsync();
-                var lstDd = await _diaDiem.GetAllListAsync();
-                var lstDvkd = await _donViKinhDoanh.GetAllListAsync();
-                var lstLp = await _loaiPhong.GetAllListAsync();
-                var lstDv = await _dichvu.GetAllListAsync();
-                var lstA = await _hinhAnh.GetAllListAsync();
-                var lstCt = await _chiTietDatPhong.GetAllListAsync();
-                var lstNx = await _nhanXet.GetAllListAsync();
-
-
-                var dtoLst = new PhongOutputDto
+                else
                 {
-                    DiaDiemId = lstDd.FirstOrDefault(p => p.Id == (lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId)).Id).Id,
-                    DiaDiem = lstDd.FirstOrDefault(p => p.Id == (lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId)).Id).TenDiaDiem,
-                    ThongTinViTri = lstDd.FirstOrDefault(p => p.Id == (lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId)).Id).ThongTinViTri,
-                    DonViKinhDoanhId = lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId).Id,
-                    TenDonVi = lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId).TenDonVi,
-                    PhongId = phong.Id,
-                    TenFileAnhDaiDien = phong.TenFileAnhDaiDien,
-                    DiaChiChiTiet = lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId).DiaChiChiTiet,
-                    Mota = phong.Mota,
-                    DoPhoBien = lstCt.Where(p => p.PhongId == phong.Id).Count(),
-                    DanhGiaSaoTb = lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == phong.Id).Id).Select(p => p.DanhGiaSao).Sum() / lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == phong.Id).Id).Select(p => p.DanhGiaSao).Count(),
-                    DiemDanhGiaTB = lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == phong.Id).Id).Select(p => p.DiemDanhGia).Sum() / lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == phong.Id).Id).Select(p => p.DiemDanhGia).Count(),
-/*
-                    DanhGiaSaoTb = 100,
-                    DiemDanhGiaTB = 100,*/
-                    HinhThucPhongId = lstHt.FirstOrDefault(p => p.Id == phong.HinhThucPhongId).Id,
-                    HinhThucPhong = lstHt.FirstOrDefault(p => p.Id == phong.HinhThucPhongId).TenHinhThuc,
+                    var lstHt = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == phong.HinhThucPhongId);
 
-                    ListLoaiPhong = lstLp.Where(p => p.DonViKinhDoanhId == phong.DonViKinhDoanhId).Select(e => new LoaiPhongSearchingDto
+                    var lstDvkd = await _donViKinhDoanh.FirstOrDefaultAsync(p => p.Id == phong.DonViKinhDoanhId);
+
+                    var lstDd = await _diaDiem.FirstOrDefaultAsync(p => p.Id == lstDvkd.DiaDiemId);
+
+                    var lp = await _loaiPhong.GetAllListAsync();
+                    var lstLp = lp.Where(p => p.DonViKinhDoanhId == lstDvkd.Id).ToList();
+                    var lstLpIds = lp.Select(p => p.Id).ToList();
+
+                    var dv = await _dichvu.GetAllListAsync();
+
+                    var anh = await _hinhAnh.GetAllListAsync();
+                    var lstA = anh.Where(p => p.PhongId == phong.Id).ToList();
+
+                    var ct = await _chiTietDatPhong.GetAllListAsync();
+                    var lstCt = ct.Where(p => p.PhongId == phong.Id).ToList();
+                    var lstCtIds = lstCt.Select(p => p.Id).ToList();
+
+                    var lstNx = await _nhanXet.GetAllListAsync();
+
+                    var dtoLst = new GetPhongByLocationDto
                     {
-                        LoaiPhongId = e.Id,
-                        LoaiPhong = e.TenLoaiPhong,
-                        TongSLPhong =e.TongSlPhong,
-                        TrangThaiPhong = e.TrangThaiPhong,
-                        MienPhiHuyPhong = e.MienPhiHuyPhong,
-                        GiaPhongTheoDem = e.GiaPhongTheoDem,
-                        GiaGoiDVThem = e.GiaGoiDichVuThem,
-                        DichVu = lstDv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
+                        DiaDiemId = lstDd.Id,
+                        DiaDiem = lstDd.TenDiaDiem,
+                        ThongTinViTri = lstDd.ThongTinViTri,
+
+                        DonViKinhDoanhId = lstDvkd.Id,
+                        TenDonVi = lstDvkd.TenDonVi,
+                        DiaChiChiTiet = lstDvkd.DiaChiChiTiet,
+                        ChinhSachVePhong = lstDvkd.ChinhSachVePhong,
+                        ChinhSachVeTreEm = lstDvkd.ChinhSachVeTreEm,
+                        ChinhSachVeThuCung = lstDvkd.ChinhSachVeThuCung,
+
+                        HinhThucPhongId = lstHt.Id,
+                        HinhThucPhong = lstHt.TenHinhThuc,
+
+                        PhongId = phong.Id,
+                        Mota = phong.Mota,
+                        TenFileAnhDaiDien = phong.TenFileAnhDaiDien,
+
+                        DoPhoBien = lstCt.Where(p => p.PhongId == phong.Id).ToList().Count(),
+                        DiemDanhGiaTB = lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Sum() / lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Count(),
+                        DanhGiaSaoTb = lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Sum() / lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Count(),
+
+                        ListLoaiPhong = lstLp.Select(e => new LoaiPhongSearchingDto
                         {
-                            DichVuId = q.Id,
-                            TenDichVu = q.TenDichVu,
-                            MoTa = q.MoTa
+                            LoaiPhongId = e.Id,
+                            LoaiPhong = e.TenLoaiPhong,
+                            TongSLPhong = e.TongSlPhong,
+                            TrangThaiPhong = e.TrangThaiPhong,
+                            MienPhiHuyPhong = e.MienPhiHuyPhong,
+                            GiaPhongTheoDem = e.GiaPhongTheoDem,
+                            GiaGoiDVThem = e.GiaGoiDichVuThem,
 
-                        }).ToList()
+                            DichVu = dv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
+                            {
+                                DichVuId = q.Id,
+                                TenDichVu = q.TenDichVu,
+                                MoTa = q.MoTa
 
-                    }).ToList(),
+                            }).ToList(),
 
-                    HinhAnh = lstA.Where(p => p.PhongId == phong.Id).Select(p => p.TenFileAnh).ToList(),
-                    ChinhSachVePhong = lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId).ChinhSachVePhong,
-                    ChinhSachVeTreEm = lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId).ChinhSachVeTreEm,
-                    ChinhSachVeThuCung = lstDvkd.FirstOrDefault(q => q.Id == phong.DonViKinhDoanhId).ChinhSachVeThuCung
+                        }).ToList(),
 
-                };
+                        HinhAnh = lstA.Select(p => p.TenFileAnh).ToList()
+                    };
 
-                return dtoLst;
-
+                    return dtoLst;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -208,65 +221,86 @@ namespace BookingWeb.Modules.Phongs
         }
 
 
-        
-
-
-        public async Task<List<PhongOutputDto>> GetAllRoom()
+        public async Task<List<GetPhongByLocationDto>> GetAllRoom()
         {
             try
             {
                 var lstP = await _phong.GetAllListAsync();
-                var lstHt = await _hinhThuc.GetAllListAsync();
-                var lstDd = await _diaDiem.GetAllListAsync();
-                var lstDvkd = await _donViKinhDoanh.GetAllListAsync();
-                var lstLp = await _loaiPhong.GetAllListAsync();
-                var lstDv = await _dichvu.GetAllListAsync();
-                var lstA = await _hinhAnh.GetAllListAsync();
-                var lstCt = await _chiTietDatPhong.GetAllListAsync();
+                var dv = await _dichvu.GetAllListAsync();
+                var lp = await _loaiPhong.GetAllListAsync();
+                var anh = await _hinhAnh.GetAllListAsync();
                 var lstNx = await _nhanXet.GetAllListAsync();
+                var ct = await _chiTietDatPhong.GetAllListAsync();
 
-                var dtoLst = lstP.Select(entity => new PhongOutputDto
+                var dtoLst = new List<GetPhongByLocationDto>();
+
+                foreach (var i in lstP)
                 {
-                    DiaDiemId = lstDd.FirstOrDefault(p=>p.Id == (lstDvkd.FirstOrDefault(q=>q.Id == entity.DonViKinhDoanhId)).Id).Id,
-                    DiaDiem = lstDd.FirstOrDefault(p => p.Id == (lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId)).Id).TenDiaDiem,
-                    ThongTinViTri = lstDd.FirstOrDefault(p => p.Id == (lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId)).Id).ThongTinViTri,
-                    DonViKinhDoanhId = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).Id,
-                    TenDonVi = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).TenDonVi,
-                    PhongId = entity.Id,
-                    TenFileAnhDaiDien = entity.TenFileAnhDaiDien,
-                    DiaChiChiTiet = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).DiaChiChiTiet,
-                    Mota = entity.Mota,
-                    DoPhoBien = lstCt.Where(p => p.PhongId == entity.Id).Count(),
-                    DanhGiaSaoTb = /*entity.DanhGiaSaoTb,*/lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DanhGiaSao).Sum() / lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DanhGiaSao).Count(),
-                    DiemDanhGiaTB = /*entity.DiemDanhGiaTB,*/lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DiemDanhGia).Sum() / lstNx.Where(p => p.ChiTietDatPhongId == lstCt.FirstOrDefault(q => q.PhongId == entity.Id).Id).Select(p => p.DiemDanhGia).Count(),
-                    HinhThucPhongId = lstHt.FirstOrDefault(p=>p.Id == entity.HinhThucPhongId).Id,
-                    HinhThucPhong = lstHt.FirstOrDefault(p => p.Id == entity.HinhThucPhongId).TenHinhThuc,
+                    var lstHt = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
 
-                    ListLoaiPhong = lstLp.Where(p => p.DonViKinhDoanhId == entity.DonViKinhDoanhId).Select(e => new LoaiPhongSearchingDto
+                    var lstDvkd = await _donViKinhDoanh.FirstOrDefaultAsync(p => p.Id == i.DonViKinhDoanhId);
+
+                    var lstDd = await _diaDiem.FirstOrDefaultAsync(p => p.Id == lstDvkd.DiaDiemId);
+
+                    var lstLp = lp.Where(p => p.DonViKinhDoanhId == lstDvkd.Id).ToList();
+                    var lstLpIds = lp.Select(p => p.Id).ToList();
+
+
+                    var lstA = anh.Where(p => p.PhongId == i.Id).ToList();
+
+                    var lstCt = ct.Where(p => p.PhongId == i.Id).ToList();
+                    var lstCtIds = lstCt.Select(p => p.Id).ToList();
+
+
+                    var dto = new GetPhongByLocationDto
                     {
-                        LoaiPhongId = e.Id,
-                        LoaiPhong = e.TenLoaiPhong,
-                        TongSLPhong = 100,/*e.TongSlPhong,*/
-                        TrangThaiPhong = e.TrangThaiPhong,
-                        MienPhiHuyPhong = e.MienPhiHuyPhong,
-                        GiaPhongTheoDem = e.GiaPhongTheoDem,
-                        GiaGoiDVThem = e.GiaGoiDichVuThem,
-                        DichVu = lstDv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
+                        DiaDiemId = lstDd.Id,
+                        DiaDiem = lstDd.TenDiaDiem,
+                        ThongTinViTri = lstDd.ThongTinViTri,
+
+                        DonViKinhDoanhId = lstDvkd.Id,
+                        TenDonVi = lstDvkd.TenDonVi,
+                        DiaChiChiTiet = lstDvkd.DiaChiChiTiet,
+                        ChinhSachVePhong = lstDvkd.ChinhSachVePhong,
+                        ChinhSachVeTreEm = lstDvkd.ChinhSachVeTreEm,
+                        ChinhSachVeThuCung = lstDvkd.ChinhSachVeThuCung,
+
+                        HinhThucPhongId = lstHt.Id,
+                        HinhThucPhong = lstHt.TenHinhThuc,
+
+                        PhongId = i.Id,
+                        Mota = i.Mota,
+                        TenFileAnhDaiDien = i.TenFileAnhDaiDien,
+
+                        DoPhoBien = lstCt.Where(p => p.PhongId == i.Id).ToList().Count(),
+                        DiemDanhGiaTB = lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Sum() / lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Count(),
+                        DanhGiaSaoTb = lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Sum() / lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Count(),
+
+                        ListLoaiPhong = lstLp.Select(e => new LoaiPhongSearchingDto
                         {
-                            DichVuId = q.Id,
-                            TenDichVu = q.TenDichVu,
-                            MoTa = q.MoTa
+                            LoaiPhongId = e.Id,
+                            LoaiPhong = e.TenLoaiPhong,
+                            TongSLPhong = e.TongSlPhong,
+                            TrangThaiPhong = e.TrangThaiPhong,
+                            MienPhiHuyPhong = e.MienPhiHuyPhong,
+                            GiaPhongTheoDem = e.GiaPhongTheoDem,
+                            GiaGoiDVThem = e.GiaGoiDichVuThem,
 
-                        }).ToList()
+                            DichVu = dv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
+                            {
+                                DichVuId = q.Id,
+                                TenDichVu = q.TenDichVu,
+                                MoTa = q.MoTa
 
-                    }).ToList(),
+                            }).ToList(),
 
-                    HinhAnh = lstA.Where(p => p.PhongId == entity.Id).Select(p => p.TenFileAnh).ToList(),
-                    ChinhSachVePhong = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).ChinhSachVePhong,
-                    ChinhSachVeTreEm = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).ChinhSachVeTreEm,
-                    ChinhSachVeThuCung = lstDvkd.FirstOrDefault(q => q.Id == entity.DonViKinhDoanhId).ChinhSachVeThuCung
+                        }).ToList(),
 
-                }).ToList();
+                        HinhAnh = lstA.Select(p => p.TenFileAnh).ToList()
+                    };
+
+                    dtoLst.Add(dto);
+                }
 
                 return dtoLst;
 

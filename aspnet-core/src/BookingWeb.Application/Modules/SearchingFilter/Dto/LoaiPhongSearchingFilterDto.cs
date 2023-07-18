@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.SearchingFilter.Dto
 {
-
-    public class LoaiPhongSearchingDto
+    public class LoaiPhongSearchingFilterDto
     {
         public int LoaiPhongId { get; set; }
-
-        public string LoaiPhong { get; set; }
-
-        public int TongSLPhong { get; set;  }
-
-        public string TrangThaiPhong { get; set; }
 
         public bool MienPhiHuyPhong { get; set; }
 
@@ -23,8 +16,6 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public double UuDai { get; set; }
 
-        public double GiaGoiDVThem { get; set; }
 
-        public List<DichVuSearchingDto> DichVu { get; set; }
     }
 }
