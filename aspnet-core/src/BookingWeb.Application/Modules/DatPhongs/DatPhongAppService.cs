@@ -56,7 +56,7 @@ namespace BookingWeb.Modules.DatPhongs
             }
         }
 
-        public async Task<bool> CreateNewTicket(PhieuDatPhongInputDto input)
+        /*public async Task<bool> CreateNewTicket(PhieuDatPhongInputDto input)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace BookingWeb.Modules.DatPhongs
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
         public async Task<bool> UpdateTicket(PhieuDatPhongOutputDto input)
         {
@@ -100,5 +100,8 @@ namespace BookingWeb.Modules.DatPhongs
                 return false;
             }
         }
+
+
+
     }
 }
