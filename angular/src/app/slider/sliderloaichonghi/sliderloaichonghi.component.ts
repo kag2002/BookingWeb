@@ -80,7 +80,7 @@ export class SliderloaichonghiComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/img-loaichonghi/${this.slidesloaichonghi[index]?.anhDaiDien}')`;
+    return `url('/assets/img/HinhThucPhong/${this.slidesloaichonghi[index]?.anhDaiDien}')`;
   }
 
   onSlideClick(index: number): void {
