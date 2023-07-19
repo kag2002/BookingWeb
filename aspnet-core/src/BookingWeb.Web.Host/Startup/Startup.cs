@@ -55,7 +55,10 @@ namespace BookingWeb.Web.Host.Startup
             AuthConfigurer.Configure(services, _appConfiguration);
 
             services.AddSignalR();
+
+            services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddHttpContextAccessor();
 
             // Configure CORS for angular2 UI
             services.AddCors(
