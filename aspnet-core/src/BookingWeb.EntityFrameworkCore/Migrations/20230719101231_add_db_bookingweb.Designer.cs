@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    [Migration("20230717100523_add_db_bookingweb")]
+    [Migration("20230719101231_add_db_bookingweb")]
     partial class add_db_bookingweb
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace BookingWeb.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.8")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -2220,6 +2220,12 @@ namespace BookingWeb.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HoTen")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -2240,6 +2246,9 @@ namespace BookingWeb.Migrations
 
                     b.Property<int>("NhanVienId")
                         .HasColumnType("int");
+
+                    b.Property<long>("SDT")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -2267,11 +2276,17 @@ namespace BookingWeb.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<double>("DanhGiaSaoTb")
+                        .HasColumnType("float");
+
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("DiemDanhGiaTB")
+                        .HasColumnType("float");
 
                     b.Property<int?>("DonViKinhDoanhId")
                         .HasColumnType("int");
@@ -2287,6 +2302,9 @@ namespace BookingWeb.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("LuotDatPhong")
+                        .HasColumnType("int");
 
                     b.Property<string>("Mota")
                         .HasColumnType("nvarchar(max)");

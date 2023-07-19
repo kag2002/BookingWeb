@@ -12,6 +12,12 @@ namespace BookingWeb.DbEntities
     {
         public int? TenantId { get; set; }
 
+        public string HoTen { get; set; }
+
+        public long SDT { get; set; }
+
+        public string Email { get; set; }
+
         public DateTime NgayBatDau { get; set; }
 
         public DateTime NgayHenTra { get; set; }
