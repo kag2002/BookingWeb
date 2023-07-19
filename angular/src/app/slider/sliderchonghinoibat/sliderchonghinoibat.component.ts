@@ -13,6 +13,7 @@ export class SliderchonghinoibatComponent {
   slideschonghinoibat: any[] = [];
 
   value: number = 4;
+
   currentIndex = 0;
 
   private phongSubscription: Subscription;

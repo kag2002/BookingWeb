@@ -16,7 +16,7 @@
 }
 
 .Loc {
-  margin-top: 30px;
+  margin: 30px 14px 14px 14px;
 }
 
 .FormLoc p {
@@ -53,6 +53,24 @@
 }
 .MoneyRange p-slider {
   margin: 3px 14px;
+}
+.MoneyRange p {
+  padding: 14px;
+}
+.CheckboxLocSao {
+  padding: 14px;
+}
+.CheckboxLocSao div {
+  display: flex;
+}
+.CheckboxLocSao p {
+  font-weight: 500;
+  margin-left: 5px;
+  padding: 0;
+}
+
+.CheckboxLocSaoItem p-checkbox {
+  margin-right: 5px;
 }
 /* Hide the default increase and decrease buttons */
 input[type="number"]::-webkit-inner-spin-button,
