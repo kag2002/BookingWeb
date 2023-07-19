@@ -30,14 +30,14 @@ namespace BookingWeb.Modules.NhanViens
                 var dtoLst = lstNv.Select(entity => new NhanVienOutputDto
                 {
                     Id = entity.Id,
-                    HoTen = entity.HoTen,
-                    SoDienThoai = entity.SoDienThoai,
-                    QueQuan = entity.QueQuan,
-                    Email = entity.Email,
-                    NgaySinh = entity.NgaySinh,
-                    DiaChi = entity.DiaChi,
-                    GioiTinh = entity.GioiTinh,
-                    UserName = entity.UserName
+                    HoTen = entity?.HoTen,
+                    SoDienThoai = entity?.SoDienThoai,
+                    QueQuan = entity?.QueQuan,
+                    Email = entity?.Email,
+                    NgaySinh = entity?.NgaySinh,
+                    DiaChi = entity?.DiaChi,
+                    GioiTinh = entity?.GioiTinh,
+                    UserName = entity?.UserName
                 }).ToList();
 
                 return dtoLst;
