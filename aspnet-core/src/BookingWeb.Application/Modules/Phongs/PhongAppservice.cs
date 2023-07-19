@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
+using BookingWeb.EntityFrameworkCore;
 using BookingWeb.Modules.Phongs.Dto;
 using BookingWeb.Modules.SearchingFilter.Dto;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Session;
+using BookingWeb.SessionsDefine;
 
 namespace BookingWeb.Modules.Phongs
 {
@@ -24,16 +25,13 @@ namespace BookingWeb.Modules.Phongs
         private readonly IRepository<NhanXetDanhGia> _nhanXet;
         private readonly IRepository<ChiTietDatPhong>  _chiTietDatPhong;
 
-        private readonly ISession _session;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public PhongAppService(IRepository<Phong> phong, IRepository<HinhThucPhong> hinhThuc,
             IRepository<HinhAnh> hinhAnh, IRepository<DiaDiem> diaDiem,
             IRepository<LoaiPhong> loaiPhong, IRepository<DichVuTienIch> dichvu,
             IRepository<NhanXetDanhGia> nhanXet, IRepository<ChiTietDatPhong> chiTietDatPhong
-            , IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh,
-            ISession session)
+            , IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
         {
             _phong = phong;
             _hinhThuc = hinhThuc;
@@ -45,7 +43,6 @@ namespace BookingWeb.Modules.Phongs
             _chiTietDatPhong = chiTietDatPhong;
             _httpContextAccessor = httpContextAccessor;
             _donViKinhDoanh = donViKinhDoanh;
-            _session = session;
         }
 
         public async Task<GetPhongByLocationDto> GetRoomById(int Id)
@@ -448,20 +445,30 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
+                var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");
+
                 var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
 
                 var dvkd = await _donViKinhDoanh.FirstOrDefaultAsync(p => p.Id == info.DonViKinhDoanhId);
 
+                var phong = await _phong.FirstOrDefaultAsync(p => p.DonViKinhDoanhId == dvkd.Id);
 
                 var dto = new GetInfoRoomToBookOutputDto
                 {
-
+                    donViKinhDoanhId = dvkd.Id,
+                    tenDonVi = dvkd.TenDonVi,
+                    phongId = phong.Id,
+                    loaiPhongId = info.Id,
+                    tenLoaiPhong = info.TenLoaiPhong,
+                    sucChuaPhong =info.SucChua,
+                    moTaPhong = info.MoTa,
+                    tienNghi = info.TienNghiTrongPhong,
+                    mienPhiHuyPhong = info.MienPhiHuyPhong.ToString(),
+                    infoBookingDto = infoRoom
 
                 };
 
                 return dto;
-
-
             }
             catch (Exception ex)
             {
@@ -471,14 +478,15 @@ namespace BookingWeb.Modules.Phongs
         }
 
 
-        public async Task<ClientBookRoomOutputDto> ClientBookRoom(int phongId,int loaiPhongId)
+        public async Task<ClientBookRoomOutputDto> ClientBookRoom()
         {
             try
             {
-                var infoRoom = await GetInfoRoomToBook(loaiPhongId);
+                /*var infoRoom = await GetInfoRoomToBook(loaiPhongId);*/
 
 
 
+                await _httpContextAccessor.HttpContext.Session.RemoveAsync("InfoBooking");
                 return null;
 
             }
