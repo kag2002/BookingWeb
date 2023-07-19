@@ -1,7 +1,14 @@
 <!-- header -->
 <div class="header">
   <!-- navigation header -->
-  <p-tabView styleClass="nav-header tabview-custom">
+  <p-tabView styleClass="nav-header tabview-custom"
+    ><p-tabPanel header="Header III">
+      <ng-template pTemplate="header">
+        <i class="pi pi-search"></i>
+        <span>Khách sạn</span>
+      </ng-template>
+      <app-khachsan-list></app-khachsan-list>
+    </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
         <i class="pi pi-fw pi-home"></i>
@@ -17,15 +24,8 @@
       </ng-template>
       <app-diadiem></app-diadiem>
     </p-tabPanel>
-    <p-tabPanel header="Header III">
-      <ng-template pTemplate="header">
-        <i class="pi pi-search"></i>
-        <span>Khách sạn</span>
-      </ng-template>
-      <app-khachsan-list></app-khachsan-list>
-    </p-tabPanel>
 
-    <p-tabPanel header="Header III">
+    <p-tabPanel header="Header IV">
       <ng-template pTemplate="header">
         <i class="pi pi-spin pi-fw pi-cog"></i>
         <span>Cài đặt</span>

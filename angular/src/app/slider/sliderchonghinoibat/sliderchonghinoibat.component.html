@@ -44,7 +44,12 @@
       </div>
       <div class="GiaPhong">
         <p>Giá mỗi đêm rẻ nhất chỉ từ</p>
-        <h6>VND:</h6>
+        <h6>
+          VND:{{
+            slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
+              ?.giaPhongTheoDem
+          }}
+        </h6>
       </div>
     </div>
   </div>

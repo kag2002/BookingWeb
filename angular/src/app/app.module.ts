@@ -22,6 +22,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { AnimateModule } from "primeng/animate";
 import { ToastModule } from "primeng/toast";
 import { RatingModule } from "primeng/rating";
+import { SliderModule } from "primeng/slider";
 // import { AgmCoreModule } from '@agm/core';
 
 // tenants
@@ -54,6 +55,7 @@ import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.com
 import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
 import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/sliderchonghinoibat.component";
 import { LienheComponent } from "./luutru/lienhe/lienhe.component";
+import { RadioButtonModule } from "primeng/radiobutton";
 
 @NgModule({
   declarations: [
@@ -117,6 +119,8 @@ import { LienheComponent } from "./luutru/lienhe/lienhe.component";
     AnimateModule,
     ToastModule,
     RatingModule,
+    RadioButtonModule,
+    SliderModule,
   ],
   providers: [],
 })

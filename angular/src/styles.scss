@@ -12,3 +12,7 @@ body {
   // border-bottom-right-radius: 6px;
   // border-bottom-left-radius: 6px;
 }
+.p-tabview .p-tabview-nav {
+  display: flex !important;
+  justify-content: center !important;
+}

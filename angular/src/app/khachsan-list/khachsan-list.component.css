@@ -1,3 +1,80 @@
-agm-map {
-  height: 400px;
+* {
+  padding: 0;
+  margin: 0;
+}
+.SapXep {
+  padding: 14px;
+}
+.FormSapXep p {
+  padding: 14px;
+}
+.FormSapXep div {
+  padding: 9px 14px;
+}
+.FormSapXep div label {
+  font-weight: 500;
+}
+
+.Loc {
+  margin: 30px 14px 14px 14px;
+}
+
+.FormLoc p {
+  padding: 14px;
+  font-weight: bold;
+}
+
+.MienPhiHuyPhong {
+  padding: 0 14px;
+}
+.MienPhiHuyPhong p {
+  padding: 3px 0;
+}
+.CheckboxMienPhiHuyPhong {
+  display: flex;
+}
+.CheckboxMienPhiHuyPhong p {
+  font-weight: 500;
+  margin-left: 5px;
+}
+.MoneyRange {
+  display: grid;
+  justify-content: center;
+}
+
+.MoneyRangeInput {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+.MoneyRangeInput input {
+  text-align: center;
+  border-radius: 15px;
+}
+.MoneyRange p-slider {
+  margin: 3px 14px;
+}
+.MoneyRange p {
+  padding: 14px;
+}
+.CheckboxLocSao {
+  padding: 14px;
+}
+.CheckboxLocSao div {
+  display: flex;
+}
+.CheckboxLocSao p {
+  font-weight: 500;
+  margin-left: 5px;
+  padding: 0;
+}
+
+.CheckboxLocSaoItem p-checkbox {
+  margin-right: 5px;
+}
+/* Hide the default increase and decrease buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
