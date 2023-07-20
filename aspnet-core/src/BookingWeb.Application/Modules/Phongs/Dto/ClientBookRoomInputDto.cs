@@ -12,6 +12,18 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public int loaiPhongId { get; set; }
 
+        public int DatHo { get; set; }
 
+        public string CCCD { get; set; }
+
+        public string HoTen { get; set; }
+
+        public long SDT { get; set; }
+
+        public string Email { get; set; }
+
+        public string YeuCauDacBiet { get; set; }
+
+        public double TongTien { get; set; }
     }
 }

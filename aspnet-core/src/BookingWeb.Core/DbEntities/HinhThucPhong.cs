@@ -2,6 +2,7 @@
 using Abp.Domain.Entities.Auditing;
 using System.Collections.Generic;
 
+
 namespace BookingWeb.DbEntities
 {
     public class HinhThucPhong : FullAuditedEntity, IMayHaveTenant

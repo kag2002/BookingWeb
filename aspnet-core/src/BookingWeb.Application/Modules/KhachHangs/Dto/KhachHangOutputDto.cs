@@ -10,7 +10,7 @@ namespace BookingWeb.Modules.KhachHangs.Dto
     {
         public int Id { get; set; }
 
-        public long CCCD { get; set; }
+        public string CCCD { get; set; }
 
         public string HoTen { get; set; }
 

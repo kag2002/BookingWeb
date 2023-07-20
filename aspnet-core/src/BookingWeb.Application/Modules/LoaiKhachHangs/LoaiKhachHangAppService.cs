@@ -47,7 +47,7 @@ namespace BookingWeb.Modules.LoaiKhachHangs
                     NgaySinh = e.NgaySinh,
                     DiaChi = e.DiaChi,
                     GioiTinh = e.GioiTinh,
-                    UserName = e.UserName
+                    UserName = e.UserName   
                 }).ToList();
 
                 return dtoKh;

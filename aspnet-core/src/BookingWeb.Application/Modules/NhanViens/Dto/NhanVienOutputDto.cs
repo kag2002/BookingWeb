@@ -24,6 +24,8 @@ namespace BookingWeb.Modules.NhanViens.Dto
 
         public int? GioiTinh { get; set; }
 
+        public string AnhDaiDien { get; set; }
+
         public string? UserName { get; set; }
 
 

@@ -24,14 +24,19 @@ namespace BookingWeb.Modules.Phongs
         private readonly IRepository<DichVuTienIch> _dichvu;
         private readonly IRepository<NhanXetDanhGia> _nhanXet;
         private readonly IRepository<ChiTietDatPhong>  _chiTietDatPhong;
+        private readonly IRepository<KhachHang> _khachHang;
+        private readonly IRepository<PhieuDatPhong> _phieuDatPhong;
+        private readonly IReadOnlyList<LstTrangThaiPhong> _trangThaiPhong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public PhongAppService(IRepository<Phong> phong, IRepository<HinhThucPhong> hinhThuc,
             IRepository<HinhAnh> hinhAnh, IRepository<DiaDiem> diaDiem,
             IRepository<LoaiPhong> loaiPhong, IRepository<DichVuTienIch> dichvu,
-            IRepository<NhanXetDanhGia> nhanXet, IRepository<ChiTietDatPhong> chiTietDatPhong
-            , IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
+            IRepository<NhanXetDanhGia> nhanXet, IRepository<ChiTietDatPhong> chiTietDatPhong,
+            IRepository<KhachHang> khachHang, IRepository<PhieuDatPhong> phieuDatPhong,
+            IReadOnlyList<LstTrangThaiPhong> trangThaiPhong,
+            IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
         {
             _phong = phong;
             _hinhThuc = hinhThuc;
@@ -43,6 +48,9 @@ namespace BookingWeb.Modules.Phongs
             _chiTietDatPhong = chiTietDatPhong;
             _httpContextAccessor = httpContextAccessor;
             _donViKinhDoanh = donViKinhDoanh;
+            _khachHang = khachHang;
+            _trangThaiPhong = trangThaiPhong;
+            _phieuDatPhong = phieuDatPhong;
         }
 
         public async Task<GetPhongByLocationDto> GetRoomById(int Id)
@@ -445,7 +453,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");
+                /*var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");*/
 
                 var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
 
@@ -463,11 +471,10 @@ namespace BookingWeb.Modules.Phongs
                     sucChuaPhong =info.SucChua,
                     moTaPhong = info.MoTa,
                     tienNghi = info.TienNghiTrongPhong,
+                    giaPhongTheoDem = info.GiaPhongTheoDem,
                     mienPhiHuyPhong = info.MienPhiHuyPhong.ToString(),
-                    infoBookingDto = infoRoom
-
+                    /*infoBookingDto = infoRoom*/
                 };
-
                 return dto;
             }
             catch (Exception ex)
@@ -478,16 +485,48 @@ namespace BookingWeb.Modules.Phongs
         }
 
 
-        public async Task<ClientBookRoomOutputDto> ClientBookRoom()
+        public async Task<ClientBookRoomOutputDto> ClientBookRoom(ClientBookRoomInputDto input)
         {
             try
             {
-                /*var infoRoom = await GetInfoRoomToBook(loaiPhongId);*/
+                var idKH = _httpContextAccessor.HttpContext.Session.GetInt32("idKH");
 
+                var infoRoom = await GetInfoRoomToBook(input.loaiPhongId);
 
+                var khachHang = await _khachHang.FirstOrDefaultAsync(p=>p.Id == idKH);
+
+                if(input.DatHo != 1)
+                {
+                    input.CCCD = khachHang.CCCD;
+                    input.HoTen = khachHang.HoTen;
+                    input.SDT = khachHang.SoDienThoai;
+                    input.Email = khachHang.Email;
+                }
+
+                var infoBooking = new ClientBookRoomOutputDto
+                {
+                    donViKinhDoanhId = infoRoom.donViKinhDoanhId,
+                    tenDonVi = infoRoom.tenDonVi,
+                    phongId = infoRoom.phongId,
+                    tenLoaiPhong =infoRoom.tenLoaiPhong,
+                    infoBookingDto = infoRoom.infoBookingDto,
+                    sucChuaPhong = infoRoom.sucChuaPhong,
+                    moTaPhong = infoRoom.moTaPhong,
+                    tienNghi = infoRoom.tienNghi,
+                    giaPhongTheoDem = infoRoom.giaPhongTheoDem,
+                    mienPhiHuyPhong = infoRoom.mienPhiHuyPhong,
+                    TongTien = input.TongTien,
+                    DatHo = input.DatHo,
+                    HoTen = input.HoTen,
+                    SDT = input.SDT,
+                    Email = input.Email,
+                    YeuCauDacBiet = input.YeuCauDacBiet
+                };
+
+                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", infoBooking);
 
                 await _httpContextAccessor.HttpContext.Session.RemoveAsync("InfoBooking");
-                return null;
+                return infoBooking;
 
             }
             catch (Exception ex)
@@ -496,5 +535,56 @@ namespace BookingWeb.Modules.Phongs
                 return null;
             }
         }
+
+        public async Task<bool> ConfirmBookRoom()
+        {
+            try
+            {
+                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBooking");
+                var idKH = _httpContextAccessor.HttpContext.Session.GetInt32("idKH");
+
+                var newPhieuDat = new PhieuDatPhong
+                {
+
+                    HoTen = infoBooking.HoTen,
+                    SDT = infoBooking.SDT,
+                    Email = infoBooking.Email,
+                    NgayBatDau = infoBooking.infoBookingDto.NgayDat,
+                    NgayHenTra = infoBooking.infoBookingDto.NgayTra,
+                    KhachHangId = idKH,
+                    DatHo = infoBooking.DatHo,
+                    NhanVienId = 1
+                };
+
+                var idPhieuDat = await _phieuDatPhong.InsertAndGetIdAsync(newPhieuDat);
+
+                var chiTietPhieuDat = new ChiTietDatPhong
+                {
+                    TrangThaiPhong = _trangThaiPhong.Select(p=>p.TrangThai1).ToString(),
+                    CheckIn = "Từ 14h" + infoBooking.infoBookingDto.NgayDat.ToString(),
+                    CheckOut = "Trước 12h" + infoBooking.infoBookingDto.NgayTra.ToString(),
+                    SLNguoiLon = infoBooking.infoBookingDto.SlNguoiLon,
+                    SLTreEm = infoBooking.infoBookingDto.SlTreEm,
+                    SLPhong = infoBooking.infoBookingDto.SlPhong,
+                    TienPhong = infoBooking.TongTien,
+                    TienPhongQuaHan = 0,
+                    ChiPhiHuyPhong = 0,
+                    TongTien = 0,
+                    PhieuDatPhongId = idPhieuDat,
+                    PhongId = infoBooking.phongId,
+                };
+
+                await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);
+
+                await CurrentUnitOfWork.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }
