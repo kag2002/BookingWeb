@@ -4,6 +4,7 @@ using BookingWeb.Modules.NhanViens.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace BookingWeb.Modules.NhanViens
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<NhanVienOutputDto>> GetAllList()
+        public async Task<List<NhanVienOutputDto>> GetAllListNv()
         {
             try
             {
@@ -31,12 +32,13 @@ namespace BookingWeb.Modules.NhanViens
                 {
                     Id = entity.Id,
                     HoTen = entity?.HoTen,
-                    SoDienThoai = entity?.SoDienThoai,
+                    SoDienThoai = entity.SoDienThoai,
                     QueQuan = entity?.QueQuan,
                     Email = entity?.Email,
-                    NgaySinh = entity?.NgaySinh,
+                    NgaySinh = entity.NgaySinh,
                     DiaChi = entity?.DiaChi,
-                    GioiTinh = entity?.GioiTinh,
+                    GioiTinh = entity.GioiTinh,
+                    AnhDaiDien = entity.AnhDaiDien,
                     UserName = entity?.UserName
                 }).ToList();
 
@@ -54,7 +56,7 @@ namespace BookingWeb.Modules.NhanViens
         {
             try
             {
-                var checkUsername = await _nhanVien.FirstOrDefaultAsync(p=>p.UserName == input.UserName);
+                var checkUsername = await _nhanVien.FirstOrDefaultAsync(p => p.UserName == input.UserName);
                 if (checkUsername != null)
                 {
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"tai khoan {input.UserName} da ton tai");
@@ -111,8 +113,8 @@ namespace BookingWeb.Modules.NhanViens
                     check.QueQuan = input.QueQuan;
                     check.Email = input.Email;
                     check.NgaySinh = input.NgaySinh;
-                    check.DiaChi =  input.DiaChi;
-                    check.GioiTinh = input .GioiTinh;
+                    check.DiaChi = input.DiaChi;
+                    check.GioiTinh = input.GioiTinh;
 
                     await _nhanVien.UpdateAsync(check);
                     return true;

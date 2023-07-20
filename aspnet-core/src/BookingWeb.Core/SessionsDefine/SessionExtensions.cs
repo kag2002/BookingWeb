@@ -44,6 +44,11 @@ namespace BookingWeb.SessionsDefine
             }
         }
 
+        public static async Task GetAsync (this ISession session, string key)
+        {
+            await session.GetAsync(key);
+        }
+
         public static async Task RemoveAsync (this ISession session, string key)
         {
             await session.RemoveAsync(key);

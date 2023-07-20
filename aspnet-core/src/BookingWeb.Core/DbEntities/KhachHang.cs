@@ -9,7 +9,7 @@ namespace BookingWeb.DbEntities
     {
         public int? TenantId { get; set; }
 
-        public long CCCD { get; set; }
+        public string CCCD { get; set; }
 
         public string HoTen { get; set; }
 
@@ -26,6 +26,8 @@ namespace BookingWeb.DbEntities
         public string UserName { get; set; }
 
         public string Password { get; set; }
+
+        public string AnhDaiDien { get; set; }
 
         public int? LoaiKhachHangId { get; set; }
 

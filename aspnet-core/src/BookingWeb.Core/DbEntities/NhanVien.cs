@@ -27,6 +27,8 @@ namespace BookingWeb.DbEntities
 
         public string Password { get; set; }
 
+        public string AnhDaiDien { get; set; }
+
         public ICollection<PhieuDatPhong> DatPhongs { get; set; }
         
     }
