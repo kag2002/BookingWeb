@@ -2,15 +2,15 @@ import {
   Component,
   ChangeDetectionStrategy,
   Renderer2,
-  OnInit
-} from '@angular/core';
-import { LayoutStoreService } from '@shared/layout/layout-store.service';
+  OnInit,
+} from "@angular/core";
+import { LayoutStoreService } from "@shared/layout/layout-store.service";
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'sidebar',
-  templateUrl: './sidebar.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "sidebar",
+  templateUrl: "./sidebar.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
   sidebarExpanded: boolean;
@@ -36,12 +36,12 @@ export class SidebarComponent implements OnInit {
   }
 
   showSidebar(): void {
-    this.renderer.removeClass(document.body, 'sidebar-collapse');
-    this.renderer.addClass(document.body, 'sidebar-open');
+    this.renderer.removeClass(document.body, "sidebar-collapse");
+    this.renderer.addClass(document.body, "sidebar-open");
   }
 
   hideSidebar(): void {
-    this.renderer.removeClass(document.body, 'sidebar-open');
-    this.renderer.addClass(document.body, 'sidebar-collapse');
+    this.renderer.removeClass(document.body, "sidebar-open");
+    this.renderer.addClass(document.body, "sidebar-collapse");
   }
 }
