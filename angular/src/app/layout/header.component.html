@@ -1,4 +1,4 @@
-<!--Start Code cũ ko dùng sidebar -->
+<!-- Start Code cũ ko dùng sidebar -->
 <!-- <nav class="nav-header-top navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['home']">{{
@@ -26,21 +26,19 @@
 
 <!-- code mới -->
 <nav class="main-header navbar navbar-expand-lg bg-body-tertiary">
-  <!-- <a class="navbar-brand" [routerLink]="['home']">{{
-      "Quản lý" | localize
-    }}</a> -->
-
-  <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-  <header-left-navbar></header-left-navbar>
-  <!-- </div> -->
-
-  <div class="KhauHieu">
-    <h4><i class="LaBan pi pi-compass"></i>StayEase.com</h4>
-    <h6>Discover Your Home Away from Home</h6>
+  <div class="col-sm-6 col-md-3 col-lg-6">
+    <header-left-navbar></header-left-navbar>
   </div>
-
-  <ul class="navbar-nav">
-    <header-language-menu></header-language-menu>
-    <header-user-menu></header-user-menu>
-  </ul>
+  <div class="col-sm-3 col-sm-offset-0 col-md-3 col-md-offset-3 col-lg-4">
+    <div class="KhauHieu">
+      <h4><i class="LaBan pi pi-compass"></i>StayEase.com</h4>
+      <h6>Discover Your Home Away from Home</h6>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-3 col-lg-2">
+    <ul style="display: flex" class="navbar-nav">
+      <header-language-menu></header-language-menu>
+      <header-user-menu></header-user-menu>
+    </ul>
+  </div>
 </nav>
