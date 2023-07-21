@@ -10,6 +10,10 @@ import { TabsModule } from "ngx-bootstrap/tabs";
 import { NgxPaginationModule } from "ngx-pagination";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { SidebarComponent } from "./layout/sidebar.component";
+import { SidebarMenuComponent } from "./layout/sidebar-menu.component";
+import { SidebarUserPanelComponent } from "./layout/sidebar-user-panel.component";
+import { SidebarLogoComponent } from "./layout/sidebar-logo.component";
 import { ServiceProxyModule } from "@shared/service-proxies/service-proxy.module";
 import { SharedModule } from "@shared/shared.module";
 import { HomeComponent } from "@app/home/home.component";
@@ -82,6 +86,10 @@ import { RadioButtonModule } from "primeng/radiobutton";
     HeaderLanguageMenuComponent,
     HeaderUserMenuComponent,
     FooterComponent,
+    SidebarComponent,
+    SidebarMenuComponent,
+    SidebarLogoComponent,
+    SidebarUserPanelComponent,
     TrangchuComponent,
     KhachsanListComponent,
     DiadiemComponent,
