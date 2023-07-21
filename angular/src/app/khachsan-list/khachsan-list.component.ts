@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { PhongServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-khachsan-list",
@@ -9,6 +10,7 @@ import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
 export class KhachsanListComponent implements OnInit {
   formSapXep: FormGroup;
   formLoc: FormGroup;
+  currentPage = 1;
   rangeValues: number[] = [1000000, 3000000];
   sapxeps: any[] = [
     { name: "Giá cao nhất", key: "MaxPrice" },
@@ -18,10 +20,26 @@ export class KhachsanListComponent implements OnInit {
   ];
   stars: number[] = [1, 2, 3, 4, 5];
   maxPrice: number = 4000000;
-
-  constructor(private fb: FormBuilder) {}
+  listkhachsan = [];
+  currentIndex = 0;
+  constructor(
+    private fb: FormBuilder,
+    private _phongService: PhongServiceProxy
+  ) {}
 
   ngOnInit() {
+    this._phongService.getAllRoom().subscribe((result) => {
+      this.listkhachsan = result.map((item) => ({
+        tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
+        tenDonVi: item?.tenDonVi,
+        hinhThucPhong: item?.hinhThucPhong,
+        danhGiaSaoTb: item?.danhGiaSaoTb,
+        diaDiem: item?.diaDiem,
+        diemDanhGiaTB: item?.diemDanhGiaTB,
+        ListLoaiPhong: item?.listLoaiPhong,
+        giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
+      }));
+    });
     this.formSapXep = this.fb.group({
       selectedCategory: new FormControl(),
     });
@@ -68,5 +86,14 @@ export class KhachsanListComponent implements OnInit {
       (star) => this.formLoc.get(["LocSaoData", "value" + star])?.value
     );
     console.log(selectedStars.map((star) => "Khach San " + star + " sao"));
+  }
+  getCurrentSlideUrl(index: number): string {
+    return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
+  }
+  onSlideClick(index: number): void {
+    // this.router.navigate(["/other", index]);
+  }
+  changePage(page: number): void {
+    this.currentPage = page;
   }
 }
