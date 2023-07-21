@@ -53,7 +53,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 await _httpContextAccessor.HttpContext.Session.SetObjectAsync("InfoBooking",input.infoBooking);
 
 
-                int pageSize = 10;
+                int pageSize = 3;
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
 

@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-3">
+      <!-- Form sắp xếp -->
       <div class="SapXep">
         <form
           class="card flex flex-column gap-4 FormSapXep"
@@ -18,14 +19,15 @@
           </div>
         </form>
       </div>
-
+      <!-- End form sắp xếp -->
+      <!-- Form lọc -->
       <div class="card Loc">
         <form class="FormLoc" [formGroup]="formLoc" (ngSubmit)="onSubmit()">
           <p style="font-size: 18px; font-weight: 700; padding: 14px">
             Lọc kết quả
           </p>
           <hr />
-
+          <!-- Miễn phí hủy phòng -->
           <div class="MienPhiHuyPhong">
             <p>Chính sách đặt phòng</p>
             <div class="CheckboxMienPhiHuyPhong">
@@ -38,6 +40,8 @@
             </div>
           </div>
           <hr />
+          <!-- End miễn phí hủy phòng -->
+          <!-- Khoảng giá phòng cần tìm -->
           <div class="MoneyRange">
             <p>Khoảng giá phòng mỗi đêm</p>
             <div class="MoneyRangeInput row flex w-full">
@@ -68,9 +72,9 @@
               [max]="maxPrice"
             ></p-slider>
           </div>
-
+          <!-- End khoảng giá phòng cần tìm -->
           <hr />
-
+          <!-- Số sao khách sạn cần tìm -->
           <div formGroupName="LocSaoData" class="CheckboxLocSao">
             <p style="margin-bottom: 10px">Hạng sao</p>
             <div class="CheckboxLocSaoItem" *ngFor="let star of stars">
@@ -85,7 +89,8 @@
               ></p-rating>
             </div>
           </div>
-
+          <!-- End số sao khách sạn cần tìm -->
+          <!-- Loại hình cư trú -->
           <div formGroupName="LocLoaiHinhCuTru" class="CheckboxLoaiHinhCuTru">
             <p>Loại hình cư trú</p>
             <ul class="LocLoaiHinhCuChuItem">
@@ -179,13 +184,104 @@
               </li>
             </ul>
           </div>
+          <!-- End loại hình cư trú -->
 
           <button type="submit" [disabled]="!formLoc.valid">Submit</button>
         </form>
       </div>
+      <!-- End form lọc -->
     </div>
 
     <div class="col-lg-8">
+      <div class="slider">
+        <div
+          *ngFor="
+            let item of [].constructor(listkhachsan.length);
+            let i = index
+          "
+          class="slide card"
+        >
+          <!-- Image -->
+          <div
+            class="slide-image"
+            [ngStyle]="{
+              'background-image': getCurrentSlideUrl(
+                (currentIndex + i) % listkhachsan.length
+              )
+            }"
+            (click)="onSlideClick((currentIndex + i) % listkhachsan.length)"
+            tabindex="0"
+          ></div>
+
+          <!-- Details -->
+          <div class="slide-content">
+            <p class="TenLoaiDonVi">
+              {{
+                listkhachsan[(currentIndex + i) % listkhachsan.length]
+                  ?.hinhThucPhong
+              }}-{{
+                listkhachsan[(currentIndex + i) % listkhachsan.length]?.tenDonVi
+              }}
+            </p>
+            <div class="DiaDiem" style="width: fit-content">
+              <div style="display: flex; padding-bottom: 3px">
+                <p class="HinhThucPhongTitle">
+                  {{
+                    listkhachsan[(currentIndex + i) % listkhachsan.length]
+                      ?.hinhThucPhong
+                  }}
+                </p>
+                <p-rating
+                  [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
+                  [ngModel]="
+                    listkhachsan[(currentIndex + i) % listkhachsan.length]
+                      ?.danhGiaSaoTb
+                  "
+                  [readonly]="true"
+                  [cancel]="false"
+                ></p-rating>
+              </div>
+
+              <i class="pi pi-map-marker"></i>
+
+              {{
+                listkhachsan[(currentIndex + i) % listkhachsan.length]?.diaDiem
+              }}
+            </div>
+            <div class="GiaPhong">
+              <p>Điểm đánh giá</p>
+
+              <h6>
+                {{
+                  listkhachsan[(currentIndex + i) % listkhachsan.length]
+                    ?.diemDanhGiaTB
+                }}/10
+              </h6>
+            </div>
+          </div>
+          <div class="slide-price">
+            <div class="GiaPhong">
+              <p>Thanh toán khi nhận phòng</p>
+              <h6 style="color: red">
+                VND:{{
+                  listkhachsan[(currentIndex + i) % listkhachsan.length]
+                    ?.giaPhongTheoDem
+                }}
+              </h6>
+              <p>Giá cuối cùng</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <pagination
+        [currentPage]="currentPage"
+        [limit]="20"
+        [total]="500"
+        (changePage)="changePage($event)"
+      ></pagination>
+
+      <pre>{{ formSapXep.value | json }}</pre>
       <pre>{{ formLoc.value | json }}</pre>
     </div>
   </div>
