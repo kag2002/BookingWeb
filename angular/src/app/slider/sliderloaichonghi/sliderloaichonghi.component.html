@@ -16,18 +16,20 @@
         ❱
       </div>
 
-      <div
-        *ngFor="let item of [].constructor(4); let i = index"
-        class="slide"
-        [ngStyle]="{
-          'background-image': getCurrentSlideUrl(
-            (currentIndex + i) % slidesloaichonghi.length
-          )
-        }"
-        (click)="onSlideClick((currentIndex + i) % slidesloaichonghi.length)"
-        tabindex="0"
-        routerLink="/app/khachsanlist"
-      >
+      <div class="slide" *ngFor="let item of [].constructor(4); let i = index">
+        <!-- Image -->
+        <div
+          class="slide-image"
+          [ngStyle]="{
+            'background-image': getCurrentSlideUrl(
+              (currentIndex + i) % slidesloaichonghi.length
+            )
+          }"
+          (click)="onSlideClick((currentIndex + i) % slidesloaichonghi.length)"
+          tabindex="0"
+          routerLink="/app/khachsanlist"
+          style="cursor: pointer"
+        ></div>
         <div class="slide-content">
           <h5 class="titleLoaiChoO">
             {{
