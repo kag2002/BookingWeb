@@ -221,7 +221,7 @@
                 listkhachsan[(currentIndex + i) % listkhachsan.length]?.tenDonVi
               }}
             </p>
-            <div class="DiaDiem" style="width: fit-content">
+            <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
               <div style="display: flex; padding-bottom: 3px">
                 <p class="HinhThucPhongTitle">
                   {{
@@ -246,7 +246,7 @@
                 listkhachsan[(currentIndex + i) % listkhachsan.length]?.diaDiem
               }}
             </div>
-            <div class="GiaPhong">
+            <div class="DanhGiaPhong">
               <p>Điểm đánh giá</p>
 
               <h6>
@@ -278,7 +278,11 @@
         [total]="500"
         (changePage)="changePage($event)"
       ></pagination>
-
+      <!-- <p-paginator
+        [rows]="10"
+        totalRecords="100"
+        (onPageChange)="paginate($event)"
+      ></p-paginator> -->
       <pre>{{ formSapXep.value | json }}</pre>
       <pre>{{ formLoc.value | json }}</pre>
     </div>

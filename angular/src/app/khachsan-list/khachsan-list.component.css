@@ -111,6 +111,7 @@
   border-radius: 15px;
   padding: 3px 10px;
   margin-right: 5px;
+  margin-bottom: 0;
 }
 .titleLoaiChoO {
   margin-top: 20px;
@@ -125,8 +126,12 @@
   font-size: 13px;
   color: dodgerblue;
 }
-.GiaPhong h6 {
+.DanhGiaPhong h6 {
   color: #003b95;
+  margin-bottom: 1.5rem;
+}
+.DanhGiaPhong p {
+  margin-bottom: 0;
 }
 
 /* Hide the default increase and decrease buttons */

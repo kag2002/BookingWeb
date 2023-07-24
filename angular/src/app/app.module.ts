@@ -61,6 +61,7 @@ import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/slide
 import { LienheComponent } from "./luutru/lienhe/lienhe.component";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { PaginationModule } from "./khachsan-list/pagination/pagination.module";
+import { PaginatorModule } from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { PaginationModule } from "./khachsan-list/pagination/pagination.module";
     RadioButtonModule,
     SliderModule,
     PaginationModule,
+    // PaginatorModule,
   ],
   providers: [],
 })
