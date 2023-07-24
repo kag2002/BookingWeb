@@ -6,50 +6,46 @@
   padding-bottom: 180px;
 }
 .slide {
+  margin: 14px;
+}
+.slide-image {
+  border-radius: 65px;
   width: 130px;
   height: 130px;
-  border-radius: 65px;
   background-size: cover;
   background-position: center;
-  margin: 40px;
 }
-
 .slide-content {
   border-radius: 10px;
-  padding: 130px 0 0 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
 }
 .slider {
-  display: flex;
   justify-content: center;
   position: relative;
-  height: 100%;
+  display: flex;
 }
 
-.cardRightArrow {
+.cardRightArrow,
+.cardLeftArrow {
   position: absolute;
-  top: 52%;
+  top: 35%;
   transform: translate(0, -50%);
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  right: 125px;
   font-size: 27px;
   z-index: 1;
   cursor: pointer;
+}
+.cardRightArrow {
+  right: 141px;
 }
 
 .cardLeftArrow {
-  position: absolute;
-  top: 52%;
-  transform: translate(0, -50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  left: 125px;
-  font-size: 27px;
-  z-index: 1;
-  cursor: pointer;
+  left: 141px;
 }
 
 .TenDiaDiem {

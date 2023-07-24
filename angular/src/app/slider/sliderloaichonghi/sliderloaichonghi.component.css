@@ -1,57 +1,56 @@
 .sliderLoaiChoNghi {
   padding: 110px 0 150px 0;
 }
+.slider {
+  justify-content: center;
+  position: relative;
+  display: flex;
+}
 .slide {
-  width: 270px;
+  margin: 14px;
+}
+.slide-image {
+  width: 200px;
   height: 200px;
   background-size: cover;
   background-position: center;
-  margin: 0 10px;
-  border-radius: 5px;
 }
-.slider {
+.slide-content {
   display: flex;
-  justify-content: center;
-  position: relative;
-  height: 100%;
-  padding-top: 13px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+.slide-price {
+  display: flex; /* Set .slide-price to flex */
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 14px 0 14px;
+
+  margin-left: auto; /* Move .slide-price to the right by using margin-left: auto */
 }
 
-.cardRightArrow {
+.cardRightArrow,
+.cardLeftArrow {
   position: absolute;
-  top: 31%;
+  top: 41%;
   transform: translate(0, -50%);
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  right: 141px;
+  right: 163px;
   font-size: 27px;
   z-index: 1;
   cursor: pointer;
+}
+.cardRightArrow {
+  right: 159px;
 }
 
 .cardLeftArrow {
-  position: absolute;
-  top: 31%;
-  transform: translate(0, -50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  left: 141px;
-  font-size: 27px;
-  z-index: 1;
-  cursor: pointer;
+  left: 159px;
 }
 
-.slide-content {
-  border-radius: 10px;
-  padding: 200px 0 0 0;
-  display: grid;
-}
-.titleLoaiChoO {
-  margin-top: 20px;
-  margin-bottom: 0;
-}
 .numberLoaiChoO {
   margin: 0;
 }

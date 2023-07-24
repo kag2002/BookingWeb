@@ -15,19 +15,19 @@
       >
         ❱
       </div>
-
-      <div
-        *ngFor="let item of [].constructor(6); let i = index"
-        class="slide"
-        [ngStyle]="{
-          'background-image': getCurrentSlideUrl(
-            (currentIndex + i) % slidesdiadiem.length
-          )
-        }"
-        (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
-        tabindex="0"
-        routerLink="/app/khachsanlist"
-      >
+      <div class="slide" *ngFor="let item of [].constructor(6); let i = index">
+        <div
+          class="card slide-image"
+          [ngStyle]="{
+            'background-image': getCurrentSlideUrl(
+              (currentIndex + i) % slidesdiadiem.length
+            )
+          }"
+          (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
+          tabindex="0"
+          routerLink="/app/khachsanlist"
+          style="cursor: pointer"
+        ></div>
         <div class="slide-content">
           <h6 class="TenDiaDiem">
             {{

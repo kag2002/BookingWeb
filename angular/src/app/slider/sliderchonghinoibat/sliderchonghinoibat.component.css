@@ -2,24 +2,24 @@
   margin: 0;
   padding: 0;
 }
+
 .slide {
-  width: 270px;
-  height: 200px;
+  width: 200px;
+  height: 350px;
+  margin-top: 25px;
+  padding: 0 5px;
+}
+.slide-image {
+  width: auto;
+  height: 224px;
   background-size: cover;
   background-position: center;
-  margin: 0 10px;
 }
-.slider {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  padding-top: 13px;
-}
-
 .slide-content {
-  border-radius: 10px;
-  padding: 200px 0 0 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
 }
 .titleLoaiChoO {
   margin-top: 20px;
