@@ -2909,15 +2909,15 @@ export class PhongServiceProxy {
     }
 
     /**
-     * @param diaDienId (optional) 
+     * @param diaDiemId (optional) 
      * @return Success
      */
-    getRoomsByDiaDiemId(diaDienId: number | undefined): Observable<GetPhongByLocationDto[]> {
+    getRoomsByDiaDiemId(diaDiemId: number | undefined): Observable<GetPhongByLocationDto[]> {
         let url_ = this.baseUrl + "/api/services/app/Phong/GetRoomsByDiaDiemId?";
-        if (diaDienId === null)
-            throw new Error("The parameter 'diaDienId' cannot be null.");
-        else if (diaDienId !== undefined)
-            url_ += "diaDienId=" + encodeURIComponent("" + diaDienId) + "&";
+        if (diaDiemId === null)
+            throw new Error("The parameter 'diaDiemId' cannot be null.");
+        else if (diaDiemId !== undefined)
+            url_ += "diaDiemId=" + encodeURIComponent("" + diaDiemId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

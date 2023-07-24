@@ -6,7 +6,6 @@
 .slider {
   justify-content: center;
   position: relative;
-  padding-top: 13px;
 }
 .slide {
   display: flex; /* Set the display property to flex */
@@ -57,6 +56,7 @@
 .FormLoc,
 .FormSapXep {
   padding: 14px;
+  margin-top: 14px;
 }
 
 .FormLoc div p {
