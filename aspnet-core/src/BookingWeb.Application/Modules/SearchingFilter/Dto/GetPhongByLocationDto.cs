@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Abp.Application.Services.Dto;
+using System.Collections.Generic;
 
 namespace BookingWeb.Modules.SearchingFilter.Dto
 {

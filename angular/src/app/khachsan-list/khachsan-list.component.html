@@ -1,141 +1,288 @@
-<div class="row">
-  <div class="col-lg-3">
-    <div class="SapXep">
-      <form
-        class="card flex flex-column gap-4 FormSapXep"
-        [formGroup]="formSapXep"
-      >
-        <p style="font-weight: bold; font-size: 18px">Sắp xếp kết quả</p>
-        <hr />
-        <div *ngFor="let sapxep of sapxeps" class="field-checkbox">
-          <p-radioButton
-            [inputId]="sapxep.key"
-            [value]="sapxep"
-            formControlName="selectedCategory"
-          ></p-radioButton>
-          <label [for]="sapxep.key" class="ml-2">{{ sapxep.name }}</label>
-        </div>
-      </form>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- Form sắp xếp -->
+      <div class="SapXep">
+        <form
+          class="card flex flex-column gap-4 FormSapXep"
+          [formGroup]="formSapXep"
+        >
+          <p style="font-weight: bold; font-size: 18px">Sắp xếp kết quả</p>
+          <hr />
+          <div *ngFor="let sapxep of sapxeps" class="field-checkbox">
+            <p-radioButton
+              [inputId]="sapxep.key"
+              [value]="sapxep"
+              formControlName="selectedCategory"
+            ></p-radioButton>
+            <label [for]="sapxep.key" class="ml-2">{{ sapxep.name }}</label>
+          </div>
+        </form>
+      </div>
+      <!-- End form sắp xếp -->
+      <!-- Form lọc -->
+      <div class="card Loc">
+        <form class="FormLoc" [formGroup]="formLoc" (ngSubmit)="onSubmit()">
+          <p style="font-size: 18px; font-weight: 700; padding: 14px">
+            Lọc kết quả
+          </p>
+          <hr />
+          <!-- Miễn phí hủy phòng -->
+          <div class="MienPhiHuyPhong">
+            <p>Chính sách đặt phòng</p>
+            <div class="CheckboxMienPhiHuyPhong">
+              <p-checkbox
+                formControlName="mienphihuyphong"
+                value="Free Cancel"
+                inputId="fc"
+              ></p-checkbox>
+              <label for="fc">Miễn phí hủy phòng</label>
+            </div>
+          </div>
+          <hr />
+          <!-- End miễn phí hủy phòng -->
+          <!-- Khoảng giá phòng cần tìm -->
+          <div class="MoneyRange">
+            <p>Khoảng giá phòng mỗi đêm</p>
+            <div class="MoneyRangeInput row flex w-full">
+              <input
+                class="col-lg-4"
+                type="number"
+                pInputText
+                placeholder="Giá bé nhất"
+                formControlName="inputminprice"
+                [ngModel]="rangeValues[0]"
+              />
+              <hr class="col-lg-2" style="border: 1px solid; margin: 5% 0" />
+              <input
+                class="col-lg-4"
+                type="number"
+                pInputText
+                placeholder="Giá lớn nhất"
+                formControlName="inputmaxprice"
+                [ngModel]="rangeValues[1]"
+              />
+            </div>
+            <p-slider
+              class="w-full"
+              formControlName="inputprice"
+              [ngModel]="rangeValues"
+              [range]="true"
+              [min]="0"
+              [max]="maxPrice"
+            ></p-slider>
+          </div>
+          <!-- End khoảng giá phòng cần tìm -->
+          <hr />
+          <!-- Số sao khách sạn cần tìm -->
+          <div formGroupName="LocSaoData" class="CheckboxLocSao">
+            <p style="margin-bottom: 10px">Hạng sao</p>
+            <div class="CheckboxLocSaoItem" *ngFor="let star of stars">
+              <p-checkbox
+                formControlName="value{{ star }}"
+                [value]="star"
+              ></p-checkbox>
+              <p-rating
+                [readonly]="true"
+                [cancel]="false"
+                formControlName="numberStar{{ star }}"
+              ></p-rating>
+            </div>
+          </div>
+          <!-- End số sao khách sạn cần tìm -->
+          <!-- Loại hình cư trú -->
+          <div formGroupName="LocLoaiHinhCuTru" class="CheckboxLoaiHinhCuTru">
+            <p>Loại hình cư trú</p>
+            <ul class="LocLoaiHinhCuChuItem">
+              <li>
+                <p-checkbox
+                  formControlName="khachsan"
+                  value="Khách Sạn"
+                  inputId="ks"
+                ></p-checkbox>
+                <label for="ks">Khách Sạn</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="khachsancaocap"
+                  value="Khách Sạn Cao Cấp"
+                  inputId="kscc"
+                ></p-checkbox>
+                <label for="kscc">Khách Sạn Cao Cấp</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="homestay"
+                  value="HomeStay"
+                  inputId="hs"
+                ></p-checkbox>
+                <label for="hs">HomeStay</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="nhanghi"
+                  value="Nhà Nghỉ"
+                  inputId="nn"
+                ></p-checkbox>
+                <label for="nn">Nhà Nghỉ</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="resort"
+                  value="Resort"
+                  inputId="rs"
+                ></p-checkbox>
+                <label for="rs">Resort</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="canho"
+                  value="Căn Hộ"
+                  inputId="ch"
+                ></p-checkbox>
+                <label for="ch">Căn Hộ</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="chonghi"
+                  value="Chỗ nghỉ"
+                  inputId="cn"
+                ></p-checkbox>
+                <label for="cn">Chỗ nghỉ</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="nhadan"
+                  value="nhà dân"
+                  inputId="nd"
+                ></p-checkbox>
+                <label for="nd">Nhà dân</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="nhatro"
+                  value="Nhà Trọ"
+                  inputId="nt"
+                ></p-checkbox>
+                <label for="nt">Nhà Trọ</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="bietthu"
+                  value="Biệt thự"
+                  inputId="bt"
+                ></p-checkbox>
+                <label for="bt">Biệt thự</label>
+              </li>
+              <li>
+                <p-checkbox
+                  formControlName="studio"
+                  value="Studio"
+                  inputId="sd"
+                ></p-checkbox>
+                <label for="sd">Studio</label>
+              </li>
+            </ul>
+          </div>
+          <!-- End loại hình cư trú -->
+
+          <button type="submit" [disabled]="!formLoc.valid">Submit</button>
+        </form>
+      </div>
+      <!-- End form lọc -->
     </div>
 
-    <div class="card Loc">
-      <form class="FormLoc" [formGroup]="formLoc" (ngSubmit)="onSubmit()">
-        <p style="font-size: 18px">Lọc kết quả</p>
-        <hr />
+    <div class="col-lg-8">
+      <div class="slider">
+        <div
+          *ngFor="
+            let item of [].constructor(listkhachsan.length);
+            let i = index
+          "
+          class="slide card"
+        >
+          <!-- Image -->
+          <div
+            class="slide-image"
+            [ngStyle]="{
+              'background-image': getCurrentSlideUrl(
+                (currentIndex + i) % listkhachsan.length
+              )
+            }"
+            (click)="onSlideClick((currentIndex + i) % listkhachsan.length)"
+            tabindex="0"
+          ></div>
 
-        <div class="MienPhiHuyPhong">
-          <p style="font-weight: bold">Chính sách đặt phòng</p>
+          <!-- Details -->
+          <div class="slide-content">
+            <p class="TenLoaiDonVi">
+              {{
+                listkhachsan[(currentIndex + i) % listkhachsan.length]
+                  ?.hinhThucPhong
+              }}-{{
+                listkhachsan[(currentIndex + i) % listkhachsan.length]?.tenDonVi
+              }}
+            </p>
+            <div class="DiaDiem" style="width: fit-content">
+              <div style="display: flex; padding-bottom: 3px">
+                <p class="HinhThucPhongTitle">
+                  {{
+                    listkhachsan[(currentIndex + i) % listkhachsan.length]
+                      ?.hinhThucPhong
+                  }}
+                </p>
+                <p-rating
+                  [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
+                  [ngModel]="
+                    listkhachsan[(currentIndex + i) % listkhachsan.length]
+                      ?.danhGiaSaoTb
+                  "
+                  [readonly]="true"
+                  [cancel]="false"
+                ></p-rating>
+              </div>
 
-          <div class="CheckboxMienPhiHuyPhong">
-            <p-checkbox
-              formControlName="mienphihuyphong"
-              value="Free Cancel"
-              inputId="fc"
-            ></p-checkbox>
-            <p>Miễn phí hủy phòng</p>
+              <i class="pi pi-map-marker"></i>
+
+              {{
+                listkhachsan[(currentIndex + i) % listkhachsan.length]?.diaDiem
+              }}
+            </div>
+            <div class="GiaPhong">
+              <p>Điểm đánh giá</p>
+
+              <h6>
+                {{
+                  listkhachsan[(currentIndex + i) % listkhachsan.length]
+                    ?.diemDanhGiaTB
+                }}/10
+              </h6>
+            </div>
+          </div>
+          <div class="slide-price">
+            <div class="GiaPhong">
+              <p>Thanh toán khi nhận phòng</p>
+              <h6 style="color: red">
+                VND:{{
+                  listkhachsan[(currentIndex + i) % listkhachsan.length]
+                    ?.giaPhongTheoDem
+                }}
+              </h6>
+              <p>Giá cuối cùng</p>
+            </div>
           </div>
         </div>
-        <div class="MoneyRange">
-          <p style="font-weight: bold">Khoảng giá phòng mỗi đêm</p>
-          <div class="MoneyRangeInput row flex w-full">
-            <input
-              class="col-lg-4"
-              type="number"
-              pInputText
-              placeholder="Giá bé nhất"
-              formControlName="inputminprice"
-              [ngModel]="rangeValues[0]"
-            />
-            <hr class="col-lg-2" style="border: 1px solid; margin: 5% 0" />
-            <input
-              class="col-lg-4"
-              type="number"
-              pInputText
-              placeholder="Giá lớn nhất"
-              formControlName="inputmaxprice"
-              [ngModel]="rangeValues[1]"
-            />
-          </div>
+      </div>
 
-          <p-slider
-            class="w-full"
-            formControlName="inputprice"
-            [ngModel]="rangeValues"
-            [range]="true"
-            [min]="0"
-            [max]="4000000"
-          ></p-slider>
-        </div>
-        <hr />
-        <div formGroupName="LocSaoData" class="CheckboxLocSao">
-          <p style="font-weight: bold; margin-bottom: 10px">Hạng sao</p>
+      <pagination
+        [currentPage]="currentPage"
+        [limit]="20"
+        [total]="500"
+        (changePage)="changePage($event)"
+      ></pagination>
 
-          <div class="CheckboxLocSaoItem">
-            <p-checkbox
-              formControlName="value1"
-              value="Khach San 1 sao"
-            ></p-checkbox>
-            <p-rating
-              [readonly]="true"
-              [cancel]="false"
-              formControlName="value1"
-            ></p-rating>
-          </div>
-
-          <div class="CheckboxLocSaoItem">
-            <p-checkbox
-              formControlName="value2"
-              value="Khach San 2 sao"
-            ></p-checkbox>
-            <p-rating
-              [readonly]="true"
-              [cancel]="false"
-              formControlName="value2"
-            ></p-rating>
-          </div>
-
-          <div class="CheckboxLocSaoItem">
-            <p-checkbox
-              formControlName="value3"
-              value="Khach San 3 sao"
-            ></p-checkbox>
-            <p-rating
-              [readonly]="true"
-              [cancel]="false"
-              formControlName="value3"
-            ></p-rating>
-          </div>
-
-          <div class="CheckboxLocSaoItem">
-            <p-checkbox
-              formControlName="value4"
-              value="Khach San 4 sao"
-            ></p-checkbox>
-            <p-rating
-              [readonly]="true"
-              [cancel]="false"
-              formControlName="value4"
-            ></p-rating>
-          </div>
-
-          <div class="CheckboxLocSaoItem">
-            <p-checkbox
-              formControlName="value5"
-              value="Khach San 5 sao"
-            ></p-checkbox>
-            <p-rating
-              [readonly]="true"
-              [cancel]="false"
-              formControlName="value5"
-            ></p-rating>
-          </div>
-        </div>
-        <button type="submit" [disabled]="!formLoc.valid">Submit</button>
-      </form>
+      <pre>{{ formSapXep.value | json }}</pre>
+      <pre>{{ formLoc.value | json }}</pre>
     </div>
-  </div>
-
-  <div class="col-lg-8">
-    <pre>{{ formLoc.value | json }}</pre>
   </div>
 </div>
