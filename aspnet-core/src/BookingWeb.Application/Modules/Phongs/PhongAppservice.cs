@@ -144,14 +144,14 @@ namespace BookingWeb.Modules.Phongs
             }
         }
 
-        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int diaDienId)
+        public async Task<List<GetPhongByLocationDto>> GetRoomsByDiaDiemId(int diaDiemId)
         {
             try
             {
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
 
-                var dvkds = lstDVKD.Where(p => p.DiaDiemId == diaDienId).ToList();
+                var dvkds = lstDVKD.Where(p => p.DiaDiemId == diaDiemId).ToList();
 
                 var dtoList = new List<GetPhongByLocationDto>();
 
@@ -161,7 +161,7 @@ namespace BookingWeb.Modules.Phongs
 
                     if (phongs == null || !phongs.Any())
                     {
-                        await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có id = {diaDienId}");
+                        await _httpContextAccessor.HttpContext.Response.WriteAsync($"Không tìm thấy phòng thuộc địa điểm có id = {diaDiemId}");
                         return null;
                     }
                     else
@@ -173,7 +173,7 @@ namespace BookingWeb.Modules.Phongs
                         var nhanXet = await _nhanXet.GetAllListAsync();
                         foreach (var i in phongs)
                         {
-                            var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == diaDienId);
+                            var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == diaDiemId);
                             var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
 
                             var dtoP = new GetPhongByLocationDto

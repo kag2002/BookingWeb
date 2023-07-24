@@ -35,7 +35,7 @@ namespace BookingWeb.Modules.DonViKinhDoanhs
 
                 var donVi = lstDonVi.Where(p=>p.DiaDiemId == id).Select(e => new DonViKinhDoanhInputDto
                 {
-                    DiaDiemId = e.DiaDiemId,
+                   DiaDiemId = e.DiaDiemId,
                    Id = e.Id,
                    TenDonVi = e.TenDonVi,
                    DiaChiChiTiet = e.DiaChiChiTiet,
