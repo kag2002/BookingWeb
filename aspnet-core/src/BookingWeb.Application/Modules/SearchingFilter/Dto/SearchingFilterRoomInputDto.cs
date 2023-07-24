@@ -15,7 +15,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
         public int pageIndex { get; set; }
 
 
-        public string MienPhiHuyPhong { get; set; }
+        public int MienPhiHuyPhong { get; set; }
 
 
         public double GiaPhongNhoNhat { get; set; }
@@ -24,8 +24,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public double GiaPhongLonNhat { get; set; }
 
-        public int HinhThucPhongId { get; set; }
-
+        public List<string> HinhThucPhong { get; set; }
 
 
         public int GiaCaoNhat { get; set; }
