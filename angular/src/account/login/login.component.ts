@@ -1,12 +1,12 @@
-import { Component, Injector } from '@angular/core';
-import { AbpSessionService } from 'abp-ng2-module';
-import { AppComponentBase } from '@shared/app-component-base';
-import { accountModuleAnimation } from '@shared/animations/routerTransition';
-import { AppAuthService } from '@shared/auth/app-auth.service';
+import { Component, Injector } from "@angular/core";
+import { AbpSessionService } from "abp-ng2-module";
+import { AppComponentBase } from "@shared/app-component-base";
+import { accountModuleAnimation } from "@shared/animations/routerTransition";
+import { AppAuthService } from "@shared/auth/app-auth.service";
 
 @Component({
-  templateUrl: './login.component.html',
-  animations: [accountModuleAnimation()]
+  templateUrl: "./login.component.html",
+  animations: [accountModuleAnimation()],
 })
 export class LoginComponent extends AppComponentBase {
   submitting = false;
@@ -19,14 +19,14 @@ export class LoginComponent extends AppComponentBase {
     super(injector);
   }
 
-  get multiTenancySideIsTeanant(): boolean {
-    return this._sessionService.tenantId > 0;
-  }
+  // get multiTenancySideIsTeanant(): boolean {
+  //   return this._sessionService.tenantId > 0;
+  // }
 
   get isSelfRegistrationAllowed(): boolean {
-    if (!this._sessionService.tenantId) {
-      return false;
-    }
+    // if (!this._sessionService.tenantId) {
+    //   return false;
+    // }
 
     return true;
   }
