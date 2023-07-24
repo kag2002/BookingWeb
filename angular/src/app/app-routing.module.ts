@@ -9,6 +9,7 @@ import { RolesComponent } from "app/roles/roles.component";
 import { ChangePasswordComponent } from "./users/change-password/change-password.component";
 import { TrangchuComponent } from "./trangchu/trangchu.component";
 import { DiadiemComponent } from "./diadiem/diadiem.component";
+import { KhachsanListComponent } from "./khachsan-list/khachsan-list.component";
 
 @NgModule({
   imports: [
@@ -45,6 +46,11 @@ import { DiadiemComponent } from "./diadiem/diadiem.component";
           {
             path: "trangchu",
             component: TrangchuComponent,
+            canActivate: [AppRouteGuard],
+          },
+          {
+            path: "khachsanlist",
+            component: KhachsanListComponent,
             canActivate: [AppRouteGuard],
           },
 
