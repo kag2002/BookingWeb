@@ -50,8 +50,8 @@ export class RegisterComponent extends AppComponentBase {
           console.log(error);
         },
         () => {
-          this.notify.success(this.l("SuccessfullyRegistered"));
           this._router.navigate(["./account/login"]);
+          this.notify.success(this.l("SuccessfullyRegistered"));
         }
       );
   }
