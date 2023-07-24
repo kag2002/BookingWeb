@@ -7,8 +7,8 @@
           class="card flex flex-column gap-4 FormSapXep"
           [formGroup]="formSapXep"
         >
-          <p style="font-weight: bold; font-size: 18px">Sắp xếp kết quả</p>
-          <hr />
+          <p style="font-size: 18px; font-weight: 700">Sắp xếp kết quả</p>
+          <hr style="margin: 0" />
           <div *ngFor="let sapxep of sapxeps" class="field-checkbox">
             <p-radioButton
               [inputId]="sapxep.key"
@@ -23,9 +23,7 @@
       <!-- Form lọc -->
       <div class="card Loc">
         <form class="FormLoc" [formGroup]="formLoc" (ngSubmit)="onSubmit()">
-          <p style="font-size: 18px; font-weight: 700; padding: 14px">
-            Lọc kết quả
-          </p>
+          <p style="font-size: 18px; font-weight: 700">Lọc kết quả</p>
           <hr />
           <!-- Miễn phí hủy phòng -->
           <div class="MienPhiHuyPhong">
@@ -39,12 +37,12 @@
               <label for="fc">Miễn phí hủy phòng</label>
             </div>
           </div>
-          <hr />
+          <hr style="margin-top: 14px" />
           <!-- End miễn phí hủy phòng -->
           <!-- Khoảng giá phòng cần tìm -->
           <div class="MoneyRange">
             <p>Khoảng giá phòng mỗi đêm</p>
-            <div class="MoneyRangeInput row flex w-full">
+            <div class="MoneyRangeInput flex w-full">
               <input
                 class="col-lg-4"
                 type="number"
@@ -76,7 +74,7 @@
           <hr />
           <!-- Số sao khách sạn cần tìm -->
           <div formGroupName="LocSaoData" class="CheckboxLocSao">
-            <p style="margin-bottom: 10px">Hạng sao</p>
+            <p>Hạng sao</p>
             <div class="CheckboxLocSaoItem" *ngFor="let star of stars">
               <p-checkbox
                 formControlName="value{{ star }}"
@@ -223,7 +221,7 @@
                 listkhachsan[(currentIndex + i) % listkhachsan.length]?.tenDonVi
               }}
             </p>
-            <div class="DiaDiem" style="width: fit-content">
+            <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
               <div style="display: flex; padding-bottom: 3px">
                 <p class="HinhThucPhongTitle">
                   {{
@@ -248,7 +246,7 @@
                 listkhachsan[(currentIndex + i) % listkhachsan.length]?.diaDiem
               }}
             </div>
-            <div class="GiaPhong">
+            <div class="DanhGiaPhong">
               <p>Điểm đánh giá</p>
 
               <h6>
@@ -280,7 +278,11 @@
         [total]="500"
         (changePage)="changePage($event)"
       ></pagination>
-
+      <!-- <p-paginator
+        [rows]="10"
+        totalRecords="100"
+        (onPageChange)="paginate($event)"
+      ></p-paginator> -->
       <pre>{{ formSapXep.value | json }}</pre>
       <pre>{{ formLoc.value | json }}</pre>
     </div>

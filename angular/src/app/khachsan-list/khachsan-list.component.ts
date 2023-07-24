@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
-import { PhongServiceProxy } from "@shared/service-proxies/service-proxies";
+import {
+  PhongServiceProxy,
+  SearchingFilterServiceProxy,
+} from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-khachsan-list",
@@ -12,6 +15,7 @@ export class KhachsanListComponent implements OnInit {
   formLoc: FormGroup;
   currentPage = 1;
   rangeValues: number[] = [1000000, 3000000];
+
   sapxeps: any[] = [
     { name: "Giá cao nhất", key: "MaxPrice" },
     { name: "Giá thấp nhất", key: "MinPrice" },
@@ -21,10 +25,13 @@ export class KhachsanListComponent implements OnInit {
   stars: number[] = [1, 2, 3, 4, 5];
   maxPrice: number = 4000000;
   listkhachsan = [];
+  listkhachsanfiltered = [];
   currentIndex = 0;
+
   constructor(
     private fb: FormBuilder,
-    private _phongService: PhongServiceProxy
+    private _phongService: PhongServiceProxy,
+    private _searchingfilterappservice: SearchingFilterServiceProxy
   ) {}
 
   ngOnInit() {
@@ -41,7 +48,7 @@ export class KhachsanListComponent implements OnInit {
       }));
     });
     this.formSapXep = this.fb.group({
-      selectedCategory: new FormControl(),
+      selectedCategory: new FormControl(this.sapxeps[3]),
     });
 
     this.formLoc = this.fb.group({
@@ -95,5 +102,13 @@ export class KhachsanListComponent implements OnInit {
   }
   changePage(page: number): void {
     this.currentPage = page;
+    this.listkhachsan = [];
+    // this._searchingfilterappservice.getRoomsByLocationAndFilter()
   }
+  // paginate(event) {
+  //   event.first = 0;
+  //   event.rows = 5;
+  //   event.page = 2;
+  //   event.pageCount = 150;
+  // }
 }
