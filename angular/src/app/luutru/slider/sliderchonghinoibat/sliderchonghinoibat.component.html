@@ -2,54 +2,36 @@
   <div
     *ngFor="let item of slideschonghinoibat; let i = index"
     class="col-lg-3 slide"
+    style="cursor: pointer"
   >
     <div
       class="slide-image"
       [ngStyle]="{
-        'background-image': getCurrentSlideUrl(
-          (currentIndex + i) % slideschonghinoibat.length
-        )
+        'background-image': getCurrentSlideUrl(i)
       }"
-      (click)="onSlideClick((currentIndex + i) % slideschonghinoibat.length)"
       tabindex="0"
       routerLink="/app/khachsanlist"
-      style="cursor: pointer"
     ></div>
     <div class="slide-content">
       <p class="TenLoaiDonVi">
-        {{
-          slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
-            ?.hinhThucPhong
-        }}-{{
-          slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
-            ?.tenDonVi
+        {{ slideschonghinoibat[i]?.hinhThucPhong }}-{{
+          slideschonghinoibat[i]?.tenDonVi
         }}
       </p>
 
       <div class="DiaDiem flex">
         <p-rating
           [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
-          [ngModel]="
-            slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
-              ?.danhGiaSaoTb
-          "
+          [ngModel]="slideschonghinoibat[i]?.danhGiaSaoTb"
           [readonly]="true"
           [cancel]="false"
         ></p-rating>
         <i class="pi pi-map-marker"></i>
-        {{
-          slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
-            ?.diaDiem
-        }}
+        {{ slideschonghinoibat[i]?.diaDiem }}
       </div>
       <div class="GiaPhong">
         <p>Giá mỗi đêm rẻ nhất chỉ từ</p>
-        <h6>
-          VND:{{
-            slideschonghinoibat[(currentIndex + i) % slideschonghinoibat.length]
-              ?.giaPhongTheoDem
-          }}
-        </h6>
+        <h6>VND:{{ slideschonghinoibat[i]?.giaPhongTheoDem }}</h6>
       </div>
     </div>
   </div>
