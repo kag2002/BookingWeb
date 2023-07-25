@@ -198,6 +198,10 @@
             let i = index
           "
           class="slide card"
+          [routerLink]="[
+            '/app/khachsanstart',
+            (currentIndex + i) % listkhachsan.length
+          ]"
         >
           <!-- Image -->
           <div
@@ -207,7 +211,6 @@
                 (currentIndex + i) % listkhachsan.length
               )
             }"
-            (click)="onSlideClick((currentIndex + i) % listkhachsan.length)"
             tabindex="0"
           ></div>
 

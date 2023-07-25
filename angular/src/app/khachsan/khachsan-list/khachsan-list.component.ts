@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
 import {
   PhongServiceProxy,
   SearchingFilterServiceProxy,
@@ -97,9 +98,7 @@ export class KhachsanListComponent implements OnInit {
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-  onSlideClick(index: number): void {
-    // this.router.navigate(["/other", index]);
-  }
+
   changePage(page: number): void {
     this.currentPage = page;
     this.listkhachsan = [];

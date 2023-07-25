@@ -1,0 +1,56 @@
+.sliderLoaiChoNghi {
+  padding: 110px 0 150px 0;
+}
+.slider {
+  justify-content: center;
+  position: relative;
+  display: flex;
+}
+.slide {
+  margin: 14px;
+}
+.slide-image {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+.slide-price {
+  display: flex; /* Set .slide-price to flex */
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 14px 0 14px;
+
+  margin-left: auto; /* Move .slide-price to the right by using margin-left: auto */
+}
+
+.cardRightArrow,
+.cardLeftArrow {
+  position: absolute;
+  top: 41%;
+  transform: translate(0, -50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  right: 163px;
+  font-size: 27px;
+  z-index: 1;
+  cursor: pointer;
+}
+.cardRightArrow {
+  right: 159px;
+}
+
+.cardLeftArrow {
+  left: 159px;
+}
+
+.numberLoaiChoO {
+  margin: 0;
+}
