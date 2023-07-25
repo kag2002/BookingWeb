@@ -1,43 +1,52 @@
+/* Reset styles */
 * {
   margin: 0;
   padding: 0;
 }
 
+/* Slide */
 .slide {
   width: 200px;
   height: 350px;
   margin-top: 25px;
   padding: 0 5px;
 }
+
 .slide-image {
-  width: auto;
+  width: 100%;
   height: 224px;
   background-size: cover;
   background-position: center;
 }
+
 .slide-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 5px;
 }
+
 .titleLoaiChoO {
   margin-top: 20px;
   margin-bottom: 0;
 }
+
 .TenLoaiDonVi {
   margin: 0;
   font-weight: 500;
   font-size: 15px;
 }
+
 .DiaDiem {
   font-size: 13px;
   color: dodgerblue;
   display: flex;
 }
+
 .GiaPhong h6 {
   color: #003b95;
 }
+
 .pi {
   margin: 0 3px 0 19px;
 }

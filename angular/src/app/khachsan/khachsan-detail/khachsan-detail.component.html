@@ -3,57 +3,71 @@
     <!-- Details -->
     <div class="slide-content">
       <p class="TenLoaiDonVi">
-        {{ listkhachsan[currentIndex + id]?.hinhThucPhong }}-{{
-          listkhachsan[currentIndex + id]?.tenDonVi
-        }}
+        {{ listkhachsan[id]?.hinhThucPhong }} & {{ listkhachsan[id]?.tenDonVi }}
       </p>
+      <p>
+        {{ listkhachsan[id]?.hinhThucPhong }} & {{ listkhachsan[id]?.tenDonVi }}
+      </p>
+      <div style="display: flex">
+        <p class="HinhThucPhongTitle">
+          {{ listkhachsan[id]?.hinhThucPhong }}
+        </p>
+        <p-rating
+          [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
+          [ngModel]="listkhachsan[id]?.danhGiaSaoTb"
+          [readonly]="true"
+          [cancel]="false"
+        ></p-rating>
+      </div>
       <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
-        <div style="display: flex; padding-bottom: 3px">
-          <p class="HinhThucPhongTitle">
-            {{ listkhachsan[currentIndex + id]?.hinhThucPhong }}
-          </p>
-          <p-rating
-            [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
-            [ngModel]="listkhachsan[currentIndex + id]?.danhGiaSaoTb"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-        </div>
-
         <i class="pi pi-map-marker"></i>
 
-        {{ listkhachsan[currentIndex + id]?.diaDiem }}
+        {{ listkhachsan[id]?.diaDiem }}
       </div>
     </div>
     <hr />
     <!-- Image -->
     <div class="row">
-      <div
-        class="col-lg-8 slide-main-image"
-        [ngStyle]="{
-          'background-image': getCurrentSlideUrl(currentIndex + id)
-        }"
-      ></div>
-      <div
-        class="col-lg-4 slide-sub-image"
-        [ngStyle]="{
-          'background-image': getCurrentSubSlideUrl(currentIndex + id)
-        }"
-      ></div>
+      <div class="col-lg-8 MainImage">
+        <div
+          class="slide-main-image"
+          [ngStyle]="{
+            'background-image': getCurrentSlideUrl(id)
+          }"
+          style="cursor: pointer"
+        ></div>
+      </div>
+
+      <div class="col-lg-4 row">
+        <div
+          *ngFor="let item of [].constructor(6); let i = index"
+          class="col-lg-6 SubImage"
+        >
+          <div
+            class="slide-sub-image"
+            [ngStyle]="{
+              'background-image': getCurrentSubSlideUrl(i % listhinhanh.length)
+            }"
+          ></div>
+        </div>
+      </div>
     </div>
 
-    <div style="display: flex" class="">
+    <div style="display: flex" class="DetailPhongBottom">
       <div class="DanhGiaPhong">
-        <p>Điểm đánh giá</p>
-
-        <h6>{{ listkhachsan[currentIndex + id]?.diemDanhGiaTB }}/10</h6>
+        <p>Stay Ease</p>
+        <h6>{{ listkhachsan[id]?.diemDanhGiaTB }}/10</h6>
       </div>
       <div class="GiaPhong">
         <p>Thanh toán khi nhận phòng</p>
-        <h6 style="color: red">
-          VND:{{ listkhachsan[currentIndex + id]?.giaPhongTheoDem }}
+        <h6 style="font-weight: 700; font-size: 20px; color: red; margin: 0">
+          VND:{{ listkhachsan[id]?.giaPhongTheoDem }}
         </h6>
-        <p>Giá cuối cùng</p>
+        <p-button
+          label="Đặt ngay"
+          style="margin: 17px 0"
+          styleClass="p-button-raised p-button-danger"
+        ></p-button>
       </div>
     </div>
   </div>

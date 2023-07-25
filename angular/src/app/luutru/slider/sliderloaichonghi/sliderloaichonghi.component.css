@@ -10,7 +10,7 @@
   margin: 14px;
 }
 .slide-image {
-  width: 200px;
+  width: 220px;
   height: 200px;
   background-size: cover;
   background-position: center;
@@ -38,17 +38,17 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  right: 163px;
+
   font-size: 27px;
   z-index: 1;
   cursor: pointer;
 }
 .cardRightArrow {
-  right: 159px;
+  right: 130px;
 }
 
 .cardLeftArrow {
-  left: 159px;
+  left: 130px;
 }
 
 .numberLoaiChoO {

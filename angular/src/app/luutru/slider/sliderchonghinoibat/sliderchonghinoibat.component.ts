@@ -37,8 +37,4 @@ export class SliderchonghinoibatComponent {
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.slideschonghinoibat[index]?.tenFileAnhDaiDien}')`;
   }
-
-  onSlideClick(index: number): void {
-    // this.router.navigate(["/other", index]);
-  }
 }

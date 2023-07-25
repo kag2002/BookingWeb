@@ -4,7 +4,7 @@
     <div class="slider">
       <div
         (click)="goToPrevious()"
-        class="card flex align-items-center gap-1 cardLeftArrow leftArrow"
+        class="card flex align-items-center gap-1 cardLeftArrow"
       >
         ❰
       </div>
@@ -23,8 +23,6 @@
               (currentIndex + i) % slidesdiadiem.length
             )
           }"
-          (click)="onSlideClick((currentIndex + i) % slidesdiadiem.length)"
-          tabindex="0"
           routerLink="/app/khachsanlist"
           style="cursor: pointer"
         ></div>

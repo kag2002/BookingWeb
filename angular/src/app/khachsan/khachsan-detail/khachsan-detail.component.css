@@ -2,39 +2,93 @@
   margin-top: 0;
   padding: 0;
 }
+
+/* TenLoaiDonVi */
+.TenLoaiDonVi {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* HinhThucPhongTitle */
+.HinhThucPhongTitle {
+  color: white;
+  background-color: dodgerblue;
+  border-radius: 12px;
+  padding: 0 12px;
+  margin-right: 5px;
+}
+
+/* DiaDiem */
+.DiaDiem {
+  font-size: 13px;
+  color: dodgerblue;
+  display: flex;
+}
+
+/* Slider */
 .slider {
   justify-content: center;
   position: relative;
 }
+
 .slide {
   margin: 14px;
-  position: relative; /* Add position: relative for the .slide container */
+  position: relative;
 }
-.slide-main-image {
+
+.slide-main-image,
+.slide-sub-image {
   width: inherit;
-  height: 200px;
-  border-radius: 5px;
   background-size: cover;
   background-position: center;
 }
-.slide-sub-image {
+
+.slide-main-image {
+  height: 363px;
   border-radius: 5px;
 }
+
+.slide-sub-image {
+  height: 117px;
+  border-radius: 3px;
+}
+
 .slide-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 14px 14px 0 14px;
+  padding: 14px;
 }
 
-.DanhGiaPhong {
-  justify-content: space-between;
-  padding: 14px 14px 0 14px;
+.MainImage,
+.SubImage {
+  padding: 5px;
 }
+
+/* DanhGiaPhong */
+.DanhGiaPhong {
+  padding: 14px;
+}
+
+.DanhGiaPhong h6 {
+  color: dodgerblue;
+  font-size: 26px;
+}
+
+/* GiaPhong */
 .GiaPhong {
-  display: flex; /* Set .slide-price to flex */
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 14px 14px 0 14px;
-  margin-left: auto; /* Move .slide-price to the right by using margin-left: auto */
+  padding: 14px;
+  margin-left: auto;
+}
+
+/* DetailPhongBottom */
+.DetailPhongBottom {
+  display: flex;
+}
+
+.DetailPhongBottom div p {
+  font-weight: 500;
+  font-size: 19px;
 }
