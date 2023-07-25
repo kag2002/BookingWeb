@@ -55,7 +55,7 @@ export class LuutruComponent {
       timkiemData: this.formBuilder.group({
         locations: [null, Validators.required],
         rangeDates: [null, Validators.required],
-        adults: [1, Validators.min(1)],
+        adults: [2, Validators.min(1)],
         children: [0, Validators.min(0)],
         rooms: [1, Validators.min(1)],
       }),
