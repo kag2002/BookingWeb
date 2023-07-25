@@ -9,7 +9,9 @@ import { RolesComponent } from "app/roles/roles.component";
 import { ChangePasswordComponent } from "./users/change-password/change-password.component";
 import { TrangchuComponent } from "./trangchu/trangchu.component";
 import { DiadiemComponent } from "./diadiem/diadiem.component";
-import { KhachsanListComponent } from "./khachsan-list/khachsan-list.component";
+import { KhachsanListComponent } from "./khachsan/khachsan-list/khachsan-list.component";
+import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
+import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 
 @NgModule({
   imports: [
@@ -52,6 +54,18 @@ import { KhachsanListComponent } from "./khachsan-list/khachsan-list.component";
             path: "khachsanlist",
             component: KhachsanListComponent,
             canActivate: [AppRouteGuard],
+          },
+          {
+            path: "khachsanstart",
+            component: KhachsanStartComponent,
+            canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":id",
+                component: KhachsanDetailComponent,
+                canActivate: [AppRouteGuard],
+              },
+            ],
           },
 
           {

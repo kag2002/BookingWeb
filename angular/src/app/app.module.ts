@@ -50,18 +50,20 @@ import { HeaderLanguageMenuComponent } from "./layout/header-language-menu.compo
 import { HeaderUserMenuComponent } from "./layout/header-user-menu.component";
 import { FooterComponent } from "./layout/footer.component";
 import { TrangchuComponent } from "./trangchu/trangchu.component";
-import { KhachsanListComponent } from "./khachsan-list/khachsan-list.component";
+import { KhachsanListComponent } from "./khachsan/khachsan-list/khachsan-list.component";
 import { DiadiemComponent } from "./diadiem/diadiem.component";
 import { CaidatComponent } from "./caidat/caidat.component";
 import { LuutruComponent } from "./luutru/luutru.component";
-import { SliderloaichonghiComponent } from "./slider/sliderloaichonghi/sliderloaichonghi.component";
-import { SliderdiadiemComponent } from "./slider/sliderdiadiem/sliderdiadiem.component";
+import { SliderloaichonghiComponent } from "./luutru/slider/sliderloaichonghi/sliderloaichonghi.component";
+import { SliderdiadiemComponent } from "./luutru/slider/sliderdiadiem/sliderdiadiem.component";
 import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.component";
-import { SliderchonghinoibatComponent } from "./slider/sliderchonghinoibat/sliderchonghinoibat.component";
+import { SliderchonghinoibatComponent } from "./luutru/slider/sliderchonghinoibat/sliderchonghinoibat.component";
 import { LienheComponent } from "./luutru/lienhe/lienhe.component";
 import { RadioButtonModule } from "primeng/radiobutton";
-import { PaginationModule } from "./khachsan-list/pagination/pagination.module";
+import { PaginationModule } from "./khachsan/khachsan-list/pagination/pagination.module";
 import { PaginatorModule } from "primeng/paginator";
+import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
+import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 
 @NgModule({
   declarations: [
@@ -102,6 +104,8 @@ import { PaginatorModule } from "primeng/paginator";
     ChonghinoibatComponent,
     SliderchonghinoibatComponent,
     LienheComponent,
+    KhachsanDetailComponent,
+    KhachsanStartComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

@@ -1,0 +1,40 @@
+* {
+  margin-top: 0;
+  padding: 0;
+}
+.slider {
+  justify-content: center;
+  position: relative;
+}
+.slide {
+  margin: 14px;
+  position: relative; /* Add position: relative for the .slide container */
+}
+.slide-main-image {
+  width: inherit;
+  height: 200px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+}
+.slide-sub-image {
+  border-radius: 5px;
+}
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 14px 0 14px;
+}
+
+.DanhGiaPhong {
+  justify-content: space-between;
+  padding: 14px 14px 0 14px;
+}
+.GiaPhong {
+  display: flex; /* Set .slide-price to flex */
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 14px 0 14px;
+  margin-left: auto; /* Move .slide-price to the right by using margin-left: auto */
+}
