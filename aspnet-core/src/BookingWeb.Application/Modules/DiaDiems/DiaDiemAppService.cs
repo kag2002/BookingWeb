@@ -4,6 +4,7 @@ using BookingWeb.Modules.DiaDiems.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,7 +136,39 @@ namespace BookingWeb.Modules.DiaDiems
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error: {ex.Message}");
                 return false;
             }
+        }
 
+        public async Task<bool> UploadImage(int id,IFormFile imageFile, string path)
+        {
+            try
+            {
+                if(imageFile != null & imageFile.Length > 0)
+                {
+                    var fileName = Path.GetFileName(imageFile.Name);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), path, fileName);
+
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+
+                    var diaDiem = await _diaDiem.FirstOrDefaultAsync(p=>p.Id == id);
+
+                    if (diaDiem != null)
+                    {
+                        diaDiem.TenFileAnhDD = fileName.ToString();
+                        await _diaDiem.UpdateAsync(diaDiem);
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
 
         }
 
