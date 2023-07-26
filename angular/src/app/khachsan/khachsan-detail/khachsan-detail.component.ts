@@ -18,6 +18,7 @@ export class KhachsanDetailComponent {
   listdiachichitiet = [];
   currentIndex = 0;
   id: number;
+  value: string;
   constructor(
     private route: ActivatedRoute,
     private _phongService: PhongServiceProxy,
@@ -62,6 +63,7 @@ export class KhachsanDetailComponent {
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this.listhinhanh[index]?.tenFileAnh}')`;
   }
+
   onSlideClick(index: number): void {
     // this.router.navigate(["/other", index]);
   }
