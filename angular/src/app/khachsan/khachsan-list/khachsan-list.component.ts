@@ -38,6 +38,7 @@ export class KhachsanListComponent implements OnInit {
   ngOnInit() {
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result.map((item) => ({
+        phongId: item?.phongId,
         tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
         tenDonVi: item?.tenDonVi,
         hinhThucPhong: item?.hinhThucPhong,
