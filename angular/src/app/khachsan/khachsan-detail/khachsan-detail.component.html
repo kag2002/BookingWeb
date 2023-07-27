@@ -1,6 +1,7 @@
 <div class="slider container">
-  <div class="slide card">
-    <!-- Details -->
+  <!-- CardRoomDetail -->
+  <div class="CardRoomDetail card">
+    <!--HeaderRoomDetail -->
     <div class="slide-content">
       <p class="TenLoaiDonVi">
         {{ listkhachsan[id]?.hinhThucPhong }} & {{ listkhachsan[id]?.tenDonVi }}
@@ -25,6 +26,7 @@
         {{ listkhachsan[id]?.diaChi }}
       </div>
     </div>
+    <!--EndHeaderRoomDetail -->
     <hr />
     <!-- Image -->
     <div class="row">
@@ -52,23 +54,177 @@
         </div>
       </div>
     </div>
-
-    <div style="display: flex" class="DetailPhongBottom">
+    <!-- End image -->
+    <!-- BottomRoomDetail -->
+    <div class="DetailPhongBottom">
       <div class="DanhGiaPhong">
         <p>Stay Ease</p>
         <h6>{{ listkhachsan[id]?.diemDanhGiaTB }}/10</h6>
       </div>
       <div class="GiaPhong">
         <p>Thanh toán khi nhận phòng</p>
-        <h6 style="font-weight: 700; font-size: 20px; color: red; margin: 0">
+        <h6 style="font-weight: 700; font-size: 20px; color: red">
           VND:{{ listkhachsan[id]?.giaPhongTheoDem }}
         </h6>
         <p-button
           label="Đặt ngay"
-          style="margin: 17px 0"
           styleClass="p-button-raised p-button-danger"
         ></p-button>
       </div>
     </div>
+    <!--End BottomRoomDetail -->
+  </div>
+  <!--End CardRoomDetail -->
+
+  <!-- DiemNoiBat -->
+  <div class="DiemNoiBat">
+    <div>
+      <i class="fa-solid fa-bus"></i>
+      <p>Các phương tiện công cộng 250m</p>
+    </div>
+    <div>
+      <i class="fa-solid fa-bell-concierge"></i>
+      <p>Bàn tiếp tân [24h]</p>
+    </div>
+    <div>
+      <i class="fa-solid fa-location-dot"></i>
+      <p>Vị trí nội thành</p>
+    </div>
+    <div>
+      <i class="fa-solid fa-wifi"></i>
+      <p>Wifi miễn phí</p>
+    </div>
+    <div>
+      <i class="fa-solid fa-trash-can"></i>
+      <p>Dọn phòng hàng ngày</p>
+    </div>
+  </div>
+  <!-- EndDiemNoiBat -->
+  <hr style="margin: 20px 0px" />
+  <!-- ThongTinHuuIch -->
+  <div class="row ThongTinhHuuIch">
+    <h5 class="col-lg-4">Thông tin hữu ích</h5>
+    <div class="col-lg-8">
+      <div>
+        <p class="white-background">Đáng giá tiền : 8,6</p>
+      </div>
+      <div>
+        <p class="gray-background">Cách trung tâm : 3km</p>
+      </div>
+      <div>
+        <p class="white-background">Đánh giá vị trí : 9</p>
+      </div>
+      <div>
+        <p class="gray-background">Sân bay gần nhất : 10km</p>
+      </div>
+    </div>
+  </div>
+  <!-- EndThongTinHuuIch -->
+
+  <!-- QuyTacChung -->
+  <div class="QuyTacChung">
+    <h5>Quy tắc chung</h5>
+    <p>
+      {{ listkhachsan[id]?.tenDonVi }}. Nhận yêu cầu đặc biệt - gửi yêu cầu
+      trong bước kế tiếp!
+    </p>
+    <div class="card">
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="pi pi-sign-in" style=""></i>Nhận phòng
+        </div>
+        <div class="col-lg-9">
+          Từ 16:00-00:00 <br />Khách được yêu cầu xuất trình giấy tờ
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="pi pi-sign-out" style=""></i>Trả phòng
+        </div>
+        <div class="col-lg-9">Đến 11:00</div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="pi pi-clock" style=""></i>Hủy đặt phòng trả trước
+        </div>
+        <div class="col-lg-9">
+          Các chính sách hủy và thanh toán trước có khác biệt dựa trên loại chỗ
+          nghỉ.Vui lòng kiểm tra các điều kiện có thể được áp dụng cho mỗi lựa
+          chọn của bạn
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="fa-solid fa-children"></i>Trẻ em và giường
+        </div>
+        <div class="col-lg-9">
+          <h6>Chính sách trẻ em</h6>
+          <p>
+            Phù hợp cho tất cả trẻ em.
+            <br />Trẻ em từ 11 tuổi trở lên được tính như người lớn tại chỗ nghỉ
+            này. <br />Để xem thông tin giá và tình trạng phòng trống chính xác,
+            vui lòng thêm số lượng và độ tuổi của trẻ em trong nhóm của bạn khi
+            tìm kiếm.
+          </p>
+
+          <h6>Chính sách nôi (cũi) và giường phụ</h6>
+          <p>Chỗ nghỉ này không có nôi/cũi và giường phụ.</p>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="fa-solid fa-person"></i>Không giới hạn độ tuổi
+        </div>
+        <div class="col-lg-9">Không có yêu cầu về độ tuổi khi nhận phòng</div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="fa-regular fa-credit-card"></i>Thanh toán bởi StayEase.com
+        </div>
+        <div class="col-lg-9">Tiền mặt,thẻ ngân hàng</div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3"><i class="fa-solid fa-paw"></i>Vật nuôi</div>
+        <div class="col-lg-9">Vật nuôi không được phép.</div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="fa-solid fa-ban-smoking"></i>Hút thuốc
+        </div>
+        <div class="col-lg-9">Không được phép hút thuốc</div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-lg-3">
+          <i class="fa-solid fa-wine-bottle"></i>Tiệc tùng
+        </div>
+        <div class="col-lg-9">Không cho phép tiệc tùng , sự kiện</div>
+      </div>
+      <hr />
+    </div>
+  </div>
+  <!-- EndQuyTacChung -->
+</div>
+<div class="DangKyEmail">
+  <div class="container DangKyEmailContainer">
+    <h3>Tiết kiệm thời gian và tiền bạc</h3>
+    <p>Hãy đăng ký và chúng tôi sẽ gửi những ưu đãi tốt nhất cho bạn</p>
+    <div class="SubmitEmail">
+      <input
+        type="text"
+        placeholder="Địa chỉ email của bạn"
+        pInputText
+        [(ngModel)]="value"
+      />
+      <p-button label="Submit"></p-button>
+    </div>
   </div>
 </div>
+<app-footer></app-footer>
