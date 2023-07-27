@@ -94,9 +94,9 @@ namespace BookingWeb.Modules.SearchingFilter
                                 TenFileAnhDaiDien = i.TenFileAnhDaiDien,
                                 DiaChiChiTiet = item.DiaChiChiTiet,
 
-                                DoPhoBien = chiTiet.Where(p => p.PhongId == i.Id).ToList().Count(),
-                                DiemDanhGiaTB = nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Sum() / nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DiemDanhGia).ToList().Count(),
-                                DanhGiaSaoTb = nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Sum() / nhanXet.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Count(),
+                                LuotDatPhong = i.LuotDatPhong,
+                                DiemDanhGiaTB =i.DiemDanhGiaTB,
+                                DanhGiaSaoTb =i.DanhGiaSaoTb,
 
                                 HinhThucPhongId = hinhThucPhong.Id,
                                 HinhThucPhong = hinhThucPhong.TenHinhThuc,
@@ -154,7 +154,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     else
                     {
-                        lstItem = lstItem.OrderByDescending(q => q.DoPhoBien).ToList();
+                        lstItem = lstItem.OrderByDescending(q => q.LuotDatPhong).ToList();
                     }
 
                     var totalCount = lstItem.Count;
@@ -207,7 +207,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     else
                     {
-                        lstItem = lstItem.OrderByDescending(q => q.DoPhoBien).ToList();
+                        lstItem = lstItem.OrderByDescending(q => q.LuotDatPhong).ToList();
                     }
 
                     var totalCount = lstItem.Count;

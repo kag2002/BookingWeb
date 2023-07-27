@@ -13,6 +13,8 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public string LoaiPhong { get; set; }
 
+        public int SucChua { get; set; }
+
         public int TongSLPhong { get; set;  }
 
         public string TrangThaiPhong { get; set; }

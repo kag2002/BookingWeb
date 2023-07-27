@@ -1,13 +1,15 @@
 ﻿using Abp.Application.Services.Dto;
+using BookingWeb.Modules.ChinhSachChungs.Dto;
+using BookingWeb.Modules.DichVuTienIchChungs.Dto;
 using System.Collections.Generic;
 
 namespace BookingWeb.Modules.SearchingFilter.Dto
 {
-    public class GetPhongByLocationDto
+    public class GetInfoPhongDto
     {
         public int DiaDiemId { get; set; }
 
-        public string DiaDiem { get; set; }
+        public string TenDiaDiem { get; set; }
 
         public string ThongTinViTri { get; set; }
 
@@ -17,12 +19,6 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
         public string? TenDonVi { get; set; }
 
         public string? DiaChiChiTiet { get; set; }
-
-        public string? ChinhSachVePhong { get; set; }
-
-        public string? ChinhSachVeTreEm { get; set; }
-
-        public string? ChinhSachVeThuCung { get; set; }
 
 
         public int HinhThucPhongId { get; set; }
@@ -36,9 +32,8 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public string TenFileAnhDaiDien { get; set; }
 
-
-
-        public int DoPhoBien { get; set; }
+        
+        public int LuoDatPhong { get; set; }
 
         public double DiemDanhGiaTB { get; set; }
 
@@ -47,8 +42,11 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
         
         public List<LoaiPhongSearchingDto>? ListLoaiPhong { get; set; }
 
-        public List<string>? HinhAnh { get; set; }
+        public List<ChinhSachChungDto>? ChinhSachChung { get; set; }
 
+        public List<DichVuChungDto>? DichVuChung { get; set; }
+
+        public List<string> HinhAnh { get; set; }
         
 
     }
