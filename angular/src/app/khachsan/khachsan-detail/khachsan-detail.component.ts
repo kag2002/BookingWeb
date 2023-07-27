@@ -26,9 +26,7 @@ export class KhachsanDetailComponent {
   ) {}
   ngOnInit() {
     //Gán id trên router cho biến id
-    this.route.params.subscribe((params: Params) => {
-      this.id = +params["id"];
-    });
+
     // this._donvikinhdoanhService
     //   .getUnitByLocationId(this.id)
     //   .subscribe((result) => {
@@ -38,6 +36,7 @@ export class KhachsanDetailComponent {
     //   });
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result.map((item) => ({
+        phongId: item?.phongId,
         tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
         tenDonVi: item?.tenDonVi,
         hinhThucPhong: item?.hinhThucPhong,
@@ -46,7 +45,12 @@ export class KhachsanDetailComponent {
         diemDanhGiaTB: item?.diemDanhGiaTB,
         ListLoaiPhong: item?.listLoaiPhong,
         giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
+        diaChi: item?.diaChiChiTiet,
       }));
+    });
+
+    this.route.params.subscribe((params: Params) => {
+      this.id = params["id"];
     });
 
     this._hinhanhService.getImageByRoom(this.id).subscribe((result) => {

@@ -193,15 +193,9 @@
     <div class="col-lg-8">
       <div class="slider">
         <div
-          *ngFor="
-            let item of [].constructor(listkhachsan.length);
-            let i = index
-          "
+          *ngFor="let item of listkhachsan; let i = index"
           class="slide card"
-          [routerLink]="[
-            '/app/khachsanstart',
-            (currentIndex + i) % listkhachsan.length
-          ]"
+          [routerLink]="['/app/khachsanstart', item.phongId]"
           style="cursor: pointer"
         >
           <!-- Image -->
