@@ -31,7 +31,5 @@ namespace BookingWeb.DbEntities
 
         public int? LoaiKhachHangId { get; set; }
 
-        public ICollection<PhieuDatPhong> DatPhongs { get; set; }
-
     }
 }
