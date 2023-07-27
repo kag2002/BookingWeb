@@ -43,7 +43,7 @@ export class KhachsanListComponent implements OnInit {
         tenDonVi: item?.tenDonVi,
         hinhThucPhong: item?.hinhThucPhong,
         danhGiaSaoTb: item?.danhGiaSaoTb,
-        diaDiem: item?.diaDiem,
+        tenDiaDiem: item?.tenDiaDiem,
         diemDanhGiaTB: item?.diemDanhGiaTB,
         ListLoaiPhong: item?.listLoaiPhong,
         giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,

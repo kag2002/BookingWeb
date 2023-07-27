@@ -21,7 +21,7 @@
       <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
         <i class="pi pi-map-marker"></i>
 
-        {{ listkhachsan?.diaDiem }}
+        {{ listkhachsan?.diaChiChiTiet }}
       </div>
     </div>
     <!--EndHeaderRoomDetail -->
@@ -209,12 +209,27 @@
   <!-- TienIchChung -->
   <div class="TienIchChung">
     <h5>Tiện ích chung</h5>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let tienich of listdichvuphongtrong">
+        <div style="font-size: 18px; font-weight: bold">
+          {{ tienich.tenDichVu }}
+        </div>
+        <ul>
+          <li
+            style="font-size: 18px; list-style: none"
+            *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
+          >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
   <!-- EndTienIchChung -->
 
   <!-- PhongConTrong -->
   <div class="PhongConTrong card" id="PhongConTrong">
-    <h4>Những còn trống tại {{ listkhachsan?.tenDonVi }}</h4>
+    <h4>Những phòng còn trống tại {{ listkhachsan?.tenDonVi }}</h4>
     <div
       class="PhongConTrongList"
       *ngFor="let phongtrong of listphongtrong; let i = index"
@@ -226,9 +241,7 @@
             Còn trống
             {{ phongtrong.tongSLPhong }}
           </p>
-          <p class="col-lg-2">
-            Sức chứa phòng {{ phongtrong.tongSLPhong }} &ensp;: ...
-          </p>
+          <p class="col-lg-2">Đã đặt : {{ phongtrong.luoDatPhong }}</p>
         </div>
 
         <hr />

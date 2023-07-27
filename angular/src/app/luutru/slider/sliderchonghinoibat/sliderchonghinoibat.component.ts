@@ -27,7 +27,7 @@ export class SliderchonghinoibatComponent {
         tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
         hinhThucPhong: item?.hinhThucPhong,
         tenDonVi: item?.tenDonVi,
-        diaDiem: item?.diaDiem,
+        tenDiaDiem: item?.tenDiaDiem,
         danhGiaSaoTb: item?.danhGiaSaoTb,
         giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
       }));
