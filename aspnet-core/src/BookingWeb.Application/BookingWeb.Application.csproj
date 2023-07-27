@@ -12,8 +12,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Modules\Admins\**" />
     <Compile Remove="Modules\NhanXetDanhGias\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Admins\**" />
     <EmbeddedResource Remove="Modules\NhanXetDanhGias\Dtos\**" />
+    <None Remove="Modules\Admins\**" />
     <None Remove="Modules\NhanXetDanhGias\Dtos\**" />
   </ItemGroup>
   <ItemGroup>
@@ -24,8 +27,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Admins\" />
   </ItemGroup>
 </Project>

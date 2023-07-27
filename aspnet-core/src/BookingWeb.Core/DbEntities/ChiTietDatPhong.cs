@@ -34,6 +34,8 @@ namespace BookingWeb.DbEntities
 
         public int PhongId { get; set; }
 
+        public int LoaiPhongId { get; set; }
+
         public int PhieuDatPhongId { get; set; }
 
         public ICollection<NhanXetDanhGia> NhanXetDanhGias { get; set; }

@@ -16,12 +16,6 @@ namespace BookingWeb.DbEntities
 
         public string AnhDaiDien { get; set; }
 
-        public string ChinhSachVePhong { get; set; }
-
-        public string ChinhSachVeTreEm { get; set; }
-
-        public string ChinhSachVeThuCung { get; set; }
-
         public string GioiThieu { get; set; }
 
         public int? DiaDiemId { get; set; }
@@ -29,6 +23,10 @@ namespace BookingWeb.DbEntities
         public ICollection<Phong> Phongs { get; set; }
 
         public ICollection<LoaiPhong> LoaiPhongs { get; set; }
+
+        public ICollection<ChinhSachChung> ChinhSachChungs { get; set; }
+
+        public ICollection<DichVuTienIchChung> DichVuTienIchChungs { get; set; }
 
         public int? TenantId { get; set; }
     }

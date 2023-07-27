@@ -1,4 +1,6 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Authorization.Users;
+using Abp.Domain.Repositories;
+using BookingWeb.Authorization.Users;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.NhanXetDanhGias.Dto;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +23,9 @@ namespace BookingWeb.Modules.NhanXetDanhGias
         private readonly IRepository<PhieuDatPhong> _phieuDatPhong;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+/*
+        private readonly UserManager _abpUser;
+*/
         public NhanXetDanhGiaAppService(IRepository<NhanXetDanhGia> nhanXetGiaDanh, IRepository<KhachHang> khachHang, IHttpContextAccessor httpContextAccessor)
         {
             _nhanXetGiaDanh = nhanXetGiaDanh;
@@ -41,11 +45,8 @@ namespace BookingWeb.Modules.NhanXetDanhGias
                 var result = (from nx in lstNx
                              join ct in lstCt on nx.ChiTietDatPhongId equals ct.Id
                              join pd in lstPd on ct.PhieuDatPhongId equals pd.Id
-                             join kh in lstKh on pd.KhachHangId equals kh.Id
                              select new NhanXetDanhGiaDto
                              {
-                                 KhachHang= kh.HoTen,
-                                 KhachHangId = kh.Id,
                                  NhanXet = nx.NhanXet,
                                  DanhGiaSao = nx.DanhGiaSao,
                                  DiemDanhGia = nx.DiemDanhGia,

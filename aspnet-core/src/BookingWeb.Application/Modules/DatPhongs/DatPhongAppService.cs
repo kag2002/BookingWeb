@@ -41,8 +41,8 @@ namespace BookingWeb.Modules.DatPhongs
                     Id = entity.Id,
                     NgayBatDau = entity.NgayBatDau,
                     NgayHenTra = entity.NgayHenTra,
-                    KhachHang = lstKH.Where(p => p.Id == entity.KhachHangId).Select(p => p.HoTen).ToString(),
-                    NhanVien = lstNV.Where(p => p.Id == entity.NhanVienId).Select(p => p.HoTen).ToString()
+                    /*KhachHang = lstKH.Where(p => p.Id == entity.KhachHangId).Select(p => p.HoTen).ToString(),
+                    NhanVien = lstNV.Where(p => p.Id == entity.NhanVienId).Select(p => p.HoTen).ToString()*/
 
                 }).ToList();
 

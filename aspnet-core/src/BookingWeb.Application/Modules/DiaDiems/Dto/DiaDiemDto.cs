@@ -12,6 +12,5 @@ namespace BookingWeb.Modules.DiaDiems.Dto
 
         public string ThongTinViTri { get; set; }
 
-        public string TenFileAnhDD { get; set; }
     }
 }
