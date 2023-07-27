@@ -22,7 +22,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public string TenFileAnhDaiDien { get; set; }
 
-        public int DoPhoBien { get; set; }
+        public int LuotDatPhong { get; set; }
 
         public double DiemDanhGiaTB { get; set; }
 

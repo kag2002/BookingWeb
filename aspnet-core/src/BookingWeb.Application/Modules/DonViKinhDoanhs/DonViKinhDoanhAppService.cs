@@ -40,9 +40,6 @@ namespace BookingWeb.Modules.DonViKinhDoanhs
                    TenDonVi = e.TenDonVi,
                    DiaChiChiTiet = e.DiaChiChiTiet,
                    AnhDaiDien = e.AnhDaiDien,
-                   ChinhSachVePhong = e.ChinhSachVePhong,
-                   ChinhSachVeTreEm = e.ChinhSachVeTreEm,
-                   ChinhSachVeThuCung = e.ChinhSachVeThuCung,
                    GioiThieu = e.GioiThieu
 
                 }).ToList();
@@ -67,9 +64,6 @@ namespace BookingWeb.Modules.DonViKinhDoanhs
                     TenDonVi = input.TenDonVi,
                     DiaChiChiTiet = input.DiaChiChiTiet,
                     AnhDaiDien = input.AnhDaiDien,
-                    ChinhSachVePhong = input.ChinhSachVePhong,
-                    ChinhSachVeTreEm = input.ChinhSachVeTreEm,
-                    ChinhSachVeThuCung = input.ChinhSachVeThuCung,
                     GioiThieu = input.GioiThieu,
                     DiaDiemId = input.DiaDiemId
                 };
@@ -97,9 +91,6 @@ namespace BookingWeb.Modules.DonViKinhDoanhs
                 donVi.TenDonVi = input.TenDonVi;
                 donVi.DiaChiChiTiet = input.DiaChiChiTiet;
                 donVi.AnhDaiDien = input.AnhDaiDien;
-                donVi.ChinhSachVePhong = input.ChinhSachVePhong;
-                donVi.ChinhSachVeTreEm = input.ChinhSachVeTreEm;
-                donVi.ChinhSachVeThuCung = input.ChinhSachVeThuCung;
                 donVi.GioiThieu = input.GioiThieu;
                 donVi.DiaDiemId = input.DiaDiemId;
 

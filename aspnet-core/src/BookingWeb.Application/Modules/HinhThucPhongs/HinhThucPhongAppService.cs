@@ -60,9 +60,6 @@ namespace BookingWeb.Modules.HinhThucKinhDoanhs
                     LoaiPhong = lstLp.Where(p=>p.DonViKinhDoanhId == e.DonViKinhDoanhId).Select(p=>p.TenLoaiPhong).ToList(),
                     DiaChi = lstDvkd.FirstOrDefault(p => p.Id == e.DonViKinhDoanhId).DiaChiChiTiet,
                     AnhDaiDien = e.TenFileAnhDaiDien,
-                    ChinhSachVePhong = lstDvkd.FirstOrDefault(p => p.Id == e.DonViKinhDoanhId).ChinhSachVePhong,
-                    ChinhSachVeTreEm = lstDvkd.FirstOrDefault(p => p.Id == e.DonViKinhDoanhId).ChinhSachVeTreEm,
-                    ChinhSachVeThuCung = lstDvkd.FirstOrDefault(p => p.Id == e.DonViKinhDoanhId).ChinhSachVeThuCung,
                     DichVu = lstDv.Where(p=>p.LoaiPhongId == (lstLp.FirstOrDefault(q=>q.DonViKinhDoanhId == e.DonViKinhDoanhId).Id)).Select(p=>p.TenDichVu).ToList(),
                     HinhAnh = lstha.Where(p=>p.PhongId == e.Id).Select(p=>p.TenFileAnh).ToList()
 
