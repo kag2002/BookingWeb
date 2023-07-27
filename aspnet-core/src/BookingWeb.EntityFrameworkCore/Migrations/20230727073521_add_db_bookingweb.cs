@@ -62,6 +62,7 @@ namespace BookingWeb.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
                     PhanLoai = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MucGiamGia = table.Column<double>(type: "float", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -93,6 +94,7 @@ namespace BookingWeb.Migrations
                     GioiTinh = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
@@ -107,6 +109,32 @@ namespace BookingWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BwPhieuDatPhong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    HoTen = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SDT = table.Column<long>(type: "bigint", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgayBatDau = table.Column<DateTime>(type: "datetime", nullable: false),
+                    NgayHenTra = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DatHo = table.Column<int>(type: "int", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BwPhieuDatPhong", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BwDonViKinhDoanh",
                 columns: table => new
                 {
@@ -115,9 +143,6 @@ namespace BookingWeb.Migrations
                     TenDonVi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiaChiChiTiet = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ChinhSachVePhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ChinhSachVeTreEm = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ChinhSachVeThuCung = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GioiThieu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiaDiemId = table.Column<int>(type: "int", nullable: true),
                     TenantId = table.Column<int>(type: "int", nullable: true),
@@ -146,7 +171,7 @@ namespace BookingWeb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenantId = table.Column<int>(type: "int", nullable: true),
-                    CCCD = table.Column<long>(type: "bigint", nullable: false),
+                    CCCD = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HoTen = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SoDienThoai = table.Column<long>(type: "bigint", nullable: false),
@@ -155,6 +180,7 @@ namespace BookingWeb.Migrations
                     GioiTinh = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LoaiKhachHangId = table.Column<int>(type: "int", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -171,6 +197,69 @@ namespace BookingWeb.Migrations
                         name: "FK_BwKhachHang_BwLoaiKhachHang_LoaiKhachHangId",
                         column: x => x.LoaiKhachHangId,
                         principalTable: "BwLoaiKhachHang",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BwChinhSachChung",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    KiemTraThongTin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BuaSang = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NhanPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TraPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChinhSachVePhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChinhSachTreEm = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChinhSachVeGiuongPhu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChinhSachVeThuCung = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhuongThucThanhToan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DonViKinhDoanhId = table.Column<int>(type: "int", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BwChinhSachChung", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BwChinhSachChung_BwDonViKinhDoanh_DonViKinhDoanhId",
+                        column: x => x.DonViKinhDoanhId,
+                        principalTable: "BwDonViKinhDoanh",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BwDichVuTienIchChung",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    TenDichVu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChiTiet = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DonViKinhDoanhId = table.Column<int>(type: "int", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BwDichVuTienIchChung", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BwDichVuTienIchChung_BwDonViKinhDoanh_DonViKinhDoanhId",
+                        column: x => x.DonViKinhDoanhId,
+                        principalTable: "BwDonViKinhDoanh",
                         principalColumn: "Id");
                 });
 
@@ -251,45 +340,6 @@ namespace BookingWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BwPhieuDatPhong",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TenantId = table.Column<int>(type: "int", nullable: true),
-                    HoTen = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SDT = table.Column<long>(type: "bigint", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NgayBatDau = table.Column<DateTime>(type: "datetime", nullable: false),
-                    NgayHenTra = table.Column<DateTime>(type: "datetime", nullable: false),
-                    KhachHangId = table.Column<int>(type: "int", nullable: false),
-                    NhanVienId = table.Column<int>(type: "int", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "datetime", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BwPhieuDatPhong", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BwPhieuDatPhong_BwKhachHang_KhachHangId",
-                        column: x => x.KhachHangId,
-                        principalTable: "BwKhachHang",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BwPhieuDatPhong_BwNhanVien_NhanVienId",
-                        column: x => x.NhanVienId,
-                        principalTable: "BwNhanVien",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BwDichVuTienIch",
                 columns: table => new
                 {
@@ -319,6 +369,51 @@ namespace BookingWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BwChiTietDatPhong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckIn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckOut = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SLNguoiLon = table.Column<int>(type: "int", nullable: false),
+                    SLTreEm = table.Column<int>(type: "int", nullable: false),
+                    SLPhong = table.Column<int>(type: "int", nullable: false),
+                    TienPhong = table.Column<double>(type: "float", nullable: false),
+                    TienPhongQuaHan = table.Column<double>(type: "float", nullable: false),
+                    NgayHuy = table.Column<DateTime>(type: "datetime", nullable: false),
+                    ChiPhiHuyPhong = table.Column<double>(type: "float", nullable: false),
+                    TongTien = table.Column<double>(type: "float", nullable: false),
+                    PhongId = table.Column<int>(type: "int", nullable: false),
+                    LoaiPhongId = table.Column<int>(type: "int", nullable: false),
+                    PhieuDatPhongId = table.Column<int>(type: "int", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BwChiTietDatPhong", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BwChiTietDatPhong_BwPhieuDatPhong_PhieuDatPhongId",
+                        column: x => x.PhieuDatPhongId,
+                        principalTable: "BwPhieuDatPhong",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BwChiTietDatPhong_BwPhong_PhongId",
+                        column: x => x.PhongId,
+                        principalTable: "BwPhong",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BwHinhAnh",
                 columns: table => new
                 {
@@ -340,50 +435,6 @@ namespace BookingWeb.Migrations
                     table.PrimaryKey("PK_BwHinhAnh", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BwHinhAnh_BwPhong_PhongId",
-                        column: x => x.PhongId,
-                        principalTable: "BwPhong",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BwChiTietDatPhong",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TrangThaiPhong = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CheckIn = table.Column<DateTime>(type: "datetime", nullable: false),
-                    CheckOut = table.Column<DateTime>(type: "datetime", nullable: false),
-                    SLNguoiLon = table.Column<int>(type: "int", nullable: false),
-                    SLTreEm = table.Column<int>(type: "int", nullable: false),
-                    SLPhong = table.Column<int>(type: "int", nullable: false),
-                    TienPhong = table.Column<double>(type: "float", nullable: false),
-                    TienPhongQuaHan = table.Column<double>(type: "float", nullable: false),
-                    NgayHuy = table.Column<DateTime>(type: "datetime", nullable: false),
-                    ChiPhiHuyPhong = table.Column<double>(type: "float", nullable: false),
-                    TongTien = table.Column<double>(type: "float", nullable: false),
-                    PhongId = table.Column<int>(type: "int", nullable: false),
-                    PhieuDatPhongId = table.Column<int>(type: "int", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "datetime", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BwChiTietDatPhong", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BwChiTietDatPhong_BwPhieuDatPhong_PhieuDatPhongId",
-                        column: x => x.PhieuDatPhongId,
-                        principalTable: "BwPhieuDatPhong",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BwChiTietDatPhong_BwPhong_PhongId",
                         column: x => x.PhongId,
                         principalTable: "BwPhong",
                         principalColumn: "Id",
@@ -421,6 +472,11 @@ namespace BookingWeb.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BwChinhSachChung_DonViKinhDoanhId",
+                table: "BwChinhSachChung",
+                column: "DonViKinhDoanhId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BwChiTietDatPhong_PhieuDatPhongId",
                 table: "BwChiTietDatPhong",
                 column: "PhieuDatPhongId");
@@ -434,6 +490,11 @@ namespace BookingWeb.Migrations
                 name: "IX_BwDichVuTienIch_LoaiPhongId",
                 table: "BwDichVuTienIch",
                 column: "LoaiPhongId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BwDichVuTienIchChung_DonViKinhDoanhId",
+                table: "BwDichVuTienIchChung",
+                column: "DonViKinhDoanhId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BwDonViKinhDoanh_DiaDiemId",
@@ -461,16 +522,6 @@ namespace BookingWeb.Migrations
                 column: "ChiTietDatPhongId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BwPhieuDatPhong_KhachHangId",
-                table: "BwPhieuDatPhong",
-                column: "KhachHangId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BwPhieuDatPhong_NhanVienId",
-                table: "BwPhieuDatPhong",
-                column: "NhanVienId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BwPhong_DonViKinhDoanhId",
                 table: "BwPhong",
                 column: "DonViKinhDoanhId");
@@ -485,16 +536,31 @@ namespace BookingWeb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BwChinhSachChung");
+
+            migrationBuilder.DropTable(
                 name: "BwDichVuTienIch");
 
             migrationBuilder.DropTable(
+                name: "BwDichVuTienIchChung");
+
+            migrationBuilder.DropTable(
                 name: "BwHinhAnh");
+
+            migrationBuilder.DropTable(
+                name: "BwKhachHang");
+
+            migrationBuilder.DropTable(
+                name: "BwNhanVien");
 
             migrationBuilder.DropTable(
                 name: "BwNhanXetDanhGia");
 
             migrationBuilder.DropTable(
                 name: "BwLoaiPhong");
+
+            migrationBuilder.DropTable(
+                name: "BwLoaiKhachHang");
 
             migrationBuilder.DropTable(
                 name: "BwChiTietDatPhong");
@@ -506,19 +572,10 @@ namespace BookingWeb.Migrations
                 name: "BwPhong");
 
             migrationBuilder.DropTable(
-                name: "BwKhachHang");
-
-            migrationBuilder.DropTable(
-                name: "BwNhanVien");
-
-            migrationBuilder.DropTable(
                 name: "BwDonViKinhDoanh");
 
             migrationBuilder.DropTable(
                 name: "BwHinhThucPhong");
-
-            migrationBuilder.DropTable(
-                name: "BwLoaiKhachHang");
 
             migrationBuilder.DropTable(
                 name: "BwDiaDiem");

@@ -22,11 +22,7 @@ namespace BookingWeb.DbEntities
 
         public DateTime NgayHenTra { get; set; }
 
-        public int? KhachHangId { get; set; }
-
         public  int DatHo { get; set; }
-
-        public int NhanVienId { get; set; }
 
         public ICollection<ChiTietDatPhong> ChiTietDatPhongs { get; set; }
     }
