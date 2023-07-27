@@ -24,15 +24,13 @@
   color: dodgerblue;
   display: flex;
 }
-
+.CardRoomDetail {
+  margin: 14px 0;
+  position: relative;
+}
 /* Slider */
 .slider {
   justify-content: center;
-  position: relative;
-}
-
-.slide {
-  margin: 14px;
   position: relative;
 }
 
@@ -44,7 +42,7 @@
 }
 
 .slide-main-image {
-  height: 363px;
+  height: 373px;
   border-radius: 5px;
 }
 
@@ -91,4 +89,66 @@
 .DetailPhongBottom div p {
   font-weight: 500;
   font-size: 19px;
+}
+.DiemNoiBat {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  margin: 50px 0;
+  background-color: white;
+  border-radius: 5px;
+}
+.DiemNoiBat div {
+  text-align: center;
+  padding: 15px 10px 0 10px;
+}
+.ThongTinhHuuIch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+.ThongTinhHuuIch div div p {
+  margin: 0;
+  padding: 5px;
+}
+.white-background {
+  background-color: white;
+}
+
+.gray-background {
+  background-color: inherit;
+}
+
+.QuyTacChung {
+  margin: 50px 0;
+}
+.QuyTacChung div hr {
+  margin: 0;
+}
+.QuyTacChung div .row {
+  padding: 10px;
+}
+.QuyTacChung div .row div i {
+  padding-right: 5px;
+}
+.DangKyEmail {
+  background-color: white;
+  padding: 50px;
+}
+.DangKyEmailContainer {
+  display: grid;
+  justify-content: center;
+  padding: 30px;
+  background-color: darkblue;
+  color: white;
+  text-align: center;
+}
+.SubmitEmail {
+  display: flex;
+}
+.SubmitEmail input {
+  margin-right: 20px;
+  text-align: center;
+  width: 400px;
+  height: 50px;
 }
