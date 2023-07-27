@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import {
   DonViKinhDoanhServiceProxy,
   HinhAnhServiceProxy,
@@ -13,21 +13,25 @@ import {
   styleUrls: ["./khachsan-detail.component.css"],
 })
 export class KhachsanDetailComponent {
-  listkhachsan = [];
+  listkhachsan: any;
   listhinhanh = [];
-  listdiachichitiet = [];
+  listphongtrong = [];
+  listdichvuphongtrong = [];
+
   currentIndex = 0;
   id: number;
   value: string;
   constructor(
     private route: ActivatedRoute,
+
     private _phongService: PhongServiceProxy,
-    private _hinhanhService: HinhAnhServiceProxy,
-    private _donvikinhdoanhService: DonViKinhDoanhServiceProxy
+    private _hinhanhService: HinhAnhServiceProxy // private _donvikinhdoanhService: DonViKinhDoanhServiceProxy
   ) {}
   ngOnInit() {
     //Gán id trên router cho biến id
-
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params["id"];
+    });
     // this._donvikinhdoanhService
     //   .getUnitByLocationId(this.id)
     //   .subscribe((result) => {
@@ -37,7 +41,6 @@ export class KhachsanDetailComponent {
     //   });
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result.map((item) => ({
-        phongId: item?.phongId,
         tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
         tenDonVi: item?.tenDonVi,
         hinhThucPhong: item?.hinhThucPhong,
@@ -46,12 +49,7 @@ export class KhachsanDetailComponent {
         diemDanhGiaTB: item?.diemDanhGiaTB,
         ListLoaiPhong: item?.listLoaiPhong,
         giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
-        diaChi: item?.diaChiChiTiet,
       }));
-    });
-
-    this.route.params.subscribe((params: Params) => {
-      this.id = params["id"];
     });
 
     this._hinhanhService.getImageByRoom(this.id).subscribe((result) => {
@@ -61,8 +59,8 @@ export class KhachsanDetailComponent {
     });
   }
 
-  getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
+  getCurrentSlideUrl(): string {
+    return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan?.tenFileAnhDaiDien}')`;
   }
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this.listhinhanh[index]?.tenFileAnh}')`;

@@ -4,26 +4,24 @@
     <!--HeaderRoomDetail -->
     <div class="slide-content">
       <p class="TenLoaiDonVi">
-        {{ listkhachsan[id]?.hinhThucPhong }} & {{ listkhachsan[id]?.tenDonVi }}
+        {{ listkhachsan?.hinhThucPhong }} & {{ listkhachsan?.tenDonVi }}
       </p>
-      <p>
-        {{ listkhachsan[id]?.hinhThucPhong }} & {{ listkhachsan[id]?.tenDonVi }}
-      </p>
+      <p>{{ listkhachsan?.hinhThucPhong }} & {{ listkhachsan?.tenDonVi }}</p>
       <div style="display: flex">
         <p class="HinhThucPhongTitle">
-          {{ listkhachsan[id]?.hinhThucPhong }}
+          {{ listkhachsan?.hinhThucPhong }}
         </p>
         <p-rating
           [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
-          [ngModel]="listkhachsan[id]?.danhGiaSaoTb"
+          [ngModel]="listkhachsan?.danhGiaSaoTb"
           [readonly]="true"
           [cancel]="false"
         ></p-rating>
       </div>
       <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
         <i class="pi pi-map-marker"></i>
-        {{ listkhachsan[id].diaDiem }} -
-        {{ listkhachsan[id]?.diaChi }}
+
+        {{ listkhachsan?.diaDiem }}
       </div>
     </div>
     <!--EndHeaderRoomDetail -->
@@ -34,7 +32,7 @@
         <div
           class="slide-main-image"
           [ngStyle]="{
-            'background-image': getCurrentSlideUrl(id)
+            'background-image': getCurrentSlideUrl()
           }"
           style="cursor: pointer"
         ></div>
@@ -59,17 +57,15 @@
     <div class="DetailPhongBottom">
       <div class="DanhGiaPhong">
         <p>Stay Ease</p>
-        <h6>{{ listkhachsan[id]?.diemDanhGiaTB }}/10</h6>
+        <h6>{{ listkhachsan?.diemDanhGiaTB }}/10</h6>
       </div>
       <div class="GiaPhong">
         <p>Thanh toán khi nhận phòng</p>
-        <h6 style="font-weight: 700; font-size: 20px; color: red">
-          VND:{{ listkhachsan[id]?.giaPhongTheoDem }}
-        </h6>
-        <p-button
-          label="Đặt ngay"
-          styleClass="p-button-raised p-button-danger"
-        ></p-button>
+        <h6>VND:{{ listkhachsan?.giaPhongTheoDem }}</h6>
+
+        <a href="/app/khachsanstart/{{ id }}#PhongConTrong" class="btn"
+          >Đặt phòng</a
+        >
       </div>
     </div>
     <!--End BottomRoomDetail -->
@@ -100,7 +96,9 @@
     </div>
   </div>
   <!-- EndDiemNoiBat -->
+
   <hr style="margin: 20px 0px" />
+
   <!-- ThongTinHuuIch -->
   <div class="row ThongTinhHuuIch">
     <h5 class="col-lg-4">Thông tin hữu ích</h5>
@@ -125,29 +123,25 @@
   <div class="QuyTacChung">
     <h5>Quy tắc chung</h5>
     <p>
-      {{ listkhachsan[id]?.tenDonVi }}. Nhận yêu cầu đặc biệt - gửi yêu cầu
-      trong bước kế tiếp!
+      {{ listkhachsan?.tenDonVi }}. Nhận yêu cầu đặc biệt - gửi yêu cầu trong
+      bước kế tiếp!
     </p>
     <div class="card">
       <div class="row">
-        <div class="col-lg-3">
-          <i class="pi pi-sign-in" style=""></i>Nhận phòng
-        </div>
+        <div class="col-lg-3"><i class="pi pi-sign-in"></i>Nhận phòng</div>
         <div class="col-lg-9">
           Từ 16:00-00:00 <br />Khách được yêu cầu xuất trình giấy tờ
         </div>
       </div>
       <hr />
       <div class="row">
-        <div class="col-lg-3">
-          <i class="pi pi-sign-out" style=""></i>Trả phòng
-        </div>
+        <div class="col-lg-3"><i class="pi pi-sign-out"></i>Trả phòng</div>
         <div class="col-lg-9">Đến 11:00</div>
       </div>
       <hr />
       <div class="row">
         <div class="col-lg-3">
-          <i class="pi pi-clock" style=""></i>Hủy đặt phòng trả trước
+          <i class="pi pi-clock"></i>Hủy đặt phòng trả trước
         </div>
         <div class="col-lg-9">
           Các chính sách hủy và thanh toán trước có khác biệt dựa trên loại chỗ
@@ -211,6 +205,52 @@
     </div>
   </div>
   <!-- EndQuyTacChung -->
+
+  <!-- TienIchChung -->
+  <div class="TienIchChung">
+    <h5>Tiện ích chung</h5>
+  </div>
+  <!-- EndTienIchChung -->
+
+  <!-- PhongConTrong -->
+  <div class="PhongConTrong card" id="PhongConTrong">
+    <h4>Những còn trống tại {{ listkhachsan?.tenDonVi }}</h4>
+    <div
+      class="PhongConTrongList"
+      *ngFor="let phongtrong of listphongtrong; let i = index"
+    >
+      <div class="PhongConTrongListItem card">
+        <div class="row">
+          <p class="col-lg-4">Loại phòng:{{ phongtrong.loaiPhong }}</p>
+          <p class="col-lg-6">
+            Còn trống
+            {{ phongtrong.tongSLPhong }}
+          </p>
+          <p class="col-lg-2">
+            Sức chứa phòng {{ phongtrong.tongSLPhong }} &ensp;: ...
+          </p>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <p class="col-lg-4">Trạng thái:{{ phongtrong.trangThaiPhong }}</p>
+          <p class="col-lg-6">
+            Giá:{{
+              phongtrong.giaPhongTheoDem + phongtrong.giaGoiDVThem
+            }}&ensp;chỉ còn{{
+              phongtrong.giaPhongTheoDem * (1 - phongtrong.uuDai) +
+                phongtrong.giaGoiDVThem
+            }}
+          </p>
+          <p class="col-lg-2">Ưu đãi:{{ phongtrong.uuDai }}</p>
+        </div>
+      </div>
+      <br /><br />
+    </div>
+  </div>
+
+  <!-- EndPhongConTrong -->
 </div>
 <div class="DangKyEmail">
   <div class="container DangKyEmailContainer">
