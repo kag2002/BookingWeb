@@ -47,6 +47,7 @@ export class KhachsanListComponent implements OnInit {
         diemDanhGiaTB: item?.diemDanhGiaTB,
         ListLoaiPhong: item?.listLoaiPhong,
         giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
+        diaChi: item?.diaChiChiTiet,
       }));
     });
     this.formSapXep = this.fb.group({
