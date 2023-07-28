@@ -2,13 +2,12 @@
 using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.SearchingFilter.Dto;
+using BookingWeb.SessionsDefine;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using BookingWeb.SessionsDefine;
 
 namespace BookingWeb.Modules.SearchingFilter
 {
@@ -51,7 +50,7 @@ namespace BookingWeb.Modules.SearchingFilter
             try
             {
                 await _httpContextAccessor.HttpContext.Session.ClearAsync();
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("InfoBooking",input.infoBooking);
+                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("InfoBooking", input.infoBooking);
 
 
                 int pageSize = 3;
@@ -93,8 +92,8 @@ namespace BookingWeb.Modules.SearchingFilter
                                 DiaChiChiTiet = item.DiaChiChiTiet,
 
                                 LuotDatPhong = i.LuotDatPhong,
-                                DiemDanhGiaTB =i.DiemDanhGiaTB,
-                                DanhGiaSaoTb =i.DanhGiaSaoTb,
+                                DiemDanhGiaTB = i.DiemDanhGiaTB,
+                                DanhGiaSaoTb = i.DanhGiaSaoTb,
 
                                 HinhThucPhongId = hinhThucPhong.Id,
                                 HinhThucPhong = hinhThucPhong.TenHinhThuc,
@@ -128,11 +127,11 @@ namespace BookingWeb.Modules.SearchingFilter
                     {
                         filteredRooms = filteredRooms.Where(room => room.DanhGiaSaoTb >= input.DanhGiaSao).ToList();
                     }
-                    if (input.HinhThucPhong != null)
+                    if (input.HinhThucPhongId != null)
                     {
-                        foreach (var i in input.HinhThucPhong)
+                        foreach (var i in input.HinhThucPhongId)
                         {
-                            var item = filteredRooms.Where(room => room.HinhThucPhong == i).ToList();
+                            var item = filteredRooms.Where(room => room.HinhThucPhongId == i).ToList();
 
                             lstItem.AddRange(item);
                         }
@@ -181,11 +180,11 @@ namespace BookingWeb.Modules.SearchingFilter
                     {
                         filteredRooms = filteredRooms.Where(room => room.DanhGiaSaoTb >= input.DanhGiaSao).ToList();
                     }
-                    if (input.HinhThucPhong != null)
+                    if (input.HinhThucPhongId != null)
                     {
-                        foreach (var i in input.HinhThucPhong)
+                        foreach (var i in input.HinhThucPhongId)
                         {
-                            var item = filteredRooms.Where(room => room.HinhThucPhong == i).ToList();
+                            var item = filteredRooms.Where(room => room.HinhThucPhongId == i).ToList();
 
                             lstItem.AddRange(item);
                         }
@@ -218,7 +217,7 @@ namespace BookingWeb.Modules.SearchingFilter
                     return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
 
                 }
-            }   
+            }
             catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error: {ex.Message}");
