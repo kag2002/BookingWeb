@@ -83,8 +83,6 @@ namespace BookingWeb.Modules.SearchingFilter
                         {
                             var diaDiem = await _diaDiem.FirstOrDefaultAsync(p => p.Id == input.DiaDiemid);
                             var hinhThucPhong = await _hinhThuc.FirstOrDefaultAsync(p => p.Id == i.HinhThucPhongId);
-                            var lstCt = chiTiet.Where(p=>p.PhongId==i.Id).ToList();
-                            var lstCtIds = lstCt.Select(p=> p.Id).ToList();
 
                             var dtoP = new PhongSearchinhFilterDto
                             {
