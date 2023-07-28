@@ -37,18 +37,7 @@ export class KhachsanListComponent implements OnInit {
 
   ngOnInit() {
     this._phongService.getAllRoom().subscribe((result) => {
-      this.listkhachsan = result.map((item) => ({
-        phongId: item?.phongId,
-        tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
-        tenDonVi: item?.tenDonVi,
-        hinhThucPhong: item?.hinhThucPhong,
-        danhGiaSaoTb: item?.danhGiaSaoTb,
-        tenDiaDiem: item?.tenDiaDiem,
-        diemDanhGiaTB: item?.diemDanhGiaTB,
-        ListLoaiPhong: item?.listLoaiPhong,
-        giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
-        diaChi: item?.diaChiChiTiet,
-      }));
+      this.listkhachsan = result;
     });
     this.formSapXep = this.fb.group({
       selectedCategory: new FormControl(this.sapxeps[3]),

@@ -131,6 +131,8 @@ namespace BookingWeb.Modules.Phongs
                             TrangThaiPhong = e.TrangThaiPhong,
                             MienPhiHuyPhong = e.MienPhiHuyPhong,
                             GiaPhongTheoDem = e.GiaPhongTheoDem,
+                            UuDai=e.UuDai,
+                            UuDaiDB = e.UuDaiDacBiet,
                             GiaGoiDVThem = e.GiaGoiDichVuThem,
                             DichVu = dv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
                             {

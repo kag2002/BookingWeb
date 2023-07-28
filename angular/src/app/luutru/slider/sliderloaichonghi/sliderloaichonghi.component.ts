@@ -25,11 +25,7 @@ export class SliderloaichonghiComponent implements OnInit {
 
   loadData(): void {
     this._hinhthucphongService.getAllForms().subscribe((result) => {
-      this.slidesloaichonghi = result.map((item) => ({
-        tenHinhThuc: item?.tenHinhThuc,
-
-        anhDaiDien: item?.anhDaiDien,
-      }));
+      this.slidesloaichonghi = result;
     });
   }
 

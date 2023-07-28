@@ -25,6 +25,8 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public double UuDai { get; set; }
 
+        public double UuDaiDB { get; set; }
+
         public double GiaGoiDVThem { get; set; }
 
         public List<DichVuSearchingDto> DichVu { get; set; }
