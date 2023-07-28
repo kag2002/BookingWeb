@@ -195,9 +195,7 @@
         <div
           *ngFor="let item of listkhachsan; let i = index"
           class="slide card"
-
           [routerLink]="['/app/khachsanstart', item?.phongId]"
-
           style="cursor: pointer"
         >
           <!-- Image -->
@@ -243,7 +241,8 @@
               <i class="pi pi-map-marker"></i>
 
               {{
-                listkhachsan[(currentIndex + i) % listkhachsan.length]?.diaDiem
+                listkhachsan[(currentIndex + i) % listkhachsan.length]
+                  ?.tenDiaDiem
               }}
             </div>
             <div class="DanhGiaPhong">

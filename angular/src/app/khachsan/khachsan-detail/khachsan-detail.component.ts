@@ -39,17 +39,47 @@ export class KhachsanDetailComponent {
     //       diaChiChiTiet: item?.diaChiChiTiet,
     //     }));
     //   });
-    this._phongService.getAllRoom().subscribe((result) => {
-      this.listkhachsan = result.map((item) => ({
-        tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
-        tenDonVi: item?.tenDonVi,
-        hinhThucPhong: item?.hinhThucPhong,
-        danhGiaSaoTb: item?.danhGiaSaoTb,
-        diaDiem: item?.diaDiem,
-        diemDanhGiaTB: item?.diemDanhGiaTB,
-        ListLoaiPhong: item?.listLoaiPhong,
-        giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
-      }));
+    this._phongService.getRoomById(this.id).subscribe((result) => {
+      if (result) {
+        this.listkhachsan = {
+          tenFileAnhDaiDien: result?.tenFileAnhDaiDien,
+          tenDonVi: result?.tenDonVi,
+          hinhThucPhong: result?.hinhThucPhong,
+          danhGiaSaoTb: result?.danhGiaSaoTb,
+          diaChiChiTiet: result?.diaChiChiTiet,
+          diemDanhGiaTB: result?.diemDanhGiaTB,
+          listLoaiPhong: result?.listLoaiPhong,
+          dichVuChung: result?.dichVuChung,
+          luoDatPhong: result?.luoDatPhong,
+          giaPhongTheoDem: result?.listLoaiPhong
+            ? result.listLoaiPhong[0].giaPhongTheoDem
+            : null,
+        };
+
+        // Once the data is fetched and available, extract listLoaiPhong
+
+        if (this.listkhachsan.listLoaiPhong) {
+          this.listphongtrong = this.listkhachsan.listLoaiPhong;
+
+          // if (this.listphongtrong) {
+          //   for (var i of this.listphongtrong) {
+          //     this.listdichvuphongtrong.push(i);
+          //   }
+          // }
+        }
+        if (this.listkhachsan.dichVuChung) {
+          this.listdichvuphongtrong = this.listkhachsan.dichVuChung;
+
+          // if (this.listphongtrong) {
+          //   for (var i of this.listphongtrong) {
+          //     this.listdichvuphongtrong.push(i);
+          //   }
+          // }
+        }
+      } else {
+        // Handle the case when the result is null or undefined
+        console.error("Invalid result:", result);
+      }
     });
 
     this._hinhanhService.getImageByRoom(this.id).subscribe((result) => {
@@ -58,7 +88,9 @@ export class KhachsanDetailComponent {
       }));
     });
   }
-
+  splitChiTietIntoArray(chiTiet: string): string[] {
+    return chiTiet.split("\n");
+  }
   getCurrentSlideUrl(): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan?.tenFileAnhDaiDien}')`;
   }

@@ -143,6 +143,20 @@
 .QuyTacChung div .row div i {
   padding-right: 5px;
 }
+
+.TienIchChung h5 {
+  margin-bottom: 40px;
+}
+
+.PhongConTrong {
+  padding: 20px;
+}
+.PhongConTrongListItem {
+  padding: 5px;
+}
+.GiaLoaiPhong {
+  display: flex;
+}
 .DangKyEmail {
   background-color: white;
   padding: 50px;
@@ -163,13 +177,4 @@
   text-align: center;
   width: 400px;
   height: 50px;
-}
-.PhongConTrong {
-  padding: 20px;
-}
-.PhongConTrongListItem {
-  padding: 5px;
-}
-.GiaLoaiPhong {
-  display: flex;
 }
