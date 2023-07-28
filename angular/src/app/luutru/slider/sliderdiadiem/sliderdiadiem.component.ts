@@ -18,13 +18,7 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.resetTimer();
     this._diadiemService.getAllLocations().subscribe((result) => {
-      this.slidesdiadiem = result.map((item) => {
-        return {
-          tenFileAnhDD: item?.tenFileAnhDD,
-          tenDiaDiem: item?.tenDiaDiem,
-          thongTinViTri: item?.thongTinViTri,
-        };
-      });
+      this.slidesdiadiem = result;
     });
   }
 

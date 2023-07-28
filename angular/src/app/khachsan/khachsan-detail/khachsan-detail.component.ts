@@ -13,11 +13,11 @@ import {
   styleUrls: ["./khachsan-detail.component.css"],
 })
 export class KhachsanDetailComponent {
-  listkhachsan: any;
+  selectedkhachsan: any;
   listhinhanh = [];
-  listphongtrong = [];
+  listloaiphongtrong = [];
   listdichvuphongtrong = [];
-
+  show: boolean = true;
   currentIndex = 0;
   id: number;
   value: string;
@@ -40,46 +40,8 @@ export class KhachsanDetailComponent {
     //     }));
     //   });
     this._phongService.getRoomById(this.id).subscribe((result) => {
-      if (result) {
-        this.listkhachsan = {
-          tenFileAnhDaiDien: result?.tenFileAnhDaiDien,
-          tenDonVi: result?.tenDonVi,
-          hinhThucPhong: result?.hinhThucPhong,
-          danhGiaSaoTb: result?.danhGiaSaoTb,
-          diaChiChiTiet: result?.diaChiChiTiet,
-          diemDanhGiaTB: result?.diemDanhGiaTB,
-          listLoaiPhong: result?.listLoaiPhong,
-          dichVuChung: result?.dichVuChung,
-          luoDatPhong: result?.luoDatPhong,
-          giaPhongTheoDem: result?.listLoaiPhong
-            ? result.listLoaiPhong[0].giaPhongTheoDem
-            : null,
-        };
-
-        // Once the data is fetched and available, extract listLoaiPhong
-
-        if (this.listkhachsan.listLoaiPhong) {
-          this.listphongtrong = this.listkhachsan.listLoaiPhong;
-
-          // if (this.listphongtrong) {
-          //   for (var i of this.listphongtrong) {
-          //     this.listdichvuphongtrong.push(i);
-          //   }
-          // }
-        }
-        if (this.listkhachsan.dichVuChung) {
-          this.listdichvuphongtrong = this.listkhachsan.dichVuChung;
-
-          // if (this.listphongtrong) {
-          //   for (var i of this.listphongtrong) {
-          //     this.listdichvuphongtrong.push(i);
-          //   }
-          // }
-        }
-      } else {
-        // Handle the case when the result is null or undefined
-        console.error("Invalid result:", result);
-      }
+      this.selectedkhachsan = result;
+      this.show = false;
     });
 
     this._hinhanhService.getImageByRoom(this.id).subscribe((result) => {
@@ -92,7 +54,7 @@ export class KhachsanDetailComponent {
     return chiTiet.split("\n");
   }
   getCurrentSlideUrl(): string {
-    return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan?.tenFileAnhDaiDien}')`;
+    return `url('/assets/img/DonViKinhDoanh/${this.selectedkhachsan?.tenFileAnhDaiDien}')`;
   }
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this.listhinhanh[index]?.tenFileAnh}')`;

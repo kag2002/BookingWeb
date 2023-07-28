@@ -42,7 +42,7 @@
 }
 
 .slide-main-image {
-  height: 373px;
+  height: 377px;
   border-radius: 5px;
 }
 
@@ -58,7 +58,6 @@
   padding: 14px;
 }
 
-.MainImage,
 .SubImage {
   padding: 5px;
 }
@@ -147,16 +146,20 @@
 .TienIchChung h5 {
   margin-bottom: 40px;
 }
-
+/* Define the styles for the container div */
+.TienIchChungContainer {
+  column-count: 4;
+}
+.TienIchChungItem {
+  display: inline-block;
+}
 .PhongConTrong {
   padding: 20px;
 }
 .PhongConTrongListItem {
-  padding: 5px;
+  padding: 42px;
 }
-.GiaLoaiPhong {
-  display: flex;
-}
+
 .DangKyEmail {
   background-color: white;
   padding: 50px;
@@ -177,4 +180,11 @@
   text-align: center;
   width: 400px;
   height: 50px;
+}
+
+.GiaLoaiPhong {
+  font-size: 20px;
+  font-weight: 600;
+  color: red;
+  margin-top: 50px;
 }

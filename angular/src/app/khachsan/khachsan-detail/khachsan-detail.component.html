@@ -4,16 +4,18 @@
     <!--HeaderRoomDetail -->
     <div class="slide-content">
       <p class="TenLoaiDonVi">
-        {{ listkhachsan?.hinhThucPhong }} & {{ listkhachsan?.tenDonVi }}
+        {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
       </p>
-      <p>{{ listkhachsan?.hinhThucPhong }} & {{ listkhachsan?.tenDonVi }}</p>
+      <p>
+        {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
+      </p>
       <div style="display: flex">
         <p class="HinhThucPhongTitle">
-          {{ listkhachsan?.hinhThucPhong }}
+          {{ selectedkhachsan?.hinhThucPhong }}
         </p>
         <p-rating
           [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
-          [ngModel]="listkhachsan?.danhGiaSaoTb"
+          [ngModel]="selectedkhachsan?.danhGiaSaoTb"
           [readonly]="true"
           [cancel]="false"
         ></p-rating>
@@ -21,13 +23,15 @@
       <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
         <i class="pi pi-map-marker"></i>
 
-        {{ listkhachsan?.diaChiChiTiet }}
+        {{ selectedkhachsan?.diaChiChiTiet }}
       </div>
     </div>
     <!--EndHeaderRoomDetail -->
+
     <hr />
+
     <!-- Image -->
-    <div class="row">
+    <div class="row" style="margin: 0 12px">
       <div class="col-lg-8 MainImage">
         <div
           class="slide-main-image"
@@ -53,16 +57,16 @@
       </div>
     </div>
     <!-- End image -->
+
     <!-- BottomRoomDetail -->
     <div class="DetailPhongBottom">
       <div class="DanhGiaPhong">
         <p>Stay Ease</p>
-        <h6>{{ listkhachsan?.diemDanhGiaTB }}/10</h6>
+        <h6>{{ selectedkhachsan?.diemDanhGiaTB }}/10</h6>
       </div>
       <div class="GiaPhong">
         <p>Thanh toán khi nhận phòng</p>
-        <h6>VND:{{ listkhachsan?.giaPhongTheoDem }}</h6>
-
+        <h6>VNĐ:{{ selectedkhachsan?.listLoaiPhong[0].giaPhongTheoDem }}</h6>
         <a href="/app/khachsanstart/{{ id }}#PhongConTrong" class="btn"
           >Đặt phòng</a
         >
@@ -123,84 +127,88 @@
   <div class="QuyTacChung">
     <h5>Quy tắc chung</h5>
     <p>
-      {{ listkhachsan?.tenDonVi }}. Nhận yêu cầu đặc biệt - gửi yêu cầu trong
-      bước kế tiếp!
+      {{ selectedkhachsan?.tenDonVi }}. Nhận yêu cầu đặc biệt - gửi yêu cầu
+      trong bước kế tiếp!
     </p>
     <div class="card">
-      <div class="row">
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].nhanPhong !== ''"
+      >
         <div class="col-lg-3"><i class="pi pi-sign-in"></i>Nhận phòng</div>
         <div class="col-lg-9">
-          Từ 16:00-00:00 <br />Khách được yêu cầu xuất trình giấy tờ
+          {{ selectedkhachsan?.chinhSachChung[0].nhanPhong }}
         </div>
       </div>
       <hr />
-      <div class="row">
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].traPhong !== ''"
+      >
         <div class="col-lg-3"><i class="pi pi-sign-out"></i>Trả phòng</div>
-        <div class="col-lg-9">Đến 11:00</div>
-      </div>
-      <hr />
-      <div class="row">
-        <div class="col-lg-3">
-          <i class="pi pi-clock"></i>Hủy đặt phòng trả trước
-        </div>
         <div class="col-lg-9">
-          Các chính sách hủy và thanh toán trước có khác biệt dựa trên loại chỗ
-          nghỉ.Vui lòng kiểm tra các điều kiện có thể được áp dụng cho mỗi lựa
-          chọn của bạn
+          {{ selectedkhachsan?.chinhSachChung[0].traPhong }}
         </div>
       </div>
+
       <hr />
-      <div class="row">
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].chinhSachTreEm !== ''"
+      >
         <div class="col-lg-3">
           <i class="fa-solid fa-children"></i>Trẻ em và giường
         </div>
         <div class="col-lg-9">
-          <h6>Chính sách trẻ em</h6>
-          <p>
-            Phù hợp cho tất cả trẻ em.
-            <br />Trẻ em từ 11 tuổi trở lên được tính như người lớn tại chỗ nghỉ
-            này. <br />Để xem thông tin giá và tình trạng phòng trống chính xác,
-            vui lòng thêm số lượng và độ tuổi của trẻ em trong nhóm của bạn khi
-            tìm kiếm.
-          </p>
-
-          <h6>Chính sách nôi (cũi) và giường phụ</h6>
-          <p>Chỗ nghỉ này không có nôi/cũi và giường phụ.</p>
+          {{ selectedkhachsan?.chinhSachChung[0].chinhSachTreEm }}
         </div>
       </div>
       <hr />
-      <div class="row">
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].kiemTraThongTin !== ''"
+      >
         <div class="col-lg-3">
-          <i class="fa-solid fa-person"></i>Không giới hạn độ tuổi
+          <i class="fa-solid fa-address-card"></i>Kiểm tra thông tin
         </div>
-        <div class="col-lg-9">Không có yêu cầu về độ tuổi khi nhận phòng</div>
+        <div class="col-lg-9">
+          {{ selectedkhachsan?.chinhSachChung[0].kiemTraThongTin }}
+        </div>
       </div>
       <hr />
-      <div class="row">
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].phuongThucThanhToan !== ''"
+      >
         <div class="col-lg-3">
-          <i class="fa-regular fa-credit-card"></i>Thanh toán bởi StayEase.com
+          <i class="fa-regular fa-credit-card"></i>
         </div>
-        <div class="col-lg-9">Tiền mặt,thẻ ngân hàng</div>
+        <div class="col-lg-9">
+          {{ selectedkhachsan?.chinhSachChung[0].phuongThucThanhToan }}
+        </div>
       </div>
       <hr />
-      <div class="row">
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].chinhSachVeThuCung !== ''"
+      >
         <div class="col-lg-3"><i class="fa-solid fa-paw"></i>Vật nuôi</div>
-        <div class="col-lg-9">Vật nuôi không được phép.</div>
+        <div class="col-lg-9">
+          {{ selectedkhachsan?.chinhSachChung[0].chinhSachVeThuCung }}
+        </div>
       </div>
       <hr />
-      <div class="row">
-        <div class="col-lg-3">
-          <i class="fa-solid fa-ban-smoking"></i>Hút thuốc
+      <div
+        class="row"
+        *ngIf="selectedkhachsan?.chinhSachChung[0].buaSang !== ''"
+      >
+        <div class="col-lg-3"><i class="fa-solid fa-utensils"></i>Bữa sáng</div>
+        <div class="col-lg-9">
+          {{ selectedkhachsan?.chinhSachChung[0].buaSang }}
         </div>
-        <div class="col-lg-9">Không được phép hút thuốc</div>
       </div>
       <hr />
-      <div class="row">
-        <div class="col-lg-3">
-          <i class="fa-solid fa-wine-bottle"></i>Tiệc tùng
-        </div>
-        <div class="col-lg-9">Không cho phép tiệc tùng , sự kiện</div>
-      </div>
+
       <hr />
     </div>
   </div>
@@ -209,14 +217,17 @@
   <!-- TienIchChung -->
   <div class="TienIchChung">
     <h5>Tiện ích chung</h5>
-    <div class="row">
-      <div class="col-lg-3" *ngFor="let tienich of listdichvuphongtrong">
-        <div style="font-size: 18px; font-weight: bold">
+    <div class="TienIchChungContainer">
+      <div
+        class="TienIchChungItem"
+        *ngFor="let tienich of selectedkhachsan?.dichVuChung"
+      >
+        <div style="font-size: 17px; font-weight: bold">
           {{ tienich.tenDichVu }}
         </div>
         <ul>
           <li
-            style="font-size: 18px; list-style: none"
+            style="font-size: 16px; list-style: none"
             *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
           >
             {{ item }}
@@ -229,34 +240,70 @@
 
   <!-- PhongConTrong -->
   <div class="PhongConTrong card" id="PhongConTrong">
-    <h4>Những phòng còn trống tại {{ listkhachsan?.tenDonVi }}</h4>
+    <h4>Những phòng còn trống tại {{ selectedkhachsan?.tenDonVi }}</h4>
     <div
       class="PhongConTrongList"
-      *ngFor="let phongtrong of listphongtrong; let i = index"
+      *ngFor="
+        let loaiphongdetail of selectedkhachsan?.listLoaiPhong;
+        let i = index
+      "
     >
       <div class="PhongConTrongListItem card">
         <div class="row">
-          <p class="col-lg-4">Loại phòng:{{ phongtrong.loaiPhong }}</p>
-          <p class="col-lg-6">
+          <div class="col-lg-4">
+            Loại phòng: {{ loaiphongdetail.loaiPhong }}
+          </div>
+          <div class="col-lg-5">
             Còn trống
-            {{ phongtrong.tongSLPhong }}
-          </p>
-          <p class="col-lg-2">Đã đặt : {{ phongtrong.luoDatPhong }}</p>
+            {{ loaiphongdetail.tongSLPhong }}&ensp;Trạng thái:
+            {{ loaiphongdetail.trangThaiPhong }}
+          </div>
+          <div class="col-lg-3">
+            <i class="fa-solid fa-bed"></i> {{ loaiphongdetail.sucChua }} người
+          </div>
         </div>
 
         <hr />
-
         <div class="row">
-          <p class="col-lg-4">Trạng thái:{{ phongtrong.trangThaiPhong }}</p>
-          <p class="col-lg-6">
-            Giá:{{
-              phongtrong.giaPhongTheoDem + phongtrong.giaGoiDVThem
-            }}&ensp;chỉ còn{{
-              phongtrong.giaPhongTheoDem * (1 - phongtrong.uuDai) +
-                phongtrong.giaGoiDVThem
-            }}
-          </p>
-          <p class="col-lg-2">Ưu đãi:{{ phongtrong.uuDai }}</p>
+          <div class="col-lg-4">
+            <p-checkbox
+              [disabled]="true"
+              [(ngModel)]="loaiphongdetail.mienPhiHuyPhong"
+              binary="loaiphongdetail.mienPhiHuyPhong"
+              label="Cho phép hủy phòng"
+            >
+            </p-checkbox
+            ><br /><br />
+            <h6>Dịch vụ đi kèm</h6>
+            <div style="column-count: 2" class="DichVuContainer">
+              <div
+                *ngFor="let dichVuItem of loaiphongdetail.dichVu; let i = index"
+              >
+                {{ dichVuItem.tenDichVu }}: {{ dichVuItem.moTa }}
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5"></div>
+          <div class="col-lg-3">
+            Ưu đãi: {{ loaiphongdetail.uuDai }}% <br />
+            Giá gói dịch vụ thêm:
+            {{ loaiphongdetail.giaGoiDVThem }}
+            <div class="GiaLoaiPhong" style="color: red">
+              Giá:&ensp;
+              <s>{{
+                loaiphongdetail.giaPhongTheoDem + loaiphongdetail.giaGoiDVThem
+              }}</s>
+              VNĐ
+              <br />
+              Nay chỉ còn:&ensp;
+              {{
+                loaiphongdetail.giaPhongTheoDem *
+                  (1 - loaiphongdetail.uuDai / 100) +
+                  loaiphongdetail.giaGoiDVThem
+              }}
+              VNĐ
+            </div>
+          </div>
         </div>
       </div>
       <br /><br />

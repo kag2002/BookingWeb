@@ -23,14 +23,7 @@ export class SliderchonghinoibatComponent {
 
   loadData(): void {
     this._phongService.getRoomsByDiaDiemId(this.donViId).subscribe((result) => {
-      this.slideschonghinoibat = result.map((item) => ({
-        tenFileAnhDaiDien: item?.tenFileAnhDaiDien,
-        hinhThucPhong: item?.hinhThucPhong,
-        tenDonVi: item?.tenDonVi,
-        tenDiaDiem: item?.tenDiaDiem,
-        danhGiaSaoTb: item?.danhGiaSaoTb,
-        giaPhongTheoDem: item?.listLoaiPhong[0].giaPhongTheoDem,
-      }));
+      this.slideschonghinoibat = result;
     });
   }
 
