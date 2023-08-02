@@ -10,7 +10,7 @@ namespace BookingWeb.Modules.ChiTietDatPhongs.Dto
     {
         public int Id { get; set; }
 
-        public string TrangThaiPhong { get; set; }
+        public int TrangThaiPhongId { get; set; }
 
         public string CheckIn { get; set; }
 
