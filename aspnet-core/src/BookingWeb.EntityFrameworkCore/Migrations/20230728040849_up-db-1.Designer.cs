@@ -4,6 +4,7 @@ using BookingWeb.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    partial class BookingWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230728040849_up-db-1")]
+    partial class updb1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1641,8 +1644,8 @@ namespace BookingWeb.Migrations
                     b.Property<double>("TongTien")
                         .HasColumnType("float");
 
-                    b.Property<int>("TrangThaiPhongId")
-                        .HasColumnType("int");
+                    b.Property<string>("TrangThaiPhong")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -2432,46 +2435,6 @@ namespace BookingWeb.Migrations
                     b.HasIndex("HinhThucPhongId");
 
                     b.ToTable("BwPhong");
-                });
-
-            modelBuilder.Entity("BookingWeb.DbEntities.TrangThaiPhong", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("TenTrangThai")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BwTrangThaiPhong");
                 });
 
             modelBuilder.Entity("BookingWeb.MultiTenancy.Tenant", b =>
