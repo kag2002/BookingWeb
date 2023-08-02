@@ -10,7 +10,7 @@ namespace BookingWeb.DbEntities
 {
     public class ChiTietDatPhong : FullAuditedEntity
     {
-        public string TrangThaiPhong { get; set; }
+        public int TrangThaiPhongId { get; set; }
 
         public string CheckIn { get; set; }
 
