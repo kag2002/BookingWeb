@@ -32,7 +32,7 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
                     Id = e.Id,
                     PhongId = e.PhongId,
                     PhieuDatPhongId = e.PhieuDatPhongId,
-                    TrangThaiPhong = e.TrangThaiPhong,
+                    TrangThaiPhongId = e.TrangThaiPhongId,
                     CheckIn = e.CheckIn,
                     CheckOut = e.CheckOut,
                     SLNguoiLon = e.SLNguoiLon,
