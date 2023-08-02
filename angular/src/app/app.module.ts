@@ -64,7 +64,9 @@ import { PaginationModule } from "./khachsan/khachsan-list/pagination/pagination
 import { PaginatorModule } from "primeng/paginator";
 import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
-import { PhongDetailComponent } from './phong/phong-detail/phong-detail.component';
+import { PhongDetailComponent } from "./phong/phong-detail/phong-detail.component";
+import { ThongtinlienheComponent } from "./chonphong/thongtinlienhe/thongtinlienhe.component";
+import { ThongtinlienheStartComponent } from './chonphong/thongtinlienhe-start/thongtinlienhe-start.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { PhongDetailComponent } from './phong/phong-detail/phong-detail.componen
     KhachsanDetailComponent,
     KhachsanStartComponent,
     PhongDetailComponent,
+    ThongtinlienheComponent,
+    ThongtinlienheStartComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

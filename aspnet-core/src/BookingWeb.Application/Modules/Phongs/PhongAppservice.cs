@@ -519,7 +519,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                /*var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");*/
+                var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");
 
                 var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
 
@@ -538,8 +538,8 @@ namespace BookingWeb.Modules.Phongs
                     moTaPhong = info.MoTa,
                     tienNghi = info.TienNghiTrongPhong,
                     giaPhongTheoDem = info.GiaPhongTheoDem,
-                    mienPhiHuyPhong = info.MienPhiHuyPhong.ToString(),
-                    /*infoBookingDto = infoRoom*/
+                    mienPhiHuyPhong = info.MienPhiHuyPhong,
+                    infoBookingDto = infoRoom
                 };
                 return dto;
             }
@@ -588,7 +588,7 @@ namespace BookingWeb.Modules.Phongs
                 };
 
                 await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", infoBooking);
-                return infoBooking;
+                return await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBooking");
 
             }
             catch (Exception ex)

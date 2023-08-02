@@ -4401,14 +4401,14 @@ export class SearchingFilterServiceProxy {
      * @param giaPhongNhoNhat (optional) 
      * @param danhGiaSao (optional) 
      * @param giaPhongLonNhat (optional) 
-     * @param hinhThucPhong (optional) 
+     * @param hinhThucPhongId (optional) 
      * @param giaCaoNhat (optional) 
      * @param giaNhoNhat (optional) 
      * @param diemDanhGia (optional) 
      * @param doPhoBien (optional) 
      * @return Success
      */
-    getRoomsByLocationAndFilter(diaDiemid: number | undefined, infoBooking_NgayDat: moment.Moment | undefined, infoBooking_NgayTra: moment.Moment | undefined, infoBooking_SlNguoiLon: number | undefined, infoBooking_SlTreEm: number | undefined, infoBooking_SlPhong: number | undefined, pageIndex: number | undefined, mienPhiHuyPhong: number | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number | undefined, giaPhongLonNhat: number | undefined, hinhThucPhong: string[] | undefined, giaCaoNhat: number | undefined, giaNhoNhat: number | undefined, diemDanhGia: number | undefined, doPhoBien: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
+    getRoomsByLocationAndFilter(diaDiemid: number | undefined, infoBooking_NgayDat: moment.Moment | undefined, infoBooking_NgayTra: moment.Moment | undefined, infoBooking_SlNguoiLon: number | undefined, infoBooking_SlTreEm: number | undefined, infoBooking_SlPhong: number | undefined, pageIndex: number | undefined, mienPhiHuyPhong: number | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number | undefined, giaPhongLonNhat: number | undefined, hinhThucPhongId: number[] | undefined, giaCaoNhat: number | undefined, giaNhoNhat: number | undefined, diemDanhGia: number | undefined, doPhoBien: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocationAndFilter?";
         if (diaDiemid === null)
             throw new Error("The parameter 'diaDiemid' cannot be null.");
@@ -4454,10 +4454,10 @@ export class SearchingFilterServiceProxy {
             throw new Error("The parameter 'giaPhongLonNhat' cannot be null.");
         else if (giaPhongLonNhat !== undefined)
             url_ += "GiaPhongLonNhat=" + encodeURIComponent("" + giaPhongLonNhat) + "&";
-        if (hinhThucPhong === null)
-            throw new Error("The parameter 'hinhThucPhong' cannot be null.");
-        else if (hinhThucPhong !== undefined)
-            hinhThucPhong && hinhThucPhong.forEach(item => { url_ += "HinhThucPhong=" + encodeURIComponent("" + item) + "&"; });
+        if (hinhThucPhongId === null)
+            throw new Error("The parameter 'hinhThucPhongId' cannot be null.");
+        else if (hinhThucPhongId !== undefined)
+            hinhThucPhongId && hinhThucPhongId.forEach(item => { url_ += "HinhThucPhongId=" + encodeURIComponent("" + item) + "&"; });
         if (giaCaoNhat === null)
             throw new Error("The parameter 'giaCaoNhat' cannot be null.");
         else if (giaCaoNhat !== undefined)
@@ -9069,6 +9069,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
+    uuDaiDB: number;
     giaGoiDVThem: number;
     dichVu: DichVuSearchingDto[] | undefined;
 
@@ -9091,6 +9092,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
             this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
             this.giaPhongTheoDem = _data["giaPhongTheoDem"];
             this.uuDai = _data["uuDai"];
+            this.uuDaiDB = _data["uuDaiDB"];
             this.giaGoiDVThem = _data["giaGoiDVThem"];
             if (Array.isArray(_data["dichVu"])) {
                 this.dichVu = [] as any;
@@ -9117,6 +9119,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
         data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
         data["giaPhongTheoDem"] = this.giaPhongTheoDem;
         data["uuDai"] = this.uuDai;
+        data["uuDaiDB"] = this.uuDaiDB;
         data["giaGoiDVThem"] = this.giaGoiDVThem;
         if (Array.isArray(this.dichVu)) {
             data["dichVu"] = [];
@@ -9143,6 +9146,7 @@ export interface ILoaiPhongSearchingDto {
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
+    uuDaiDB: number;
     giaGoiDVThem: number;
     dichVu: DichVuSearchingDto[] | undefined;
 }

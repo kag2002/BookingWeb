@@ -29,6 +29,6 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public double giaPhongTheoDem { get; set; }
 
-        public string mienPhiHuyPhong { get; set; }
+        public bool mienPhiHuyPhong { get; set; }
     }
 }
