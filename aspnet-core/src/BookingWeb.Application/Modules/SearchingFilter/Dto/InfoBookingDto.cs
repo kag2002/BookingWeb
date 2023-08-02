@@ -8,6 +8,8 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 {
     public class InfoBookingDto
     {
+        public int DiaDiemid { get; set; }
+
         public DateTime NgayDat { get; set; }
 
         public DateTime NgayTra { get; set; }
@@ -15,6 +17,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
         public int SlNguoiLon { get; set; }
 
         public int SlTreEm { get; set; }
+
        /* public List<> TreEm { get; set; }*/
 
         public int SlPhong { get; set; }

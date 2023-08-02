@@ -517,7 +517,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                /*var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");*/
+                var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");
 
                 var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
 
@@ -537,7 +537,7 @@ namespace BookingWeb.Modules.Phongs
                     tienNghi = info.TienNghiTrongPhong,
                     giaPhongTheoDem = info.GiaPhongTheoDem,
                     mienPhiHuyPhong = info.MienPhiHuyPhong.ToString(),
-                    /*infoBookingDto = infoRoom*/
+                    infoBookingDto = infoRoom
                 };
                 return dto;
             }
@@ -565,7 +565,7 @@ namespace BookingWeb.Modules.Phongs
                     input.Email = khachHang.Email;
                 }
 */
-                var infoBooking = new ClientBookRoomOutputDto
+                var infoBookingCofirm = new ClientBookRoomOutputDto
                 {
                     donViKinhDoanhId = infoRoom.donViKinhDoanhId,
                     tenDonVi = infoRoom.tenDonVi,
@@ -585,8 +585,8 @@ namespace BookingWeb.Modules.Phongs
                     YeuCauDacBiet = input.YeuCauDacBiet
                 };
 
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", infoBooking);
-                return infoBooking;
+                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBookingConFirm", infoBookingCofirm);
+                return infoBookingCofirm;
 
             }
             catch (Exception ex)
@@ -600,7 +600,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBooking");
+                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBookingConFirm");
 
                 var newPhieuDat = new PhieuDatPhong
                 {
@@ -634,6 +634,7 @@ namespace BookingWeb.Modules.Phongs
                 await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);
 
                 await CurrentUnitOfWork.SaveChangesAsync();
+                await _httpContextAccessor.HttpContext.Session.ClearAsync();
                 return true;
             }
             catch(Exception ex)

@@ -8,12 +8,9 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 {
     public class SearchingFilterRoomInputDto
     {
-        public int DiaDiemid { get; set; }
-
-        public InfoBookingDto infoBooking { get; set; }
-
         public int pageIndex { get; set; }
 
+        public int pageSize { get; set; }
 
         public int MienPhiHuyPhong { get; set; }
 

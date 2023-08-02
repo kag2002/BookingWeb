@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingWeb.Modules.SearchingFilter.Dto
+namespace BookingWeb.Modules.Phongs.Dto
 {
 
     public class LoaiPhongSearchingDto
@@ -15,7 +15,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public int SucChua { get; set; }
 
-        public int TongSLPhong { get; set;  }
+        public int TongSLPhong { get; set; }
 
         public int SLPhongTrong { get; set; }
 
