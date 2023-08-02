@@ -17,7 +17,7 @@ export class KhachsanDetailComponent {
   listhinhanh = [];
   listloaiphongtrong = [];
   listdichvuphongtrong = [];
-  show: boolean = true;
+
   currentIndex = 0;
   id: number;
   value: string;
@@ -41,7 +41,6 @@ export class KhachsanDetailComponent {
     //   });
     this._phongService.getRoomById(this.id).subscribe((result) => {
       this.selectedkhachsan = result;
-      this.show = false;
     });
 
     this._hinhanhService.getImageByRoom(this.id).subscribe((result) => {

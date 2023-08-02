@@ -1,6 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { FormControl } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import {
   DiaDiemDto,
@@ -124,14 +123,5 @@ export class LuutruComponent {
       summary: "Success",
       detail: "Tìm thành công",
     });
-    const formData = {
-      locations: this.formData.get("timkiemData.locations").value,
-      rangeDates: this.formData.get("timkiemData.rangeDates").value,
-      adults: this.formData.get("timkiemData.adults").value,
-      children: this.formData.get("timkiemData.children").value,
-      rooms: this.formData.get("timkiemData.rooms").value,
-    };
-
-    console.log(formData);
   }
 }

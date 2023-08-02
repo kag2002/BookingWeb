@@ -146,7 +146,7 @@
 .TienIchChung h5 {
   margin-bottom: 40px;
 }
-/* Define the styles for the container div */
+
 .TienIchChungContainer {
   column-count: 4;
 }
@@ -158,6 +158,12 @@
 }
 .PhongConTrongListItem {
   padding: 42px;
+}
+.GiaLoaiPhong {
+  font-size: 20px;
+  font-weight: 600;
+  color: red;
+  margin-top: 50px;
 }
 
 .DangKyEmail {
@@ -180,11 +186,4 @@
   text-align: center;
   width: 400px;
   height: 50px;
-}
-
-.GiaLoaiPhong {
-  font-size: 20px;
-  font-weight: 600;
-  color: red;
-  margin-top: 50px;
 }

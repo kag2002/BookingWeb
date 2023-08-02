@@ -1,0 +1,169 @@
+<div class="container">
+  <div style="padding: 20px 7.5px">
+    <h3>Đặt phòng khách sạn</h3>
+    <p>
+      Hãy chắc chắn rằng tất cả thông tin trên trang này là chính xác trước khi
+      tiến hành thanh toán.
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-lg-7">
+      <!-- Card Đăng ký đặt chỗ -->
+      <div class="card DangKyDatCho">
+        <h6>
+          Đăng nhập hoặc Đăng ký và tận hưởng ưu đãi dành riêng cho thành viên
+        </h6>
+        <p>Đặt chỗ nhanh và dễ dàng hơn với Passenger Quick Pick</p>
+      </div>
+
+      <!--End Card Đăng ký đặt chỗ -->
+      <hr />
+      <!-- Form Chi Tiet Lien He  -->
+      <h5>Chi tiết liên hệ (cho Vé điện tử/Phiếu xác nhận)</h5>
+      <form [formGroup]="FormThongTinLienHe" (ngSubmit)="onSubmit()">
+        <div class="card flex FormThongTinLienHe">
+          <div style="display: flex; flex-direction: column">
+            <label for="name">Họ và tên </label>
+            <input
+              type="text"
+              aria-describedby="username-help"
+              pInputText
+              formControlName="name"
+              id="name"
+              required
+            />
+            <small id="username-help">Như trên CMND không dấu .</small>
+          </div>
+          <hr />
+          <div class="row ThongTinLienHe">
+            <div class="col-lg-6">
+              <label for="phone">Số điện thoại</label>
+              <input
+                type="text"
+                aria-describedby="phone-help"
+                pInputText
+                formControlName="phone"
+                id="phone"
+                required
+              />
+              <small id="phone-help">VD: 0901234567</small>
+            </div>
+
+            <div class="col-lg-6">
+              <label for="email">Email </label>
+              <input
+                type="text"
+                aria-describedby="email-help"
+                pInputText
+                formControlName="email"
+                id="email"
+                required
+              />
+              <small id="email-help">VD: email@example.com</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            *ngFor="let datho of dathos"
+            class="col-lg-6 field-checkbox DatHoRadio"
+          >
+            <p-radioButton
+              [inputId]="datho.key"
+              [value]="datho"
+              formControlName="datho"
+            ></p-radioButton>
+            <label [for]="datho.key" class="ml-2">{{ datho.name }}</label>
+          </div>
+        </div>
+      </form>
+      <!-- <pre>{{ FormThongTinLienHe.value | json }}</pre> -->
+      <!--End Form Chi Tiet Lien He  -->
+
+      <!--Form Yêu cầu đặc biệt -->
+      <form [formGroup]="FormYeuCauDacBiet">
+        <h6>Yêu cầu đặc biệt</h6>
+        <div class="card YeuCauDacBiet">
+          <div>
+            Cơ sở lưu trú sẽ cố gắng đáp ứng yêu cầu của bạn dựa trên tình trạng
+            sẵn có. Lưu ý rằng bạn có thể phải trả thêm phí cho một số yêu cầu
+            và bạn không thể sửa yêu cầu sau khi đã gửi.
+          </div>
+          <hr />
+          <div class="row">
+            <div
+              *ngFor="let yeucau of yeucaus"
+              class="col-lg-6 field-checkbox YeuCauDacBietRadio"
+            >
+              <p-radioButton
+                [inputId]="yeucau.key"
+                [value]="yeucau"
+                formControlName="selectedCategory"
+              ></p-radioButton>
+              <label [for]="yeucau.key" class="ml-2">{{ yeucau.name }}</label>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- <pre>{{ FormYeuCauDacBiet.value | json }}</pre> -->
+      <!-- End yêu cầu đặc biệt -->
+      <button type="submit" (click)="addClientBookRoom()">Continue</button>
+    </div>
+    <div class="col-lg-5">
+      <!-- PhongConTrong -->
+      <div class="PhongConTrong card" id="PhongConTrong">
+        <h4>
+          {{ selectedloaiphong?.tenDonVi }}
+        </h4>
+        <div class="PhongConTrongList">
+          <div class="PhongConTrongListItem card">
+            <div class="row">
+              <div class="col-lg-9">
+                {{ selectedloaiphong?.tenLoaiPhong }}
+              </div>
+
+              <div class="col-lg-3">
+                <i class="fa-solid fa-bed"></i>
+                {{ selectedloaiphong?.sucChuaPhong }}
+                người
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-6">
+                Tiện nghi:{{ selectedloaiphong?.tienNghi }}
+              </div>
+              <div class="col-lg-6">
+                Mô tả:
+                {{ selectedloaiphong?.moTaPhong }}
+                <br />
+              </div>
+            </div>
+
+            <hr />
+            <div class="row">
+              <div class="col-lg-6">
+                <p-checkbox
+                  [disabled]="true"
+                  [(ngModel)]="selectedloaiphong.mienPhiHuyPhong"
+                  binary=" selectedloaiphong?.mienPhiHuyPhong"
+                  label="Cho phép hủy phòng"
+                >
+                </p-checkbox
+                ><br /><br />
+              </div>
+
+              <div class="col-lg-6">
+                <h6 style="color: red">
+                  Giá : {{ selectedloaiphong?.giaPhongTheoDem }} VNĐ
+                </h6>
+              </div>
+            </div>
+          </div>
+          <br /><br />
+        </div>
+      </div>
+      <!-- EndPhongConTrong -->
+    </div>
+  </div>
+</div>

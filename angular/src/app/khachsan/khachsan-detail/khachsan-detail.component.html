@@ -247,6 +247,12 @@
         let loaiphongdetail of selectedkhachsan?.listLoaiPhong;
         let i = index
       "
+      [routerLink]="[
+        '/app/thongtinlienhestart',
+        id,
+        loaiphongdetail?.loaiPhongId
+      ]"
+      style="cursor: pointer"
     >
       <div class="PhongConTrongListItem card">
         <div class="row">
