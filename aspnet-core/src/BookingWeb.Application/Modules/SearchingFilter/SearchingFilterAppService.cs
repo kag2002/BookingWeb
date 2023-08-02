@@ -44,16 +44,12 @@ namespace BookingWeb.Modules.SearchingFilter
             _nhanXet = nhanXet;
         }
 
-
-        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input)
+        public async Task<List<PhongSearchinhFilterDto>> SearchingRoom(InfoBookingDto input)
         {
             try
             {
-                await _httpContextAccessor.HttpContext.Session.ClearAsync();
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("InfoBooking", input.infoBooking);
+                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", input);
 
-
-                int pageSize = 3;
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
 
@@ -110,6 +106,22 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                     }
                 }
+                return dtoList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input)
+        {
+            try
+            {
+                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("infoBooking");
+
+                var dtoList = await SearchingRoom(infoBooking);
+
                 //Filter then sort
                 if (input.MienPhiHuyPhong == 1)
                 {
@@ -157,8 +169,8 @@ namespace BookingWeb.Modules.SearchingFilter
                     var totalCount = lstItem.Count;
 
                     var pagedRooms = lstItem
-                        .Skip((input.pageIndex - 1) * pageSize)
-                        .Take(pageSize)
+                        .Skip((input.pageIndex - 1) * input.pageSize)
+                        .Take(input.pageSize)
                         .ToList();
 
                     return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
@@ -210,8 +222,8 @@ namespace BookingWeb.Modules.SearchingFilter
                     var totalCount = lstItem.Count;
 
                     var pagedRooms = lstItem
-                        .Skip((input.pageIndex - 1) * pageSize)
-                        .Take(pageSize)
+                        .Skip((input.pageIndex - 1) * input.pageSize)
+                        .Take(input.pageSize)
                         .ToList();
 
                     return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
