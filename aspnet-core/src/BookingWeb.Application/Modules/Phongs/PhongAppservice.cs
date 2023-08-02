@@ -27,7 +27,7 @@ namespace BookingWeb.Modules.Phongs
         private readonly IRepository<NhanXetDanhGia> _nhanXet;
         private readonly IRepository<ChiTietDatPhong>  _chiTietDatPhong;
         private readonly IRepository<PhieuDatPhong> _phieuDatPhong;
-        private readonly IReadOnlyList<LstTrangThaiPhong> _trangThaiPhong;
+        private readonly IRepository<TrangThaiPhong> _trangThaiPhong;
         private readonly IRepository<ChinhSachChung> _chinhSachChung;
         private readonly IRepository<DichVuTienIchChung> _dichVuChung;
 
@@ -41,7 +41,7 @@ namespace BookingWeb.Modules.Phongs
             IRepository<LoaiPhong> loaiPhong, IRepository<DichVuTienIch> dichvu,
             IRepository<NhanXetDanhGia> nhanXet, IRepository<ChiTietDatPhong> chiTietDatPhong,
             IRepository<KhachHang> khachHang, IRepository<PhieuDatPhong> phieuDatPhong,
-            IReadOnlyList<LstTrangThaiPhong> trangThaiPhong, UserManager userManager,
+            IRepository<TrangThaiPhong> trangThaiPhong, UserManager userManager,
             IRepository<ChinhSachChung> chinhSachChung, IRepository<DichVuTienIchChung> dichVuChung,
             IHttpContextAccessor httpContextAccessor, IRepository<DonViKinhDoanh> donViKinhDoanh)
         {
@@ -128,7 +128,7 @@ namespace BookingWeb.Modules.Phongs
                             LoaiPhong = e.TenLoaiPhong,
                             SucChua = e.SucChua,
                             TongSLPhong = e.TongSlPhong,
-                            TrangThaiPhong = e.TrangThaiPhong,
+                            SLPhongTrong = e.SLPhongTrong,
                             MienPhiHuyPhong = e.MienPhiHuyPhong,
                             GiaPhongTheoDem = e.GiaPhongTheoDem,
                             GiaGoiDVThem = e.GiaGoiDichVuThem,
@@ -235,7 +235,7 @@ namespace BookingWeb.Modules.Phongs
                                     LoaiPhong = e.TenLoaiPhong,
                                     SucChua = e.SucChua,
                                     TongSLPhong = e.TongSlPhong,
-                                    TrangThaiPhong = e.TrangThaiPhong,
+                                    SLPhongTrong = e.SLPhongTrong,
                                     MienPhiHuyPhong = e.MienPhiHuyPhong,
                                     GiaPhongTheoDem = e.GiaPhongTheoDem,
                                     GiaGoiDVThem = e.GiaGoiDichVuThem,
@@ -335,7 +335,7 @@ namespace BookingWeb.Modules.Phongs
                             LoaiPhong = e.TenLoaiPhong,
                             SucChua =e.SucChua,
                             TongSLPhong = e.TongSlPhong,
-                            TrangThaiPhong = e.TrangThaiPhong,
+                            SLPhongTrong = e.SLPhongTrong,
                             MienPhiHuyPhong = e.MienPhiHuyPhong,
                             GiaPhongTheoDem = e.GiaPhongTheoDem,
                             GiaGoiDVThem = e.GiaGoiDichVuThem,
@@ -617,7 +617,7 @@ namespace BookingWeb.Modules.Phongs
 
                 var chiTietPhieuDat = new ChiTietDatPhong
                 {
-                    TrangThaiPhong = _trangThaiPhong.Select(p=>p.TrangThai1).ToString(),
+                    TrangThaiPhongId = 1,
                     CheckIn = "Từ 14h" + infoBooking.infoBookingDto.NgayDat.ToString(),
                     CheckOut = "Trước 12h" + infoBooking.infoBookingDto.NgayTra.ToString(),
                     SLNguoiLon = infoBooking.infoBookingDto.SlNguoiLon,
@@ -626,7 +626,7 @@ namespace BookingWeb.Modules.Phongs
                     TienPhong = infoBooking.TongTien,
                     TienPhongQuaHan = 0,
                     ChiPhiHuyPhong = 0,
-                    TongTien = 0,
+                    TongTien = infoBooking.TongTien,
                     PhieuDatPhongId = idPhieuDat,
                     PhongId = infoBooking.phongId,
                 };

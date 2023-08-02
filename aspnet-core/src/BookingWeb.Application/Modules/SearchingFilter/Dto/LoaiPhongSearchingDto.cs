@@ -17,7 +17,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public int TongSLPhong { get; set;  }
 
-        public string TrangThaiPhong { get; set; }
+        public int SLPhongTrong { get; set; }
 
         public bool MienPhiHuyPhong { get; set; }
 
