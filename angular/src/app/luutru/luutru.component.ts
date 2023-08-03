@@ -9,7 +9,6 @@ import {
   PhongSearchinhFilterDto,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-import { result } from "lodash-es";
 
 @Component({
   selector: "app-luutru",
@@ -100,13 +99,14 @@ export class LuutruComponent {
     this.inforBookingDto.slTreEm =
       this.formTimPhong.value.timkiemData?.children;
     this.inforBookingDto.slPhong = this.formTimPhong.value.timkiemData?.rooms;
+
     this._searchingFilterService
       .searchingRoom(this.inforBookingDto)
       .subscribe((result) => {
         this.phongSearchinhFilterDto = result;
+        console.log(this.phongSearchinhFilterDto);
       });
     console.log(this.inforBookingDto);
-    console.log(this.phongSearchinhFilterDto);
   }
 
   toggleForm() {

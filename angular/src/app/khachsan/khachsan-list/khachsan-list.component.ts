@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
-import { Router } from "@angular/router";
 import {
   PhongSearchinhFilterDto,
   PhongServiceProxy,
@@ -15,7 +14,7 @@ import {
 export class KhachsanListComponent implements OnInit {
   formSapXep: FormGroup;
   formLoc: FormGroup;
-  currentPage = 1;
+
   rangeValues: number[] = [1000000, 3000000];
 
   sapxeps: any[] = [
@@ -29,7 +28,7 @@ export class KhachsanListComponent implements OnInit {
   listkhachsan = [];
   listkhachsanfiltered = [];
   currentIndex = 0;
-  limit = 8;
+
   phongSearchinhFilterDto: PhongSearchinhFilterDto[];
 
   // searchingFilterRoomInputDto:SearchingFilterRoomInputDto
@@ -99,11 +98,8 @@ export class KhachsanListComponent implements OnInit {
   SearchingBookings() {
     this._searchingFilterService
       .getRoomsByLocationAndFilter(
-        this.currentPage,
+        undefined,
         this.listkhachsan.length,
-        undefined,
-        undefined,
-        undefined,
         undefined,
         undefined,
         undefined,
@@ -114,11 +110,5 @@ export class KhachsanListComponent implements OnInit {
       .subscribe((results) => {
         this.phongSearchinhFilterDto = results.items;
       });
-  }
-
-  changePage(page: number): void {
-    this.currentPage = page;
-    this.listkhachsan = [];
-    // this._searchingfilterappservice.getRoomsByLocationAndFilter()
   }
 }

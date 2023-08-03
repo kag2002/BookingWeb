@@ -184,7 +184,11 @@
           </div>
           <!-- End loại hình cư trú -->
 
-          <button type="submit" [disabled]="!formLoc.valid">Submit</button>
+          <p-button
+            type="submit"
+            [disabled]="!formLoc.valid"
+            label="Lọc"
+          ></p-button>
         </form>
       </div>
       <!-- End form lọc -->
@@ -192,14 +196,14 @@
 
     <div class="col-lg-8">
       <div class="slider">
-        <!-- <div
+        <div
           *ngFor="let item of listkhachsan; let i = index"
           class="slide card"
           [routerLink]="['/app/khachsanstart', item?.phongId]"
           style="cursor: pointer"
-        > -->
-        <!-- Image -->
-        <!-- <div
+        >
+          <!-- Image -->
+          <div
             class="slide-image"
             [ngStyle]="{
               'background-image': getCurrentSlideUrl(
@@ -207,10 +211,10 @@
               )
             }"
             tabindex="0"
-          ></div> -->
+          ></div>
 
-        <!-- Details -->
-        <!-- <div class="slide-content">
+          <!-- Details -->
+          <div class="slide-content">
             <p class="TenLoaiDonVi">
               {{
                 listkhachsan[(currentIndex + i) % listkhachsan.length]
@@ -255,8 +259,8 @@
                 }}/10
               </h6>
             </div>
-          </div> -->
-        <!-- <div class="slide-price">
+          </div>
+          <div class="slide-price">
             <div class="GiaPhong">
               <p>Thanh toán khi nhận phòng</p>
               <h6 style="color: red">
@@ -267,20 +271,12 @@
               </h6>
               <p>Giá cuối cùng</p>
             </div>
-          </div> -->
-        <!-- </div>
-      </div> -->
-
-        <pagination
-          [currentPage]="currentPage"
-          [limit]="limit"
-          [total]="this.listkhachsan.length"
-          (changePage)="changePage($event)"
-        ></pagination>
-
-        <pre>{{ formSapXep.value | json }}</pre>
-        <pre>{{ formLoc.value | json }}</pre>
+          </div>
+        </div>
       </div>
+
+      <!-- <pre>{{ formSapXep.value | json }}</pre>
+      <pre>{{ formLoc.value | json }}</pre> -->
     </div>
   </div>
 </div>

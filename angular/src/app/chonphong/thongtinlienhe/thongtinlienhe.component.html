@@ -148,7 +148,8 @@
               <div class="col-lg-6">
                 <p-checkbox
                   [disabled]="true"
-                  [(ngModel)]="selectedloaiphong.mienPhiHuyPhong"
+                  [ngModel]="selectedloaiphong?.mienPhiHuyPhong"
+                  (ngModel)="(selectedloaiphong?.mienPhiHuyPhong)"
                   binary=" selectedloaiphong?.mienPhiHuyPhong"
                   label="Cho phép hủy phòng"
                 >
