@@ -18,10 +18,10 @@ export class KhachsanListComponent implements OnInit {
   rangeValues: number[] = [1000000, 3000000];
 
   sapxeps: any[] = [
-    { name: "Giá cao nhất", key: "MaxPrice" },
-    { name: "Giá thấp nhất", key: "MinPrice" },
-    { name: "Điểm đánh giá", key: "RatePoint" },
-    { name: "Độ phổ biến", key: "Popular" },
+    { name: "Giá cao nhất", key: 1 },
+    { name: "Giá thấp nhất", key: 1 },
+    { name: "Điểm đánh giá", key: 1 },
+    { name: "Độ phổ biến", key: 1 },
   ];
   stars: number[] = [1, 2, 3, 4, 5];
   maxPrice: number = 4000000;
