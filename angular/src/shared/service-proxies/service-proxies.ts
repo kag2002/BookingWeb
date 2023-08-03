@@ -4644,13 +4644,10 @@ export class SearchingFilterServiceProxy {
      * @param danhGiaSao (optional) 
      * @param giaPhongLonNhat (optional) 
      * @param hinhThucPhongId (optional) 
-     * @param giaCaoNhat (optional) 
-     * @param giaNhoNhat (optional) 
-     * @param diemDanhGia (optional) 
-     * @param doPhoBien (optional) 
+     * @param sortCondition (optional) 
      * @return Success
      */
-    getRoomsByLocationAndFilter(pageIndex: number | undefined, pageSize: number | undefined, mienPhiHuyPhong: number | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number | undefined, giaPhongLonNhat: number | undefined, hinhThucPhongId: number[] | undefined, giaCaoNhat: number | undefined, giaNhoNhat: number | undefined, diemDanhGia: number | undefined, doPhoBien: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
+    getRoomsByLocationAndFilter(pageIndex: number | undefined, pageSize: number | undefined, mienPhiHuyPhong: boolean | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number[] | undefined, giaPhongLonNhat: number | undefined, hinhThucPhongId: number[] | undefined, sortCondition: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocationAndFilter?";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -4671,7 +4668,7 @@ export class SearchingFilterServiceProxy {
         if (danhGiaSao === null)
             throw new Error("The parameter 'danhGiaSao' cannot be null.");
         else if (danhGiaSao !== undefined)
-            url_ += "DanhGiaSao=" + encodeURIComponent("" + danhGiaSao) + "&";
+            danhGiaSao && danhGiaSao.forEach(item => { url_ += "DanhGiaSao=" + encodeURIComponent("" + item) + "&"; });
         if (giaPhongLonNhat === null)
             throw new Error("The parameter 'giaPhongLonNhat' cannot be null.");
         else if (giaPhongLonNhat !== undefined)
@@ -4680,22 +4677,10 @@ export class SearchingFilterServiceProxy {
             throw new Error("The parameter 'hinhThucPhongId' cannot be null.");
         else if (hinhThucPhongId !== undefined)
             hinhThucPhongId && hinhThucPhongId.forEach(item => { url_ += "HinhThucPhongId=" + encodeURIComponent("" + item) + "&"; });
-        if (giaCaoNhat === null)
-            throw new Error("The parameter 'giaCaoNhat' cannot be null.");
-        else if (giaCaoNhat !== undefined)
-            url_ += "GiaCaoNhat=" + encodeURIComponent("" + giaCaoNhat) + "&";
-        if (giaNhoNhat === null)
-            throw new Error("The parameter 'giaNhoNhat' cannot be null.");
-        else if (giaNhoNhat !== undefined)
-            url_ += "GiaNhoNhat=" + encodeURIComponent("" + giaNhoNhat) + "&";
-        if (diemDanhGia === null)
-            throw new Error("The parameter 'diemDanhGia' cannot be null.");
-        else if (diemDanhGia !== undefined)
-            url_ += "DiemDanhGia=" + encodeURIComponent("" + diemDanhGia) + "&";
-        if (doPhoBien === null)
-            throw new Error("The parameter 'doPhoBien' cannot be null.");
-        else if (doPhoBien !== undefined)
-            url_ += "DoPhoBien=" + encodeURIComponent("" + doPhoBien) + "&";
+        if (sortCondition === null)
+            throw new Error("The parameter 'sortCondition' cannot be null.");
+        else if (sortCondition !== undefined)
+            url_ += "SortCondition=" + encodeURIComponent("" + sortCondition) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

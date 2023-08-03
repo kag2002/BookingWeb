@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+
 import { HinhThucPhongServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
@@ -13,10 +13,7 @@ export class SliderloaichonghiComponent implements OnInit {
   currentIndex = 0;
   timeoutId?: number;
 
-  constructor(
-    private router: Router,
-    private _hinhthucphongService: HinhThucPhongServiceProxy
-  ) {}
+  constructor(private _hinhthucphongService: HinhThucPhongServiceProxy) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -59,9 +56,5 @@ export class SliderloaichonghiComponent implements OnInit {
 
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/HinhThucPhong/${this.slidesloaichonghi[index]?.anhDaiDien}')`;
-  }
-
-  onSlideClick(index: number): void {
-    // this.router.navigate(["/other", index]);
   }
 }

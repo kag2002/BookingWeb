@@ -60,8 +60,6 @@ import { ChonghinoibatComponent } from "./luutru/chonghinoibat/chonghinoibat.com
 import { SliderchonghinoibatComponent } from "./luutru/slider/sliderchonghinoibat/sliderchonghinoibat.component";
 import { LienheComponent } from "./luutru/lienhe/lienhe.component";
 import { RadioButtonModule } from "primeng/radiobutton";
-import { PaginationModule } from "./khachsan/khachsan-list/pagination/pagination.module";
-import { PaginatorModule } from "primeng/paginator";
 import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./chonphong/thongtinlienhe/thongtinlienhe.component";
@@ -139,7 +137,7 @@ import { ThongtinlienheStartComponent } from "./chonphong/thongtinlienhe-start/t
     RatingModule,
     RadioButtonModule,
     SliderModule,
-    PaginationModule,
+
     // PaginatorModule,
   ],
   providers: [],

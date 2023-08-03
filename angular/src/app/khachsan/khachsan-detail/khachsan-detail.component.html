@@ -223,7 +223,7 @@
         *ngFor="let tienich of selectedkhachsan?.dichVuChung"
       >
         <div style="font-size: 17px; font-weight: bold">
-          {{ tienich.tenDichVu }}
+          {{ tienich?.tenDichVu }}
         </div>
         <ul>
           <li
@@ -257,15 +257,15 @@
       <div class="PhongConTrongListItem card">
         <div class="row">
           <div class="col-lg-4">
-            Loại phòng: {{ loaiphongdetail.loaiPhong }}
+            Loại phòng: {{ loaiphongdetail?.loaiPhong }}
           </div>
           <div class="col-lg-5">
             Còn trống
-            {{ loaiphongdetail.tongSLPhong }}&ensp;Trạng thái:
-            {{ loaiphongdetail.trangThaiPhong }}
+            {{ loaiphongdetail?.tongSLPhong }}&ensp;Trạng thái:
+            {{ loaiphongdetail?.trangThaiPhong }}
           </div>
           <div class="col-lg-3">
-            <i class="fa-solid fa-bed"></i> {{ loaiphongdetail.sucChua }} người
+            <i class="fa-solid fa-bed"></i> {{ loaiphongdetail?.sucChua }} người
           </div>
         </div>
 
@@ -274,8 +274,9 @@
           <div class="col-lg-4">
             <p-checkbox
               [disabled]="true"
-              [(ngModel)]="loaiphongdetail.mienPhiHuyPhong"
-              binary="loaiphongdetail.mienPhiHuyPhong"
+              (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
+              [ngModel]="loaiphongdetail?.mienPhiHuyPhong"
+              binary="loaiphongdetail?.mienPhiHuyPhong"
               label="Cho phép hủy phòng"
             >
             </p-checkbox
@@ -283,7 +284,10 @@
             <h6>Dịch vụ đi kèm</h6>
             <div style="column-count: 2" class="DichVuContainer">
               <div
-                *ngFor="let dichVuItem of loaiphongdetail.dichVu; let i = index"
+                *ngFor="
+                  let dichVuItem of loaiphongdetail?.dichVu;
+                  let i = index
+                "
               >
                 {{ dichVuItem.tenDichVu }}: {{ dichVuItem.moTa }}
               </div>
@@ -291,21 +295,21 @@
           </div>
           <div class="col-lg-5"></div>
           <div class="col-lg-3">
-            Ưu đãi: {{ loaiphongdetail.uuDai }}% <br />
+            Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
             Giá gói dịch vụ thêm:
-            {{ loaiphongdetail.giaGoiDVThem }}
+            {{ loaiphongdetail?.giaGoiDVThem }}
             <div class="GiaLoaiPhong" style="color: red">
               Giá:&ensp;
               <s>{{
-                loaiphongdetail.giaPhongTheoDem + loaiphongdetail.giaGoiDVThem
+                loaiphongdetail?.giaPhongTheoDem + loaiphongdetail?.giaGoiDVThem
               }}</s>
               VNĐ
               <br />
               Nay chỉ còn:&ensp;
               {{
-                loaiphongdetail.giaPhongTheoDem *
-                  (1 - loaiphongdetail.uuDai / 100) +
-                  loaiphongdetail.giaGoiDVThem
+                loaiphongdetail?.giaPhongTheoDem *
+                  (1 - loaiphongdetail?.uuDai / 100) +
+                  loaiphongdetail?.giaGoiDVThem
               }}
               VNĐ
             </div>

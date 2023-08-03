@@ -95,7 +95,6 @@
         (click)="searchHotels()"
         styleClass="p-button-raised"
         label="Tìm kiếm"
-        routerLink="/app/khachsanlist"
         ><i class="pi pi-search"></i
       ></p-button>
       <p-toast></p-toast>
@@ -122,11 +121,16 @@
     </div>
   </div>
 </form>
-
+\
 <!-- <pre>
   {{ signInForm.value | json }}
 </pre> -->
 <!-- End Form tìm phòng -->
+
+<!-- 
+<div *ngFor="let item of phongSearchinhFilterDto">
+  {{ item.donViKinhDoanhId }}
+</div> -->
 
 <!-- Start sliders gợi ý -->
 <div class="container GoiY">
