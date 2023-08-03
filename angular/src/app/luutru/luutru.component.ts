@@ -5,7 +5,11 @@ import {
   DiaDiemDto,
   DiaDiemFullDto,
   DiaDiemServiceProxy,
+  InfoBookingDto,
+  PhongSearchinhFilterDto,
+  SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
+import { result } from "lodash-es";
 
 @Component({
   selector: "app-luutru",
@@ -14,10 +18,12 @@ import {
   providers: [MessageService],
 })
 export class LuutruComponent {
-  formData: FormGroup;
+  formTimPhong: FormGroup;
 
   diadiemDto: DiaDiemDto = new DiaDiemDto();
   suggestionsDiaDiem: DiaDiemFullDto[];
+  inforBookingDto: InfoBookingDto = new InfoBookingDto();
+
   selectedDiadiem: any;
   filteredDiadiems: any[];
   rangeDates: Date[];
@@ -27,20 +33,13 @@ export class LuutruComponent {
   children = 0;
   rooms = 0;
 
-  submitted = false;
-
-  TimPhong = {
-    selectedDiadiem: "",
-    rangeDate: "",
-    adult: 0,
-    children: 0,
-    room: 0,
-  };
+  phongSearchinhFilterDto: PhongSearchinhFilterDto[];
 
   constructor(
     private _diadiemService: DiaDiemServiceProxy,
     private messageService: MessageService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _searchingFilterService: SearchingFilterServiceProxy
   ) {}
 
   overlayVisible: boolean = false;
@@ -50,7 +49,7 @@ export class LuutruComponent {
   }
 
   createForm() {
-    this.formData = this.formBuilder.group({
+    this.formTimPhong = this.formBuilder.group({
       timkiemData: this.formBuilder.group({
         locations: [null, Validators.required],
         rangeDates: [null, Validators.required],
@@ -80,36 +79,34 @@ export class LuutruComponent {
   }
 
   incrementDecrement(field: string, value: number) {
-    if (this.formData.get(`timkiemData.${field}`).value + value >= 0) {
-      this.formData
+    if (this.formTimPhong.get(`timkiemData.${field}`).value + value >= 0) {
+      this.formTimPhong
         .get(`timkiemData.${field}`)
-        .patchValue(this.formData.get(`timkiemData.${field}`).value + value);
+        .patchValue(
+          this.formTimPhong.get(`timkiemData.${field}`).value + value
+        );
     }
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    if (this.formData.invalid) {
-      return;
-    }
-
-    this.TimPhong.selectedDiadiem =
-      this.formData.get("timkiemData.locations").value?.name || "";
-    this.TimPhong.adult = this.formData.get("timkiemData.adults").value;
-    this.TimPhong.children = this.formData.get("timkiemData.children").value;
-    this.TimPhong.room = this.formData.get("timkiemData.rooms").value;
-
-    if (this.rangeDates && this.rangeDates.length === 2) {
-      const start = this.rangeDates[0];
-      const end = this.rangeDates[1];
-
-      const millisecondsPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-      const numberOfDays =
-        Math.floor((end.getTime() - start.getTime()) / millisecondsPerDay) + 1;
-
-      this.TimPhong.rangeDate = numberOfDays.toString(); // Store the number of days as a string
-    }
+    this.inforBookingDto.diaDiemid =
+      this.formTimPhong.value.timkiemData.locations?.id;
+    this.inforBookingDto.ngayDat =
+      this.formTimPhong.value.timkiemData?.rangeDates[0];
+    this.inforBookingDto.ngayTra =
+      this.formTimPhong.value.timkiemData?.rangeDates[1];
+    this.inforBookingDto.slNguoiLon =
+      this.formTimPhong.value.timkiemData?.adults;
+    this.inforBookingDto.slTreEm =
+      this.formTimPhong.value.timkiemData?.children;
+    this.inforBookingDto.slPhong = this.formTimPhong.value.timkiemData?.rooms;
+    this._searchingFilterService
+      .searchingRoom(this.inforBookingDto)
+      .subscribe((result) => {
+        this.phongSearchinhFilterDto = result;
+      });
+    console.log(this.inforBookingDto);
+    console.log(this.phongSearchinhFilterDto);
   }
 
   toggleForm() {
@@ -124,4 +121,6 @@ export class LuutruComponent {
       detail: "Tìm thành công",
     });
   }
+
+  searchHotels() {}
 }
