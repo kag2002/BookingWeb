@@ -123,12 +123,15 @@ namespace BookingWeb.Modules.SearchingFilter
                 var dtoList = await SearchingRoom(infoBooking);
 
                 //Filter then sort
-                if (input.MienPhiHuyPhong == 1)
+                if (input.MienPhiHuyPhong == true)
                 {
+                    var lstItem1 = new List<PhongSearchinhFilterDto>();
+
                     var lstItem = new List<PhongSearchinhFilterDto>();
 
                     var filteredRooms = dtoList.Where(p => p.ListLoaiPhong.Select(q => q.MienPhiHuyPhong).ToString().ToLower() == "true").ToList();
-                    if (input.GiaPhongNhoNhat != null && input.GiaPhongLonNhat != null)
+
+                    if (input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat != 0)
                     {
                         filteredRooms = filteredRooms.Where(room =>
                                                    (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
@@ -137,27 +140,39 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     if (input.DanhGiaSao != null)
                     {
-                        filteredRooms = filteredRooms.Where(room => room.DanhGiaSaoTb >= input.DanhGiaSao).ToList();
+                        foreach (var e in input.DanhGiaSao)
+                        {
+                            var item = filteredRooms.Where(room => room.DanhGiaSaoTb == e).ToList();
+                            lstItem1.AddRange(item);
+                        }
                     }
                     if (input.HinhThucPhongId != null)
                     {
                         foreach (var i in input.HinhThucPhongId)
                         {
-                            var item = filteredRooms.Where(room => room.HinhThucPhongId == i).ToList();
-
+                            var item = lstItem1.Where(room => room.HinhThucPhongId == i).ToList();
                             lstItem.AddRange(item);
                         }
                     }
+                    if (input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat != 0 && input.DanhGiaSao != null && input.HinhThucPhongId == null)
+                    {
+                        lstItem = lstItem1;
+                    }
+                    if (input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
+                    {
+                        lstItem = filteredRooms;
+                    }
 
-                    if (input.GiaCaoNhat == 1)
+
+                    if (input.SortCondition == 1)
                     {
                         lstItem = lstItem.OrderByDescending(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
                     }
-                    else if (input.GiaNhoNhat == 1)
+                    else if (input.SortCondition == 2)
                     {
                         lstItem = lstItem.OrderBy(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
                     }
-                    else if (input.DiemDanhGia == 1)
+                    else if (input.SortCondition == 3)
                     {
                         lstItem = lstItem.OrderByDescending(q => q.DiemDanhGiaTB).ToList();
                     }
@@ -177,11 +192,13 @@ namespace BookingWeb.Modules.SearchingFilter
                 }
                 else
                 {
+                    var lstItem1 = new List<PhongSearchinhFilterDto>();
+
                     var lstItem = new List<PhongSearchinhFilterDto>();
 
                     var filteredRooms = dtoList;
 
-                    if (input.GiaPhongNhoNhat != null && input.GiaPhongLonNhat != null)
+                    if (input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat != 0)
                     {
                         filteredRooms = filteredRooms.Where(room =>
                                                    (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
@@ -190,27 +207,40 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     if (input.DanhGiaSao != null)
                     {
-                        filteredRooms = filteredRooms.Where(room => room.DanhGiaSaoTb >= input.DanhGiaSao).ToList();
+                        foreach (var e in input.DanhGiaSao)
+                        {
+                            var item = filteredRooms.Where(room => room.DanhGiaSaoTb >= e).ToList();
+                            lstItem1.AddRange(item);
+                        }
                     }
                     if (input.HinhThucPhongId != null)
                     {
                         foreach (var i in input.HinhThucPhongId)
                         {
-                            var item = filteredRooms.Where(room => room.HinhThucPhongId == i).ToList();
+                            var item = lstItem1.Where(room => room.HinhThucPhongId == i).ToList();
 
                             lstItem.AddRange(item);
                         }
                     }
+                    if(input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat != 0 && input.DanhGiaSao != null && input.HinhThucPhongId == null)
+                    {
+                        lstItem = lstItem1;
+                    }
+                    if (input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
+                    {
+                        lstItem = filteredRooms;
+                    }
 
-                    if (input.GiaCaoNhat == 1)
+
+                    if (input.SortCondition == 1)
                     {
                         lstItem = lstItem.OrderByDescending(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
                     }
-                    else if (input.GiaNhoNhat == 1)
+                    else if (input.SortCondition == 2)
                     {
                         lstItem = lstItem.OrderBy(q => q.ListLoaiPhong.Select(p => p.GiaPhongTheoDem)).ToList();
                     }
-                    else if (input.DiemDanhGia == 1)
+                    else if (input.SortCondition == 3)
                     {
                         lstItem = lstItem.OrderByDescending(q => q.DiemDanhGiaTB).ToList();
                     }

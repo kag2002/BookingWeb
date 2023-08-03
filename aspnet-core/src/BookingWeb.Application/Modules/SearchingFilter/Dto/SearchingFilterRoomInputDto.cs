@@ -12,26 +12,20 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public int pageSize { get; set; }
 
-        public int MienPhiHuyPhong { get; set; }
+
+        public bool MienPhiHuyPhong { get; set; }
 
 
         public double GiaPhongNhoNhat { get; set; }
         
-        public double DanhGiaSao { get; set; }
+        public List<double> DanhGiaSao { get; set; }
 
         public double GiaPhongLonNhat { get; set; }
 
         public List<int> HinhThucPhongId { get; set; }
 
 
-        public int GiaCaoNhat { get; set; }
-
-        public int GiaNhoNhat { get; set; }
-
-        public int DiemDanhGia { get; set; }
-
-        public int DoPhoBien { get; set; }
-
+        public int SortCondition { get; set; }
 
     }
 }
