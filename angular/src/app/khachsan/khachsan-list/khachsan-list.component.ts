@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import {
+  PhongSearchinhFilterDto,
   PhongServiceProxy,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
@@ -18,33 +19,37 @@ export class KhachsanListComponent implements OnInit {
   rangeValues: number[] = [1000000, 3000000];
 
   sapxeps: any[] = [
-    { name: "Giá cao nhất", key: "MaxPrice" },
-    { name: "Giá thấp nhất", key: "MinPrice" },
-    { name: "Điểm đánh giá", key: "RatePoint" },
-    { name: "Độ phổ biến", key: "Popular" },
+    { name: "Giá cao nhất", key: 1 },
+    { name: "Giá thấp nhất", key: 2 },
+    { name: "Điểm đánh giá", key: 3 },
+    { name: "Độ phổ biến", key: 4 },
   ];
   stars: number[] = [1, 2, 3, 4, 5];
   maxPrice: number = 4000000;
   listkhachsan = [];
   listkhachsanfiltered = [];
   currentIndex = 0;
+  limit = 8;
+  phongSearchinhFilterDto: PhongSearchinhFilterDto[];
 
+  // searchingFilterRoomInputDto:SearchingFilterRoomInputDto
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
-    private _searchingfilterappservice: SearchingFilterServiceProxy
+    private _searchingFilterService: SearchingFilterServiceProxy
   ) {}
 
   ngOnInit() {
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result;
     });
+
     this.formSapXep = this.fb.group({
       selectedCategory: new FormControl(this.sapxeps[3]),
     });
 
     this.formLoc = this.fb.group({
-      mienphihuyphong: [""],
+      mienphihuyphong: [false],
       inputminprice: [this.rangeValues[0]],
       inputmaxprice: [this.rangeValues[1]],
       inputprice: [this.rangeValues],
@@ -90,15 +95,30 @@ export class KhachsanListComponent implements OnInit {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
 
+  filterKhachSan() {}
+  SearchingBookings() {
+    this._searchingFilterService
+      .getRoomsByLocationAndFilter(
+        this.currentPage,
+        this.listkhachsan.length,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+      .subscribe((results) => {
+        this.phongSearchinhFilterDto = results.items;
+      });
+  }
+
   changePage(page: number): void {
     this.currentPage = page;
     this.listkhachsan = [];
     // this._searchingfilterappservice.getRoomsByLocationAndFilter()
   }
-  // paginate(event) {
-  //   event.first = 0;
-  //   event.rows = 5;
-  //   event.page = 2;
-  //   event.pageCount = 150;
-  // }
 }

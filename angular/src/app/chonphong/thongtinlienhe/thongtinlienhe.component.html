@@ -62,18 +62,21 @@
               <small id="email-help">VD: email@example.com</small>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div
-            *ngFor="let datho of dathos"
-            class="col-lg-6 field-checkbox DatHoRadio"
-          >
-            <p-radioButton
-              [inputId]="datho.key"
-              [value]="datho"
-              formControlName="datho"
-            ></p-radioButton>
-            <label [for]="datho.key" class="ml-2">{{ datho.name }}</label>
+          <hr />
+          <div class="row">
+            <div
+              *ngFor="let datho of dathos"
+              class="col-lg-6 field-checkbox DatHoRadio"
+            >
+              <p-radioButton
+                [inputId]="datho.key"
+                [value]="datho"
+                formControlName="datho"
+              ></p-radioButton>
+              <label style="margin: 0" [for]="datho.key" class="ml-2">{{
+                datho.name
+              }}</label>
+            </div>
           </div>
         </div>
       </form>
@@ -107,7 +110,7 @@
       </form>
       <!-- <pre>{{ FormYeuCauDacBiet.value | json }}</pre> -->
       <!-- End yêu cầu đặc biệt -->
-      <button type="submit" (click)="addClientBookRoom()">Continue</button>
+      <button type="submit" (click)="addClientBookRoom()">Đặt</button>
     </div>
     <div class="col-lg-5">
       <!-- PhongConTrong -->

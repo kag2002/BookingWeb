@@ -7,7 +7,7 @@
 
 <!-- Start Form tìm phòng -->
 <form
-  [formGroup]="formData"
+  [formGroup]="formTimPhong"
   (ngSubmit)="onSubmit()"
   #signInForm="ngForm"
   class="container TimPhongContainer"
@@ -91,9 +91,11 @@
       <p-button
         pRipple
         (click)="show()"
-        styleClass="p-button-raised"
         (click)="onSubmit()"
+        (click)="searchHotels()"
+        styleClass="p-button-raised"
         label="Tìm kiếm"
+        routerLink="/app/khachsanlist"
         ><i class="pi pi-search"></i
       ></p-button>
       <p-toast></p-toast>

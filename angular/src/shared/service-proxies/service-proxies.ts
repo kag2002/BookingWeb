@@ -3083,6 +3083,190 @@ export class LoaiPhongServiceProxy {
 }
 
 @Injectable()
+export class LstTrangThaiPhongServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getAllLstTrangThaiPhong(): Observable<TrangThaiPhongDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/LstTrangThaiPhong/GetAllLstTrangThaiPhong";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllLstTrangThaiPhong(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllLstTrangThaiPhong(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TrangThaiPhongDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TrangThaiPhongDto[]>;
+        }));
+    }
+
+    protected processGetAllLstTrangThaiPhong(response: HttpResponseBase): Observable<TrangThaiPhongDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(TrangThaiPhongDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addNewStatus(body: TrangThaiPhongInputDto | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/LstTrangThaiPhong/AddNewStatus";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddNewStatus(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddNewStatus(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processAddNewStatus(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteStatus(id: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/LstTrangThaiPhong/DeleteStatus?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteStatus(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteStatus(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processDeleteStatus(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class NhanVienServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -4390,13 +4574,71 @@ export class SearchingFilterServiceProxy {
     }
 
     /**
-     * @param diaDiemid (optional) 
-     * @param infoBooking_NgayDat (optional) 
-     * @param infoBooking_NgayTra (optional) 
-     * @param infoBooking_SlNguoiLon (optional) 
-     * @param infoBooking_SlTreEm (optional) 
-     * @param infoBooking_SlPhong (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    searchingRoom(body: InfoBookingDto | undefined): Observable<PhongSearchinhFilterDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SearchingFilter/SearchingRoom";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSearchingRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSearchingRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PhongSearchinhFilterDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PhongSearchinhFilterDto[]>;
+        }));
+    }
+
+    protected processSearchingRoom(response: HttpResponseBase): Observable<PhongSearchinhFilterDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(PhongSearchinhFilterDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param pageIndex (optional) 
+     * @param pageSize (optional) 
      * @param mienPhiHuyPhong (optional) 
      * @param giaPhongNhoNhat (optional) 
      * @param danhGiaSao (optional) 
@@ -4408,36 +4650,16 @@ export class SearchingFilterServiceProxy {
      * @param doPhoBien (optional) 
      * @return Success
      */
-    getRoomsByLocationAndFilter(diaDiemid: number | undefined, infoBooking_NgayDat: moment.Moment | undefined, infoBooking_NgayTra: moment.Moment | undefined, infoBooking_SlNguoiLon: number | undefined, infoBooking_SlTreEm: number | undefined, infoBooking_SlPhong: number | undefined, pageIndex: number | undefined, mienPhiHuyPhong: number | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number | undefined, giaPhongLonNhat: number | undefined, hinhThucPhongId: number[] | undefined, giaCaoNhat: number | undefined, giaNhoNhat: number | undefined, diemDanhGia: number | undefined, doPhoBien: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
+    getRoomsByLocationAndFilter(pageIndex: number | undefined, pageSize: number | undefined, mienPhiHuyPhong: number | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number | undefined, giaPhongLonNhat: number | undefined, hinhThucPhongId: number[] | undefined, giaCaoNhat: number | undefined, giaNhoNhat: number | undefined, diemDanhGia: number | undefined, doPhoBien: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocationAndFilter?";
-        if (diaDiemid === null)
-            throw new Error("The parameter 'diaDiemid' cannot be null.");
-        else if (diaDiemid !== undefined)
-            url_ += "DiaDiemid=" + encodeURIComponent("" + diaDiemid) + "&";
-        if (infoBooking_NgayDat === null)
-            throw new Error("The parameter 'infoBooking_NgayDat' cannot be null.");
-        else if (infoBooking_NgayDat !== undefined)
-            url_ += "infoBooking.NgayDat=" + encodeURIComponent(infoBooking_NgayDat ? "" + infoBooking_NgayDat.toISOString() : "") + "&";
-        if (infoBooking_NgayTra === null)
-            throw new Error("The parameter 'infoBooking_NgayTra' cannot be null.");
-        else if (infoBooking_NgayTra !== undefined)
-            url_ += "infoBooking.NgayTra=" + encodeURIComponent(infoBooking_NgayTra ? "" + infoBooking_NgayTra.toISOString() : "") + "&";
-        if (infoBooking_SlNguoiLon === null)
-            throw new Error("The parameter 'infoBooking_SlNguoiLon' cannot be null.");
-        else if (infoBooking_SlNguoiLon !== undefined)
-            url_ += "infoBooking.SlNguoiLon=" + encodeURIComponent("" + infoBooking_SlNguoiLon) + "&";
-        if (infoBooking_SlTreEm === null)
-            throw new Error("The parameter 'infoBooking_SlTreEm' cannot be null.");
-        else if (infoBooking_SlTreEm !== undefined)
-            url_ += "infoBooking.SlTreEm=" + encodeURIComponent("" + infoBooking_SlTreEm) + "&";
-        if (infoBooking_SlPhong === null)
-            throw new Error("The parameter 'infoBooking_SlPhong' cannot be null.");
-        else if (infoBooking_SlPhong !== undefined)
-            url_ += "infoBooking.SlPhong=" + encodeURIComponent("" + infoBooking_SlPhong) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
         else if (pageIndex !== undefined)
             url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
         if (mienPhiHuyPhong === null)
             throw new Error("The parameter 'mienPhiHuyPhong' cannot be null.");
         else if (mienPhiHuyPhong !== undefined)
@@ -5997,7 +6219,7 @@ export interface IChangeUserLanguageDto {
 
 export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     id: number;
-    trangThaiPhong: string | undefined;
+    trangThaiPhongId: number;
     checkIn: string | undefined;
     checkOut: string | undefined;
     slNguoiLon: number;
@@ -6022,7 +6244,7 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.trangThaiPhong = _data["trangThaiPhong"];
+            this.trangThaiPhongId = _data["trangThaiPhongId"];
             this.checkIn = _data["checkIn"];
             this.checkOut = _data["checkOut"];
             this.slNguoiLon = _data["slNguoiLon"];
@@ -6047,7 +6269,7 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["trangThaiPhong"] = this.trangThaiPhong;
+        data["trangThaiPhongId"] = this.trangThaiPhongId;
         data["checkIn"] = this.checkIn;
         data["checkOut"] = this.checkOut;
         data["slNguoiLon"] = this.slNguoiLon;
@@ -6072,7 +6294,7 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
 
 export interface IChiTietDatPhongDto {
     id: number;
-    trangThaiPhong: string | undefined;
+    trangThaiPhongId: number;
     checkIn: string | undefined;
     checkOut: string | undefined;
     slNguoiLon: number;
@@ -6414,7 +6636,7 @@ export class ClientBookRoomOutputDto implements IClientBookRoomOutputDto {
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
-    mienPhiHuyPhong: string | undefined;
+    mienPhiHuyPhong: boolean;
     tongTien: number;
     datHo: number;
     cccd: number;
@@ -6507,7 +6729,7 @@ export interface IClientBookRoomOutputDto {
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
-    mienPhiHuyPhong: string | undefined;
+    mienPhiHuyPhong: boolean;
     tongTien: number;
     datHo: number;
     cccd: number;
@@ -7823,7 +8045,7 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
-    mienPhiHuyPhong: string | undefined;
+    mienPhiHuyPhong: boolean;
 
     constructor(data?: IGetInfoRoomToBookOutputDto) {
         if (data) {
@@ -7892,7 +8114,7 @@ export interface IGetInfoRoomToBookOutputDto {
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
-    mienPhiHuyPhong: string | undefined;
+    mienPhiHuyPhong: boolean;
 }
 
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {
@@ -8270,6 +8492,7 @@ export interface IHinhThucPhongFullDto {
 }
 
 export class InfoBookingDto implements IInfoBookingDto {
+    diaDiemid: number;
     ngayDat: moment.Moment;
     ngayTra: moment.Moment;
     slNguoiLon: number;
@@ -8287,6 +8510,7 @@ export class InfoBookingDto implements IInfoBookingDto {
 
     init(_data?: any) {
         if (_data) {
+            this.diaDiemid = _data["diaDiemid"];
             this.ngayDat = _data["ngayDat"] ? moment(_data["ngayDat"].toString()) : <any>undefined;
             this.ngayTra = _data["ngayTra"] ? moment(_data["ngayTra"].toString()) : <any>undefined;
             this.slNguoiLon = _data["slNguoiLon"];
@@ -8304,6 +8528,7 @@ export class InfoBookingDto implements IInfoBookingDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["diaDiemid"] = this.diaDiemid;
         data["ngayDat"] = this.ngayDat ? this.ngayDat.toISOString() : <any>undefined;
         data["ngayTra"] = this.ngayTra ? this.ngayTra.toISOString() : <any>undefined;
         data["slNguoiLon"] = this.slNguoiLon;
@@ -8321,6 +8546,7 @@ export class InfoBookingDto implements IInfoBookingDto {
 }
 
 export interface IInfoBookingDto {
+    diaDiemid: number;
     ngayDat: moment.Moment;
     ngayTra: moment.Moment;
     slNguoiLon: number;
@@ -9065,7 +9291,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
     loaiPhong: string | undefined;
     sucChua: number;
     tongSLPhong: number;
-    trangThaiPhong: string | undefined;
+    slPhongTrong: number;
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
@@ -9088,7 +9314,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
             this.loaiPhong = _data["loaiPhong"];
             this.sucChua = _data["sucChua"];
             this.tongSLPhong = _data["tongSLPhong"];
-            this.trangThaiPhong = _data["trangThaiPhong"];
+            this.slPhongTrong = _data["slPhongTrong"];
             this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
             this.giaPhongTheoDem = _data["giaPhongTheoDem"];
             this.uuDai = _data["uuDai"];
@@ -9115,7 +9341,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
         data["loaiPhong"] = this.loaiPhong;
         data["sucChua"] = this.sucChua;
         data["tongSLPhong"] = this.tongSLPhong;
-        data["trangThaiPhong"] = this.trangThaiPhong;
+        data["slPhongTrong"] = this.slPhongTrong;
         data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
         data["giaPhongTheoDem"] = this.giaPhongTheoDem;
         data["uuDai"] = this.uuDai;
@@ -9142,7 +9368,7 @@ export interface ILoaiPhongSearchingDto {
     loaiPhong: string | undefined;
     sucChua: number;
     tongSLPhong: number;
-    trangThaiPhong: string | undefined;
+    slPhongTrong: number;
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
@@ -10697,6 +10923,96 @@ export interface ITenantLoginInfoDto {
     id: number;
     tenancyName: string | undefined;
     name: string | undefined;
+}
+
+export class TrangThaiPhongDto implements ITrangThaiPhongDto {
+    id: number;
+    temTrangThai: string | undefined;
+
+    constructor(data?: ITrangThaiPhongDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.temTrangThai = _data["temTrangThai"];
+        }
+    }
+
+    static fromJS(data: any): TrangThaiPhongDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TrangThaiPhongDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["temTrangThai"] = this.temTrangThai;
+        return data;
+    }
+
+    clone(): TrangThaiPhongDto {
+        const json = this.toJSON();
+        let result = new TrangThaiPhongDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ITrangThaiPhongDto {
+    id: number;
+    temTrangThai: string | undefined;
+}
+
+export class TrangThaiPhongInputDto implements ITrangThaiPhongInputDto {
+    tenTrangThai: string | undefined;
+
+    constructor(data?: ITrangThaiPhongInputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenTrangThai = _data["tenTrangThai"];
+        }
+    }
+
+    static fromJS(data: any): TrangThaiPhongInputDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TrangThaiPhongInputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenTrangThai"] = this.tenTrangThai;
+        return data;
+    }
+
+    clone(): TrangThaiPhongInputDto {
+        const json = this.toJSON();
+        let result = new TrangThaiPhongInputDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ITrangThaiPhongInputDto {
+    tenTrangThai: string | undefined;
 }
 
 export class UserDto implements IUserDto {
