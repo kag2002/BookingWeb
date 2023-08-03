@@ -8,6 +8,10 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 {
     public class InfoBookingDto
     {
+        public int pageIndex { get; set; }
+
+        public int pageSize { get; set; }
+
         public int DiaDiemid { get; set; }
 
         public DateTime NgayDat { get; set; }
