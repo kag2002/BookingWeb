@@ -106,7 +106,6 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                     }
                 }
-
                 dtoList = dtoList.OrderByDescending(q => q.LuotDatPhong).ToList();
 
                 return dtoList;
@@ -117,7 +116,7 @@ namespace BookingWeb.Modules.SearchingFilter
             }
         }
 
-        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input, List<PhongSearchinhFilterDto> input2)
+        public async Task<List<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input, List<PhongSearchinhFilterDto> input2)
         {
             try {
 
@@ -207,14 +206,15 @@ namespace BookingWeb.Modules.SearchingFilter
                         lstItem = lstItem.OrderByDescending(q => q.LuotDatPhong).ToList();
                     }
 
-                    var totalCount = lstItem.Count;
+                    /*var totalCount = lstItem.Count;
 
                     var pagedRooms = lstItem
                         .Skip((input.pageIndex - 1) * input.pageSize)
                         .Take(input.pageSize)
                         .ToList();
 
-                    return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
+                    return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);*/
+                    return lstItem;
                 }
                 else
                 {
@@ -298,14 +298,15 @@ namespace BookingWeb.Modules.SearchingFilter
                         lstItem = lstItem.OrderByDescending(q => q.LuotDatPhong).ToList();
                     }
 
-                    var totalCount = lstItem.Count;
+                    /* var totalCount = lstItem.Count;
 
-                    var pagedRooms = lstItem
-                        .Skip((input.pageIndex - 1) * input.pageSize)
-                        .Take(input.pageSize)
-                        .ToList();
+                     var pagedRooms = lstItem
+                         .Skip((input.pageIndex - 1) * input.pageSize)
+                         .Take(input.pageSize)
+                         .ToList();
 
-                    return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
+                     return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);*/
+                    return lstItem;
 
                 }
             }

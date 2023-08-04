@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   PhongSearchinhFilterDto,
   PhongServiceProxy,
@@ -27,17 +28,20 @@ export class KhachsanListComponent implements OnInit {
   maxPrice: number = 4000000;
   listkhachsan = [];
   listkhachsanfiltered = [];
+
   currentIndex = 0;
 
-  phongSearchinhFilterDto: PhongSearchinhFilterDto[];
+  phongSearchinhFilterList: PhongSearchinhFilterDto[];
 
+  listLocKhachSanTrangChu = this.bookingInfoService.getBookingInfo();
   // searchingFilterRoomInputDto:SearchingFilterRoomInputDto
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
-    private _searchingFilterService: SearchingFilterServiceProxy
+    private _searchingFilterService: SearchingFilterServiceProxy,
+    private bookingInfoService: BookingInfoService
   ) {}
-
+  listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
   ngOnInit() {
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result;
@@ -48,16 +52,16 @@ export class KhachsanListComponent implements OnInit {
     });
 
     this.formLoc = this.fb.group({
-      mienphihuyphong: [false],
+      mienphihuyphong: null,
       inputminprice: [this.rangeValues[0]],
       inputmaxprice: [this.rangeValues[1]],
       inputprice: [this.rangeValues],
       LocSaoData: this.fb.group({
-        value1: [""],
-        value2: [""],
-        value3: [""],
-        value4: [""],
-        value5: [""],
+        value1: [],
+        value2: [],
+        value3: [],
+        value4: [],
+        value5: [],
         numberStar1: [1],
         numberStar2: [2],
         numberStar3: [3],
@@ -81,34 +85,36 @@ export class KhachsanListComponent implements OnInit {
   }
 
   onSubmit() {
-    this.getValueForSave();
+    this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
+    this.SearchingBookings();
   }
 
-  getValueForSave() {
-    const selectedStars = this.stars.filter(
-      (star) => this.formLoc.get(["LocSaoData", "value" + star])?.value
-    );
-    console.log(selectedStars.map((star) => "Khach San " + star + " sao"));
-  }
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-
+  pageIndex = 0;
+  onPageChange(event: any) {
+    // Update the pageIndex with the current page index from the event
+    this.pageIndex = event.page;
+    this.SearchingBookings(); // Call the searching method to fetch data for the current page
+  }
   filterKhachSan() {}
   SearchingBookings() {
+    debugger;
     this._searchingFilterService
       .getRoomsByLocationAndFilter(
-        undefined,
-        this.listkhachsan.length,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
+        true,
+        0,
+        10000,
+        [5],
+        [1, 2, 3],
+        0,
+        this.listLocKhachSanLuuTru
       )
       .subscribe((results) => {
-        this.phongSearchinhFilterDto = results.items;
+        console.log("hello");
+        this.phongSearchinhFilterList = results;
+        console.log(this.phongSearchinhFilterList);
       });
   }
 }

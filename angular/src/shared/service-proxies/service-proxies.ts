@@ -4637,26 +4637,17 @@ export class SearchingFilterServiceProxy {
     }
 
     /**
-     * @param pageIndex (optional) 
-     * @param pageSize (optional) 
      * @param mienPhiHuyPhong (optional) 
      * @param giaPhongNhoNhat (optional) 
-     * @param danhGiaSao (optional) 
      * @param giaPhongLonNhat (optional) 
+     * @param danhGiaSao (optional) 
      * @param hinhThucPhongId (optional) 
      * @param sortCondition (optional) 
+     * @param input2 (optional) 
      * @return Success
      */
-    getRoomsByLocationAndFilter(pageIndex: number | undefined, pageSize: number | undefined, mienPhiHuyPhong: boolean | undefined, giaPhongNhoNhat: number | undefined, danhGiaSao: number[] | undefined, giaPhongLonNhat: number | undefined, hinhThucPhongId: number[] | undefined, sortCondition: number | undefined): Observable<PhongSearchinhFilterDtoPagedResultDto> {
+    getRoomsByLocationAndFilter(mienPhiHuyPhong: boolean | undefined, giaPhongNhoNhat: number | undefined, giaPhongLonNhat: number | undefined, danhGiaSao: number[] | undefined, hinhThucPhongId: number[] | undefined, sortCondition: number | undefined, input2: PhongSearchinhFilterDto[] | undefined): Observable<PhongSearchinhFilterDto[]> {
         let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocationAndFilter?";
-        if (pageIndex === null)
-            throw new Error("The parameter 'pageIndex' cannot be null.");
-        else if (pageIndex !== undefined)
-            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
-        if (pageSize === null)
-            throw new Error("The parameter 'pageSize' cannot be null.");
-        else if (pageSize !== undefined)
-            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
         if (mienPhiHuyPhong === null)
             throw new Error("The parameter 'mienPhiHuyPhong' cannot be null.");
         else if (mienPhiHuyPhong !== undefined)
@@ -4665,14 +4656,14 @@ export class SearchingFilterServiceProxy {
             throw new Error("The parameter 'giaPhongNhoNhat' cannot be null.");
         else if (giaPhongNhoNhat !== undefined)
             url_ += "GiaPhongNhoNhat=" + encodeURIComponent("" + giaPhongNhoNhat) + "&";
-        if (danhGiaSao === null)
-            throw new Error("The parameter 'danhGiaSao' cannot be null.");
-        else if (danhGiaSao !== undefined)
-            danhGiaSao && danhGiaSao.forEach(item => { url_ += "DanhGiaSao=" + encodeURIComponent("" + item) + "&"; });
         if (giaPhongLonNhat === null)
             throw new Error("The parameter 'giaPhongLonNhat' cannot be null.");
         else if (giaPhongLonNhat !== undefined)
             url_ += "GiaPhongLonNhat=" + encodeURIComponent("" + giaPhongLonNhat) + "&";
+        if (danhGiaSao === null)
+            throw new Error("The parameter 'danhGiaSao' cannot be null.");
+        else if (danhGiaSao !== undefined)
+            danhGiaSao && danhGiaSao.forEach(item => { url_ += "DanhGiaSao=" + encodeURIComponent("" + item) + "&"; });
         if (hinhThucPhongId === null)
             throw new Error("The parameter 'hinhThucPhongId' cannot be null.");
         else if (hinhThucPhongId !== undefined)
@@ -4681,6 +4672,15 @@ export class SearchingFilterServiceProxy {
             throw new Error("The parameter 'sortCondition' cannot be null.");
         else if (sortCondition !== undefined)
             url_ += "SortCondition=" + encodeURIComponent("" + sortCondition) + "&";
+        if (input2 === null)
+            throw new Error("The parameter 'input2' cannot be null.");
+        else if (input2 !== undefined)
+            input2 && input2.forEach((item, index) => {
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "input2[" + index + "]." + attr + "=" + encodeURIComponent("" + (item as any)[attr]) + "&";
+        			}
+            });
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4698,14 +4698,14 @@ export class SearchingFilterServiceProxy {
                 try {
                     return this.processGetRoomsByLocationAndFilter(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PhongSearchinhFilterDtoPagedResultDto>;
+                    return _observableThrow(e) as any as Observable<PhongSearchinhFilterDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PhongSearchinhFilterDtoPagedResultDto>;
+                return _observableThrow(response_) as any as Observable<PhongSearchinhFilterDto[]>;
         }));
     }
 
-    protected processGetRoomsByLocationAndFilter(response: HttpResponseBase): Observable<PhongSearchinhFilterDtoPagedResultDto> {
+    protected processGetRoomsByLocationAndFilter(response: HttpResponseBase): Observable<PhongSearchinhFilterDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4716,7 +4716,14 @@ export class SearchingFilterServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PhongSearchinhFilterDtoPagedResultDto.fromJS(resultData200);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(PhongSearchinhFilterDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -10179,61 +10186,6 @@ export interface IPhongSearchinhFilterDto {
     diemDanhGiaTB: number;
     danhGiaSaoTb: number;
     listLoaiPhong: LoaiPhongSearchingFilterDto[] | undefined;
-}
-
-export class PhongSearchinhFilterDtoPagedResultDto implements IPhongSearchinhFilterDtoPagedResultDto {
-    items: PhongSearchinhFilterDto[] | undefined;
-    totalCount: number;
-
-    constructor(data?: IPhongSearchinhFilterDtoPagedResultDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items.push(PhongSearchinhFilterDto.fromJS(item));
-            }
-            this.totalCount = _data["totalCount"];
-        }
-    }
-
-    static fromJS(data: any): PhongSearchinhFilterDtoPagedResultDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PhongSearchinhFilterDtoPagedResultDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        data["totalCount"] = this.totalCount;
-        return data;
-    }
-
-    clone(): PhongSearchinhFilterDtoPagedResultDto {
-        const json = this.toJSON();
-        let result = new PhongSearchinhFilterDtoPagedResultDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPhongSearchinhFilterDtoPagedResultDto {
-    items: PhongSearchinhFilterDto[] | undefined;
-    totalCount: number;
 }
 
 export class RegisterInput implements IRegisterInput {
