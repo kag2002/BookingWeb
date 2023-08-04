@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   PhongSearchinhFilterDto,
   PhongServiceProxy,
@@ -30,15 +31,17 @@ export class KhachsanListComponent implements OnInit {
 
   currentIndex = 0;
 
-  phongSearchinhFilterDto: PhongSearchinhFilterDto[];
+  phongSearchinhFilterList: PhongSearchinhFilterDto[];
 
+  listLocKhachSanTrangChu = this.bookingInfoService.getBookingInfo();
   // searchingFilterRoomInputDto:SearchingFilterRoomInputDto
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
-    private _searchingFilterService: SearchingFilterServiceProxy
+    private _searchingFilterService: SearchingFilterServiceProxy,
+    private bookingInfoService: BookingInfoService
   ) {}
-
+  listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
   ngOnInit() {
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result;
@@ -82,6 +85,7 @@ export class KhachsanListComponent implements OnInit {
   }
 
   onSubmit() {
+    this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
     this.SearchingBookings();
   }
 
@@ -96,23 +100,21 @@ export class KhachsanListComponent implements OnInit {
   }
   filterKhachSan() {}
   SearchingBookings() {
+    debugger;
     this._searchingFilterService
       .getRoomsByLocationAndFilter(
-        this.pageIndex,
-        3,
-        this.formLoc.get("mienphihuyphong")?.value || false,
-        this.rangeValues[0],
-        this.rangeValues[1],
-        this.stars.filter(
-          (star) => this.formLoc.get(["LocSaoData", "value" + star])?.value
-        ),
-
-        undefined,
-        this.formSapXep.get("selectedCategory").value?.key || 0
+        true,
+        0,
+        10000,
+        [5],
+        [1, 2, 3],
+        0,
+        this.listLocKhachSanLuuTru
       )
       .subscribe((results) => {
-        this.phongSearchinhFilterDto = results.items;
-        console.log(this.phongSearchinhFilterDto);
+        console.log("hello");
+        this.phongSearchinhFilterList = results;
+        console.log(this.phongSearchinhFilterList);
       });
   }
 }

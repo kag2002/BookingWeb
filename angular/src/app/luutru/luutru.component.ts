@@ -9,7 +9,7 @@ import {
   PhongSearchinhFilterDto,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-
+import { BookingInfoService } from "../service/booking-info-service.service";
 @Component({
   selector: "app-luutru",
   templateUrl: "./luutru.component.html",
@@ -38,7 +38,8 @@ export class LuutruComponent {
     private _diadiemService: DiaDiemServiceProxy,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
-    private _searchingFilterService: SearchingFilterServiceProxy
+    private _searchingFilterService: SearchingFilterServiceProxy,
+    private bookingInfoService: BookingInfoService
   ) {}
 
   overlayVisible: boolean = false;
@@ -104,6 +105,7 @@ export class LuutruComponent {
       .searchingRoom(this.inforBookingDto)
       .subscribe((result) => {
         this.phongSearchinhFilterDto = result;
+        this.bookingInfoService.setBookingInfo(this.phongSearchinhFilterDto);
         console.log(this.phongSearchinhFilterDto);
       });
     console.log(this.inforBookingDto);
