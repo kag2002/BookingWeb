@@ -106,6 +106,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                     }
                 }
+                dtoList = dtoList.OrderByDescending(q => q.LuotDatPhong).ToList();
 
                 return dtoList;
             }
@@ -115,13 +116,11 @@ namespace BookingWeb.Modules.SearchingFilter
             }
         }
 
-        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input)
+        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input, List<PhongSearchinhFilterDto> input2)
         {
-            try
-            {
-                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("infoBooking");
+            try {
 
-                var dtoList = await SearchingRoom(infoBooking);
+                var dtoList = input2;
 
                 //Filter then sort
                 if (input.MienPhiHuyPhong == true)
