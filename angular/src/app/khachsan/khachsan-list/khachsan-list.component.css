@@ -15,7 +15,7 @@
 }
 .slide-image {
   width: 160px;
-  height: inherit;
+  height: 180px;
   background-size: cover;
   background-position: center;
 }

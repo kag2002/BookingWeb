@@ -27,6 +27,7 @@ export class KhachsanListComponent implements OnInit {
   maxPrice: number = 4000000;
   listkhachsan = [];
   listkhachsanfiltered = [];
+
   currentIndex = 0;
 
   phongSearchinhFilterDto: PhongSearchinhFilterDto[];
@@ -48,16 +49,16 @@ export class KhachsanListComponent implements OnInit {
     });
 
     this.formLoc = this.fb.group({
-      mienphihuyphong: [false],
+      mienphihuyphong: null,
       inputminprice: [this.rangeValues[0]],
       inputmaxprice: [this.rangeValues[1]],
       inputprice: [this.rangeValues],
       LocSaoData: this.fb.group({
-        value1: [""],
-        value2: [""],
-        value3: [""],
-        value4: [""],
-        value5: [""],
+        value1: [],
+        value2: [],
+        value3: [],
+        value4: [],
+        value5: [],
         numberStar1: [1],
         numberStar2: [2],
         numberStar3: [3],
@@ -81,34 +82,37 @@ export class KhachsanListComponent implements OnInit {
   }
 
   onSubmit() {
-    this.getValueForSave();
+    this.SearchingBookings();
   }
 
-  getValueForSave() {
-    const selectedStars = this.stars.filter(
-      (star) => this.formLoc.get(["LocSaoData", "value" + star])?.value
-    );
-    console.log(selectedStars.map((star) => "Khach San " + star + " sao"));
-  }
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-
+  pageIndex = 0;
+  onPageChange(event: any) {
+    // Update the pageIndex with the current page index from the event
+    this.pageIndex = event.page;
+    this.SearchingBookings(); // Call the searching method to fetch data for the current page
+  }
   filterKhachSan() {}
   SearchingBookings() {
     this._searchingFilterService
       .getRoomsByLocationAndFilter(
+        this.pageIndex,
+        3,
+        this.formLoc.get("mienphihuyphong")?.value || false,
+        this.rangeValues[0],
+        this.rangeValues[1],
+        this.stars.filter(
+          (star) => this.formLoc.get(["LocSaoData", "value" + star])?.value
+        ),
+
         undefined,
-        this.listkhachsan.length,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
+        this.formSapXep.get("selectedCategory").value?.key || 0
       )
       .subscribe((results) => {
         this.phongSearchinhFilterDto = results.items;
+        console.log(this.phongSearchinhFilterDto);
       });
   }
 }
