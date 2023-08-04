@@ -132,18 +132,23 @@ namespace BookingWeb.Modules.SearchingFilter
 
                     var filteredRooms = dtoList.Where(p => p.ListLoaiPhong.Select(q => q.MienPhiHuyPhong).ToString().ToLower() == "true").ToList();
 
-                    if (input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
+                    if (input.GiaPhongNhoNhat <= 0 && input.GiaPhongLonNhat <= 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
                     {
                         lstItem = filteredRooms;
                     }
                     else
                     {
-                        if (input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat != 0)
+                        if (input.GiaPhongNhoNhat >= 0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
                         {
                             filteredRooms = filteredRooms.Where(room =>
                                                        (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
                                                        room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
                                                    ).ToList();
+                        }
+                        else
+                        {
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"Looix {input} !!");
+                            return null;
                         }
                         if (input.DanhGiaSao != null)
                         {
@@ -219,18 +224,23 @@ namespace BookingWeb.Modules.SearchingFilter
 
                     var filteredRooms = dtoList;
 
-                    if (input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
+                    if (input.GiaPhongNhoNhat <= 0 && input.GiaPhongLonNhat <= 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
                     {
                         lstItem = filteredRooms;
                     }
                     else
                     {
-                        if (input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat != 0)
+                        if (input.GiaPhongNhoNhat >= 0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
                         {
                             filteredRooms = filteredRooms.Where(room =>
                                                        (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
                                                        room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
                                                    ).ToList();
+                        }
+                        else
+                        {
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"Looix {input} !!");
+                            return null;
                         }
                         if (input.DanhGiaSao != null)
                         {
