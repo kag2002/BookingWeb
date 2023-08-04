@@ -44,7 +44,7 @@ namespace BookingWeb.Modules.SearchingFilter
             _nhanXet = nhanXet;
         }
 
-        public async Task<PagedResultDto<PhongSearchinhFilterDto>> SearchingRoom(InfoBookingDto input)
+        public async Task<List<PhongSearchinhFilterDto>> SearchingRoom(InfoBookingDto input)
         {
             try
             {
@@ -109,14 +109,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                 dtoList = dtoList.OrderByDescending(q => q.LuotDatPhong).ToList();
 
-                var totalCount = dtoList.Count;
-
-                var pagedRooms = dtoList
-                    .Skip((input.pageIndex - 1) * input.pageSize)
-                    .Take(input.pageSize)
-                    .ToList();
-
-                return new PagedResultDto<PhongSearchinhFilterDto>(totalCount, pagedRooms);
+                return dtoList;
             }
             catch (Exception ex)
             {
@@ -124,13 +117,11 @@ namespace BookingWeb.Modules.SearchingFilter
             }
         }
 
-        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input)
+        public async Task<PagedResultDto<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input, List<PhongSearchinhFilterDto> input2)
         {
-            try
-            {
-                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("infoBooking");
+            try {
 
-                var dtoList = await SearchingRoom(infoBooking);
+                var dtoList = input2;
 
                 //Filter then sort
                 if (input.MienPhiHuyPhong == true)
@@ -139,7 +130,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                     var lstItem = new List<PhongSearchinhFilterDto>();
 
-                    var filteredRooms = dtoList.Items.Where(p => p.ListLoaiPhong.Select(q => q.MienPhiHuyPhong).ToString().ToLower() == "true").ToList();
+                    var filteredRooms = dtoList.Where(p => p.ListLoaiPhong.Select(q => q.MienPhiHuyPhong).ToString().ToLower() == "true").ToList();
 
                     if (input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
                     {
@@ -226,7 +217,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                     var lstItem = new List<PhongSearchinhFilterDto>();
 
-                    var filteredRooms = dtoList.Items.ToList();
+                    var filteredRooms = dtoList;
 
                     if (input.GiaPhongNhoNhat == 0 && input.GiaPhongLonNhat == 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
                     {
