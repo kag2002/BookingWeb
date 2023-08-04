@@ -106,7 +106,6 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                     }
                 }
-
                 dtoList = dtoList.OrderByDescending(q => q.LuotDatPhong).ToList();
 
                 return dtoList;
