@@ -27,6 +27,9 @@ import { AnimateModule } from "primeng/animate";
 import { ToastModule } from "primeng/toast";
 import { RatingModule } from "primeng/rating";
 import { SliderModule } from "primeng/slider";
+import { TableModule } from "primeng/table";
+import { PaginatorModule } from "primeng/paginator";
+
 // import { AgmCoreModule } from '@agm/core';
 
 // tenants
@@ -137,6 +140,8 @@ import { ThongtinlienheStartComponent } from "./chonphong/thongtinlienhe-start/t
     RatingModule,
     RadioButtonModule,
     SliderModule,
+    TableModule,
+    PaginatorModule,
 
     // PaginatorModule,
   ],
