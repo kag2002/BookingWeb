@@ -37,6 +37,7 @@
         name="rangeDates"
         [showIcon]="true"
         placeholder="Ngày nhận - trả phòng"
+        dateFormat="dd.mm.yy"
       ></p-calendar>
     </div>
     <!-- Tìm theo số người và số phòng  -->
@@ -86,7 +87,7 @@
         </div>
       </p-overlay>
     </div>
-    <!-- Button tìm  -->
+    <!-- Button tìm    routerLink="/app/khachsanlist"-->
     <div style="text-align: center">
       <p-button
         pRipple
@@ -95,7 +96,6 @@
         (click)="searchHotels()"
         styleClass="p-button-raised"
         label="Tìm kiếm"
-        routerLink="/app/khachsanlist"
         ><i class="pi pi-search"></i
       ></p-button>
       <p-toast></p-toast>
@@ -121,17 +121,44 @@
       <label for="ct">Tôi đi công tác</label>
     </div>
   </div>
+  <!-- Tìm kiếm gần đây -->
+  <div *ngIf="showTimKiemGanDay">
+    <h6>Tìm kiếm gần đây</h6>
+
+    <div
+      class="TimKiemGanDay"
+      style="
+        width: fit-content;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+      "
+    >
+      <div
+        class="slide-image"
+        [style.background-image]="
+          'url(/assets/img/DiaDiem/' +
+          formTimPhong.value.timkiemData.locations?.tenFileAnhDD +
+          ')'
+        "
+        routerLink="/app/khachsanlist"
+      ></div>
+      <div class="TimKiemGanDayDetail">
+        {{ formTimPhong.value.timkiemData.locations?.tenDiaDiem }}
+        <br />
+        {{ this.formTimPhong.value.timkiemData?.adults }} người lớn -
+        {{ this.formTimPhong.value.timkiemData?.children }}
+        trẻ em
+        <br />
+        Số phòng: {{ this.formTimPhong.value.timkiemData?.rooms }}
+      </div>
+    </div>
+  </div>
+  <!-- End Tìm kiếm gần đây -->
 </form>
-\
+
 <!-- <pre>
   {{ signInForm.value | json }}
 </pre> -->
 <!-- End Form tìm phòng -->
-
-<!-- 
-<div *ngFor="let item of phongSearchinhFilterDto">
-  {{ item.donViKinhDoanhId }}
-</div> -->
 
 <!-- Start sliders gợi ý -->
 <div class="container GoiY">

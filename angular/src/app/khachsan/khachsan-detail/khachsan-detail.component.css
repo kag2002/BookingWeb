@@ -55,7 +55,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 14px;
+  padding: 14px 30px;
 }
 
 .SubImage {
@@ -64,20 +64,24 @@
 
 /* DanhGiaPhong */
 .DanhGiaPhong {
-  padding: 14px;
+  padding: 14px 40px;
 }
 
 .DanhGiaPhong h6 {
   color: dodgerblue;
-  font-size: 26px;
+  font-size: 16px;
+}
+.DanhGiaPhong div {
+  font-weight: 600;
 }
 
 /* GiaPhong */
 .GiaPhong {
   display: flex;
   flex-direction: column;
-  padding: 14px;
-  margin-left: auto;
+  padding: 14px 0;
+
+  color: red;
 }
 .GiaPhong h6 {
   font-weight: 700;
@@ -85,17 +89,13 @@
   color: red;
 }
 .GiaPhong a {
-  background-color: #539fe8;
   color: white;
   width: fit-content;
   padding: 10px;
-  /* border: 1px solid black; */
-  box-shadow: 0px 0px 1px 1px gray;
+  font-weight: 700;
+  background-color: red;
 }
 /* DetailPhongBottom */
-.DetailPhongBottom {
-  display: flex;
-}
 
 .DetailPhongBottom div p {
   font-weight: 500;
@@ -112,13 +112,14 @@
 .DiemNoiBat div {
   text-align: center;
   padding: 15px 10px 0 10px;
+  font-weight: 600;
 }
-.ThongTinhHuuIch {
+.ThongTinHuuIch {
   display: flex;
   justify-content: center;
   margin-bottom: 100px;
 }
-.ThongTinhHuuIch div div p {
+.ThongTinHuuIch div div div {
   margin: 0;
   padding: 5px;
 }
@@ -139,6 +140,9 @@
 .QuyTacChung div .row {
   padding: 10px;
 }
+.QuyTacChung div div .col-lg-9 {
+  font-weight: 300;
+}
 .QuyTacChung div .row div i {
   padding-right: 5px;
 }
@@ -155,6 +159,9 @@
 }
 .PhongConTrong {
   padding: 20px;
+}
+.PhongConTrong h4 {
+  color: orangered;
 }
 .PhongConTrongListItem {
   padding: 42px;

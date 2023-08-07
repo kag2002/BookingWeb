@@ -29,8 +29,6 @@ export class KhachsanListComponent implements OnInit {
   listkhachsan = [];
   listkhachsanfiltered = [];
 
-  currentIndex = 0;
-
   phongSearchinhFilterList: PhongSearchinhFilterDto[];
 
   listLocKhachSanTrangChu = this.bookingInfoService.getBookingInfo();
@@ -92,12 +90,7 @@ export class KhachsanListComponent implements OnInit {
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-  pageIndex = 0;
-  onPageChange(event: any) {
-    // Update the pageIndex with the current page index from the event
-    this.pageIndex = event.page;
-    this.SearchingBookings(); // Call the searching method to fetch data for the current page
-  }
+
   filterKhachSan() {}
   SearchingBookings() {
     debugger;
@@ -117,4 +110,7 @@ export class KhachsanListComponent implements OnInit {
         console.log(this.phongSearchinhFilterList);
       });
   }
+  // resetLoc() {
+  //   this.formLoc.reset();
+  // }
 }

@@ -3,51 +3,39 @@
     <div class="row">
       <div class="form col-lg-6">
         <!-- Start Form gửi tin nhắn -->
-        <form action="" method="post">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
           <h3>Liên hệ cho chúng tôi</h3>
           <input
             type="text"
-            name="name"
-            required
-            maxlength="50"
+            formControlName="name"
             placeholder="Nhập tên"
             class="box"
           />
           <input
             type="email"
-            name="email"
-            required
-            maxlength="50"
+            formControlName="email"
             placeholder="Nhập email"
             class="box"
           />
           <input
             type="number"
-            name="number"
-            required
-            maxlength="10"
-            min="0"
-            max="9999999999"
+            formControlName="number"
             placeholder="Nhập số điện thoại"
             class="box"
           />
           <textarea
-            name="message"
-            class="box"
-            required
-            maxlength="1000"
+            formControlName="message"
             placeholder="Nội dung tin nhắn ..."
             cols="30"
             rows="10"
+            class="box"
           ></textarea>
 
           <p-button
             type="submit"
-            label="Submit"
-            value="Gửi tin"
-            name="send"
+            label="Gửi tin"
             class="btn"
-            styleClass="p-button-secondary"
+            styleClass="p-button-raised "
           ></p-button>
         </form>
         <!-- End Form gửi tin nhắn -->
