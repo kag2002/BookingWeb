@@ -4637,61 +4637,26 @@ export class SearchingFilterServiceProxy {
     }
 
     /**
-     * @param mienPhiHuyPhong (optional) 
-     * @param giaPhongNhoNhat (optional) 
-     * @param giaPhongLonNhat (optional) 
-     * @param danhGiaSao (optional) 
-     * @param hinhThucPhongId (optional) 
-     * @param sortCondition (optional) 
-     * @param input2 (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    getRoomsByLocationAndFilter(mienPhiHuyPhong: boolean | undefined, giaPhongNhoNhat: number | undefined, giaPhongLonNhat: number | undefined, danhGiaSao: number[] | undefined, hinhThucPhongId: number[] | undefined, sortCondition: number | undefined, input2: PhongSearchinhFilterDto[] | undefined): Observable<PhongSearchinhFilterDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocationAndFilter?";
-        if (mienPhiHuyPhong === null)
-            throw new Error("The parameter 'mienPhiHuyPhong' cannot be null.");
-        else if (mienPhiHuyPhong !== undefined)
-            url_ += "MienPhiHuyPhong=" + encodeURIComponent("" + mienPhiHuyPhong) + "&";
-        if (giaPhongNhoNhat === null)
-            throw new Error("The parameter 'giaPhongNhoNhat' cannot be null.");
-        else if (giaPhongNhoNhat !== undefined)
-            url_ += "GiaPhongNhoNhat=" + encodeURIComponent("" + giaPhongNhoNhat) + "&";
-        if (giaPhongLonNhat === null)
-            throw new Error("The parameter 'giaPhongLonNhat' cannot be null.");
-        else if (giaPhongLonNhat !== undefined)
-            url_ += "GiaPhongLonNhat=" + encodeURIComponent("" + giaPhongLonNhat) + "&";
-        if (danhGiaSao === null)
-            throw new Error("The parameter 'danhGiaSao' cannot be null.");
-        else if (danhGiaSao !== undefined)
-            danhGiaSao && danhGiaSao.forEach(item => { url_ += "DanhGiaSao=" + encodeURIComponent("" + item) + "&"; });
-        if (hinhThucPhongId === null)
-            throw new Error("The parameter 'hinhThucPhongId' cannot be null.");
-        else if (hinhThucPhongId !== undefined)
-            hinhThucPhongId && hinhThucPhongId.forEach(item => { url_ += "HinhThucPhongId=" + encodeURIComponent("" + item) + "&"; });
-        if (sortCondition === null)
-            throw new Error("The parameter 'sortCondition' cannot be null.");
-        else if (sortCondition !== undefined)
-            url_ += "SortCondition=" + encodeURIComponent("" + sortCondition) + "&";
-        if (input2 === null)
-            throw new Error("The parameter 'input2' cannot be null.");
-        else if (input2 !== undefined)
-            input2 && input2.forEach((item, index) => {
-                for (let attr in item)
-        			if (item.hasOwnProperty(attr)) {
-        				url_ += "input2[" + index + "]." + attr + "=" + encodeURIComponent("" + (item as any)[attr]) + "&";
-        			}
-            });
+    getRoomsByLocationAndFilter(body: SearchingFilterRoomInputDto | undefined): Observable<PhongSearchinhFilterDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SearchingFilter/GetRoomsByLocationAndFilter";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processGetRoomsByLocationAndFilter(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -10693,6 +10658,97 @@ export class RoleListDtoListResultDto implements IRoleListDtoListResultDto {
 
 export interface IRoleListDtoListResultDto {
     items: RoleListDto[] | undefined;
+}
+
+export class SearchingFilterRoomInputDto implements ISearchingFilterRoomInputDto {
+    lst: PhongSearchinhFilterDto[] | undefined;
+    mienPhiHuyPhong: boolean;
+    giaPhongNhoNhat: number;
+    giaPhongLonNhat: number;
+    danhGiaSao: number[] | undefined;
+    hinhThucPhongId: number[] | undefined;
+    sortCondition: number;
+
+    constructor(data?: ISearchingFilterRoomInputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["lst"])) {
+                this.lst = [] as any;
+                for (let item of _data["lst"])
+                    this.lst.push(PhongSearchinhFilterDto.fromJS(item));
+            }
+            this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
+            this.giaPhongNhoNhat = _data["giaPhongNhoNhat"];
+            this.giaPhongLonNhat = _data["giaPhongLonNhat"];
+            if (Array.isArray(_data["danhGiaSao"])) {
+                this.danhGiaSao = [] as any;
+                for (let item of _data["danhGiaSao"])
+                    this.danhGiaSao.push(item);
+            }
+            if (Array.isArray(_data["hinhThucPhongId"])) {
+                this.hinhThucPhongId = [] as any;
+                for (let item of _data["hinhThucPhongId"])
+                    this.hinhThucPhongId.push(item);
+            }
+            this.sortCondition = _data["sortCondition"];
+        }
+    }
+
+    static fromJS(data: any): SearchingFilterRoomInputDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SearchingFilterRoomInputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.lst)) {
+            data["lst"] = [];
+            for (let item of this.lst)
+                data["lst"].push(item.toJSON());
+        }
+        data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
+        data["giaPhongNhoNhat"] = this.giaPhongNhoNhat;
+        data["giaPhongLonNhat"] = this.giaPhongLonNhat;
+        if (Array.isArray(this.danhGiaSao)) {
+            data["danhGiaSao"] = [];
+            for (let item of this.danhGiaSao)
+                data["danhGiaSao"].push(item);
+        }
+        if (Array.isArray(this.hinhThucPhongId)) {
+            data["hinhThucPhongId"] = [];
+            for (let item of this.hinhThucPhongId)
+                data["hinhThucPhongId"].push(item);
+        }
+        data["sortCondition"] = this.sortCondition;
+        return data;
+    }
+
+    clone(): SearchingFilterRoomInputDto {
+        const json = this.toJSON();
+        let result = new SearchingFilterRoomInputDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ISearchingFilterRoomInputDto {
+    lst: PhongSearchinhFilterDto[] | undefined;
+    mienPhiHuyPhong: boolean;
+    giaPhongNhoNhat: number;
+    giaPhongLonNhat: number;
+    danhGiaSao: number[] | undefined;
+    hinhThucPhongId: number[] | undefined;
+    sortCondition: number;
 }
 
 export enum TenantAvailabilityState {

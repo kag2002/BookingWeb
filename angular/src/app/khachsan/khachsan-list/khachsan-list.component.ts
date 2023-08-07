@@ -4,8 +4,10 @@ import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   PhongSearchinhFilterDto,
   PhongServiceProxy,
+  SearchingFilterRoomInputDto,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
+import { error } from "console";
 
 @Component({
   selector: "app-khachsan-list",
@@ -27,19 +29,18 @@ export class KhachsanListComponent implements OnInit {
   stars: number[] = [1, 2, 3, 4, 5];
   maxPrice: number = 4000000;
   listkhachsan = [];
-  listkhachsanfiltered = [];
 
-  phongSearchinhFilterList: PhongSearchinhFilterDto[];
 
-  listLocKhachSanTrangChu = this.bookingInfoService.getBookingInfo();
-  // searchingFilterRoomInputDto:SearchingFilterRoomInputDto
+  searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
+
+  listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
+
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
     private _searchingFilterService: SearchingFilterServiceProxy,
     private bookingInfoService: BookingInfoService
   ) {}
-  listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
   ngOnInit() {
     this._phongService.getAllRoom().subscribe((result) => {
       this.listkhachsan = result;
@@ -82,33 +83,38 @@ export class KhachsanListComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
-    this.SearchingBookings();
-  }
-
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
 
-  filterKhachSan() {}
-  SearchingBookings() {
-    debugger;
+
+  onSubmit() {
+    this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
+    console.log("Đã nhận được:", this.listLocKhachSanLuuTru);
+
+    this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
+    this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
+    this.searchingFilterRoomInputDto.giaPhongLonNhat = 100000;
+    this.searchingFilterRoomInputDto.giaPhongNhoNhat = 0;
+    this.searchingFilterRoomInputDto.hinhThucPhongId = [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ];
+    this.searchingFilterRoomInputDto.mienPhiHuyPhong = false;
+    this.searchingFilterRoomInputDto.sortCondition = 4;
+
     this._searchingFilterService
-      .getRoomsByLocationAndFilter(
-        true,
-        0,
-        10000,
-        [5],
-        [1, 2, 3],
-        0,
-        this.listLocKhachSanLuuTru
-      )
-      .subscribe((results) => {
-        console.log("hello");
-        this.phongSearchinhFilterList = results;
-        console.log(this.phongSearchinhFilterList);
-      });
+      .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
+      .subscribe(
+        (result) => {
+          console.log("ket qua", result);
+        },
+        (error) => {
+          console.log("loi:", error);
+        },
+        () => {
+          console.log("da loc thanh cong");
+        }
+      );
   }
   // resetLoc() {
   //   this.formLoc.reset();
