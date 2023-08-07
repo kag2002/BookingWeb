@@ -106,9 +106,10 @@ export class LuutruComponent {
       .subscribe((result) => {
         this.phongSearchinhFilterDto = result;
         this.bookingInfoService.setBookingInfo(this.phongSearchinhFilterDto);
-        console.log(this.phongSearchinhFilterDto);
+
+        console.log("Gui du lieu :", this.phongSearchinhFilterDto);
       });
-    console.log(this.inforBookingDto);
+    console.log("Gui du lieu :", this.inforBookingDto);
   }
 
   toggleForm() {
