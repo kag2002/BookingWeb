@@ -23,7 +23,14 @@
       <!-- Form lọc -->
       <div class="card Loc">
         <form class="FormLoc" [formGroup]="formLoc" (ngSubmit)="onSubmit()">
-          <p style="font-size: 18px; font-weight: 700">Lọc kết quả</p>
+          <div>
+            <p style="font-size: 18px; font-weight: 700">Lọc kết quả</p>
+
+            <div style="font-size: 12px; font-weight: 500; color: gray">
+              Hiển thị kết quả phân loại theo:
+            </div>
+          </div>
+
           <hr />
           <!-- Miễn phí hủy phòng -->
           <div class="MienPhiHuyPhong">
@@ -202,81 +209,56 @@
         [pageLinks]="3"
       >
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-          <!-- Table body rows here -->
-
           <tr
             [routerLink]="['/app/khachsanstart', item?.phongId]"
             style="cursor: pointer"
           >
-            <!-- Image -->
+            <!-- Image Khach San -->
             <td>
               <div
                 class="slide-image"
                 [ngStyle]="{
-                  'background-image': getCurrentSlideUrl(
-                    (currentIndex + i) % listkhachsan.length
-                  )
+                  'background-image': getCurrentSlideUrl(i)
                 }"
                 tabindex="0"
               ></div>
             </td>
-            <!-- Details -->
+            <!-- Details Khach San-->
             <td>
-              <!-- Content of "Ten Loai Don Vi" -->
+              <!-- Ten Loai Don Vi -->
               <p style="font-weight: 700">
-                {{
-                  listkhachsan[(currentIndex + i) % listkhachsan.length]
-                    ?.hinhThucPhong
-                }}-{{
-                  listkhachsan[(currentIndex + i) % listkhachsan.length]
-                    ?.tenDonVi
-                }}
+                {{ listkhachsan[i]?.hinhThucPhong }}
+                <br />
+                {{ listkhachsan[i]?.tenDonVi }}
               </p>
-              <!-- Content of "Dia Diem" -->
-              <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
+              <!--Dia Diem -->
+              <div class="DiaDiem">
                 <div style="display: flex; padding-bottom: 3px">
                   <p class="HinhThucPhongTitle">
-                    {{
-                      listkhachsan[(currentIndex + i) % listkhachsan.length]
-                        ?.hinhThucPhong
-                    }}
+                    {{ listkhachsan[i]?.hinhThucPhong }}
                   </p>
                   <p-rating
                     [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
-                    [ngModel]="
-                      listkhachsan[(currentIndex + i) % listkhachsan.length]
-                        ?.danhGiaSaoTb
-                    "
+                    [ngModel]="listkhachsan[i]?.danhGiaSaoTb"
                     [readonly]="true"
                     [cancel]="false"
                   ></p-rating>
                 </div>
                 <i class="pi pi-map-marker"></i>
-                {{
-                  listkhachsan[(currentIndex + i) % listkhachsan.length]
-                    ?.tenDiaDiem
-                }}
+                {{ listkhachsan[i]?.tenDiaDiem }}
               </div>
               <!-- Content of "Danh Gia Phong" -->
               <div class="DanhGiaPhong">
                 <p>Điểm đánh giá</p>
-                <h6>
-                  {{
-                    listkhachsan[(currentIndex + i) % listkhachsan.length]
-                      ?.diemDanhGiaTB
-                  }}/10
-                </h6>
+                <h6>{{ listkhachsan[i]?.diemDanhGiaTB }}/10</h6>
               </div>
             </td>
             <!-- Content of "Gia Phong" -->
             <td>
               <div class="GiaPhong">
                 <p>Thanh toán khi nhận phòng</p>
-                <h6 style="color: red">
-                  VNĐ:{{
-                    listkhachsan[(currentIndex + i) % listkhachsan.length]
-                      ?.listLoaiPhong[0].giaPhongTheoDem
-                  }}
+                <h6>
+                  VNĐ:{{ listkhachsan[i]?.listLoaiPhong[0].giaPhongTheoDem }}
                 </h6>
                 <p>Giá cuối cùng</p>
               </div>

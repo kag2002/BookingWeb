@@ -6,13 +6,13 @@
       <p class="TenLoaiDonVi">
         {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
       </p>
-      <p>
+      <div style="font-weight: 900; color: gray">
         {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
-      </p>
-      <div style="display: flex">
-        <p class="HinhThucPhongTitle">
+      </div>
+      <div style="display: flex; padding: 7px 0">
+        <div class="HinhThucPhongTitle">
           {{ selectedkhachsan?.hinhThucPhong }}
-        </p>
+        </div>
         <p-rating
           [iconOnStyle]="{ color: '#FFD200', fontSize: '15px' }"
           [ngModel]="selectedkhachsan?.danhGiaSaoTb"
@@ -20,7 +20,7 @@
           [cancel]="false"
         ></p-rating>
       </div>
-      <div class="DiaDiem" style="width: fit-content; margin: 10px 0">
+      <div class="DiaDiem" style="margin: 2px 0; font-weight: bold">
         <i class="pi pi-map-marker"></i>
 
         {{ selectedkhachsan?.diaChiChiTiet }}
@@ -28,7 +28,7 @@
     </div>
     <!--EndHeaderRoomDetail -->
 
-    <hr />
+    <hr style="margin: 0 30px" />
 
     <!-- Image -->
     <div class="row" style="margin: 0 12px">
@@ -59,13 +59,17 @@
     <!-- End image -->
 
     <!-- BottomRoomDetail -->
-    <div class="DetailPhongBottom">
-      <div class="DanhGiaPhong">
-        <p>Stay Ease</p>
-        <h6>{{ selectedkhachsan?.diemDanhGiaTB }}/10</h6>
+    <div class="row">
+      <div class="col-lg-10 DanhGiaPhong">
+        <h5>Stay Ease</h5>
+        <h6>
+          <i class="fa-solid fa-hotel"></i>
+          {{ selectedkhachsan?.diemDanhGiaTB }}/10 Ấn tượng
+        </h6>
+        <div>Từ {{ selectedkhachsan?.luoDatPhong }} lượt khách</div>
       </div>
-      <div class="GiaPhong">
-        <p>Thanh toán khi nhận phòng</p>
+      <div class="col-lg-2 GiaPhong">
+        <p>Giá mỗi đêm chỉ từ</p>
         <h6>VNĐ:{{ selectedkhachsan?.listLoaiPhong[0].giaPhongTheoDem }}</h6>
         <a href="/app/khachsanstart/{{ id }}#PhongConTrong" class="btn"
           >Đặt phòng</a
@@ -104,20 +108,25 @@
   <hr style="margin: 20px 0px" />
 
   <!-- ThongTinHuuIch -->
-  <div class="row ThongTinhHuuIch">
+
+  <div class="row ThongTinHuuIch" style="width: 80%; justify-content: center">
     <h5 class="col-lg-4">Thông tin hữu ích</h5>
     <div class="col-lg-8">
-      <div>
-        <p class="white-background">Đáng giá tiền : 8,6</p>
+      <div class="row white-background">
+        <div class="col-lg-5">Đáng giá tiền</div>
+        <div class="col-lg-7">8,6</div>
       </div>
-      <div>
-        <p class="gray-background">Cách trung tâm : 3km</p>
+      <div class="row gray-background">
+        <div class="col-lg-5">Cách trung tâm</div>
+        <div class="col-lg-7">3km</div>
       </div>
-      <div>
-        <p class="white-background">Đánh giá vị trí : 9</p>
+      <div class="white-background row">
+        <div class="col-lg-5">Đánh giá vị trí</div>
+        <div class="col-lg-7">9</div>
       </div>
-      <div>
-        <p class="gray-background">Sân bay gần nhất : 10km</p>
+      <div class="row gray-background">
+        <div class="col-lg-5">Sân bay gần nhất</div>
+        <div class="col-lg-7">10km</div>
       </div>
     </div>
   </div>
@@ -271,7 +280,7 @@
 
         <hr />
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-9">
             <p-checkbox
               [disabled]="true"
               (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
@@ -293,7 +302,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-5"></div>
+
           <div class="col-lg-3">
             Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
             Giá gói dịch vụ thêm:
@@ -319,12 +328,13 @@
       <br /><br />
     </div>
   </div>
-
   <!-- EndPhongConTrong -->
 </div>
+
+<!-- Dang ky email -->
 <div class="DangKyEmail">
   <div class="container DangKyEmailContainer">
-    <h3>Tiết kiệm thời gian và tiền bạc</h3>
+    <h3 style="font-family: auto">Tiết kiệm thời gian và tiền bạc</h3>
     <p>Hãy đăng ký và chúng tôi sẽ gửi những ưu đãi tốt nhất cho bạn</p>
     <div class="SubmitEmail">
       <input
@@ -333,8 +343,9 @@
         pInputText
         [(ngModel)]="value"
       />
-      <p-button label="Submit"></p-button>
+      <p-button label="Đăng ký"></p-button>
     </div>
   </div>
 </div>
+<!--End Dang ky email -->
 <app-footer></app-footer>

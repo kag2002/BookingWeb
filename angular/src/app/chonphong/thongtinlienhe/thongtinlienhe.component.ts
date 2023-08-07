@@ -75,22 +75,10 @@ export class ThongtinlienheComponent {
   }
 
   onSubmit() {
-    // Handle the form submission here
     console.log(this.selectedloaiphong.value);
   }
 
   addClientBookRoom() {
-    // this.clientBookRoomOutputDto.donViKinhDoanhId=this.id
-    // this.clientBookRoomOutputDto.tenDonVi=this.selectedphong.tenDonVi
-    // this.clientBookRoomOutputDto.phongId=this.selectedloaiphong.phongId
-    // this.clientBookRoomOutputDto.tenLoaiPhong=this.selectedloaiphong.tenLoaiPhong
-    // this.clientBookRoomOutputDto.cccd=12345679876543;
-    // this.clientBookRoomOutputDto.sucChuaPhong=this.selectedloaiphong.value.sucChuaPhong
-    // this.clientBookRoomOutputDto.moTaPhong=this.selectedloaiphong.value.moTaPhong
-    // this.clientBookRoomOutputDto.tienNghi=this.selectedloaiphong.value.tienNghi
-    // this.clientBookRoomOutputDto.giaPhongTheoDem=this.selectedloaiphong.value.giaPhongTheoDem
-    // this.clientBookRoomOutputDto.mienPhiHuyPhong=this.selectedloaiphong.value.mienPhiHuyPhong
-
     this.clientBookRoomInputDto.phongId = this.id;
     this.clientBookRoomInputDto.loaiPhongId = this.idloaiphong;
     this.clientBookRoomInputDto.datHo = this?.FormThongTinLienHe.value.datho;
