@@ -4,6 +4,7 @@ using BookingWeb.DbEntities;
 using BookingWeb.Modules.SearchingFilter.Dto;
 using BookingWeb.SessionsDefine;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace BookingWeb.Modules.SearchingFilter
         {
             try
             {
+
                 await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", input);
 
                 var lstP = await _phong.GetAllListAsync();
@@ -108,6 +110,8 @@ namespace BookingWeb.Modules.SearchingFilter
                 }
                 dtoList = dtoList.OrderByDescending(q => q.LuotDatPhong).ToList();
 
+                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("lstRoom", dtoList);
+
                 return dtoList;
             }
             catch (Exception ex)
@@ -116,12 +120,15 @@ namespace BookingWeb.Modules.SearchingFilter
             }
         }
 
-        public async Task<List<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input, List<PhongSearchinhFilterDto> input2)
+        [HttpPost()]
+        public async Task<List<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input)
         {
-            try {
+            try
+            {
 
-                var dtoList = input2;
+                /* var dtoList = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<List<PhongSearchinhFilterDto>>("lstRoom");*/
 
+                var dtoList = input.lst;
                 //Filter then sort
                 if (input.MienPhiHuyPhong == true)
                 {
@@ -137,18 +144,23 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     else
                     {
-                        if (input.GiaPhongNhoNhat >= 0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
+                        if (input.GiaPhongNhoNhat != 0 )
                         {
-                            filteredRooms = filteredRooms.Where(room =>
-                                                       (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
-                                                       room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
-                                                   ).ToList();
+                            if(input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
+                            {
+                                filteredRooms = filteredRooms.Where(room =>
+                                                           (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
+                                                           room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
+                                                       ).ToList();
+
+                            }
+                            else
+                            {
+                                await _httpContextAccessor.HttpContext.Response.WriteAsync("gia phong nhap sai");
+                                return null;
+                            }
                         }
-                        else
-                        {
-                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"Looix {input} !!");
-                            return null;
-                        }
+                        
                         if (input.DanhGiaSao != null)
                         {
                             foreach (var e in input.DanhGiaSao)
@@ -230,18 +242,14 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     else
                     {
-                        if (input.GiaPhongNhoNhat >= 0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
+                        if (input.GiaPhongNhoNhat != 0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
                         {
                             filteredRooms = filteredRooms.Where(room =>
                                                        (input.GiaPhongNhoNhat <= room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() &&
                                                        room.ListLoaiPhong.Select(q => q.GiaPhongTheoDem).Min() <= input.GiaPhongLonNhat)
                                                    ).ToList();
                         }
-                        else
-                        {
-                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"Looix {input} !!");
-                            return null;
-                        }
+                        
                         if (input.DanhGiaSao != null)
                         {
                             foreach (var e in input.DanhGiaSao)

@@ -67,7 +67,7 @@ namespace BookingWeb.Web.Host.Startup
                             // App:CorsOrigins in appsettings.json can contain more than one address separated by comma.
                             _appConfiguration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
-                                .Select(o => o.RemovePostFix("/"))
+                                .Select(o => o.RemovePostFix("/*"))
                                 .ToArray()
                         )
                         .AllowAnyHeader()
