@@ -71,7 +71,7 @@
 .MoneyRangeInput {
   display: flex;
   justify-content: center;
-  margin-bottom: 16px;
+  margin: 22px 0;
 }
 .MoneyRangeInput input {
   border-radius: 10px;
@@ -124,10 +124,12 @@
 }
 .DiaDiem {
   font-size: 13px;
+  width: fit-content;
+  margin: 10px 0;
   color: dodgerblue;
 }
 .DanhGiaPhong h6 {
-  color: #003b95;
+  color: red;
   margin-bottom: 1.5rem;
 }
 .DanhGiaPhong p {

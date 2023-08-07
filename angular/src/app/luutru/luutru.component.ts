@@ -26,7 +26,7 @@ export class LuutruComponent {
   selectedDiadiem: any;
   filteredDiadiems: any[];
   rangeDates: Date[];
-  showForm = false;
+  showTimKiemGanDay = false;
 
   adults = 0;
   children = 0;
@@ -109,12 +109,15 @@ export class LuutruComponent {
 
         console.log("Gui du lieu :", this.phongSearchinhFilterDto);
       });
+
     console.log("Gui du lieu :", this.inforBookingDto);
+
+    this.showTimKiemGanDay = true;
+
   }
 
   toggleForm() {
     this.overlayVisible = !this.overlayVisible;
-    this.showForm = !this.showForm;
   }
 
   show() {

@@ -30,9 +30,11 @@ export class KhachsanListComponent implements OnInit {
   maxPrice: number = 4000000;
   listkhachsan = [];
 
+
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
+
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
@@ -85,6 +87,7 @@ export class KhachsanListComponent implements OnInit {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
 
+
   onSubmit() {
     this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
     console.log("Đã nhận được:", this.listLocKhachSanLuuTru);
@@ -113,4 +116,7 @@ export class KhachsanListComponent implements OnInit {
         }
       );
   }
+  // resetLoc() {
+  //   this.formLoc.reset();
+  // }
 }

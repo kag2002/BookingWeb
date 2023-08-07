@@ -53,7 +53,7 @@
   border-radius: 4%;
 
   font-size: 1.2rem;
-  color: #003b95;
+  color: white;
   background-color: rgb(40 120 202);
   width: 100%;
 }
@@ -64,6 +64,8 @@
 
 .contact .row form textarea {
   height: 10rem;
+  color: black;
+  background-color: whitesmoke;
 }
 
 /*  Câu hỏi thường gặp */
