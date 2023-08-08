@@ -21,6 +21,8 @@ export class KhachsanListComponent implements OnInit {
 
   rangeValues: number[] = [1000, 3000];
 
+  lstLoaiPhong: [];
+
   sapxeps: any[] = [
     { name: "Giá cao nhất", key: 1 },
     { name: "Giá thấp nhất", key: 2 },
@@ -36,6 +38,8 @@ export class KhachsanListComponent implements OnInit {
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
 
+  selectedStars: number[] = [];
+  selectedLoaiHinhCuTru: number[] = [];
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
@@ -109,9 +113,10 @@ export class KhachsanListComponent implements OnInit {
       this.formLoc.value.inputminprice;
     this.searchingFilterRoomInputDto.giaPhongLonNhat =
       this.formLoc.value.inputmaxprice;
-    this.searchingFilterRoomInputDto.hinhThucPhongId = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    ];
+    this.searchingFilterRoomInputDto.giaPhongNhoNhat =
+      this.formLoc.value.inputminprice;
+    this.searchingFilterRoomInputDto.hinhThucPhongId = [1, 2, 3, 4, 5];
+    // this.selectedLoaiHinhCuTru;
     this.searchingFilterRoomInputDto.mienPhiHuyPhong =
       this.formLoc.value.mienphihuyphong;
     this.searchingFilterRoomInputDto.sortCondition = 4;

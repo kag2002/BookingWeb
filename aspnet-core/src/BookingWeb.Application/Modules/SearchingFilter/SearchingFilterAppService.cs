@@ -145,9 +145,9 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     else
                     {
-                        if (input.GiaPhongNhoNhat != 0 )
+                        if (input.GiaPhongNhoNhat >= 0 )
                         {
-                            if(input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
+                            if(input.GiaPhongLonNhat != 0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
                             {
                                 filteredRooms = filteredRooms.Where(room =>
                                                            (input.GiaPhongNhoNhat <= room.GiaPhongThapNhat &&
@@ -160,6 +160,11 @@ namespace BookingWeb.Modules.SearchingFilter
                                 await _httpContextAccessor.HttpContext.Response.WriteAsync("gia phong nhap sai");
                                 return null;
                             }
+                        }
+                        else
+                        {
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync("gia phong trong");
+                            return null;
                         }
                         
                         if (input.DanhGiaSao != null)
@@ -243,9 +248,9 @@ namespace BookingWeb.Modules.SearchingFilter
                     }
                     else
                     {
-                        if (input.GiaPhongNhoNhat != 0)
+                        if (input.GiaPhongNhoNhat >= 0)
                         {
-                            if (input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
+                            if (input.GiaPhongLonNhat!=0 && input.GiaPhongLonNhat >= input.GiaPhongNhoNhat)
                             {
                                 filteredRooms = filteredRooms.Where(room =>
                                                            (input.GiaPhongNhoNhat <= room.GiaPhongThapNhat &&
@@ -258,6 +263,11 @@ namespace BookingWeb.Modules.SearchingFilter
                                 await _httpContextAccessor.HttpContext.Response.WriteAsync("gia phong nhap sai");
                                 return null;
                             }
+                        }
+                        else
+                        {
+                            await _httpContextAccessor.HttpContext.Response.WriteAsync("gia phong trong");
+                            return null;
                         }
 
                         if (input.DanhGiaSao != null)
