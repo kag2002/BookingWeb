@@ -32,7 +32,6 @@ export class KhachsanListComponent implements OnInit {
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
 
-
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
@@ -103,12 +102,12 @@ export class KhachsanListComponent implements OnInit {
 
   onSubmit() {
     // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
-
+    debugger;
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
-    this.searchingFilterRoomInputDto.giaPhongLonNhat =
-      this.formLoc.value.inputminprice;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
+      this.formLoc.value.inputminprice;
+    this.searchingFilterRoomInputDto.giaPhongLonNhat =
       this.formLoc.value.inputmaxprice;
     this.searchingFilterRoomInputDto.hinhThucPhongId = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -121,10 +120,8 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
-
           console.log("ket qua", result);
           this.listkhachsan = result;
-
         },
         (error) => {
           console.log("loi 2:", error);

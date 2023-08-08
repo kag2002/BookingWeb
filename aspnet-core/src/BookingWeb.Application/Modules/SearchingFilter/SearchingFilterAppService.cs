@@ -95,7 +95,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                                 HinhThucPhongId = hinhThucPhong.Id,
                                 HinhThucPhong = hinhThucPhong.TenHinhThuc,
-                                GiaPhongThapNhat = loaiPhong.Select(q => q.GiaPhongTheoDem).Min(),
+                                GiaPhongThapNhat = loaiPhong.Where(p => p.DonViKinhDoanhId == i.DonViKinhDoanhId).Select(q => q.GiaPhongTheoDem).Min(),
                                 ListLoaiPhong = loaiPhong.Where(p => p.DonViKinhDoanhId == i.DonViKinhDoanhId).Select(e => new LoaiPhongSearchingFilterDto
                                 {
                                     LoaiPhongId = e.Id,
