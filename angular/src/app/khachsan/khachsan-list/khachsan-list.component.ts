@@ -21,6 +21,8 @@ export class KhachsanListComponent implements OnInit {
 
   rangeValues: number[] = [1000, 3000];
 
+  lstLoaiPhong: [];
+
   sapxeps: any[] = [
     { name: "Giá cao nhất", key: 1 },
     { name: "Giá thấp nhất", key: 2 },
@@ -32,11 +34,12 @@ export class KhachsanListComponent implements OnInit {
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
 
-
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
 
+  selectedStars: number[] = [];
+  selectedLoaiHinhCuTru: number[] = [];
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
@@ -102,17 +105,31 @@ export class KhachsanListComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
+    // Get the selected stars from LocSaoData
+    const locSaoData = this.formLoc.get("LocSaoData") as FormGroup;
+    for (let star of this.stars) {
+      if (locSaoData.get(`value${star}`).value) {
+        this.selectedStars.push(star);
+      }
+    }
 
+    // Get the selected LoaiHinhCuTru options
+    const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
+    for (let key in locLoaiHinhCuTru.controls) {
+      if (locLoaiHinhCuTru.get(key).value) {
+        this.selectedLoaiHinhCuTru.push(parseInt(key));
+      }
+    }
+    // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
+    debugger;
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
-    this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
+    this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
     this.searchingFilterRoomInputDto.giaPhongLonNhat =
-      this.formLoc.value.inputminprice;
-    this.searchingFilterRoomInputDto.giaPhongNhoNhat =
       this.formLoc.value.inputmaxprice;
-    this.searchingFilterRoomInputDto.hinhThucPhongId = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    ];
+    this.searchingFilterRoomInputDto.giaPhongNhoNhat =
+      this.formLoc.value.inputminprice;
+    this.searchingFilterRoomInputDto.hinhThucPhongId = [1, 2, 3, 4, 5];
+    // this.selectedLoaiHinhCuTru;
     this.searchingFilterRoomInputDto.mienPhiHuyPhong =
       this.formLoc.value.mienphihuyphong;
     this.searchingFilterRoomInputDto.sortCondition = 4;
@@ -121,10 +138,8 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
-
           console.log("ket qua", result);
           this.listkhachsan = result;
-
         },
         (error) => {
           console.log("loi 2:", error);
