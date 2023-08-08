@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  LienHeServiceProxy,
+  MessageDto,
+} from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-lienhe",
@@ -8,11 +12,13 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class LienheComponent implements OnInit {
   contactForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {}
+  lienHeDto: MessageDto;
+  constructor(private fb: FormBuilder, private _lienhe: LienHeServiceProxy) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.lienHeDto = new MessageDto(); // Initialize the object here
+
     const faqBoxes = document.querySelectorAll(".contact .row .faq .box h3");
 
     faqBoxes.forEach((faqBox: HTMLElement) => {
@@ -34,9 +40,20 @@ export class LienheComponent implements OnInit {
     });
   }
   onSubmit(): void {
-    if (this.contactForm.valid) {
-      const formData = this.contactForm.value;
-      console.log(formData);
-    }
+    this.lienHeDto = new MessageDto(); // Initialize the object here
+
+    this.lienHeDto.hoten = this.contactForm.value.name;
+    this.lienHeDto.email = this.contactForm.value.email;
+    this.lienHeDto.phoneNumber = this.contactForm.value.number;
+    this.lienHeDto.noiDung = this.contactForm.value.message;
+
+    this._lienhe.clientSendToMessage(this.lienHeDto).subscribe(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.log("loi lienhe:", error);
+      }
+    );
   }
 }
