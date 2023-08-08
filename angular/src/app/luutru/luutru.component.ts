@@ -113,7 +113,6 @@ export class LuutruComponent {
     console.log("Gui du lieu :", this.inforBookingDto);
 
     this.showTimKiemGanDay = true;
-
   }
 
   toggleForm() {

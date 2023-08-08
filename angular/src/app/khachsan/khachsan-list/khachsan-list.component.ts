@@ -19,7 +19,7 @@ export class KhachsanListComponent implements OnInit {
   formSapXep: FormGroup;
   formLoc: FormGroup;
 
-  rangeValues: number[] = [1000000, 3000000];
+  rangeValues: number[] = [1000, 3000];
 
   sapxeps: any[] = [
     { name: "Giá cao nhất", key: 1 },
@@ -28,8 +28,10 @@ export class KhachsanListComponent implements OnInit {
     { name: "Độ phổ biến", key: 4 },
   ];
   stars: number[] = [1, 2, 3, 4, 5];
-  maxPrice: number = 4000000;
-  listkhachsan = [];
+
+  maxPrice: number = 20000;
+  listkhachsan: PhongSearchinhFilterDto[];
+
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
@@ -63,7 +65,7 @@ export class KhachsanListComponent implements OnInit {
     });
 
     this.formLoc = this.fb.group({
-      mienphihuyphong: null,
+      mienphihuyphong: false,
       inputminprice: [this.rangeValues[0]],
       inputmaxprice: [this.rangeValues[1]],
       inputprice: [this.rangeValues],
@@ -104,20 +106,25 @@ export class KhachsanListComponent implements OnInit {
 
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
-    this.searchingFilterRoomInputDto.giaPhongLonNhat = 100000;
-    this.searchingFilterRoomInputDto.giaPhongNhoNhat = 0;
+    this.searchingFilterRoomInputDto.giaPhongLonNhat =
+      this.formLoc.value.inputminprice;
+    this.searchingFilterRoomInputDto.giaPhongNhoNhat =
+      this.formLoc.value.inputmaxprice;
     this.searchingFilterRoomInputDto.hinhThucPhongId = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ];
-    this.searchingFilterRoomInputDto.mienPhiHuyPhong = false;
+    this.searchingFilterRoomInputDto.mienPhiHuyPhong =
+      this.formLoc.value.mienphihuyphong;
     this.searchingFilterRoomInputDto.sortCondition = 4;
 
     this._searchingFilterService
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
+
           console.log("ket qua", result);
           this.listkhachsan = result;
+
         },
         (error) => {
           console.log("loi 2:", error);
