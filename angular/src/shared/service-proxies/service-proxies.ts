@@ -10073,6 +10073,7 @@ export class PhongSearchinhFilterDto implements IPhongSearchinhFilterDto {
     luotDatPhong: number;
     diemDanhGiaTB: number;
     danhGiaSaoTb: number;
+    giaPhongThapNhat: number;
     listLoaiPhong: LoaiPhongSearchingFilterDto[] | undefined;
 
     constructor(data?: IPhongSearchinhFilterDto) {
@@ -10096,6 +10097,7 @@ export class PhongSearchinhFilterDto implements IPhongSearchinhFilterDto {
             this.luotDatPhong = _data["luotDatPhong"];
             this.diemDanhGiaTB = _data["diemDanhGiaTB"];
             this.danhGiaSaoTb = _data["danhGiaSaoTb"];
+            this.giaPhongThapNhat = _data["giaPhongThapNhat"];
             if (Array.isArray(_data["listLoaiPhong"])) {
                 this.listLoaiPhong = [] as any;
                 for (let item of _data["listLoaiPhong"])
@@ -10123,6 +10125,7 @@ export class PhongSearchinhFilterDto implements IPhongSearchinhFilterDto {
         data["luotDatPhong"] = this.luotDatPhong;
         data["diemDanhGiaTB"] = this.diemDanhGiaTB;
         data["danhGiaSaoTb"] = this.danhGiaSaoTb;
+        data["giaPhongThapNhat"] = this.giaPhongThapNhat;
         if (Array.isArray(this.listLoaiPhong)) {
             data["listLoaiPhong"] = [];
             for (let item of this.listLoaiPhong)
@@ -10150,6 +10153,7 @@ export interface IPhongSearchinhFilterDto {
     luotDatPhong: number;
     diemDanhGiaTB: number;
     danhGiaSaoTb: number;
+    giaPhongThapNhat: number;
     listLoaiPhong: LoaiPhongSearchingFilterDto[] | undefined;
 }
 
