@@ -67,6 +67,7 @@ import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-det
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./chonphong/thongtinlienhe/thongtinlienhe.component";
 import { ThongtinlienheStartComponent } from "./chonphong/thongtinlienhe-start/thongtinlienhe-start.component";
+import { LienHeServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @NgModule({
   declarations: [
@@ -145,6 +146,6 @@ import { ThongtinlienheStartComponent } from "./chonphong/thongtinlienhe-start/t
 
     // PaginatorModule,
   ],
-  providers: [],
+  providers: [LienHeServiceProxy],
 })
 export class AppModule {}

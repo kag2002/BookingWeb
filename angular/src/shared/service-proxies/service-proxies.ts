@@ -2538,6 +2538,196 @@ export class KhachHangServiceProxy {
 }
 
 @Injectable()
+export class LienHeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getDanhSachLienHe(): Observable<DanhSachOutputDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/LienHe/GetDanhSachLienHe";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDanhSachLienHe(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDanhSachLienHe(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DanhSachOutputDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DanhSachOutputDto[]>;
+        }));
+    }
+
+    protected processGetDanhSachLienHe(response: HttpResponseBase): Observable<DanhSachOutputDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(DanhSachOutputDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param userId (optional) 
+     * @return Success
+     */
+    getDanhSachLienHeByUserId(userId: number | undefined): Observable<DanhSachOutputDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/LienHe/GetDanhSachLienHeByUserId?";
+        if (userId === null)
+            throw new Error("The parameter 'userId' cannot be null.");
+        else if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDanhSachLienHeByUserId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDanhSachLienHeByUserId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DanhSachOutputDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DanhSachOutputDto[]>;
+        }));
+    }
+
+    protected processGetDanhSachLienHeByUserId(response: HttpResponseBase): Observable<DanhSachOutputDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(DanhSachOutputDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    clientSendToMessage(body: MessageDto | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/LienHe/ClientSendToMessage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processClientSendToMessage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processClientSendToMessage(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processClientSendToMessage(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class LoaiKhachHangServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -6897,6 +7087,69 @@ export interface ICreateUserDto {
     password: string;
 }
 
+export class DanhSachOutputDto implements IDanhSachOutputDto {
+    id: number;
+    hoTen: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
+    noiDung: string | undefined;
+    userId: number | undefined;
+
+    constructor(data?: IDanhSachOutputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.hoTen = _data["hoTen"];
+            this.email = _data["email"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.noiDung = _data["noiDung"];
+            this.userId = _data["userId"];
+        }
+    }
+
+    static fromJS(data: any): DanhSachOutputDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DanhSachOutputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["hoTen"] = this.hoTen;
+        data["email"] = this.email;
+        data["phoneNumber"] = this.phoneNumber;
+        data["noiDung"] = this.noiDung;
+        data["userId"] = this.userId;
+        return data;
+    }
+
+    clone(): DanhSachOutputDto {
+        const json = this.toJSON();
+        let result = new DanhSachOutputDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IDanhSachOutputDto {
+    id: number;
+    hoTen: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
+    noiDung: string | undefined;
+    userId: number | undefined;
+}
+
 export class DiaDiemDto implements IDiaDiemDto {
     tenDiaDiem: string | undefined;
     thongTinViTri: string | undefined;
@@ -9387,6 +9640,61 @@ export interface ILoaiPhongSearchingFilterDto {
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
+}
+
+export class MessageDto implements IMessageDto {
+    hoten: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
+    noiDung: string | undefined;
+
+    constructor(data?: IMessageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.hoten = _data["hoten"];
+            this.email = _data["email"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.noiDung = _data["noiDung"];
+        }
+    }
+
+    static fromJS(data: any): MessageDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MessageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hoten"] = this.hoten;
+        data["email"] = this.email;
+        data["phoneNumber"] = this.phoneNumber;
+        data["noiDung"] = this.noiDung;
+        return data;
+    }
+
+    clone(): MessageDto {
+        const json = this.toJSON();
+        let result = new MessageDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IMessageDto {
+    hoten: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
+    noiDung: string | undefined;
 }
 
 export class NhanVienChangePasswordDto implements INhanVienChangePasswordDto {
