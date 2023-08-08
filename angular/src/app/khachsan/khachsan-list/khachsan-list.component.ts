@@ -8,6 +8,7 @@ import {
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { error } from "console";
+import { result } from "lodash-es";
 
 @Component({
   selector: "app-khachsan-list",
@@ -27,8 +28,10 @@ export class KhachsanListComponent implements OnInit {
     { name: "Độ phổ biến", key: 4 },
   ];
   stars: number[] = [1, 2, 3, 4, 5];
+
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
+
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
@@ -44,8 +47,18 @@ export class KhachsanListComponent implements OnInit {
     // this._phongService.getAllRoom().subscribe((result) => {
     //   this.listkhachsan = result;
     // });
-    debugger;
-    this.listkhachsan = this.bookingInfoService.getBookingInfo();
+    console.log("Observable:", this.bookingInfoService.getBookingInfo());
+
+    this.bookingInfoService.getBookingInfo().subscribe(
+      (result) => {
+        console.log("Received result:", result);
+        this.listkhachsan = result;
+        this.listLocKhachSanLuuTru = result;
+      },
+      (error) => {
+        console.log("Error:", error);
+      }
+    );
 
     this.formSapXep = this.fb.group({
       selectedCategory: new FormControl(this.sapxeps[3]),
@@ -89,8 +102,7 @@ export class KhachsanListComponent implements OnInit {
   }
 
   onSubmit() {
-    this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
-    console.log("Đã nhận được:", this.listLocKhachSanLuuTru);
+    // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
 
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
@@ -109,11 +121,13 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
+
+          console.log("ket qua", result);
           this.listkhachsan = result;
-          console.log(result);
+
         },
         (error) => {
-          console.log("loi:", error);
+          console.log("loi 2:", error);
         },
         () => {
           console.log("da loc thanh cong");
