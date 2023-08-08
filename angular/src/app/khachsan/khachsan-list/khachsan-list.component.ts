@@ -105,25 +105,12 @@ export class KhachsanListComponent implements OnInit {
   }
 
   onSubmit() {
-    // Get the selected stars from LocSaoData
-    const locSaoData = this.formLoc.get("LocSaoData") as FormGroup;
-    for (let star of this.stars) {
-      if (locSaoData.get(`value${star}`).value) {
-        this.selectedStars.push(star);
-      }
-    }
-
-    // Get the selected LoaiHinhCuTru options
-    const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
-    for (let key in locLoaiHinhCuTru.controls) {
-      if (locLoaiHinhCuTru.get(key).value) {
-        this.selectedLoaiHinhCuTru.push(parseInt(key));
-      }
-    }
     // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
     debugger;
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
-    this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
+    this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
+    this.searchingFilterRoomInputDto.giaPhongNhoNhat =
+      this.formLoc.value.inputminprice;
     this.searchingFilterRoomInputDto.giaPhongLonNhat =
       this.formLoc.value.inputmaxprice;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
