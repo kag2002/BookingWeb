@@ -50,7 +50,7 @@ namespace BookingWeb.Modules.SearchingFilter
             try
             {
 
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", input);
+               /* await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBooking", input);*/
 
                 var lstP = await _phong.GetAllListAsync();
                 var lstDVKD = await _donViKinhDoanh.GetAllListAsync();
@@ -110,7 +110,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 }
                 dtoList = dtoList.OrderByDescending(q => q.LuotDatPhong).ToList();
 
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("lstRoom", dtoList);
+                /*await _httpContextAccessor.HttpContext.Session.SetObjectAsync("lstRoom", dtoList);*/
 
                 return dtoList;
             }
