@@ -28,6 +28,8 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public double DanhGiaSaoTb { get; set; }
 
+        public double GiaPhongThapNhat { get; set; }
+
         public List<LoaiPhongSearchingFilterDto>? ListLoaiPhong { get; set; }
 
     }
