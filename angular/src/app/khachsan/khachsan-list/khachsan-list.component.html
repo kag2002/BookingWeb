@@ -97,95 +97,20 @@
           <!-- End số sao khách sạn cần tìm -->
           <!-- Loại hình cư trú -->
           <div formGroupName="LocLoaiHinhCuTru" class="CheckboxLoaiHinhCuTru">
-            <p>Loại hình cư trú</p>
             <ul class="LocLoaiHinhCuChuItem">
-              <li>
-                <p-checkbox
-                  formControlName="khachsan"
-                  value="1"
-                  inputId="ks"
-                ></p-checkbox>
-                <label for="ks">Khách Sạn</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="khachsancaocap"
-                  value="2"
-                  inputId="kscc"
-                ></p-checkbox>
-                <label for="kscc">Khách Sạn Cao Cấp</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="homestay"
-                  value="3"
-                  inputId="hs"
-                ></p-checkbox>
-                <label for="hs">HomeStay</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="nhanghi"
-                  value="4"
-                  inputId="nn"
-                ></p-checkbox>
-                <label for="nn">Nhà Nghỉ</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="resort"
-                  value="5"
-                  inputId="rs"
-                ></p-checkbox>
-                <label for="rs">Resort</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="canho"
-                  value="6"
-                  inputId="ch"
-                ></p-checkbox>
-                <label for="ch">Căn Hộ</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="chonghi"
-                  value="7"
-                  inputId="cn"
-                ></p-checkbox>
-                <label for="cn">Chỗ nghỉ</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="nhadan"
-                  value="8"
-                  inputId="nd"
-                ></p-checkbox>
-                <label for="nd">Nhà dân</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="nhatro"
-                  value="9"
-                  inputId="nt"
-                ></p-checkbox>
-                <label for="nt">Nhà Trọ</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="bietthu"
-                  value="10"
-                  inputId="bt"
-                ></p-checkbox>
-                <label for="bt">Biệt thự</label>
-              </li>
-              <li>
-                <p-checkbox
-                  formControlName="studio"
-                  value="11"
-                  inputId="sd"
-                ></p-checkbox>
-                <label for="sd">Studio</label>
+              <li *ngFor="let option of loaiHinhCuTruOptions">
+                <div class="p-field-checkbox">
+                  <p-checkbox
+                    [binary]="true"
+                    [id]="'checkbox_' + option.value"
+                    [name]="option.value.toString()"
+                    [formControlName]="option.value.toString()"
+                    (onChange)="onCheckboxChange(option.value)"
+                  ></p-checkbox>
+                  <label [for]="'checkbox_' + option.value">{{
+                    option.label
+                  }}</label>
+                </div>
               </li>
             </ul>
           </div>

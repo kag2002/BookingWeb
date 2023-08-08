@@ -10,6 +10,10 @@ import {
 import { error } from "console";
 import { result } from "lodash-es";
 
+interface LoaiHinhCuTruItem {
+  label: string;
+  value: number;
+}
 @Component({
   selector: "app-khachsan-list",
   templateUrl: "./khachsan-list.component.html",
@@ -29,6 +33,20 @@ export class KhachsanListComponent implements OnInit {
     { name: "Điểm đánh giá", key: 3 },
     { name: "Độ phổ biến", key: 4 },
   ];
+
+  loaiHinhCuTruOptions: LoaiHinhCuTruItem[] = [
+    { label: "Khách Sạn", value: 1 },
+    { label: "Khách Sạn Cao Cấp", value: 2 },
+    { label: "HomeStay", value: 3 },
+    { label: "Nhà Nghỉ", value: 4 },
+    { label: "Resort", value: 5 },
+    { label: "Căn Hộ", value: 6 },
+    { label: "Chỗ nghỉ", value: 7 },
+    { label: "Nhà dân", value: 8 },
+    { label: "Nhà Trọ", value: 9 },
+    { label: "Biệt thự", value: 10 },
+    { label: "Studio", value: 11 },
+  ];
   stars: number[] = [1, 2, 3, 4, 5];
 
   maxPrice: number = 20000;
@@ -46,6 +64,7 @@ export class KhachsanListComponent implements OnInit {
     private _searchingFilterService: SearchingFilterServiceProxy,
     private bookingInfoService: BookingInfoService
   ) {}
+
   ngOnInit() {
     // this._phongService.getAllRoom().subscribe((result) => {
     //   this.listkhachsan = result;
@@ -84,39 +103,55 @@ export class KhachsanListComponent implements OnInit {
         numberStar4: [4],
         numberStar5: [5],
       }),
-      LocLoaiHinhCuTru: this.fb.group({
-        khachsan: [],
-        khachsancaocap: [],
-        homestay: [],
-        nhanghi: [],
-        resort: [],
-        canho: [],
-        chonghi: [],
-        nhadan: [],
-        nhatro: [],
-        bietthu: [],
-        studio: [],
-      }),
+      LocLoaiHinhCuTru: this.fb.group({}),
+    });
+    const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
+    this.loaiHinhCuTruOptions.forEach((option) => {
+      locLoaiHinhCuTru.addControl(
+        option.value.toString(),
+        new FormControl(false)
+      );
     });
   }
 
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
+  onCheckboxChange(value: number) {
+    const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
+    const control = locLoaiHinhCuTru.get(value.toString());
 
+    if (control) {
+      if (control.value) {
+        this.selectedLoaiHinhCuTru.push(value);
+      } else {
+        const index = this.selectedLoaiHinhCuTru.indexOf(value);
+        if (index !== -1) {
+          this.selectedLoaiHinhCuTru.splice(index, 1);
+        }
+      }
+    }
+  }
   onSubmit() {
+    // Get the selected stars from LocSaoData
+    const locSaoData = this.formLoc.get("LocSaoData") as FormGroup;
+    for (let star of this.stars) {
+      if (locSaoData.get(`value${star}`).value) {
+        this.selectedStars.push(star);
+      }
+    }
+
     // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
-    debugger;
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
-    this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
+    this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
       this.formLoc.value.inputminprice;
     this.searchingFilterRoomInputDto.giaPhongLonNhat =
       this.formLoc.value.inputmaxprice;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
       this.formLoc.value.inputminprice;
-    this.searchingFilterRoomInputDto.hinhThucPhongId = [1, 2, 3, 4, 5];
-    // this.selectedLoaiHinhCuTru;
+    this.searchingFilterRoomInputDto.hinhThucPhongId =
+      this.selectedLoaiHinhCuTru;
     this.searchingFilterRoomInputDto.mienPhiHuyPhong =
       this.formLoc.value.mienphihuyphong;
     this.searchingFilterRoomInputDto.sortCondition = 4;
@@ -127,6 +162,7 @@ export class KhachsanListComponent implements OnInit {
         (result) => {
           console.log("ket qua", result);
           this.listkhachsan = result;
+          this.selectedStars = [];
         },
         (error) => {
           console.log("loi 2:", error);
