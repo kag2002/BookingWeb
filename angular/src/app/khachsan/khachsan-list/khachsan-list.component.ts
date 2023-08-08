@@ -8,6 +8,7 @@ import {
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { error } from "console";
+import { result } from "lodash-es";
 
 @Component({
   selector: "app-khachsan-list",
@@ -30,7 +31,6 @@ export class KhachsanListComponent implements OnInit {
   maxPrice: number = 4000000;
   listkhachsan = [];
 
-
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
@@ -42,9 +42,21 @@ export class KhachsanListComponent implements OnInit {
     private bookingInfoService: BookingInfoService
   ) {}
   ngOnInit() {
-    this._phongService.getAllRoom().subscribe((result) => {
-      this.listkhachsan = result;
-    });
+    // this._phongService.getAllRoom().subscribe((result) => {
+    //   this.listkhachsan = result;
+    // });
+    console.log("Observable:", this.bookingInfoService.getBookingInfo());
+
+    this.bookingInfoService.getBookingInfo().subscribe(
+      (result) => {
+        console.log("Received result:", result);
+        this.listkhachsan = result;
+        this.listLocKhachSanLuuTru = result;
+      },
+      (error) => {
+        console.log("Error:", error);
+      }
+    );
 
     this.formSapXep = this.fb.group({
       selectedCategory: new FormControl(this.sapxeps[3]),
@@ -87,10 +99,8 @@ export class KhachsanListComponent implements OnInit {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
 
-
   onSubmit() {
-    this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
-    console.log("Đã nhận được:", this.listLocKhachSanLuuTru);
+    // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
 
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = [1, 2];
@@ -107,9 +117,10 @@ export class KhachsanListComponent implements OnInit {
       .subscribe(
         (result) => {
           console.log("ket qua", result);
+          this.listkhachsan = result;
         },
         (error) => {
-          console.log("loi:", error);
+          console.log("loi 2:", error);
         },
         () => {
           console.log("da loc thanh cong");
