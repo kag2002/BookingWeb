@@ -101,9 +101,5 @@ export class XacnhandatComponent {
     });
   }
 
-  onSubmit() {
-    console.log(this.selectedloaiphong.value);
-  }
-
   addClientBookRoom() {}
 }

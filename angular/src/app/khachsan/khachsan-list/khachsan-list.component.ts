@@ -161,7 +161,6 @@ export class KhachsanListComponent implements OnInit {
         (result) => {
           this.listkhachsan = result;
           this.selectedStars = [];
-          this.selectedLoaiHinhCuTru = [];
           console.log("oke :", this.listkhachsan);
           console.log("Loc Success");
         },
