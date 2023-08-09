@@ -112,7 +112,18 @@
       </form>
       <!-- <pre>{{ FormYeuCauDacBiet.value | json }}</pre> -->
       <!-- End yêu cầu đặc biệt -->
-      <button type="submit" (click)="addClientBookRoom()">Đặt</button>
+
+      <p-button
+        label="Đặt"
+        (click)="addClientBookRoom()"
+        styleClass="p-button-secondary"
+        [routerLink]="[
+          '/app/thongtinlienhestart',
+          id,
+          idloaiphong,
+          idloaiphong
+        ]"
+      ></p-button>
     </div>
     <div class="col-lg-5">
       <!-- PhongConTrong -->

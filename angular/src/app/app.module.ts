@@ -68,8 +68,7 @@ import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { ThongtinlienheStartComponent } from "./formthongtinlienhe/thongtinlienhe-start/thongtinlienhe-start.component";
 import { LienHeServiceProxy } from "@shared/service-proxies/service-proxies";
-import { XacnhandatComponent } from "./xacnhandat/xacnhandat/xacnhandat.component";
-import { XacnhandatStartComponent } from "./xacnhandat/xacnhandat-start/xacnhandat-start.component";
+import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
 
 @NgModule({
   declarations: [
@@ -115,7 +114,6 @@ import { XacnhandatStartComponent } from "./xacnhandat/xacnhandat-start/xacnhand
     ThongtinlienheComponent,
     ThongtinlienheStartComponent,
     XacnhandatComponent,
-    XacnhandatStartComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

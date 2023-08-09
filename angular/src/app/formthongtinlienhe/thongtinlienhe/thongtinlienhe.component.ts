@@ -77,20 +77,16 @@ export class ThongtinlienheComponent {
   }
 
   addClientBookRoom() {
-    this.clientBookRoomInputDto.phongId = this.id;
-    this.clientBookRoomInputDto.loaiPhongId = this.idloaiphong;
-    this.clientBookRoomInputDto.datHo = this?.FormThongTinLienHe.value.datho;
-    this.clientBookRoomInputDto.cccd = "76545678965678";
-    this.clientBookRoomInputDto.hoTen = this?.FormThongTinLienHe.value.name;
-    this.clientBookRoomInputDto.sdt = this?.FormThongTinLienHe.value.phone;
-    this.clientBookRoomInputDto.email = this?.FormThongTinLienHe.value.email;
-    this.clientBookRoomInputDto.yeuCauDacBiet = this.FormYeuCauDacBiet.value;
-
-    this.clientBookRoomInputDto.tongTien =
-      this.selectedloaiphong.giaPhongTheoDem;
-    // this._phongService
-    //   .clientBookRoom(this.clientBookRoomInputDto)
-    //   .subscribe((result) => {});
-    console.log(this.clientBookRoomInputDto);
+    // this.clientBookRoomInputDto.phongId = this.id;
+    // this.clientBookRoomInputDto.loaiPhongId = this.idloaiphong;
+    // this.clientBookRoomInputDto.datHo = this?.FormThongTinLienHe.value.datho;
+    // this.clientBookRoomInputDto.cccd = "76545678965678";
+    // this.clientBookRoomInputDto.hoTen = this?.FormThongTinLienHe.value.name;
+    // this.clientBookRoomInputDto.sdt = this?.FormThongTinLienHe.value.phone;
+    // this.clientBookRoomInputDto.email = this?.FormThongTinLienHe.value.email;
+    // this.clientBookRoomInputDto.yeuCauDacBiet = this.FormYeuCauDacBiet.value;
+    // this.clientBookRoomInputDto.tongTien =
+    //   this.selectedloaiphong.giaPhongTheoDem;
+    // console.log(this.clientBookRoomInputDto);
   }
 }
