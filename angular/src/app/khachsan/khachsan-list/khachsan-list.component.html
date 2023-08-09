@@ -82,15 +82,18 @@
           <!-- Số sao khách sạn cần tìm -->
           <div formGroupName="LocSaoData" class="CheckboxLocSao">
             <p>Hạng sao</p>
-            <div class="CheckboxLocSaoItem" *ngFor="let star of stars">
+            <div class="CheckboxLocSaoItem" *ngFor="let star of saoOptions">
               <p-checkbox
-                formControlName="value{{ star }}"
-                [value]="star"
+                [binary]="true"
+                [id]="'checkbox_' + star.value"
+                [name]="star.value.toString()"
+                [formControlName]="star.value.toString()"
+                (onChange)="onCheckboxSaoChange(star.value)"
               ></p-checkbox>
               <p-rating
                 [readonly]="true"
                 [cancel]="false"
-                formControlName="numberStar{{ star }}"
+                formControlName="numberStar{{ star.value }}"
               ></p-rating>
             </div>
           </div>
@@ -129,8 +132,8 @@
     <div class="col-lg-8">
       <!-- <pre>
         {{ formSapXep.value | json }}
-      </pre>
-      <pre>
+      </pre> -->
+      <!-- <pre>
         {{ formLoc.value | json }}
       </pre> -->
       <p-table
