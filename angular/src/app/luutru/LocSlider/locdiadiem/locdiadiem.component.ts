@@ -90,12 +90,6 @@ export class LocdiadiemComponent {
         }
       );
 
-    // this._phongService
-    //   .getRoomsByDiaDiemId(this.iddiadiem)
-    //   .subscribe((result) => {
-    //     this.listkhachsan = result;
-    //   });
-
     this.formSapXep = this.fb.group({
       selectedCategory: this.sapxeps[3],
     });
