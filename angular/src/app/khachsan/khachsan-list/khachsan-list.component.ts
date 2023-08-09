@@ -22,7 +22,7 @@ export class KhachsanListComponent implements OnInit {
   formSapXep: FormGroup;
   formLoc: FormGroup;
 
-  rangeValues: number[] = [1000, 3000];
+  rangeValues: number[] = [0, 20000];
 
   lstLoaiPhong: [];
 
@@ -58,6 +58,7 @@ export class KhachsanListComponent implements OnInit {
 
   selectedStars: number[] = [];
   selectedLoaiHinhCuTru: number[] = [];
+
   constructor(
     private fb: FormBuilder,
     private _phongService: PhongServiceProxy,
@@ -160,12 +161,12 @@ export class KhachsanListComponent implements OnInit {
         (result) => {
           this.listkhachsan = result;
           this.selectedStars = [];
+          this.selectedLoaiHinhCuTru = [];
+          console.log("oke :", this.listkhachsan);
+          console.log("Loc Success");
         },
         (error) => {
           console.log("loi 2:", error);
-        },
-        () => {
-          console.log("Loc Success");
         }
       );
   }
