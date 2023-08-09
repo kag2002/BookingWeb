@@ -133,6 +133,7 @@ namespace BookingWeb.Modules.SearchingFilter
                 //Filter then sort
                 if (input.MienPhiHuyPhong == true)
                 {
+
                     var lstItem1 = new List<PhongSearchinhFilterDto>();
 
                     var lstItem = new List<PhongSearchinhFilterDto>();

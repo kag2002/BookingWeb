@@ -1,10 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
+import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   ClientBookRoomInputDto,
+  ClientBookRoomOutputDto,
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
+import { error } from "console";
 
 @Component({
   selector: "app-thongtinlienhe",
@@ -14,6 +17,8 @@ import {
 export class ThongtinlienheComponent {
   FormThongTinLienHe: FormGroup;
   FormYeuCauDacBiet: FormGroup;
+
+  infoClient: ClientBookRoomOutputDto;
 
   selectedloaiphong: any;
   selectedphong: any;
@@ -30,11 +35,11 @@ export class ThongtinlienheComponent {
     { name: "Tôi đặt cho người khác", key: 2 },
   ];
   clientBookRoomInputDto: ClientBookRoomInputDto = new ClientBookRoomInputDto();
-
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private _phongService: PhongServiceProxy
+    private _phongService: PhongServiceProxy,
+    private bookingInfoService: BookingInfoService
   ) {}
 
   ngOnInit() {
@@ -57,15 +62,17 @@ export class ThongtinlienheComponent {
       .getInfoRoomToBook(this.idloaiphong)
       .subscribe((result) => {
         this.selectedloaiphong = result;
+        this.bookingInfoService.setRoomInfo(this.selectedloaiphong);
       });
   }
 
   private initForm() {
     this.FormThongTinLienHe = this.formBuilder.group({
       name: ["", Validators.required],
-      phone: ["", Validators.required],
+      cccd: ["", Validators.required],
+      phone: [, Validators.required],
       email: ["", Validators.required],
-      datho: ["", Validators.required],
+      datho: [, Validators.required],
     });
     this.FormYeuCauDacBiet = this.formBuilder.group({
       selectedCategory: ["", Validators.required],
@@ -77,16 +84,23 @@ export class ThongtinlienheComponent {
   }
 
   addClientBookRoom() {
-    // this.clientBookRoomInputDto.phongId = this.id;
-    // this.clientBookRoomInputDto.loaiPhongId = this.idloaiphong;
-    // this.clientBookRoomInputDto.datHo = this?.FormThongTinLienHe.value.datho;
-    // this.clientBookRoomInputDto.cccd = "76545678965678";
-    // this.clientBookRoomInputDto.hoTen = this?.FormThongTinLienHe.value.name;
-    // this.clientBookRoomInputDto.sdt = this?.FormThongTinLienHe.value.phone;
-    // this.clientBookRoomInputDto.email = this?.FormThongTinLienHe.value.email;
-    // this.clientBookRoomInputDto.yeuCauDacBiet = this.FormYeuCauDacBiet.value;
-    // this.clientBookRoomInputDto.tongTien =
-    //   this.selectedloaiphong.giaPhongTheoDem;
-    // console.log(this.clientBookRoomInputDto);
+    this.clientBookRoomInputDto.hoTen = this.FormThongTinLienHe.value.name;
+    this.clientBookRoomInputDto.cccd = this.FormThongTinLienHe.value.cccd;
+    this.clientBookRoomInputDto.sdt = this.FormThongTinLienHe.value.phone;
+    this.clientBookRoomInputDto.email = this.FormThongTinLienHe.value.email;
+    this.clientBookRoomInputDto.datHo = this.FormThongTinLienHe.value.datho.key;
+    this.clientBookRoomInputDto.yeuCauDacBiet =
+      this.FormYeuCauDacBiet.value.selectedCategory.key;
+
+    this._phongService.clientBookRoom(this.clientBookRoomInputDto).subscribe(
+      (result) => {
+        this.infoClient = result;
+        this.bookingInfoService.setClientInfo(this.infoClient);
+        console.log(this.infoClient);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
