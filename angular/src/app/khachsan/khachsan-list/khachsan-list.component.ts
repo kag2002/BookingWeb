@@ -11,11 +11,7 @@ import {
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 
-interface LoaiHinhCuTruItem {
-  label: string;
-  value: number;
-}
-interface SaoItem {
+interface LocItem {
   label: string;
   value: number;
 }
@@ -40,7 +36,7 @@ export class KhachsanListComponent implements OnInit {
     { name: "Độ phổ biến", key: 4 },
   ];
 
-  loaiHinhCuTruOptions: LoaiHinhCuTruItem[] = [
+  loaiHinhCuTruOptions: LocItem[] = [
     { label: "Khách Sạn", value: 1 },
     { label: "Khách Sạn Cao Cấp", value: 2 },
     { label: "HomeStay", value: 3 },
@@ -53,7 +49,7 @@ export class KhachsanListComponent implements OnInit {
     { label: "Biệt thự", value: 10 },
     { label: "Studio", value: 11 },
   ];
-  saoOptions: SaoItem[] = [
+  saoOptions: LocItem[] = [
     { label: "KS1sao", value: 1 },
     { label: "KS2sao", value: 2 },
     { label: "KS3sao", value: 3 },
@@ -126,7 +122,7 @@ export class KhachsanListComponent implements OnInit {
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-  onCheckboxChange(value: number) {
+  onCheckboxLoaiHinhChange(value: number) {
     const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
     const control = locLoaiHinhCuTru.get(value.toString());
 
@@ -177,15 +173,14 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
-          console.log("Sao array", this.selectedStars);
           this.listkhachsan = result;
 
-          console.log("oke :", this.listkhachsan);
           console.log("Loc Success");
         },
         (error) => {
           console.log("loi 2:", error);
-        }
+        },
+        () => {}
       );
   }
   // resetLoc() {
