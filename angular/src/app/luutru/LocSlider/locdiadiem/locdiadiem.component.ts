@@ -1,28 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { Component } from "@angular/core";
+import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
-  InfoBookingDto,
-  PhongDto,
   PhongSearchinhFilterDto,
-  PhongServiceProxy,
   SearchingFilterRoomInputDto,
+  InfoBookingDto,
+  PhongServiceProxy,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-
 interface LoaiHinhCuTruItem {
   label: string;
   value: number;
 }
 @Component({
-  selector: "app-khachsan-list",
-  templateUrl: "./khachsan-list.component.html",
-  styleUrls: ["./khachsan-list.component.css"],
+  selector: "app-locdiadiem",
+  templateUrl: "./locdiadiem.component.html",
+  styleUrls: ["./locdiadiem.component.css"],
 })
-export class KhachsanListComponent implements OnInit {
+export class LocdiadiemComponent {
   formSapXep: FormGroup;
   formLoc: FormGroup;
+  iddiadiem: number;
 
   rangeValues: number[] = [1000, 3000];
 
@@ -52,10 +51,9 @@ export class KhachsanListComponent implements OnInit {
 
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
+  listkhachsandiadiem;
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
-
-  listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
 
   // Tim theo sliderdiadiem
   inforBookingDtoSliderDiaDiem: InfoBookingDto = new InfoBookingDto();
@@ -64,21 +62,39 @@ export class KhachsanListComponent implements OnInit {
   selectedLoaiHinhCuTru: number[] = [];
   constructor(
     private fb: FormBuilder,
-
+    private _phongService: PhongServiceProxy,
     private _searchingFilterService: SearchingFilterServiceProxy,
-    private bookingInfoService: BookingInfoService
+    private bookingInfoService: BookingInfoService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.bookingInfoService.getBookingInfo().subscribe(
-      (result) => {
-        this.listkhachsan = result;
-        this.listLocKhachSanLuuTru = result;
-      },
-      (error) => {
-        console.log("Error:", error);
-      }
-    );
+    this.route.params.subscribe((params: Params) => {
+      this.iddiadiem = +params["iddiadiem"];
+    });
+
+    this.inforBookingDtoSliderDiaDiem.diaDiemid = this.iddiadiem;
+    this.inforBookingDtoSliderDiaDiem.ngayDat = undefined;
+    this.inforBookingDtoSliderDiaDiem.ngayTra = undefined;
+    this.inforBookingDtoSliderDiaDiem.slNguoiLon = undefined;
+    this.inforBookingDtoSliderDiaDiem.slPhong = undefined;
+    this.inforBookingDtoSliderDiaDiem.slTreEm = undefined;
+    this._searchingFilterService
+      .searchingRoom(this.inforBookingDtoSliderDiaDiem)
+      .subscribe(
+        (result) => {
+          this.listkhachsan = result;
+        },
+        (error) => {
+          console.log("Error:", error);
+        }
+      );
+
+    // this._phongService
+    //   .getRoomsByDiaDiemId(this.iddiadiem)
+    //   .subscribe((result) => {
+    //     this.listkhachsan = result;
+    //   });
 
     this.formSapXep = this.fb.group({
       selectedCategory: this.sapxeps[3],
@@ -139,7 +155,7 @@ export class KhachsanListComponent implements OnInit {
       }
     }
 
-    this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
+    this.searchingFilterRoomInputDto.lst = this.listkhachsan;
     this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
       this.formLoc.value.inputminprice;
@@ -160,7 +176,6 @@ export class KhachsanListComponent implements OnInit {
         (result) => {
           this.listkhachsan = result;
           this.selectedStars = [];
-          console.log(this.selectedStars);
         },
         (error) => {
           console.log("loi 2:", error);

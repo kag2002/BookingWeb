@@ -23,7 +23,10 @@
               (currentIndex + i) % slidesdiadiem.length
             )
           }"
-          routerLink="/app/khachsanlist"
+          [routerLink]="[
+            '/app/timdiadiem',
+            slidesdiadiem[currentIndex + i]?.id
+          ]"
           style="cursor: pointer"
         ></div>
         <div class="slide-content">

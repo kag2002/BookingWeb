@@ -10,6 +10,7 @@ import {
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { BookingInfoService } from "../service/booking-info-service.service";
+import { now } from "moment";
 @Component({
   selector: "app-luutru",
   templateUrl: "./luutru.component.html",
@@ -52,7 +53,7 @@ export class LuutruComponent {
     this.formTimPhong = this.formBuilder.group({
       timkiemData: this.formBuilder.group({
         locations: [null, Validators.required],
-        rangeDates: [null, Validators.required],
+        rangeDates: [now, Validators.required],
         adults: [2, Validators.min(1)],
         children: [0, Validators.min(0)],
         rooms: [1, Validators.min(1)],
