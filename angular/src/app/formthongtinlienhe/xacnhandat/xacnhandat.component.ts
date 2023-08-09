@@ -1,18 +1,16 @@
-import { DatePipe } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
-  ClientBookRoomInputDto,
+  ChinhSachChungOutoutDto,
+  ChinhSachChungServiceProxy,
   ClientBookRoomOutputDto,
+  ConfirmDto,
+  GetInfoRoomToBookOutputDto,
   InfoBookingDto,
-  PhongDto,
-  PhongSearchinhFilterDto,
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-import { error } from "console";
-import { result } from "lodash-es";
 
 @Component({
   selector: "app-thongtinlienhe",
@@ -38,15 +36,20 @@ export class XacnhandatComponent {
     { name: "Tôi đặt cho người khác", key: 2 },
   ];
 
-  clientBookRoomInputDto: ClientBookRoomInputDto = new ClientBookRoomInputDto();
+  chinhsachchung: ChinhSachChungOutoutDto = new ChinhSachChungOutoutDto();
+
+  infoRoom: GetInfoRoomToBookOutputDto = new GetInfoRoomToBookOutputDto();
   infoClient: ClientBookRoomOutputDto = new ClientBookRoomOutputDto();
   infoBooking: InfoBookingDto = new InfoBookingDto();
+
+  confirmBook: ConfirmDto = new ConfirmDto();
+
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _phongService: PhongServiceProxy,
     private bookingInfo: BookingInfoService,
-    private datePipe: DatePipe
+    private _chinhSachChung: ChinhSachChungServiceProxy
   ) {}
 
   ngOnInit() {
@@ -62,13 +65,29 @@ export class XacnhandatComponent {
       this.idloaiphong = +params["idloaiphong"];
     });
 
-    this._phongService.getRoomById(this.id).subscribe((result) => {
-      this.selectedphong = result;
-    });
+    this._phongService.getRoomById(this.id).subscribe(
+      (result) => {
+        this.selectedphong = result;
+        this._chinhSachChung
+          .getPolicyByDVKDId(this.selectedloaiphong.donViKinhDoanhId)
+          .subscribe(
+            (result) => {
+              this.chinhsachchung = result;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     this._phongService
       .getInfoRoomToBook(this.idloaiphong)
       .subscribe((result) => {
         this.selectedloaiphong = result;
+        this.infoRoom = result;
       });
     this.bookingInfo.getClientInfo().subscribe(
       (result) => {
@@ -101,5 +120,29 @@ export class XacnhandatComponent {
     });
   }
 
-  addClientBookRoom() {}
+  addClientBookRoom() {
+    this.confirmBook.hoTen = this.infoClient.hoTen;
+    this.confirmBook.cccd = this.infoClient.cccd;
+    this.confirmBook.sdt = this.infoClient.sdt;
+    this.confirmBook.email = this.infoClient.email;
+    this.confirmBook.datHo = this.infoClient.datHo;
+    this.confirmBook.yeuCauDacBiet = this.infoClient.yeuCauDacBiet;
+    this.confirmBook.ngayDat = this.infoBooking.ngayDat;
+    this.confirmBook.ngayTra = this.infoBooking.ngayTra;
+    this.confirmBook.slNguoiLon = this.infoBooking.slNguoiLon;
+    this.confirmBook.slTreEm = this.infoBooking.slTreEm;
+    this.confirmBook.slNguoiLon = this.infoBooking.slNguoiLon;
+    this.confirmBook.slPhong = this.infoBooking.slPhong;
+    this.confirmBook.tongTien = 1000;
+    this.confirmBook.phongId = this.infoRoom.phongId;
+
+    this._phongService.confirmBookRoom(this.confirmBook).subscribe(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

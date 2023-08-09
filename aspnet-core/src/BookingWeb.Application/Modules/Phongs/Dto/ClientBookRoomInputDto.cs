@@ -18,7 +18,7 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string HoTen { get; set; }
 
-        public long SDT { get; set; }
+        public string SDT { get; set; }
 
         public string Email { get; set; }
 
