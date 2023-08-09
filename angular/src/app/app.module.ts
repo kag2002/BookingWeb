@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientJsonpModule } from "@angular/common/http";
 import { HttpClientModule } from "@angular/common/http";
@@ -150,6 +150,6 @@ import { LocdiadiemComponent } from './luutru/LocSlider/locdiadiem/locdiadiem.co
 
     // PaginatorModule,
   ],
-  providers: [LienHeServiceProxy],
+  providers: [LienHeServiceProxy, DatePipe],
 })
 export class AppModule {}

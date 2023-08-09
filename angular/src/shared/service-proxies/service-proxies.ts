@@ -4239,16 +4239,21 @@ export class PhongServiceProxy {
     }
 
     /**
+     * @param body (optional) 
      * @return Success
      */
-    confirmBookRoom(): Observable<boolean> {
+    confirmBookRoom(body: ConfirmDto | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/services/app/Phong/ConfirmBookRoom";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -6697,15 +6702,12 @@ export interface IChinhSachChungOutoutDto {
 }
 
 export class ClientBookRoomInputDto implements IClientBookRoomInputDto {
-    phongId: number;
-    loaiPhongId: number;
     datHo: number;
     cccd: string | undefined;
     hoTen: string | undefined;
     sdt: number;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
-    tongTien: number;
 
     constructor(data?: IClientBookRoomInputDto) {
         if (data) {
@@ -6718,15 +6720,12 @@ export class ClientBookRoomInputDto implements IClientBookRoomInputDto {
 
     init(_data?: any) {
         if (_data) {
-            this.phongId = _data["phongId"];
-            this.loaiPhongId = _data["loaiPhongId"];
             this.datHo = _data["datHo"];
             this.cccd = _data["cccd"];
             this.hoTen = _data["hoTen"];
             this.sdt = _data["sdt"];
             this.email = _data["email"];
             this.yeuCauDacBiet = _data["yeuCauDacBiet"];
-            this.tongTien = _data["tongTien"];
         }
     }
 
@@ -6739,15 +6738,12 @@ export class ClientBookRoomInputDto implements IClientBookRoomInputDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["phongId"] = this.phongId;
-        data["loaiPhongId"] = this.loaiPhongId;
         data["datHo"] = this.datHo;
         data["cccd"] = this.cccd;
         data["hoTen"] = this.hoTen;
         data["sdt"] = this.sdt;
         data["email"] = this.email;
         data["yeuCauDacBiet"] = this.yeuCauDacBiet;
-        data["tongTien"] = this.tongTien;
         return data;
     }
 
@@ -6760,33 +6756,17 @@ export class ClientBookRoomInputDto implements IClientBookRoomInputDto {
 }
 
 export interface IClientBookRoomInputDto {
-    phongId: number;
-    loaiPhongId: number;
     datHo: number;
     cccd: string | undefined;
     hoTen: string | undefined;
     sdt: number;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
-    tongTien: number;
 }
 
 export class ClientBookRoomOutputDto implements IClientBookRoomOutputDto {
-    donViKinhDoanhId: number;
-    tenDonVi: string | undefined;
-    tenDiaDiem: string | undefined;
-    phongId: number;
-    loaiPhongId: number;
-    tenLoaiPhong: string | undefined;
-    infoBookingDto: InfoBookingDto;
-    sucChuaPhong: number;
-    moTaPhong: string | undefined;
-    tienNghi: string | undefined;
-    giaPhongTheoDem: number;
-    mienPhiHuyPhong: boolean;
-    tongTien: number;
     datHo: number;
-    cccd: number;
+    cccd: string | undefined;
     hoTen: string | undefined;
     sdt: number;
     email: string | undefined;
@@ -6803,19 +6783,6 @@ export class ClientBookRoomOutputDto implements IClientBookRoomOutputDto {
 
     init(_data?: any) {
         if (_data) {
-            this.donViKinhDoanhId = _data["donViKinhDoanhId"];
-            this.tenDonVi = _data["tenDonVi"];
-            this.tenDiaDiem = _data["tenDiaDiem"];
-            this.phongId = _data["phongId"];
-            this.loaiPhongId = _data["loaiPhongId"];
-            this.tenLoaiPhong = _data["tenLoaiPhong"];
-            this.infoBookingDto = _data["infoBookingDto"] ? InfoBookingDto.fromJS(_data["infoBookingDto"]) : <any>undefined;
-            this.sucChuaPhong = _data["sucChuaPhong"];
-            this.moTaPhong = _data["moTaPhong"];
-            this.tienNghi = _data["tienNghi"];
-            this.giaPhongTheoDem = _data["giaPhongTheoDem"];
-            this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
-            this.tongTien = _data["tongTien"];
             this.datHo = _data["datHo"];
             this.cccd = _data["cccd"];
             this.hoTen = _data["hoTen"];
@@ -6834,19 +6801,6 @@ export class ClientBookRoomOutputDto implements IClientBookRoomOutputDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["donViKinhDoanhId"] = this.donViKinhDoanhId;
-        data["tenDonVi"] = this.tenDonVi;
-        data["tenDiaDiem"] = this.tenDiaDiem;
-        data["phongId"] = this.phongId;
-        data["loaiPhongId"] = this.loaiPhongId;
-        data["tenLoaiPhong"] = this.tenLoaiPhong;
-        data["infoBookingDto"] = this.infoBookingDto ? this.infoBookingDto.toJSON() : <any>undefined;
-        data["sucChuaPhong"] = this.sucChuaPhong;
-        data["moTaPhong"] = this.moTaPhong;
-        data["tienNghi"] = this.tienNghi;
-        data["giaPhongTheoDem"] = this.giaPhongTheoDem;
-        data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
-        data["tongTien"] = this.tongTien;
         data["datHo"] = this.datHo;
         data["cccd"] = this.cccd;
         data["hoTen"] = this.hoTen;
@@ -6865,25 +6819,63 @@ export class ClientBookRoomOutputDto implements IClientBookRoomOutputDto {
 }
 
 export interface IClientBookRoomOutputDto {
-    donViKinhDoanhId: number;
-    tenDonVi: string | undefined;
-    tenDiaDiem: string | undefined;
-    phongId: number;
-    loaiPhongId: number;
-    tenLoaiPhong: string | undefined;
-    infoBookingDto: InfoBookingDto;
-    sucChuaPhong: number;
-    moTaPhong: string | undefined;
-    tienNghi: string | undefined;
-    giaPhongTheoDem: number;
-    mienPhiHuyPhong: boolean;
-    tongTien: number;
     datHo: number;
-    cccd: number;
+    cccd: string | undefined;
     hoTen: string | undefined;
     sdt: number;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
+}
+
+export class ConfirmDto implements IConfirmDto {
+    infoRoom: GetInfoRoomToBookOutputDto;
+    infoClient: ClientBookRoomOutputDto;
+    infoBooking: InfoBookingDto;
+
+    constructor(data?: IConfirmDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.infoRoom = _data["infoRoom"] ? GetInfoRoomToBookOutputDto.fromJS(_data["infoRoom"]) : <any>undefined;
+            this.infoClient = _data["infoClient"] ? ClientBookRoomOutputDto.fromJS(_data["infoClient"]) : <any>undefined;
+            this.infoBooking = _data["infoBooking"] ? InfoBookingDto.fromJS(_data["infoBooking"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ConfirmDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ConfirmDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["infoRoom"] = this.infoRoom ? this.infoRoom.toJSON() : <any>undefined;
+        data["infoClient"] = this.infoClient ? this.infoClient.toJSON() : <any>undefined;
+        data["infoBooking"] = this.infoBooking ? this.infoBooking.toJSON() : <any>undefined;
+        return data;
+    }
+
+    clone(): ConfirmDto {
+        const json = this.toJSON();
+        let result = new ConfirmDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IConfirmDto {
+    infoRoom: GetInfoRoomToBookOutputDto;
+    infoClient: ClientBookRoomOutputDto;
+    infoBooking: InfoBookingDto;
 }
 
 export class CreateRoleDto implements ICreateRoleDto {
@@ -8250,12 +8242,12 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
     phongId: number;
     loaiPhongId: number;
     tenLoaiPhong: string | undefined;
-    infoBookingDto: InfoBookingDto;
     sucChuaPhong: number;
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
     mienPhiHuyPhong: boolean;
+    tongTien: number;
 
     constructor(data?: IGetInfoRoomToBookOutputDto) {
         if (data) {
@@ -8273,12 +8265,12 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
             this.phongId = _data["phongId"];
             this.loaiPhongId = _data["loaiPhongId"];
             this.tenLoaiPhong = _data["tenLoaiPhong"];
-            this.infoBookingDto = _data["infoBookingDto"] ? InfoBookingDto.fromJS(_data["infoBookingDto"]) : <any>undefined;
             this.sucChuaPhong = _data["sucChuaPhong"];
             this.moTaPhong = _data["moTaPhong"];
             this.tienNghi = _data["tienNghi"];
             this.giaPhongTheoDem = _data["giaPhongTheoDem"];
             this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
+            this.tongTien = _data["tongTien"];
         }
     }
 
@@ -8296,12 +8288,12 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
         data["phongId"] = this.phongId;
         data["loaiPhongId"] = this.loaiPhongId;
         data["tenLoaiPhong"] = this.tenLoaiPhong;
-        data["infoBookingDto"] = this.infoBookingDto ? this.infoBookingDto.toJSON() : <any>undefined;
         data["sucChuaPhong"] = this.sucChuaPhong;
         data["moTaPhong"] = this.moTaPhong;
         data["tienNghi"] = this.tienNghi;
         data["giaPhongTheoDem"] = this.giaPhongTheoDem;
         data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
+        data["tongTien"] = this.tongTien;
         return data;
     }
 
@@ -8319,12 +8311,12 @@ export interface IGetInfoRoomToBookOutputDto {
     phongId: number;
     loaiPhongId: number;
     tenLoaiPhong: string | undefined;
-    infoBookingDto: InfoBookingDto;
     sucChuaPhong: number;
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
     mienPhiHuyPhong: boolean;
+    tongTien: number;
 }
 
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {

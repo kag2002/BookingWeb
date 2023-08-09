@@ -133,13 +133,14 @@ namespace BookingWeb.Modules.SearchingFilter
                 //Filter then sort
                 if (input.MienPhiHuyPhong == true)
                 {
+
                     var lstItem1 = new List<PhongSearchinhFilterDto>();
 
                     var lstItem = new List<PhongSearchinhFilterDto>();
 
                     var filteredRooms = dtoList.Where(p => p.ListLoaiPhong.Select(q => q.MienPhiHuyPhong).ToString().ToLower() == "true").ToList();
 
-                    if (input.GiaPhongNhoNhat <= 0 && input.GiaPhongLonNhat <= 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
+                    if (input.GiaPhongNhoNhat <= 0 && input.GiaPhongLonNhat <= 0 && !input.DanhGiaSao.Any() && !input.HinhThucPhongId.Any())
                     {
                         lstItem = filteredRooms;
                     }
@@ -167,14 +168,14 @@ namespace BookingWeb.Modules.SearchingFilter
                             return null;
                         }
                         
-                        if (input.DanhGiaSao != null)
+                        if (input.DanhGiaSao.Any())
                         {
                             foreach (var e in input.DanhGiaSao)
                             {
                                 var item = filteredRooms.Where(room => room.DanhGiaSaoTb == e).ToList();
                                 lstItem1.AddRange(item);
                             }
-                            if (input.HinhThucPhongId != null)
+                            if (input.HinhThucPhongId.Any())
                             {
                                 foreach (var i in input.HinhThucPhongId)
                                 {
@@ -190,7 +191,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                         else
                         {
-                            if (input.HinhThucPhongId != null)
+                            if (input.HinhThucPhongId.Any())
                             {
                                 foreach (var i in input.HinhThucPhongId)
                                 {
@@ -242,7 +243,7 @@ namespace BookingWeb.Modules.SearchingFilter
 
                     var filteredRooms = dtoList;
 
-                    if (input.GiaPhongNhoNhat <= 0 && input.GiaPhongLonNhat <= 0 && input.DanhGiaSao == null && input.HinhThucPhongId == null)
+                    if (input.GiaPhongNhoNhat <= 0 && input.GiaPhongLonNhat <= 0 && !input.DanhGiaSao.Any() && !input.HinhThucPhongId.Any())
                     {
                         lstItem = filteredRooms;
                     }
@@ -270,14 +271,14 @@ namespace BookingWeb.Modules.SearchingFilter
                             return null;
                         }
 
-                        if (input.DanhGiaSao != null)
+                        if (input.DanhGiaSao.Any())
                         {
                             foreach (var e in input.DanhGiaSao)
                             {
                                 var item = filteredRooms.Where(room => room.DanhGiaSaoTb == e).ToList();
                                 lstItem1.AddRange(item);
                             }
-                            if (input.HinhThucPhongId != null)
+                            if (input.HinhThucPhongId.Any())
                             {
                                 foreach (var i in input.HinhThucPhongId)
                                 {
@@ -293,7 +294,7 @@ namespace BookingWeb.Modules.SearchingFilter
                         }
                         else
                         {
-                            if (input.HinhThucPhongId != null)
+                            if (input.HinhThucPhongId.Any())
                             {
                                 foreach (var i in input.HinhThucPhongId)
                                 {

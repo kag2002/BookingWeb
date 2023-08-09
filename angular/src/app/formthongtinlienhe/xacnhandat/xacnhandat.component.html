@@ -16,9 +16,20 @@
             <div class="row">
               <div class="col-lg-4">
                 <p>Ngày nhận</p>
+                <p>
+                  <b>{{ infoBooking?.ngayDat }}</b>
+                </p>
               </div>
-              <div class="col-lg-4"><p>Ngày trả</p></div>
-              <div class="col-lg-4"><p>Tổng số đêm</p></div>
+              <div class="col-lg-4">
+                <p>Ngày trả</p>
+                <p>
+                  <b>{{ infoBooking?.ngayTra }}</b>
+                </p>
+              </div>
+              <div class="col-lg-4">
+                <p>Tổng số đêm</p>
+                <p><b>?</b></p>
+              </div>
             </div>
           </div>
           <hr />
@@ -55,8 +66,8 @@
         <h6>Chính sách lưu trú</h6>
         <p></p>
       </div>
-      <h6>Chi tiết giá</h6>
       <div class="card XacNhanDatCho">
+        <h6>Chi tiết giá</h6>
         <div class="row">
           <div class="col-lg-9">Tổng tiền</div>
           <div class="col-lg-3">
@@ -84,19 +95,37 @@
       ></p-button>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-5 col-sm-12">
       <!-- InforNguoiDat -->
 
       <div class="card XacNhanDatCho">
         <h6>Chi tiết người liên lạc</h6>
         <hr />
-        <p></p>
+        <p>
+          Họ tên : <b>{{ infoClient?.hoTen }}</b>
+        </p>
+        <p>
+          Số điện thoại : <b>(+84) 0{{ infoClient?.sdt }}</b>
+        </p>
       </div>
       <div class="card XacNhanDatCho">
         <h6>Chi tiết khách ở</h6>
         <hr />
-        <p>Tên khách :</p>
-        <p>Yêu cầu đặc biệt :</p>
+        <p>
+          Tên khách : <b>{{ infoClient?.hoTen }}</b>
+        </p>
+        <p>
+          CCCD/Hộ chiếu : <b>{{ infoClient?.cccd }}</b>
+        </p>
+        <p>
+          Email : <b>{{ infoClient?.email }}</b>
+        </p>
+        <p>
+          Số điện thoại : <b>(+84) 0{{ infoClient?.sdt }}</b>
+        </p>
+        <p>
+          Yêu cầu đặc biệt : <b>{{ infoClient?.yeuCauDacBiet }}</b>
+        </p>
       </div>
 
       <!-- End InforNguoiDat -->

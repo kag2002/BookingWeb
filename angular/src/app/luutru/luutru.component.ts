@@ -34,7 +34,6 @@ export class LuutruComponent {
   rooms = 0;
 
   phongSearchinhFilterDto: PhongSearchinhFilterDto[];
-
   constructor(
     private _diadiemService: DiaDiemServiceProxy,
     private messageService: MessageService,
@@ -108,10 +107,11 @@ export class LuutruComponent {
         this.phongSearchinhFilterDto = result;
         this.bookingInfoService.setBookingInfo(this.phongSearchinhFilterDto);
 
-        console.log("Gui du lieu :", this.phongSearchinhFilterDto);
+        console.log("Gui du lieu 1:", this.phongSearchinhFilterDto);
       });
 
-    console.log("Gui du lieu :", this.inforBookingDto);
+    this.bookingInfoService.setSearchBookingInfo(this.inforBookingDto);
+    console.log("Gui du lieu 2:", this.inforBookingDto);
 
     this.showTimKiemGanDay = true;
   }
