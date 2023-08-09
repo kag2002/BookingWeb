@@ -81,7 +81,7 @@ export class KhachsanListComponent implements OnInit {
     );
 
     this.formSapXep = this.fb.group({
-      selectedCategory: new FormControl(this.sapxeps[3]),
+      selectedCategory: this.sapxeps[3],
     });
 
     this.formLoc = this.fb.group({
@@ -152,7 +152,8 @@ export class KhachsanListComponent implements OnInit {
       this.selectedLoaiHinhCuTru;
     this.searchingFilterRoomInputDto.mienPhiHuyPhong =
       this.formLoc.value.mienphihuyphong;
-    this.searchingFilterRoomInputDto.sortCondition = 4;
+    this.searchingFilterRoomInputDto.sortCondition =
+      this.formSapXep.value.selectedCategory.key;
 
     this._searchingFilterService
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
