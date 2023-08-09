@@ -26,7 +26,11 @@
           )
         }"
         tabindex="0"
-        routerLink="/app/khachsanlist"
+        [routerLink]="[
+          '/app/trangchu',
+          2,
+          slidesloaichonghi[currentIndex + i]?.id
+        ]"
         style="cursor: pointer"
       ></div>
       <div class="slide-content">

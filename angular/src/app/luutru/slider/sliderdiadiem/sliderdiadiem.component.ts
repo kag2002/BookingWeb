@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
+import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   DiaDiemServiceProxy,
   InfoBookingDto,
@@ -15,13 +16,13 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   currentIndex: number = 0;
   timeoutId?: number;
   @Input() slidesdiadiem = [];
+  @Input() AnTrangChu = true;
 
   infoBooking: InfoBookingDto;
 
   constructor(
-    private router: Router,
     private _diadiemService: DiaDiemServiceProxy,
-    private _searchingFilter: SearchingFilterServiceProxy
+    private serviceAntrangchu: BookingInfoService
   ) {}
   ngOnInit(): void {
     this.resetTimer();

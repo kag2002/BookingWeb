@@ -6,7 +6,7 @@ import {
   InfoBookingDto,
   PhongDto,
   PhongSearchinhFilterDto,
-  PhongServiceProxy,
+  HinhThucPhongServiceProxy,
   SearchingFilterRoomInputDto,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
@@ -24,7 +24,8 @@ interface LocItem {
 export class KhachsanListComponent implements OnInit {
   formSapXep: FormGroup;
   formLoc: FormGroup;
-
+  idloailoc: number;
+  iddeloc: number;
   rangeValues: number[] = [0, 20000];
 
   lstLoaiPhong: [];
@@ -63,7 +64,7 @@ export class KhachsanListComponent implements OnInit {
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
-
+  hinhthucphongservice: HinhThucPhongServiceProxy;
   // Tim theo sliderdiadiem
   inforBookingDtoSliderDiaDiem: InfoBookingDto = new InfoBookingDto();
 
@@ -74,19 +75,58 @@ export class KhachsanListComponent implements OnInit {
     private fb: FormBuilder,
 
     private _searchingFilterService: SearchingFilterServiceProxy,
-    private bookingInfoService: BookingInfoService
+    private bookingInfoService: BookingInfoService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.bookingInfoService.getBookingInfo().subscribe(
-      (result) => {
-        this.listkhachsan = result;
-        this.listLocKhachSanLuuTru = result;
-      },
-      (error) => {
-        console.log("Error:", error);
-      }
-    );
+    this.route.params.subscribe((params: Params) => {
+      this.idloailoc = +params["idloailoc"];
+    });
+    this.route.params.subscribe((params: Params) => {
+      this.iddeloc = +params["iddeloc"];
+    });
+
+    if (this.idloailoc == 0) {
+      this.bookingInfoService.getBookingInfo().subscribe(
+        (result) => {
+          this.listkhachsan = result;
+          this.listLocKhachSanLuuTru = result;
+        },
+        (error) => {
+          console.log("Error:", error);
+        }
+      );
+    } else if (this.idloailoc == 1) {
+      this.inforBookingDtoSliderDiaDiem.diaDiemid = this.iddeloc;
+      this.inforBookingDtoSliderDiaDiem.ngayDat = undefined;
+      this.inforBookingDtoSliderDiaDiem.ngayTra = undefined;
+      this.inforBookingDtoSliderDiaDiem.slNguoiLon = undefined;
+      this.inforBookingDtoSliderDiaDiem.slPhong = undefined;
+      this.inforBookingDtoSliderDiaDiem.slTreEm = undefined;
+      this._searchingFilterService
+        .searchingRoom(this.inforBookingDtoSliderDiaDiem)
+        .subscribe(
+          (result) => {
+            this.listkhachsan = result;
+            this.listLocKhachSanLuuTru = result;
+          },
+          (error) => {
+            console.log("Error:", error);
+          }
+        );
+    } else if (this.idloailoc == 2) {
+      // console.log(this.iddeloc);
+      // this.hinhthucphongservice.getRoomByForm(this.iddeloc).subscribe(
+      //   (result) => {
+      //     this.listkhachsan = result;
+      //     this.listLocKhachSanLuuTru = result;
+      //   },
+      //   (error) => {
+      //     console.log("Error:", error);
+      //   }
+      // );
+    }
 
     this.formSapXep = this.fb.group({
       selectedCategory: this.sapxeps[3],

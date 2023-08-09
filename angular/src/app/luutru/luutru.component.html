@@ -96,9 +96,10 @@
         (click)="show()"
         (click)="onSubmit()"
         (click)="searchHotels()"
+        (click)="AnTrangChuOnSubmit()"
         styleClass="p-button-raised"
         label="Tìm kiếm"
-        routerLink="/app/khachsanlist"
+        [routerLink]="['/app/trangchu', 0, iddiadiem]"
         ><i class="pi pi-search"></i
       ></p-button>
       <p-toast></p-toast>
@@ -162,101 +163,108 @@
   {{ signInForm.value | json }}
 </pre> -->
 <!-- End Form tìm phòng -->
-
-<!-- Start sliders gợi ý -->
-<div class="container GoiY">
-  <app-sliderloaichonghi></app-sliderloaichonghi>
-  <app-sliderdiadiem></app-sliderdiadiem>
-  <app-chonghinoibat></app-chonghinoibat>
-</div>
-<!-- End sliders gợi ý -->
-
-<hr style="margin: 0 150px 40px 150px" />
-
-<!-- Start đối tác khách sạn  -->
-<div class="center-container">
-  <div class="DoiTacHotel row container">
-    <div class="AboutDoiTacHotel col-lg-6">
-      <h4>Đối tác Khách sạn</h4>
-      <h6>Đối tác khách sạn trong và ngoài nước</h6>
-
-      <p>
-        Chúng tôi có một mạng lưới các khách sạn đối tác đáng tin cậy trên toàn
-        thế giới cung cấp cho quý khách một loạt các lựa chọn phong phú và đa
-        dạng đáp ứng tất cả các yêu cầu của bạn. Hãy đến với chúng tôi và để
-        chúng tôi chia sẻ những khoảnh khắc tuyệt vời cùng bạn!
-      </p>
-    </div>
-
-    <img class="col-lg-6" src="/assets/img/Logo/LogoHotel.png" alt="" />
+<div *ngIf="HienTrangChu">
+  <!-- Start sliders gợi ý -->
+  <div class="container GoiY">
+    <app-sliderloaichonghi></app-sliderloaichonghi>
+    <app-sliderdiadiem></app-sliderdiadiem>
+    <app-chonghinoibat></app-chonghinoibat>
   </div>
-</div>
-<!-- End đối tác khách sạn  -->
+  <!-- End sliders gợi ý -->
 
-<hr style="margin: 60px 150px" />
+  <hr style="margin: 0 150px 40px 150px" />
 
-<!-- Start form liên hệ ,câu hỏi -->
-<app-lienhe></app-lienhe>
-<!-- End form liên hệ ,câu hỏi -->
+  <!-- Start đối tác khách sạn  -->
+  <div class="center-container">
+    <div class="DoiTacHotel row container">
+      <div class="AboutDoiTacHotel col-lg-6">
+        <h4>Đối tác Khách sạn</h4>
+        <h6>Đối tác khách sạn trong và ngoài nước</h6>
 
-<hr style="margin: 60px 200px" />
+        <p>
+          Chúng tôi có một mạng lưới các khách sạn đối tác đáng tin cậy trên
+          toàn thế giới cung cấp cho quý khách một loạt các lựa chọn phong phú
+          và đa dạng đáp ứng tất cả các yêu cầu của bạn. Hãy đến với chúng tôi
+          và để chúng tôi chia sẻ những khoảnh khắc tuyệt vời cùng bạn!
+        </p>
+      </div>
 
-<!-- Start lý do dùng web -->
-<h4 style="text-align: center">Tại sao nên đặt phòng với StayEase ?</h4>
-<div class="center-container">
-  <div class="container row WhyBook">
-    <div class="col-lg-3 col-md-6">
-      <ul class="mb-0">
-        <li>
-          <img src="/assets/img/Logo/LogoWhyBook/WhyBook1.png" alt="" />
-        </li>
-        <li>
-          <h3>Giải pháp du lịch hoàn thiện</h3>
-        </li>
-        <li>
-          <p>
-            Giải pháp toàn diện-giúp bạn tìm chuyến bay và khách sạn khắp Việt
-            Nam một cách tiết kiệm
-          </p>
-        </li>
-      </ul>
+      <img class="col-lg-6" src="/assets/img/Logo/LogoHotel.png" alt="" />
     </div>
-    <div class="col-lg-3 col-md-6">
-      <ul>
-        <li><img src="/assets/img/Logo/LogoWhyBook/WhyBook2.png" alt="" /></li>
-        <li><h3>Giá rẻ mỗi ngày</h3></li>
-        <li>
-          <p>
-            Giá cả minh bạch , Ưu đãi liền tay .Dễ dàng so sánh khi không phải
-            trả thêm phụ phí
-          </p>
-        </li>
-      </ul>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <ul>
-        <li><img src="/assets/img/Logo/LogoWhyBook/WhyBook3.png" alt="" /></li>
-        <li><h3>Phương thức thanh toán an toàn và linh hoạt</h3></li>
-        <li>
-          <p>
-            Giao dịch trực tuyến an toàn với nhiều lựa chọn như chuyển khoản
-            ngân hàng ,thẻ tín dụng đến internet Banking.Không tính phí giao
-            dịch
-          </p>
-        </li>
-      </ul>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <ul>
-        <li><img src="/assets/img/Logo/LogoWhyBook/WhyBook4.png" alt="" /></li>
-        <li><h3>Hỗ trợ khách hàng 24/7</h3></li>
-        <li>
-          <p>
-            Đội ngũ nhân viên hỗ trợ khách hàng luôn sẵn sàng giúp đỡ bạn trong
-            từng bước của quá trình đặt vé
-          </p>
-        </li>
-      </ul>
+  </div>
+  <!-- End đối tác khách sạn  -->
+
+  <hr style="margin: 60px 150px" />
+
+  <!-- Start form liên hệ ,câu hỏi -->
+  <app-lienhe></app-lienhe>
+  <!-- End form liên hệ ,câu hỏi -->
+
+  <hr style="margin: 60px 200px" />
+
+  <!-- Start lý do dùng web -->
+  <h4 style="text-align: center">Tại sao nên đặt phòng với StayEase ?</h4>
+  <div class="center-container">
+    <div class="container row WhyBook">
+      <div class="col-lg-3 col-md-6">
+        <ul class="mb-0">
+          <li>
+            <img src="/assets/img/Logo/LogoWhyBook/WhyBook1.png" alt="" />
+          </li>
+          <li>
+            <h3>Giải pháp du lịch hoàn thiện</h3>
+          </li>
+          <li>
+            <p>
+              Giải pháp toàn diện-giúp bạn tìm chuyến bay và khách sạn khắp Việt
+              Nam một cách tiết kiệm
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <ul>
+          <li>
+            <img src="/assets/img/Logo/LogoWhyBook/WhyBook2.png" alt="" />
+          </li>
+          <li><h3>Giá rẻ mỗi ngày</h3></li>
+          <li>
+            <p>
+              Giá cả minh bạch , Ưu đãi liền tay .Dễ dàng so sánh khi không phải
+              trả thêm phụ phí
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <ul>
+          <li>
+            <img src="/assets/img/Logo/LogoWhyBook/WhyBook3.png" alt="" />
+          </li>
+          <li><h3>Phương thức thanh toán an toàn và linh hoạt</h3></li>
+          <li>
+            <p>
+              Giao dịch trực tuyến an toàn với nhiều lựa chọn như chuyển khoản
+              ngân hàng ,thẻ tín dụng đến internet Banking.Không tính phí giao
+              dịch
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <ul>
+          <li>
+            <img src="/assets/img/Logo/LogoWhyBook/WhyBook4.png" alt="" />
+          </li>
+          <li><h3>Hỗ trợ khách hàng 24/7</h3></li>
+          <li>
+            <p>
+              Đội ngũ nhân viên hỗ trợ khách hàng luôn sẵn sàng giúp đỡ bạn
+              trong từng bước của quá trình đặt vé
+            </p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -265,19 +273,3 @@
 <!-- Stat footer -->
 <app-footer></app-footer>
 <!-- End footer -->
-
-<!-- Test add delete button -->
-<!-- <button (click)="AddDiaDiem()">Add dia diem</button>
-<button (click)="DeleteDiaDiem(1)">Delete dia diem</button>
-<button (click)="GetDiaDiem()">Get all</button>
-<div
-  class="slide"
-  *ngFor="let item of slidesdiadiem; let i = index"
-  [ngStyle]="{
-    'background-image':
-      'url(\'/assets/img/img-diadanh/' + item.tenFileAnhDD + '\')'
-  }"
->
-  <div>Ten: {{ item.tenDiaDiem }}</div>
-  <div>Thongtinvtri: {{ item.thongTinViTri }}</div>
-</div> -->

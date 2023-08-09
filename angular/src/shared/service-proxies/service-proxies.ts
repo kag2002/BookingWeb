@@ -2007,7 +2007,7 @@ export class HinhThucPhongServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getRoomByForm(id: number | undefined): Observable<GetRoomByFormDto[]> {
+    getRoomByForm(id: number | undefined): Observable<PhongSearchinhFilterDto[]> {
         let url_ = this.baseUrl + "/api/services/app/HinhThucPhong/GetRoomByForm?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -2030,14 +2030,14 @@ export class HinhThucPhongServiceProxy {
                 try {
                     return this.processGetRoomByForm(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetRoomByFormDto[]>;
+                    return _observableThrow(e) as any as Observable<PhongSearchinhFilterDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<GetRoomByFormDto[]>;
+                return _observableThrow(response_) as any as Observable<PhongSearchinhFilterDto[]>;
         }));
     }
 
-    protected processGetRoomByForm(response: HttpResponseBase): Observable<GetRoomByFormDto[]> {
+    protected processGetRoomByForm(response: HttpResponseBase): Observable<PhongSearchinhFilterDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2051,7 +2051,7 @@ export class HinhThucPhongServiceProxy {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200.push(GetRoomByFormDto.fromJS(item));
+                    result200.push(PhongSearchinhFilterDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -8386,117 +8386,6 @@ export interface IGetRoleForEditOutput {
     grantedPermissionNames: string[] | undefined;
 }
 
-export class GetRoomByFormDto implements IGetRoomByFormDto {
-    hinhThucPhongId: number | undefined;
-    tenHinhThuc: string | undefined;
-    phongId: number;
-    tenDonVi: string | undefined;
-    loaiPhong: string[] | undefined;
-    diaChi: string | undefined;
-    anhDaiDien: string | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
-    dichVu: string[] | undefined;
-    hinhAnh: string[] | undefined;
-
-    constructor(data?: IGetRoomByFormDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.hinhThucPhongId = _data["hinhThucPhongId"];
-            this.tenHinhThuc = _data["tenHinhThuc"];
-            this.phongId = _data["phongId"];
-            this.tenDonVi = _data["tenDonVi"];
-            if (Array.isArray(_data["loaiPhong"])) {
-                this.loaiPhong = [] as any;
-                for (let item of _data["loaiPhong"])
-                    this.loaiPhong.push(item);
-            }
-            this.diaChi = _data["diaChi"];
-            this.anhDaiDien = _data["anhDaiDien"];
-            this.chinhSachVePhong = _data["chinhSachVePhong"];
-            this.chinhSachVeTreEm = _data["chinhSachVeTreEm"];
-            this.chinhSachVeThuCung = _data["chinhSachVeThuCung"];
-            if (Array.isArray(_data["dichVu"])) {
-                this.dichVu = [] as any;
-                for (let item of _data["dichVu"])
-                    this.dichVu.push(item);
-            }
-            if (Array.isArray(_data["hinhAnh"])) {
-                this.hinhAnh = [] as any;
-                for (let item of _data["hinhAnh"])
-                    this.hinhAnh.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): GetRoomByFormDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetRoomByFormDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["hinhThucPhongId"] = this.hinhThucPhongId;
-        data["tenHinhThuc"] = this.tenHinhThuc;
-        data["phongId"] = this.phongId;
-        data["tenDonVi"] = this.tenDonVi;
-        if (Array.isArray(this.loaiPhong)) {
-            data["loaiPhong"] = [];
-            for (let item of this.loaiPhong)
-                data["loaiPhong"].push(item);
-        }
-        data["diaChi"] = this.diaChi;
-        data["anhDaiDien"] = this.anhDaiDien;
-        data["chinhSachVePhong"] = this.chinhSachVePhong;
-        data["chinhSachVeTreEm"] = this.chinhSachVeTreEm;
-        data["chinhSachVeThuCung"] = this.chinhSachVeThuCung;
-        if (Array.isArray(this.dichVu)) {
-            data["dichVu"] = [];
-            for (let item of this.dichVu)
-                data["dichVu"].push(item);
-        }
-        if (Array.isArray(this.hinhAnh)) {
-            data["hinhAnh"] = [];
-            for (let item of this.hinhAnh)
-                data["hinhAnh"].push(item);
-        }
-        return data;
-    }
-
-    clone(): GetRoomByFormDto {
-        const json = this.toJSON();
-        let result = new GetRoomByFormDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IGetRoomByFormDto {
-    hinhThucPhongId: number | undefined;
-    tenHinhThuc: string | undefined;
-    phongId: number;
-    tenDonVi: string | undefined;
-    loaiPhong: string[] | undefined;
-    diaChi: string | undefined;
-    anhDaiDien: string | undefined;
-    chinhSachVePhong: string | undefined;
-    chinhSachVeTreEm: string | undefined;
-    chinhSachVeThuCung: string | undefined;
-    dichVu: string[] | undefined;
-    hinhAnh: string[] | undefined;
-}
-
 export class HinhAnhDto implements IHinhAnhDto {
     tenFileAnh: string | undefined;
     phongId: number;
@@ -10365,7 +10254,7 @@ export interface IPhongInputDto {
 export class PhongSearchinhFilterDto implements IPhongSearchinhFilterDto {
     hinhThucPhongId: number;
     hinhThucPhong: string | undefined;
-    donViKinhDoanhId: number;
+    donViKinhDoanhId: number | undefined;
     tenDonVi: string | undefined;
     diaChiChiTiet: string | undefined;
     phongId: number;
@@ -10445,7 +10334,7 @@ export class PhongSearchinhFilterDto implements IPhongSearchinhFilterDto {
 export interface IPhongSearchinhFilterDto {
     hinhThucPhongId: number;
     hinhThucPhong: string | undefined;
-    donViKinhDoanhId: number;
+    donViKinhDoanhId: number | undefined;
     tenDonVi: string | undefined;
     diaChiChiTiet: string | undefined;
     phongId: number;
