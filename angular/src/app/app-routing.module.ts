@@ -12,7 +12,9 @@ import { DiadiemComponent } from "./diadiem/diadiem.component";
 import { KhachsanListComponent } from "./khachsan/khachsan-list/khachsan-list.component";
 import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
-import { ThongtinlienheComponent } from "./chonphong/thongtinlienhe/thongtinlienhe.component";
+import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
+import { XacnhandatComponent } from "./xacnhandat/xacnhandat/xacnhandat.component";
+import { XacnhandatStartComponent } from "./xacnhandat/xacnhandat-start/xacnhandat-start.component";
 
 @NgModule({
   imports: [
@@ -76,6 +78,18 @@ import { ThongtinlienheComponent } from "./chonphong/thongtinlienhe/thongtinlien
               {
                 path: ":id/:idloaiphong",
                 component: ThongtinlienheComponent,
+                canActivate: [AppRouteGuard],
+              },
+            ],
+          },
+          {
+            path: "xacnhandat",
+            component: XacnhandatStartComponent,
+            canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":id",
+                component: XacnhandatComponent,
                 canActivate: [AppRouteGuard],
               },
             ],

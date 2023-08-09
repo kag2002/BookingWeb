@@ -65,9 +65,11 @@ import { LienheComponent } from "./luutru/lienhe/lienhe.component";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
-import { ThongtinlienheComponent } from "./chonphong/thongtinlienhe/thongtinlienhe.component";
-import { ThongtinlienheStartComponent } from "./chonphong/thongtinlienhe-start/thongtinlienhe-start.component";
+import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
+import { ThongtinlienheStartComponent } from "./formthongtinlienhe/thongtinlienhe-start/thongtinlienhe-start.component";
 import { LienHeServiceProxy } from "@shared/service-proxies/service-proxies";
+import { XacnhandatComponent } from "./xacnhandat/xacnhandat/xacnhandat.component";
+import { XacnhandatStartComponent } from "./xacnhandat/xacnhandat-start/xacnhandat-start.component";
 
 @NgModule({
   declarations: [
@@ -112,6 +114,8 @@ import { LienHeServiceProxy } from "@shared/service-proxies/service-proxies";
     KhachsanStartComponent,
     ThongtinlienheComponent,
     ThongtinlienheStartComponent,
+    XacnhandatComponent,
+    XacnhandatStartComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

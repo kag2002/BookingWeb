@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import {
   ClientBookRoomInputDto,
-  ClientBookRoomOutputDto,
-  PhongDto,
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 
