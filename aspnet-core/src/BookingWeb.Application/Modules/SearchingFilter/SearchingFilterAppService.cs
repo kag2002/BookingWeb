@@ -125,7 +125,7 @@ namespace BookingWeb.Modules.SearchingFilter
         public async Task<List<PhongSearchinhFilterDto>> GetRoomsByLocationAndFilter(SearchingFilterRoomInputDto input)
         {
             try
-            {
+                {
 
                 /* var dtoList = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<List<PhongSearchinhFilterDto>>("lstRoom");*/
 
