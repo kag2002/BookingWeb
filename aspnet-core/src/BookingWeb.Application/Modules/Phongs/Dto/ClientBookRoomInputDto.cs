@@ -8,9 +8,9 @@ namespace BookingWeb.Modules.Phongs.Dto
 {
     public class ClientBookRoomInputDto
     {
-        public int phongId { get; set; }
+/*        public int phongId { get; set; }
 
-        public int loaiPhongId { get; set; }
+        public int loaiPhongId { get; set; }*/
 
         public int DatHo { get; set; }
 
@@ -24,6 +24,7 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string YeuCauDacBiet { get; set; }
 
-        public double TongTien { get; set; }
+        /*public double TongTien { get; set; }*/
+
     }
 }

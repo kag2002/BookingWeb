@@ -19,8 +19,6 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public string tenLoaiPhong { get; set; }
 
-        public InfoBookingDto infoBookingDto { get; set; }
-
         public int sucChuaPhong { get; set; }
 
         public string moTaPhong { get; set; }
@@ -30,5 +28,9 @@ namespace BookingWeb.Modules.Phongs.Dto
         public double giaPhongTheoDem { get; set; }
 
         public bool mienPhiHuyPhong { get; set; }
+
+        public double tongTien { get; set; }
+
+
     }
 }
