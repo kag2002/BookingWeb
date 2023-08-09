@@ -1,4 +1,5 @@
 <!-- header -->
+<router-outlet></router-outlet>
 <div class="header">
   <!-- navigation header -->
   <p-tabView styleClass="nav-header tabview-custom"
@@ -7,7 +8,7 @@
         <i class="pi pi-fw pi-home"></i>
         <span>Home</span>
       </ng-template>
-      <app-luutru></app-luutru>
+      <app-luutru [HienTrangChu]="true"></app-luutru>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">

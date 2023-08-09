@@ -9,7 +9,7 @@ import {
   PhongServiceProxy,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-interface LoaiHinhCuTruItem {
+interface LocItem {
   label: string;
   value: number;
 }
@@ -23,7 +23,7 @@ export class LocdiadiemComponent {
   formLoc: FormGroup;
   iddiadiem: number;
 
-  rangeValues: number[] = [1000, 3000];
+  rangeValues: number[] = [0, 20000];
 
   lstLoaiPhong: [];
 
@@ -34,7 +34,7 @@ export class LocdiadiemComponent {
     { name: "Độ phổ biến", key: 4 },
   ];
 
-  loaiHinhCuTruOptions: LoaiHinhCuTruItem[] = [
+  loaiHinhCuTruOptions: LocItem[] = [
     { label: "Khách Sạn", value: 1 },
     { label: "Khách Sạn Cao Cấp", value: 2 },
     { label: "HomeStay", value: 3 },
@@ -47,14 +47,20 @@ export class LocdiadiemComponent {
     { label: "Biệt thự", value: 10 },
     { label: "Studio", value: 11 },
   ];
-  stars: number[] = [1, 2, 3, 4, 5];
+  saoOptions: LocItem[] = [
+    { label: "KS1sao", value: 1 },
+    { label: "KS2sao", value: 2 },
+    { label: "KS3sao", value: 3 },
+    { label: "KS4sao", value: 4 },
+    { label: "KS5sao", value: 5 },
+  ];
 
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
-  listkhachsandiadiem;
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
+  listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
   // Tim theo sliderdiadiem
   inforBookingDtoSliderDiaDiem: InfoBookingDto = new InfoBookingDto();
 
@@ -84,6 +90,7 @@ export class LocdiadiemComponent {
       .subscribe(
         (result) => {
           this.listkhachsan = result;
+          this.listLocKhachSanLuuTru = result;
         },
         (error) => {
           console.log("Error:", error);
@@ -100,11 +107,6 @@ export class LocdiadiemComponent {
       inputmaxprice: [this.rangeValues[1]],
       inputprice: [this.rangeValues],
       LocSaoData: this.fb.group({
-        value1: [],
-        value2: [],
-        value3: [],
-        value4: [],
-        value5: [],
         numberStar1: [1],
         numberStar2: [2],
         numberStar3: [3],
@@ -120,12 +122,16 @@ export class LocdiadiemComponent {
         new FormControl(false)
       );
     });
+    const locSao = this.formLoc.get("LocSaoData") as FormGroup;
+    this.saoOptions.forEach((option) => {
+      locSao.addControl(option.value.toString(), new FormControl(false));
+    });
   }
 
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-  onCheckboxChange(value: number) {
+  onCheckboxLoaiHinhChange(value: number) {
     const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
     const control = locLoaiHinhCuTru.get(value.toString());
 
@@ -140,16 +146,23 @@ export class LocdiadiemComponent {
       }
     }
   }
-  onSubmit() {
-    // Get the selected stars from LocSaoData
-    const locSaoData = this.formLoc.get("LocSaoData") as FormGroup;
-    for (let star of this.stars) {
-      if (locSaoData.get(`value${star}`).value) {
-        this.selectedStars.push(star);
+  onCheckboxSaoChange(value: number) {
+    const locSao = this.formLoc.get("LocSaoData") as FormGroup;
+    const control = locSao.get(value.toString());
+
+    if (control) {
+      if (control.value) {
+        this.selectedStars.push(value);
+      } else {
+        const index = this.selectedStars.indexOf(value);
+        if (index !== -1) {
+          this.selectedStars.splice(index, 1);
+        }
       }
     }
-
-    this.searchingFilterRoomInputDto.lst = this.listkhachsan;
+  }
+  onSubmit() {
+    this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
       this.formLoc.value.inputminprice;
@@ -169,14 +182,12 @@ export class LocdiadiemComponent {
       .subscribe(
         (result) => {
           this.listkhachsan = result;
-          this.selectedStars = [];
+          console.log("Loc Success");
         },
         (error) => {
           console.log("loi 2:", error);
         },
-        () => {
-          console.log("Loc Success");
-        }
+        () => {}
       );
   }
   // resetLoc() {

@@ -52,24 +52,26 @@ import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.co
             path: "trangchu",
             component: TrangchuComponent,
             canActivate: [AppRouteGuard],
-          },
-          {
-            path: "timdiadiem",
-            component: TrangchuComponent,
-            canActivate: [AppRouteGuard],
             children: [
               {
-                path: ":iddiadiem",
-                component: LocdiadiemComponent,
-                canActivate: [AppRouteGuard],
-              },
-              {
-                path: ":iddiadiem",
+                path: ":idloailoc/:iddeloc",
                 component: KhachsanListComponent,
                 canActivate: [AppRouteGuard],
               },
             ],
           },
+          // {
+          //   path: "app",
+          //   component: TrangchuComponent,
+          //   canActivate: [AppRouteGuard],
+          //   children: [
+          //     {
+          //       path: ":idloailoc/:iddeloc",
+          //       component: KhachsanListComponent,
+          //       canActivate: [AppRouteGuard],
+          //     },
+          //   ],
+          // },
           {
             path: "khachsanlist",
             component: KhachsanListComponent,

@@ -108,7 +108,7 @@
                     [id]="'checkbox_' + option.value"
                     [name]="option.value.toString()"
                     [formControlName]="option.value.toString()"
-                    (onChange)="onCheckboxChange(option.value)"
+                    (onChange)="onCheckboxLoaiHinhChange(option.value)"
                   ></p-checkbox>
                   <label [for]="'checkbox_' + option.value">{{
                     option.label

@@ -6,16 +6,12 @@ import {
   InfoBookingDto,
   PhongDto,
   PhongSearchinhFilterDto,
-  PhongServiceProxy,
+  HinhThucPhongServiceProxy,
   SearchingFilterRoomInputDto,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 
-interface LoaiHinhCuTruItem {
-  label: string;
-  value: number;
-}
-interface SaoItem {
+interface LocItem {
   label: string;
   value: number;
 }
@@ -28,7 +24,8 @@ interface SaoItem {
 export class KhachsanListComponent implements OnInit {
   formSapXep: FormGroup;
   formLoc: FormGroup;
-
+  idloailoc: number;
+  iddeloc: number;
   rangeValues: number[] = [0, 20000];
 
   lstLoaiPhong: [];
@@ -40,7 +37,7 @@ export class KhachsanListComponent implements OnInit {
     { name: "Độ phổ biến", key: 4 },
   ];
 
-  loaiHinhCuTruOptions: LoaiHinhCuTruItem[] = [
+  loaiHinhCuTruOptions: LocItem[] = [
     { label: "Khách Sạn", value: 1 },
     { label: "Khách Sạn Cao Cấp", value: 2 },
     { label: "HomeStay", value: 3 },
@@ -53,7 +50,7 @@ export class KhachsanListComponent implements OnInit {
     { label: "Biệt thự", value: 10 },
     { label: "Studio", value: 11 },
   ];
-  saoOptions: SaoItem[] = [
+  saoOptions: LocItem[] = [
     { label: "KS1sao", value: 1 },
     { label: "KS2sao", value: 2 },
     { label: "KS3sao", value: 3 },
@@ -67,7 +64,7 @@ export class KhachsanListComponent implements OnInit {
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
-
+  hinhthucphongservice: HinhThucPhongServiceProxy;
   // Tim theo sliderdiadiem
   inforBookingDtoSliderDiaDiem: InfoBookingDto = new InfoBookingDto();
 
@@ -78,19 +75,58 @@ export class KhachsanListComponent implements OnInit {
     private fb: FormBuilder,
 
     private _searchingFilterService: SearchingFilterServiceProxy,
-    private bookingInfoService: BookingInfoService
+    private bookingInfoService: BookingInfoService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.bookingInfoService.getBookingInfo().subscribe(
-      (result) => {
-        this.listkhachsan = result;
-        this.listLocKhachSanLuuTru = result;
-      },
-      (error) => {
-        console.log("Error:", error);
-      }
-    );
+    this.route.params.subscribe((params: Params) => {
+      this.idloailoc = +params["idloailoc"];
+    });
+    this.route.params.subscribe((params: Params) => {
+      this.iddeloc = +params["iddeloc"];
+    });
+
+    if (this.idloailoc == 0) {
+      this.bookingInfoService.getBookingInfo().subscribe(
+        (result) => {
+          this.listkhachsan = result;
+          this.listLocKhachSanLuuTru = result;
+        },
+        (error) => {
+          console.log("Error:", error);
+        }
+      );
+    } else if (this.idloailoc == 1) {
+      this.inforBookingDtoSliderDiaDiem.diaDiemid = this.iddeloc;
+      this.inforBookingDtoSliderDiaDiem.ngayDat = undefined;
+      this.inforBookingDtoSliderDiaDiem.ngayTra = undefined;
+      this.inforBookingDtoSliderDiaDiem.slNguoiLon = undefined;
+      this.inforBookingDtoSliderDiaDiem.slPhong = undefined;
+      this.inforBookingDtoSliderDiaDiem.slTreEm = undefined;
+      this._searchingFilterService
+        .searchingRoom(this.inforBookingDtoSliderDiaDiem)
+        .subscribe(
+          (result) => {
+            this.listkhachsan = result;
+            this.listLocKhachSanLuuTru = result;
+          },
+          (error) => {
+            console.log("Error:", error);
+          }
+        );
+    } else if (this.idloailoc == 2) {
+      // console.log(this.iddeloc);
+      // this.hinhthucphongservice.getRoomByForm(this.iddeloc).subscribe(
+      //   (result) => {
+      //     this.listkhachsan = result;
+      //     this.listLocKhachSanLuuTru = result;
+      //   },
+      //   (error) => {
+      //     console.log("Error:", error);
+      //   }
+      // );
+    }
 
     this.formSapXep = this.fb.group({
       selectedCategory: this.sapxeps[3],
@@ -126,7 +162,7 @@ export class KhachsanListComponent implements OnInit {
   getCurrentSlideUrl(index: number): string {
     return `url('/assets/img/DonViKinhDoanh/${this.listkhachsan[index]?.tenFileAnhDaiDien}')`;
   }
-  onCheckboxChange(value: number) {
+  onCheckboxLoaiHinhChange(value: number) {
     const locLoaiHinhCuTru = this.formLoc.get("LocLoaiHinhCuTru") as FormGroup;
     const control = locLoaiHinhCuTru.get(value.toString());
 
@@ -177,17 +213,19 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
-          console.log("Sao array", this.selectedStars);
           this.listkhachsan = result;
+
 
           // this.selectedStars = [];
 
           console.log("oke :", this.listkhachsan);
+
           console.log("Loc Success");
         },
         (error) => {
           console.log("loi 2:", error);
-        }
+        },
+        () => {}
       );
   }
   // resetLoc() {

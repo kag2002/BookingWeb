@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import {
@@ -18,10 +18,12 @@ import { now } from "moment";
   providers: [MessageService],
 })
 export class LuutruComponent {
+  @Input() HienTrangChu = true;
   formTimPhong: FormGroup;
 
   diadiemDto: DiaDiemDto = new DiaDiemDto();
   suggestionsDiaDiem: DiaDiemFullDto[];
+
   inforBookingDto: InfoBookingDto = new InfoBookingDto();
 
   selectedDiadiem: any;
@@ -32,6 +34,7 @@ export class LuutruComponent {
   adults = 0;
   children = 0;
   rooms = 0;
+  iddiadiem = 0;
 
   phongSearchinhFilterDto: PhongSearchinhFilterDto[];
   constructor(
@@ -91,6 +94,8 @@ export class LuutruComponent {
   onSubmit() {
     this.inforBookingDto.diaDiemid =
       this.formTimPhong.value.timkiemData.locations?.id;
+    this.iddiadiem = this.formTimPhong.value.timkiemData.locations?.id;
+
     this.inforBookingDto.ngayDat =
       this.formTimPhong.value.timkiemData?.rangeDates[0];
     this.inforBookingDto.ngayTra =
@@ -114,6 +119,9 @@ export class LuutruComponent {
     console.log("Gui du lieu 2:", this.inforBookingDto);
 
     this.showTimKiemGanDay = true;
+  }
+  AnTrangChuOnSubmit() {
+    this.HienTrangChu = false;
   }
 
   toggleForm() {
