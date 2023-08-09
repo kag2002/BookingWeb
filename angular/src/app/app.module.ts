@@ -67,9 +67,12 @@ import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-det
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { ThongtinlienheStartComponent } from "./formthongtinlienhe/thongtinlienhe-start/thongtinlienhe-start.component";
-import { LienHeServiceProxy } from "@shared/service-proxies/service-proxies";
+import {
+  ChinhSachChungServiceProxy,
+  LienHeServiceProxy,
+} from "@shared/service-proxies/service-proxies";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
-import { LocdiadiemComponent } from './luutru/LocSlider/locdiadiem/locdiadiem.component';
+import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.component";
 
 @NgModule({
   declarations: [
@@ -150,6 +153,6 @@ import { LocdiadiemComponent } from './luutru/LocSlider/locdiadiem/locdiadiem.co
 
     // PaginatorModule,
   ],
-  providers: [LienHeServiceProxy, DatePipe],
+  providers: [LienHeServiceProxy, ChinhSachChungServiceProxy],
 })
 export class AppModule {}

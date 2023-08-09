@@ -28,6 +28,33 @@ namespace BookingWeb.Modules.ChinhSachChungs
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<ChinhSachChungOutoutDto> GetPolicyByDVKDId(int dvkdId)
+        {
+            try
+            {
+                var policy = await _chinhSachChung.FirstOrDefaultAsync(p => p.DonViKinhDoanhId == dvkdId);
+                var dto = new ChinhSachChungOutoutDto
+                {
+                    Id=policy.Id,
+                    KiemTraThongTin = policy.KiemTraThongTin,
+                    BuaSang = policy.BuaSang,
+                    NhanPhong = policy.NhanPhong,
+                    TraPhong = policy?.TraPhong,
+                    ChinhSachVePhong = policy?.ChinhSachVePhong,
+                    ChinhSachTreEm = policy?.ChinhSachTreEm,
+                    ChinhSachVeGiuongPhu = policy?.ChinhSachVeGiuongPhu,
+                    ChinhSachVeThuCung = policy?.ChinhSachVeThuCung,
+                    PhuongThucThanhToan = policy?.PhuongThucThanhToan,
+                    DonViKinhDoanhId = dvkdId
+                };
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<List<ChinhSachChungOutoutDto>> GetAllListChinhSach()
         {
             try

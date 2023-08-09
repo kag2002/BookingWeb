@@ -27,10 +27,14 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public double giaPhongTheoDem { get; set; }
 
+        public double giaDichVuThem { get; set; }
+
+        public double giamGia { get; set; }
+
+        public double uuDaiDacBiet { get; set; }
+
         public bool mienPhiHuyPhong { get; set; }
 
         public double tongTien { get; set; }
-
-
     }
 }

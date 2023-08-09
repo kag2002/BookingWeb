@@ -538,7 +538,11 @@ namespace BookingWeb.Modules.Phongs
                     moTaPhong = info.MoTa,
                     tienNghi = info.TienNghiTrongPhong,
                     giaPhongTheoDem = info.GiaPhongTheoDem,
+                    giaDichVuThem = info.GiaGoiDichVuThem,
+                    giamGia = info.UuDai,
+                    uuDaiDacBiet = info.UuDai,
                     mienPhiHuyPhong = info.MienPhiHuyPhong,
+                    
                 };
                 return dto;
             }
@@ -588,14 +592,14 @@ namespace BookingWeb.Modules.Phongs
 */
                 var newPhieuDat = new PhieuDatPhong
                 {
-
-                    HoTen = input.infoClient.HoTen,
-                    SDT = input.infoClient.SDT,
-                    CCCD = input.infoClient.CCCD,
-                    Email = input.infoClient.Email,
-                    NgayBatDau = input.infoBooking.NgayDat,
-                    NgayHenTra = input.infoBooking.NgayTra,
-                    DatHo = input.infoClient.DatHo,
+                    HoTen = input.HoTen,
+                    SDT = input.SDT,
+                    CCCD = input.CCCD,
+                    Email = input.Email,
+                    NgayBatDau = input.NgayDat,
+                    NgayHenTra = input.NgayTra,
+                    DatHo = input.DatHo,
+                    YeuCauDacBiet = input.YeuCauDacBiet
                 };
 
                 var idPhieuDat = await _phieuDatPhong.InsertAndGetIdAsync(newPhieuDat);
@@ -603,17 +607,16 @@ namespace BookingWeb.Modules.Phongs
                 var chiTietPhieuDat = new ChiTietDatPhong
                 {
                     TrangThaiPhongId = 1,
-                    CheckIn = "Từ 14h" + input.infoBooking.NgayDat.ToString(),
-                    CheckOut = "Trước 12h" + input.infoBooking.NgayTra.ToString(),
-                    SLNguoiLon = input.infoBooking.SlNguoiLon,
-                    SLTreEm = input.infoBooking.SlTreEm,
-                    SLPhong = input.infoBooking.SlPhong,
-                    TienPhong = input.infoRoom.giaPhongTheoDem,
+                    CheckIn = "Từ 14h" + input.NgayDat.ToString(),
+                    CheckOut = "Trước 12h" + input.NgayTra.ToString(),
+                    SLNguoiLon = input.SlNguoiLon,
+                    SLTreEm = input.SlTreEm,
+                    SLPhong = input.SlPhong,
                     TienPhongQuaHan = 0,
                     ChiPhiHuyPhong = 0,
-                    TongTien = input.infoRoom.tongTien,
                     PhieuDatPhongId = idPhieuDat,
-                    PhongId = input.infoRoom.phongId,
+                    PhongId = input.phongId,
+                    TongTien = input.TongTien
                 };
 
                 await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);
