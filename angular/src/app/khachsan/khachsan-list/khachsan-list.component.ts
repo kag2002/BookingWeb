@@ -2,13 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
+  PhongDto,
   PhongSearchinhFilterDto,
   PhongServiceProxy,
   SearchingFilterRoomInputDto,
   SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-import { error } from "console";
-import { result } from "lodash-es";
 
 interface LoaiHinhCuTruItem {
   label: string;
@@ -51,6 +50,7 @@ export class KhachsanListComponent implements OnInit {
 
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
+  listkhachsandiadiem: PhongServiceProxy;
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
@@ -66,14 +66,12 @@ export class KhachsanListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this._phongService.getAllRoom().subscribe((result) => {
-    //   this.listkhachsan = result;
+    // this._phongService.getRoomsByDiaDiemId(id).subscribe((result) => {
+    //   this.listkhachsandiadiem = result;
     // });
-    console.log("Observable:", this.bookingInfoService.getBookingInfo());
 
     this.bookingInfoService.getBookingInfo().subscribe(
       (result) => {
-        console.log("Received result:", result);
         this.listkhachsan = result;
         this.listLocKhachSanLuuTru = result;
       },
@@ -160,7 +158,6 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
-          console.log("ket qua", result);
           this.listkhachsan = result;
           this.selectedStars = [];
         },
@@ -168,7 +165,7 @@ export class KhachsanListComponent implements OnInit {
           console.log("loi 2:", error);
         },
         () => {
-          console.log("da loc thanh cong");
+          console.log("Loc Success");
         }
       );
   }
