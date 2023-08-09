@@ -15,6 +15,11 @@ interface LoaiHinhCuTruItem {
   label: string;
   value: number;
 }
+interface SaoItem {
+  label: string;
+  value: number;
+}
+
 @Component({
   selector: "app-khachsan-list",
   templateUrl: "./khachsan-list.component.html",
@@ -48,7 +53,13 @@ export class KhachsanListComponent implements OnInit {
     { label: "Biệt thự", value: 10 },
     { label: "Studio", value: 11 },
   ];
-  stars: number[] = [1, 2, 3, 4, 5];
+  saoOptions: SaoItem[] = [
+    { label: "KS1sao", value: 1 },
+    { label: "KS2sao", value: 2 },
+    { label: "KS3sao", value: 3 },
+    { label: "KS4sao", value: 4 },
+    { label: "KS5sao", value: 5 },
+  ];
 
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
@@ -91,11 +102,6 @@ export class KhachsanListComponent implements OnInit {
       inputmaxprice: [this.rangeValues[1]],
       inputprice: [this.rangeValues],
       LocSaoData: this.fb.group({
-        value1: [],
-        value2: [],
-        value3: [],
-        value4: [],
-        value5: [],
         numberStar1: [1],
         numberStar2: [2],
         numberStar3: [3],
@@ -110,6 +116,10 @@ export class KhachsanListComponent implements OnInit {
         option.value.toString(),
         new FormControl(false)
       );
+    });
+    const locSao = this.formLoc.get("LocSaoData") as FormGroup;
+    this.saoOptions.forEach((option) => {
+      locSao.addControl(option.value.toString(), new FormControl(false));
     });
   }
 
@@ -131,15 +141,23 @@ export class KhachsanListComponent implements OnInit {
       }
     }
   }
-  onSubmit() {
-    // Get the selected stars from LocSaoData
-    const locSaoData = this.formLoc.get("LocSaoData") as FormGroup;
-    for (let star of this.stars) {
-      if (locSaoData.get(`value${star}`).value) {
-        this.selectedStars.push(star);
+  onCheckboxSaoChange(value: number) {
+    const locSao = this.formLoc.get("LocSaoData") as FormGroup;
+    const control = locSao.get(value.toString());
+
+    if (control) {
+      if (control.value) {
+        this.selectedStars.push(value);
+      } else {
+        const index = this.selectedStars.indexOf(value);
+        if (index !== -1) {
+          this.selectedStars.splice(index, 1);
+        }
       }
     }
+  }
 
+  onSubmit() {
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
@@ -159,8 +177,11 @@ export class KhachsanListComponent implements OnInit {
       .getRoomsByLocationAndFilter(this.searchingFilterRoomInputDto)
       .subscribe(
         (result) => {
+          console.log("Sao array", this.selectedStars);
           this.listkhachsan = result;
-          this.selectedStars = [];
+
+          // this.selectedStars = [];
+
           console.log("oke :", this.listkhachsan);
           console.log("Loc Success");
         },
