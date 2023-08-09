@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
+  InfoBookingDto,
   PhongDto,
   PhongSearchinhFilterDto,
   PhongServiceProxy,
@@ -50,26 +52,24 @@ export class KhachsanListComponent implements OnInit {
 
   maxPrice: number = 20000;
   listkhachsan: PhongSearchinhFilterDto[];
-  listkhachsandiadiem: PhongServiceProxy;
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
 
+  // Tim theo sliderdiadiem
+  inforBookingDtoSliderDiaDiem: InfoBookingDto = new InfoBookingDto();
+
   selectedStars: number[] = [];
   selectedLoaiHinhCuTru: number[] = [];
   constructor(
     private fb: FormBuilder,
-    private _phongService: PhongServiceProxy,
+
     private _searchingFilterService: SearchingFilterServiceProxy,
     private bookingInfoService: BookingInfoService
   ) {}
 
   ngOnInit() {
-    // this._phongService.getRoomsByDiaDiemId(id).subscribe((result) => {
-    //   this.listkhachsandiadiem = result;
-    // });
-
     this.bookingInfoService.getBookingInfo().subscribe(
       (result) => {
         this.listkhachsan = result;
@@ -139,7 +139,6 @@ export class KhachsanListComponent implements OnInit {
       }
     }
 
-    // this.listLocKhachSanLuuTru = this.bookingInfoService.getBookingInfo();
     this.searchingFilterRoomInputDto.lst = this.listLocKhachSanLuuTru;
     this.searchingFilterRoomInputDto.danhGiaSao = this.selectedStars;
     this.searchingFilterRoomInputDto.giaPhongNhoNhat =
@@ -160,7 +159,8 @@ export class KhachsanListComponent implements OnInit {
       .subscribe(
         (result) => {
           this.listkhachsan = result;
-          this.selectedStars = [];
+          this.selectedStars = undefined;
+          console.log(this.selectedStars);
         },
         (error) => {
           console.log("loi 2:", error);
