@@ -519,7 +519,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");
+                /*var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");*/
 
                 var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
 
@@ -539,8 +539,6 @@ namespace BookingWeb.Modules.Phongs
                     tienNghi = info.TienNghiTrongPhong,
                     giaPhongTheoDem = info.GiaPhongTheoDem,
                     mienPhiHuyPhong = info.MienPhiHuyPhong,
-
-                    infoBookingDto = infoRoom
                 };
                 return dto;
             }
@@ -556,40 +554,22 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                var infoRoom = await GetInfoRoomToBook(input.loaiPhongId);
+                /*
+                var infoRoom = await GetInfoRoomToBook(input.loaiPhongId);*/
 
-                 
-
-/*                if(input.DatHo != 1)
-                {
-                    input.CCCD = khachHang.CCCD;
-                    input.HoTen = khachHang.HoTen;
-                    input.SDT = khachHang.SoDienThoai;
-                    input.Email = khachHang.Email;
-                }
-*/
+                
                 var infoBookingCofirm = new ClientBookRoomOutputDto
                 {
-                    donViKinhDoanhId = infoRoom.donViKinhDoanhId,
-                    tenDonVi = infoRoom.tenDonVi,
-                    phongId = infoRoom.phongId,
-                    tenLoaiPhong =infoRoom.tenLoaiPhong,
-                    infoBookingDto = infoRoom.infoBookingDto,
-                    sucChuaPhong = infoRoom.sucChuaPhong,
-                    moTaPhong = infoRoom.moTaPhong,
-                    tienNghi = infoRoom.tienNghi,
-                    giaPhongTheoDem = infoRoom.giaPhongTheoDem,
-                    mienPhiHuyPhong = infoRoom.mienPhiHuyPhong,
-                    TongTien = input.TongTien,
                     DatHo = input.DatHo,
                     HoTen = input.HoTen,
+                    CCCD = input.CCCD,
                     SDT = input.SDT,
                     Email = input.Email,
                     YeuCauDacBiet = input.YeuCauDacBiet
                 };
 
-
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBookingConFirm", infoBookingCofirm);
+/*
+                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBookingConFirm", infoBookingCofirm);*/
                 return infoBookingCofirm;
 
             }
@@ -600,21 +580,22 @@ namespace BookingWeb.Modules.Phongs
             }
         }
 
-        public async Task<bool> ConfirmBookRoom()
+        public async Task<bool> ConfirmBookRoom(ConfirmDto input)
         {
             try
             {
-                var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBookingConFirm");
-
+                /*var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBookingConFirm");
+*/
                 var newPhieuDat = new PhieuDatPhong
                 {
 
-                    HoTen = infoBooking.HoTen,
-                    SDT = infoBooking.SDT,
-                    Email = infoBooking.Email,
-                    NgayBatDau = infoBooking.infoBookingDto.NgayDat,
-                    NgayHenTra = infoBooking.infoBookingDto.NgayTra,
-                    DatHo = infoBooking.DatHo,
+                    HoTen = input.infoClient.HoTen,
+                    SDT = input.infoClient.SDT,
+                    CCCD = input.infoClient.CCCD,
+                    Email = input.infoClient.Email,
+                    NgayBatDau = input.infoBooking.NgayDat,
+                    NgayHenTra = input.infoBooking.NgayTra,
+                    DatHo = input.infoClient.DatHo,
                 };
 
                 var idPhieuDat = await _phieuDatPhong.InsertAndGetIdAsync(newPhieuDat);
@@ -622,17 +603,17 @@ namespace BookingWeb.Modules.Phongs
                 var chiTietPhieuDat = new ChiTietDatPhong
                 {
                     TrangThaiPhongId = 1,
-                    CheckIn = "Từ 14h" + infoBooking.infoBookingDto.NgayDat.ToString(),
-                    CheckOut = "Trước 12h" + infoBooking.infoBookingDto.NgayTra.ToString(),
-                    SLNguoiLon = infoBooking.infoBookingDto.SlNguoiLon,
-                    SLTreEm = infoBooking.infoBookingDto.SlTreEm,
-                    SLPhong = infoBooking.infoBookingDto.SlPhong,
-                    TienPhong = infoBooking.TongTien,
+                    CheckIn = "Từ 14h" + input.infoBooking.NgayDat.ToString(),
+                    CheckOut = "Trước 12h" + input.infoBooking.NgayTra.ToString(),
+                    SLNguoiLon = input.infoBooking.SlNguoiLon,
+                    SLTreEm = input.infoBooking.SlTreEm,
+                    SLPhong = input.infoBooking.SlPhong,
+                    TienPhong = input.infoRoom.giaPhongTheoDem,
                     TienPhongQuaHan = 0,
                     ChiPhiHuyPhong = 0,
-                    TongTien = infoBooking.TongTien,
+                    TongTien = input.infoRoom.tongTien,
                     PhieuDatPhongId = idPhieuDat,
-                    PhongId = infoBooking.phongId,
+                    PhongId = input.infoRoom.phongId,
                 };
 
                 await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);

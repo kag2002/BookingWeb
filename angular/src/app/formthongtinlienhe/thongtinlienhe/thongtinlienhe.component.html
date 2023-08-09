@@ -35,18 +35,31 @@
             <small id="username-help">Như trên CMND không dấu .</small>
           </div>
           <hr />
+          <div style="display: flex; flex-direction: column">
+            <label for="cccd">Số CCCD / Hộ chiếu</label>
+            <input
+              type="text"
+              aria-describedby="cccd-help"
+              pInputText
+              formControlName="cccd"
+              id="cccd"
+              required
+            />
+            <small id="cccd-help">Như trên CMND không dấu .</small>
+          </div>
+          <hr />
           <div class="row ThongTinLienHe">
             <div class="col-lg-6">
               <label for="phone">Số điện thoại</label>
               <input
-                type="text"
+                type="number"
                 aria-describedby="phone-help"
                 pInputText
                 formControlName="phone"
                 id="phone"
                 required
               />
-              <small id="phone-help">VD: 0901234567</small>
+              <small id="phone-help">VD: (+84) 0901234567</small>
             </div>
 
             <div class="col-lg-6">

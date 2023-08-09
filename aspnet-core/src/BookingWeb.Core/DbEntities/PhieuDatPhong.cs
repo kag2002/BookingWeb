@@ -14,6 +14,8 @@ namespace BookingWeb.DbEntities
 
         public string HoTen { get; set; }
 
+        public string CCCD { get; set; }
+
         public long SDT { get; set; }
 
         public string Email { get; set; }
