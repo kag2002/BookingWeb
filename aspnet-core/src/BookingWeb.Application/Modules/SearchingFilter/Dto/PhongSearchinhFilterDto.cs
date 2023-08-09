@@ -12,7 +12,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public string HinhThucPhong { get; set; }
 
-        public int DonViKinhDoanhId { get; set; }
+        public int? DonViKinhDoanhId { get; set; }
 
         public string? TenDonVi { get; set; }
 

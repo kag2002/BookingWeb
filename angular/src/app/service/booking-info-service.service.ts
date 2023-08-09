@@ -15,6 +15,7 @@ export class BookingInfoService {
   private inforBookingDtoSubject = new BehaviorSubject<
     PhongSearchinhFilterDto[]
   >([]);
+
   setBookingInfo(info: PhongSearchinhFilterDto[]): void {
     this.inforBookingDtoSubject.next(info);
   }

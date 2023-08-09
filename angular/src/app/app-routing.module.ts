@@ -14,6 +14,7 @@ import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-det
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
+import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.component";
 
 @NgModule({
   imports: [
@@ -51,6 +52,23 @@ import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.
             path: "trangchu",
             component: TrangchuComponent,
             canActivate: [AppRouteGuard],
+          },
+          {
+            path: "timdiadiem",
+            component: TrangchuComponent,
+            canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":iddiadiem",
+                component: LocdiadiemComponent,
+                canActivate: [AppRouteGuard],
+              },
+              {
+                path: ":iddiadiem",
+                component: KhachsanListComponent,
+                canActivate: [AppRouteGuard],
+              },
+            ],
           },
           {
             path: "khachsanlist",

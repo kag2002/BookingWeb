@@ -69,6 +69,7 @@ import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/tho
 import { ThongtinlienheStartComponent } from "./formthongtinlienhe/thongtinlienhe-start/thongtinlienhe-start.component";
 import { LienHeServiceProxy } from "@shared/service-proxies/service-proxies";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
+import { LocdiadiemComponent } from './luutru/LocSlider/locdiadiem/locdiadiem.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.
     ThongtinlienheComponent,
     ThongtinlienheStartComponent,
     XacnhandatComponent,
+    LocdiadiemComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'
