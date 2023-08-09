@@ -1,6 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
-import { DiaDiemServiceProxy } from "@shared/service-proxies/service-proxies";
+import {
+  DiaDiemServiceProxy,
+  InfoBookingDto,
+  SearchingFilterServiceProxy,
+} from "@shared/service-proxies/service-proxies";
 
 @Component({
   selector: "app-sliderdiadiem",
@@ -11,9 +15,13 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
   currentIndex: number = 0;
   timeoutId?: number;
   @Input() slidesdiadiem = [];
+
+  infoBooking: InfoBookingDto;
+
   constructor(
     private router: Router,
-    private _diadiemService: DiaDiemServiceProxy
+    private _diadiemService: DiaDiemServiceProxy,
+    private _searchingFilter: SearchingFilterServiceProxy
   ) {}
   ngOnInit(): void {
     this.resetTimer();
