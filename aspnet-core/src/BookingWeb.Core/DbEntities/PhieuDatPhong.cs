@@ -16,7 +16,7 @@ namespace BookingWeb.DbEntities
 
         public string CCCD { get; set; }
 
-        public long SDT { get; set; }
+        public string SDT { get; set; }
 
         public string Email { get; set; }
 
@@ -25,6 +25,8 @@ namespace BookingWeb.DbEntities
         public DateTime NgayHenTra { get; set; }
 
         public  int DatHo { get; set; }
+
+        public string YeuCauDacBiet { get; set; }
 
         public ICollection<ChiTietDatPhong> ChiTietDatPhongs { get; set; }
     }

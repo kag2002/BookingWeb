@@ -4,7 +4,7 @@
     <p>Vui lòng xem lại chi tiết trước khi thanh toán</p>
   </div>
   <div class="row">
-    <div class="col-lg-7">
+    <div class="col-lg-7 mb-3">
       <!-- Chi tiết phòng thời gian -->
       <div class="PhongConTrongList">
         <div class="PhongConTrongListItem card">
@@ -34,22 +34,33 @@
           </div>
           <hr />
           <div class="row">
-            <div class="col-lg-5">
-              {{ selectedloaiphong?.tenLoaiPhong }} <br />
+            <div class="col-lg-12">
+              {{ selectedloaiphong?.tenLoaiPhong }} -
               <i class="fa-solid fa-bed"></i>
               {{ selectedloaiphong?.sucChuaPhong }}
               người
             </div>
-
-            <div class="col-lg-7">
-              Tiện nghi:{{ selectedloaiphong?.tienNghi }}
+            <hr />
+            <div class="col-lg-12">
+              Tiện nghi: {{ selectedloaiphong?.tienNghi }}
             </div>
           </div>
-
           <hr />
           <div class="row">
-            Mô tả:
-            {{ selectedloaiphong?.moTaPhong }}
+            <div class="col-lg-12">
+              <p-checkbox
+                [disabled]="true"
+                [ngModel]="selectedloaiphong?.mienPhiHuyPhong"
+                (ngModel)="(selectedloaiphong?.mienPhiHuyPhong)"
+                binary=" selectedloaiphong?.mienPhiHuyPhong"
+                label="Cho phép hủy phòng"
+              >
+              </p-checkbox>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <p><b>Mô tả : </b>{{ selectedloaiphong?.moTaPhong }}</p>
             <br />
           </div>
         </div>
@@ -60,25 +71,57 @@
       <!-- Card Chính sách -->
       <div class="card XacNhanDatCho">
         <h6>Chính sách khách sạn & phòng</h6>
-        <p></p>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>{{ chinhsachchung?.chinhSachVePhong }}</p>
+          </div>
+        </div>
       </div>
       <div class="card XacNhanDatCho">
         <h6>Chính sách lưu trú</h6>
-        <p></p>
+        <div class="row">
+          <div class="col-lg-3"><i class="pi pi-sign-in"></i> Nhận phòng :</div>
+          <div class="col-lg-9">
+            <b>{{ chinhsachchung?.nhanPhong }}</b>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-lg-3"><i class="pi pi-sign-out"></i> Trả phòng :</div>
+          <div class="col-lg-9">
+            <b>{{ chinhsachchung?.traPhong }}</b>
+          </div>
+        </div>
       </div>
       <div class="card XacNhanDatCho">
         <h6>Chi tiết giá</h6>
         <div class="row">
           <div class="col-lg-9">Tổng tiền</div>
           <div class="col-lg-3">
-            <h6 style="color: red">Giá : ... VNĐ</h6>
+            <h6 style="color: red">Giá : {{ infoRoom?.tongTien }} VNĐ</h6>
           </div>
         </div>
         <hr />
-        <div>
-          <div>Giá theo đêm: {{ selectedloaiphong?.giaPhongTheoDem }} VNĐ</div>
-          <div>Giá dịch vụ: ...</div>
+        <div class="row">
+          <div class="col-lg-6">
+            Giá theo đêm: {{ infoRoom?.giaPhongTheoDem }} VNĐ
+          </div>
+          <div class="col-lg-6">Tổng số đêm :</div>
         </div>
+        <div class="row mt-2">
+          <div class="col-lg-12">
+            Giá dịch vụ: {{ infoRoom?.giaDichVuThem }} VNĐ
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-lg-6">
+            Chiết khấu : {{ infoRoom?.giamGia * 100 }} %
+          </div>
+          <div class="col-lg-6">
+            Ưu đãi đặc biệt : {{ infoRoom?.uuDaiDacBiet * 100 }} %
+          </div>
+        </div>
+
         <hr />
         <div class="row">
           <div class="col-lg-9">Khách hàng ... nhận được ...</div>
@@ -91,9 +134,10 @@
       <p-button
         label="Xác nhận"
         (click)="addClientBookRoom()"
-        styleClass="p-button-secondary"
+        styleClass="p-button-danger"
       ></p-button>
     </div>
+    <br /><br /><br />
 
     <div class="col-lg-5 col-sm-12">
       <!-- InforNguoiDat -->
@@ -105,7 +149,7 @@
           Họ tên : <b>{{ infoClient?.hoTen }}</b>
         </p>
         <p>
-          Số điện thoại : <b>(+84) 0{{ infoClient?.sdt }}</b>
+          Số điện thoại : <b>(+84) {{ infoClient?.sdt }}</b>
         </p>
       </div>
       <div class="card XacNhanDatCho">
@@ -121,7 +165,7 @@
           Email : <b>{{ infoClient?.email }}</b>
         </p>
         <p>
-          Số điện thoại : <b>(+84) 0{{ infoClient?.sdt }}</b>
+          Số điện thoại : <b>(+84) {{ infoClient?.sdt }}</b>
         </p>
         <p>
           Yêu cầu đặc biệt : <b>{{ infoClient?.yeuCauDacBiet }}</b>

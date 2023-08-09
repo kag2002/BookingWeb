@@ -153,6 +153,62 @@ export class ChinhSachChungServiceProxy {
     }
 
     /**
+     * @param dvkdId (optional) 
+     * @return Success
+     */
+    getPolicyByDVKDId(dvkdId: number | undefined): Observable<ChinhSachChungOutoutDto> {
+        let url_ = this.baseUrl + "/api/services/app/ChinhSachChung/GetPolicyByDVKDId?";
+        if (dvkdId === null)
+            throw new Error("The parameter 'dvkdId' cannot be null.");
+        else if (dvkdId !== undefined)
+            url_ += "dvkdId=" + encodeURIComponent("" + dvkdId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPolicyByDVKDId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPolicyByDVKDId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ChinhSachChungOutoutDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ChinhSachChungOutoutDto>;
+        }));
+    }
+
+    protected processGetPolicyByDVKDId(response: HttpResponseBase): Observable<ChinhSachChungOutoutDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ChinhSachChungOutoutDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @return Success
      */
     getAllListChinhSach(): Observable<ChinhSachChungOutoutDto[]> {
@@ -6705,7 +6761,7 @@ export class ClientBookRoomInputDto implements IClientBookRoomInputDto {
     datHo: number;
     cccd: string | undefined;
     hoTen: string | undefined;
-    sdt: number;
+    sdt: string | undefined;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
 
@@ -6759,7 +6815,7 @@ export interface IClientBookRoomInputDto {
     datHo: number;
     cccd: string | undefined;
     hoTen: string | undefined;
-    sdt: number;
+    sdt: string | undefined;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
 }
@@ -6768,7 +6824,7 @@ export class ClientBookRoomOutputDto implements IClientBookRoomOutputDto {
     datHo: number;
     cccd: string | undefined;
     hoTen: string | undefined;
-    sdt: number;
+    sdt: string | undefined;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
 
@@ -6822,15 +6878,25 @@ export interface IClientBookRoomOutputDto {
     datHo: number;
     cccd: string | undefined;
     hoTen: string | undefined;
-    sdt: number;
+    sdt: string | undefined;
     email: string | undefined;
     yeuCauDacBiet: string | undefined;
 }
 
 export class ConfirmDto implements IConfirmDto {
-    infoRoom: GetInfoRoomToBookOutputDto;
-    infoClient: ClientBookRoomOutputDto;
-    infoBooking: InfoBookingDto;
+    cccd: string | undefined;
+    hoTen: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
+    ngayDat: moment.Moment;
+    ngayTra: moment.Moment;
+    slNguoiLon: number;
+    slTreEm: number;
+    slPhong: number;
+    tongTien: number;
+    phongId: number;
 
     constructor(data?: IConfirmDto) {
         if (data) {
@@ -6843,9 +6909,19 @@ export class ConfirmDto implements IConfirmDto {
 
     init(_data?: any) {
         if (_data) {
-            this.infoRoom = _data["infoRoom"] ? GetInfoRoomToBookOutputDto.fromJS(_data["infoRoom"]) : <any>undefined;
-            this.infoClient = _data["infoClient"] ? ClientBookRoomOutputDto.fromJS(_data["infoClient"]) : <any>undefined;
-            this.infoBooking = _data["infoBooking"] ? InfoBookingDto.fromJS(_data["infoBooking"]) : <any>undefined;
+            this.cccd = _data["cccd"];
+            this.hoTen = _data["hoTen"];
+            this.sdt = _data["sdt"];
+            this.email = _data["email"];
+            this.datHo = _data["datHo"];
+            this.yeuCauDacBiet = _data["yeuCauDacBiet"];
+            this.ngayDat = _data["ngayDat"] ? moment(_data["ngayDat"].toString()) : <any>undefined;
+            this.ngayTra = _data["ngayTra"] ? moment(_data["ngayTra"].toString()) : <any>undefined;
+            this.slNguoiLon = _data["slNguoiLon"];
+            this.slTreEm = _data["slTreEm"];
+            this.slPhong = _data["slPhong"];
+            this.tongTien = _data["tongTien"];
+            this.phongId = _data["phongId"];
         }
     }
 
@@ -6858,9 +6934,19 @@ export class ConfirmDto implements IConfirmDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["infoRoom"] = this.infoRoom ? this.infoRoom.toJSON() : <any>undefined;
-        data["infoClient"] = this.infoClient ? this.infoClient.toJSON() : <any>undefined;
-        data["infoBooking"] = this.infoBooking ? this.infoBooking.toJSON() : <any>undefined;
+        data["cccd"] = this.cccd;
+        data["hoTen"] = this.hoTen;
+        data["sdt"] = this.sdt;
+        data["email"] = this.email;
+        data["datHo"] = this.datHo;
+        data["yeuCauDacBiet"] = this.yeuCauDacBiet;
+        data["ngayDat"] = this.ngayDat ? this.ngayDat.toISOString() : <any>undefined;
+        data["ngayTra"] = this.ngayTra ? this.ngayTra.toISOString() : <any>undefined;
+        data["slNguoiLon"] = this.slNguoiLon;
+        data["slTreEm"] = this.slTreEm;
+        data["slPhong"] = this.slPhong;
+        data["tongTien"] = this.tongTien;
+        data["phongId"] = this.phongId;
         return data;
     }
 
@@ -6873,9 +6959,19 @@ export class ConfirmDto implements IConfirmDto {
 }
 
 export interface IConfirmDto {
-    infoRoom: GetInfoRoomToBookOutputDto;
-    infoClient: ClientBookRoomOutputDto;
-    infoBooking: InfoBookingDto;
+    cccd: string | undefined;
+    hoTen: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
+    ngayDat: moment.Moment;
+    ngayTra: moment.Moment;
+    slNguoiLon: number;
+    slTreEm: number;
+    slPhong: number;
+    tongTien: number;
+    phongId: number;
 }
 
 export class CreateRoleDto implements ICreateRoleDto {
@@ -8246,6 +8342,9 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
+    giaDichVuThem: number;
+    giamGia: number;
+    uuDaiDacBiet: number;
     mienPhiHuyPhong: boolean;
     tongTien: number;
 
@@ -8269,6 +8368,9 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
             this.moTaPhong = _data["moTaPhong"];
             this.tienNghi = _data["tienNghi"];
             this.giaPhongTheoDem = _data["giaPhongTheoDem"];
+            this.giaDichVuThem = _data["giaDichVuThem"];
+            this.giamGia = _data["giamGia"];
+            this.uuDaiDacBiet = _data["uuDaiDacBiet"];
             this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
             this.tongTien = _data["tongTien"];
         }
@@ -8292,6 +8394,9 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
         data["moTaPhong"] = this.moTaPhong;
         data["tienNghi"] = this.tienNghi;
         data["giaPhongTheoDem"] = this.giaPhongTheoDem;
+        data["giaDichVuThem"] = this.giaDichVuThem;
+        data["giamGia"] = this.giamGia;
+        data["uuDaiDacBiet"] = this.uuDaiDacBiet;
         data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
         data["tongTien"] = this.tongTien;
         return data;
@@ -8315,6 +8420,9 @@ export interface IGetInfoRoomToBookOutputDto {
     moTaPhong: string | undefined;
     tienNghi: string | undefined;
     giaPhongTheoDem: number;
+    giaDichVuThem: number;
+    giamGia: number;
+    uuDaiDacBiet: number;
     mienPhiHuyPhong: boolean;
     tongTien: number;
 }

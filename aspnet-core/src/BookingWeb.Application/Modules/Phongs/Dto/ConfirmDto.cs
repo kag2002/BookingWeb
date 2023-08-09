@@ -9,10 +9,31 @@ namespace BookingWeb.Modules.Phongs.Dto
 {
     public class ConfirmDto
     {
-        public GetInfoRoomToBookOutputDto infoRoom { get; set; }
+        public string CCCD { get; set; }
 
-        public ClientBookRoomOutputDto infoClient { get; set; }
+        public string HoTen { get; set; }
 
-        public InfoBookingDto infoBooking { get; set; }
+        public string SDT { get; set; }
+
+        public string Email { get; set; }
+
+        public int DatHo { get; set; }
+
+        public string YeuCauDacBiet { get; set; }
+
+        public DateTime NgayDat { get; set; }
+
+        public DateTime NgayTra { get; set; }
+
+        public int SlNguoiLon { get; set; }
+
+        public int SlTreEm { get; set; }
+
+        public int SlPhong { get; set; }
+
+        public double TongTien { get; set; }
+
+        public int phongId { get; set; }
+
     }
 }
