@@ -52,7 +52,6 @@
               pInputText
               formControlName="cccd"
               required
-
             /><small
               style="color: red"
               *ngIf="
@@ -64,7 +63,6 @@
             <small *ngIf="!FormThongTinLienHe.get('cccd').valid"
               >Như trên CMND không dấu .</small
             >
-
           </div>
           <hr />
           <div class="row ThongTinLienHe col-lg-12">
@@ -173,8 +171,8 @@
           idloaiphong,
           idloaiphong
         ]"
-        [disabled]="!FormThongTinLienHe.valid"
       ></p-button>
+      <!-- [disabled]="!FormThongTinLienHe.valid" -->
     </div>
     <div class="col-lg-5">
       <!-- PhongConTrong -->

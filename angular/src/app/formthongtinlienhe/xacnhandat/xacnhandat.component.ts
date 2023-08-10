@@ -17,13 +17,14 @@ import {
   styleUrls: ["./xacnhandat.component.css"],
 })
 export class XacnhandatComponent {
-  FormXacNhan: FormGroup;
+  formLich: FormGroup;
   FormYeuCauDacBiet: FormGroup;
 
   selectedloaiphong: any;
   selectedphong: any;
   id: number;
   idloaiphong: number;
+
   yeucaus: any[] = [
     { name: "Phòng không hút thuốc", key: "NoSmoke" },
     { name: "Phòng liên thông", key: "Connect" },
@@ -53,7 +54,6 @@ export class XacnhandatComponent {
 
   ngOnInit() {
     this.initAPI();
-    this.initForm();
   }
 
   private initAPI() {
@@ -106,31 +106,6 @@ export class XacnhandatComponent {
     );
   }
 
-  private initForm() {
-    this.FormXacNhan = this.formBuilder.group({
-      name: ["", Validators.required],
-      cccd: [
-        "",
-        Validators.required,
-        [Validators.required, Validators.pattern(/^\d{12}$/)],
-      ], // Remove Validators.required
-      phone: ["", [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      email: [
-        "",
-        [Validators.required, Validators.maxLength(50), Validators.email],
-      ],
-      datho: [null, Validators.required],
-    });
-    this.FormYeuCauDacBiet = this.formBuilder.group({
-      selectedCategory: ["", Validators.required],
-    });
-  }
-
-  // calculateNumberOfNights(start: moment.Moment, end: moment.Moment): number {
-  //   const duration = moment.duration(end.diff(start));
-  //   return duration.asDays();
-  // }
-
   calculateNumberOfNights(start: Date | null, end: Date | null): number {
     if (!start || !end) {
       return 0; // Trả về 0 nếu một trong hai ngày không có giá trị
@@ -145,15 +120,16 @@ export class XacnhandatComponent {
   }
 
   addClientBookRoom() {
-    debugger;
     this.confirmBook.hoTen = this.infoClient.hoTen;
     this.confirmBook.cccd = this.infoClient.cccd;
     this.confirmBook.sdt = this.infoClient.sdt;
     this.confirmBook.email = this.infoClient.email;
     this.confirmBook.datHo = this.infoClient.datHo;
     this.confirmBook.yeuCauDacBiet = this.infoClient.yeuCauDacBiet;
+
     this.confirmBook.ngayDat = this.infoBooking.ngayDat;
     this.confirmBook.ngayTra = this.infoBooking.ngayTra;
+
     this.confirmBook.slNguoiLon = this.infoBooking.slNguoiLon;
     this.confirmBook.slTreEm = this.infoBooking.slTreEm;
     this.confirmBook.slNguoiLon = this.infoBooking.slNguoiLon;

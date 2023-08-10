@@ -14,21 +14,22 @@
             </h4>
             <hr />
             <div class="row">
+              <!-- Ngày nhận -->
               <div class="col-lg-6 col-sm-6 col-xs-12">
                 <p>Ngày nhận</p>
-                <input
-                  type="date"
-                  [valueAsDate]="infoBooking?.ngayDat"
-                  placeholder="{{ infoBooking?.ngayDat | date : 'dd/mm/yyyy' }}"
-                />
+                <p-calendar
+                  [(ngModel)]="infoBooking.ngayDat"
+                  dateFormat="dd/mm/yy"
+                ></p-calendar>
               </div>
+
+              <!-- Ngày trả -->
               <div class="col-lg-6 col-sm-6 col-xs-12">
                 <p>Ngày trả</p>
-                <input
-                  type="date"
-                  [valueAsDate]="infoBooking?.ngayTra"
-                  placeholder="{{ infoBooking?.ngayTra | date : 'dd/mm/yyyy' }}"
-                />
+                <p-calendar
+                  [(ngModel)]="infoBooking.ngayTra"
+                  dateFormat="dd/mm/yy"
+                ></p-calendar>
               </div>
             </div>
           </div>
@@ -99,7 +100,7 @@
           <div class="col-lg-9">Tổng tiền :</div>
           <div class="col-lg-3">
             <h6 style="color: red">
-              {{
+              <!-- {{
                 (infoRoom?.giaPhongTheoDem + infoRoom?.giaDichVuThem) *
                   calculateNumberOfNights(
                     infoBooking?.ngayDat,
@@ -107,7 +108,7 @@
                   ) *
                   (1 - infoRoom?.giamGia - infoRoom?.uuDaiDacBiet)
                   | number : "1.0-0"
-              }}
+              }} -->
               VNĐ
             </h6>
           </div>
@@ -119,12 +120,12 @@
           </div>
           <div class="col-lg-6">
             Tổng số đêm :
-            {{
+            <!-- {{
               calculateNumberOfNights(
                 infoBooking?.ngayDat,
                 infoBooking?.ngayTra
               )
-            }}
+            }} -->
             đêm
           </div>
         </div>
