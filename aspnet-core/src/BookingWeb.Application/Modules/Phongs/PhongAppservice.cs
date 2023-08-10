@@ -590,6 +590,7 @@ namespace BookingWeb.Modules.Phongs
             {
                 /*var infoBooking = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<ClientBookRoomOutputDto>("infoBookingConFirm");
 */
+
                 var newPhieuDat = new PhieuDatPhong
                 {
                     HoTen = input.HoTen,
@@ -620,9 +621,15 @@ namespace BookingWeb.Modules.Phongs
                 };
 
                 await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);
+                try
+                {
+                    await CurrentUnitOfWork.SaveChangesAsync();
 
-                await CurrentUnitOfWork.SaveChangesAsync();
-                await _httpContextAccessor.HttpContext.Session.ClearAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
                 return true;
             }
             catch(Exception ex)

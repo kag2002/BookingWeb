@@ -14,21 +14,21 @@
             </h4>
             <hr />
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-6 col-sm-6 col-xs-12">
                 <p>Ngày nhận</p>
-                <p>
-                  <b>{{ infoBooking?.ngayDat }}</b>
-                </p>
+                <input
+                  type="date"
+                  [valueAsDate]="infoBooking?.ngayDat"
+                  placeholder="{{ infoBooking?.ngayDat | date : 'dd/mm/yyyy' }}"
+                />
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6 col-sm-6 col-xs-12">
                 <p>Ngày trả</p>
-                <p>
-                  <b>{{ infoBooking?.ngayTra }}</b>
-                </p>
-              </div>
-              <div class="col-lg-4">
-                <p>Tổng số đêm</p>
-                <p><b>?</b></p>
+                <input
+                  type="date"
+                  [valueAsDate]="infoBooking?.ngayTra"
+                  placeholder="{{ infoBooking?.ngayTra | date : 'dd/mm/yyyy' }}"
+                />
               </div>
             </div>
           </div>
@@ -96,9 +96,20 @@
       <div class="card XacNhanDatCho">
         <h6>Chi tiết giá</h6>
         <div class="row">
-          <div class="col-lg-9">Tổng tiền</div>
+          <div class="col-lg-9">Tổng tiền :</div>
           <div class="col-lg-3">
-            <h6 style="color: red">Giá : {{ infoRoom?.tongTien }} VNĐ</h6>
+            <h6 style="color: red">
+              {{
+                (infoRoom?.giaPhongTheoDem + infoRoom?.giaDichVuThem) *
+                  calculateNumberOfNights(
+                    infoBooking?.ngayDat,
+                    infoBooking?.ngayTra
+                  ) *
+                  (1 - infoRoom?.giamGia - infoRoom?.uuDaiDacBiet)
+                  | number : "1.0-0"
+              }}
+              VNĐ
+            </h6>
           </div>
         </div>
         <hr />
@@ -106,7 +117,16 @@
           <div class="col-lg-6">
             Giá theo đêm: {{ infoRoom?.giaPhongTheoDem }} VNĐ
           </div>
-          <div class="col-lg-6">Tổng số đêm :</div>
+          <div class="col-lg-6">
+            Tổng số đêm :
+            {{
+              calculateNumberOfNights(
+                infoBooking?.ngayDat,
+                infoBooking?.ngayTra
+              )
+            }}
+            đêm
+          </div>
         </div>
         <div class="row mt-2">
           <div class="col-lg-12">
@@ -123,10 +143,6 @@
         </div>
 
         <hr />
-        <div class="row">
-          <div class="col-lg-9">Khách hàng ... nhận được ...</div>
-          <div class="col-lg-3">Tìm hiểu thêm</div>
-        </div>
       </div>
 
       <!--End Card Chính sách -->
