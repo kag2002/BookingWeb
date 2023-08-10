@@ -64,7 +64,7 @@ export class KhachsanListComponent implements OnInit {
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
 
   listLocKhachSanLuuTru: PhongSearchinhFilterDto[];
-  hinhthucphongservice: HinhThucPhongServiceProxy;
+
   // Tim theo sliderdiadiem
   inforBookingDtoSliderDiaDiem: InfoBookingDto = new InfoBookingDto();
 
@@ -73,7 +73,7 @@ export class KhachsanListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-
+    private hinhthucphongservice: HinhThucPhongServiceProxy,
     private _searchingFilterService: SearchingFilterServiceProxy,
     private bookingInfoService: BookingInfoService,
     private route: ActivatedRoute
@@ -82,31 +82,10 @@ export class KhachsanListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.idloailoc = +params["idloailoc"];
-    });
-    this.route.params.subscribe((params: Params) => {
       this.iddeloc = +params["iddeloc"];
-    });
 
-    if (this.idloailoc == 0) {
-      this.bookingInfoService.getBookingInfo().subscribe(
-        (result) => {
-          this.listkhachsan = result;
-          this.listLocKhachSanLuuTru = result;
-        },
-        (error) => {
-          console.log("Error:", error);
-        }
-      );
-    } else if (this.idloailoc == 1) {
-      this.inforBookingDtoSliderDiaDiem.diaDiemid = this.iddeloc;
-      this.inforBookingDtoSliderDiaDiem.ngayDat = undefined;
-      this.inforBookingDtoSliderDiaDiem.ngayTra = undefined;
-      this.inforBookingDtoSliderDiaDiem.slNguoiLon = undefined;
-      this.inforBookingDtoSliderDiaDiem.slPhong = undefined;
-      this.inforBookingDtoSliderDiaDiem.slTreEm = undefined;
-      this._searchingFilterService
-        .searchingRoom(this.inforBookingDtoSliderDiaDiem)
-        .subscribe(
+      if (this.idloailoc == 0) {
+        this.bookingInfoService.getBookingInfo().subscribe(
           (result) => {
             this.listkhachsan = result;
             this.listLocKhachSanLuuTru = result;
@@ -115,19 +94,38 @@ export class KhachsanListComponent implements OnInit {
             console.log("Error:", error);
           }
         );
-    } else if (this.idloailoc == 2) {
-      // console.log(this.iddeloc);
-      // this.hinhthucphongservice.getRoomByForm(this.iddeloc).subscribe(
-      //   (result) => {
-      //     this.listkhachsan = result;
-      //     this.listLocKhachSanLuuTru = result;
-      //   },
-      //   (error) => {
-      //     console.log("Error:", error);
-      //   }
-      // );
-    }
-
+      } else if (this.idloailoc == 1) {
+        this.inforBookingDtoSliderDiaDiem.diaDiemid = this.iddeloc;
+        this.inforBookingDtoSliderDiaDiem.ngayDat = undefined;
+        this.inforBookingDtoSliderDiaDiem.ngayTra = undefined;
+        this.inforBookingDtoSliderDiaDiem.slNguoiLon = undefined;
+        this.inforBookingDtoSliderDiaDiem.slPhong = undefined;
+        this.inforBookingDtoSliderDiaDiem.slTreEm = undefined;
+        this._searchingFilterService
+          .searchingRoom(this.inforBookingDtoSliderDiaDiem)
+          .subscribe(
+            (result) => {
+              this.listkhachsan = result;
+              this.listLocKhachSanLuuTru = result;
+            },
+            (error) => {
+              console.log("Error:", error);
+            }
+          );
+      } else if (this.idloailoc == 2) {
+        console.log("idhinhthucphong", this.iddeloc);
+        this.hinhthucphongservice.getRoomByForm(this.iddeloc).subscribe(
+          (result) => {
+            this.listkhachsan = result;
+            this.listLocKhachSanLuuTru = result;
+            console.log("HinhThucOk:");
+          },
+          (error) => {
+            console.log("Error:", error);
+          }
+        );
+      }
+    });
     this.formSapXep = this.fb.group({
       selectedCategory: this.sapxeps[3],
     });
@@ -214,7 +212,6 @@ export class KhachsanListComponent implements OnInit {
       .subscribe(
         (result) => {
           this.listkhachsan = result;
-
 
           // this.selectedStars = [];
 

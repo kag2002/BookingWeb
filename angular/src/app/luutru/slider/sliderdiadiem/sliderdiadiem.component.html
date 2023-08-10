@@ -17,6 +17,7 @@
       </div>
       <div class="slide" *ngFor="let item of [].constructor(6); let i = index">
         <div
+          (click)="resetTimer()"
           class="card slide-image"
           [ngStyle]="{
             'background-image': getCurrentSlideUrl(
@@ -26,7 +27,7 @@
           [routerLink]="[
             '/app/trangchu',
             1,
-            slidesdiadiem[currentIndex + i]?.id
+            slidesdiadiem[currentIndex + i]?.id % slidesdiadiem.length
           ]"
           style="cursor: pointer"
         ></div>

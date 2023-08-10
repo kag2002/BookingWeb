@@ -11,6 +11,7 @@ import {
 } from "@shared/service-proxies/service-proxies";
 import { BookingInfoService } from "../service/booking-info-service.service";
 import { now } from "moment";
+import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-luutru",
   templateUrl: "./luutru.component.html",
@@ -42,12 +43,16 @@ export class LuutruComponent {
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private _searchingFilterService: SearchingFilterServiceProxy,
-    private bookingInfoService: BookingInfoService
+    private bookingInfoService: BookingInfoService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   overlayVisible: boolean = false;
 
   ngOnInit() {
+    // this.activatedRoute.params.subscribe((params) => {
+    //   this.HienTrangChu = true;
+    // });
     this.createForm();
   }
 

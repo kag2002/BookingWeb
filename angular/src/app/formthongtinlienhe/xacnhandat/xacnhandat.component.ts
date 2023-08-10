@@ -133,7 +133,9 @@ export class XacnhandatComponent {
     this.confirmBook.slTreEm = this.infoBooking.slTreEm;
     this.confirmBook.slNguoiLon = this.infoBooking.slNguoiLon;
     this.confirmBook.slPhong = this.infoBooking.slPhong;
-    this.confirmBook.tongTien = 1000;
+    this.confirmBook.tongTien =
+      (this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *
+      (1 - this.infoRoom.giamGia);
     this.confirmBook.phongId = this.infoRoom.phongId;
 
     this._phongService.confirmBookRoom(this.confirmBook).subscribe(
