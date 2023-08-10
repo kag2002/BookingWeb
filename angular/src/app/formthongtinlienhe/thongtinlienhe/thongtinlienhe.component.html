@@ -29,10 +29,19 @@
               aria-describedby="username-help"
               pInputText
               formControlName="name"
-              id="name"
               required
             />
-            <small id="username-help">Như trên CMND không dấu .</small>
+            <small
+              style="color: red"
+              *ngIf="
+                !FormThongTinLienHe.get('name').valid &&
+                FormThongTinLienHe.get('name').touched
+              "
+              >Vui lòng nhập tên
+            </small>
+            <small *ngIf="!FormThongTinLienHe.get('name').valid"
+              >Như trên CMND không dấu .</small
+            >
           </div>
           <hr />
           <div style="display: flex; flex-direction: column">
@@ -42,10 +51,18 @@
               aria-describedby="cccd-help"
               pInputText
               formControlName="cccd"
-              id="cccd"
               required
-            />
-            <small id="cccd-help">Như trên CMND không dấu .</small>
+            /><small
+              style="color: red"
+              *ngIf="
+                !FormThongTinLienHe.get('cccd').valid &&
+                FormThongTinLienHe.get('cccd').touched
+              "
+              >Vui lòng nhập cccd hợp lệ gồm 12 số</small
+            >
+            <small *ngIf="!FormThongTinLienHe.get('cccd').valid"
+              >Như trên CMND không dấu .</small
+            >
           </div>
           <hr />
           <div class="row ThongTinLienHe">
@@ -56,10 +73,19 @@
                 aria-describedby="phone-help"
                 pInputText
                 formControlName="phone"
-                id="phone"
                 required
               />
-              <small id="phone-help">VD: (+84) 0901234567</small>
+              <small
+                style="color: red"
+                *ngIf="
+                  !FormThongTinLienHe.get('phone').valid &&
+                  FormThongTinLienHe.get('phone').touched
+                "
+                >Vui lòng nhập sđt hợp lệ gồm 10 số</small
+              >
+              <small *ngIf="!FormThongTinLienHe.get('phone').valid"
+                >VD: (+84) 0901234567</small
+              >
             </div>
 
             <div class="col-lg-6">
@@ -69,10 +95,19 @@
                 aria-describedby="email-help"
                 pInputText
                 formControlName="email"
-                id="email"
                 required
               />
-              <small id="email-help">VD: email@example.com</small>
+              <small
+                style="color: red"
+                *ngIf="
+                  !FormThongTinLienHe.get('email').valid &&
+                  FormThongTinLienHe.get('email').touched
+                "
+                >Vui lòng nhập email hợp lệ dạng email@gmail.com</small
+              >
+              <small *ngIf="!FormThongTinLienHe.get('email').valid"
+                >VD: email@example.com</small
+              >
             </div>
           </div>
           <hr />
@@ -136,6 +171,7 @@
           idloaiphong,
           idloaiphong
         ]"
+        [disabled]="!FormThongTinLienHe.valid"
       ></p-button>
     </div>
     <div class="col-lg-5">

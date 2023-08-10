@@ -11,18 +11,44 @@
             placeholder="Nhập tên"
             class="box"
           />
+          <small
+            style="color: white"
+            *ngIf="
+              !contactForm.get('name').valid && contactForm.get('name').touched
+            "
+            >Vui lòng nhập tên
+          </small>
+
           <input
             type="text"
             formControlName="email"
             placeholder="Nhập email"
             class="box"
           />
+          <small
+            style="color: white"
+            *ngIf="
+              !contactForm.get('email').valid &&
+              contactForm.get('email').touched
+            "
+            >Vui lòng nhập email hợp lệ dạng email@gmail.com</small
+          >
+
           <input
             type="text"
             formControlName="number"
             placeholder="Nhập số điện thoại"
             class="box"
           />
+          <small
+            style="color: white"
+            *ngIf="
+              !contactForm.get('number').valid &&
+              contactForm.get('number').touched
+            "
+            >Vui lòng nhập sđt hợp lệ gồm 10 số</small
+          >
+
           <textarea
             type="text"
             formControlName="message"
@@ -32,11 +58,23 @@
             class="box"
           ></textarea>
 
+          <small
+            style="color: white"
+            *ngIf="
+              !contactForm.get('message').valid &&
+              contactForm.get('message').touched
+            "
+            >Vui lòng nhập tin nhắn</small
+          >
+
           <p-button
+            style="display: block; margin-top: 5px"
             type="submit"
             label="Gửi tin"
             class="btn"
             styleClass="p-button-raised "
+            [disabled]="!contactForm.valid"
+            (onClick)="showGui()"
           ></p-button>
         </form>
         <!-- End Form gửi tin nhắn -->

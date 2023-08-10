@@ -69,10 +69,13 @@ export class ThongtinlienheComponent {
   private initForm() {
     this.FormThongTinLienHe = this.formBuilder.group({
       name: ["", Validators.required],
-      cccd: ["", Validators.required],
-      phone: [, Validators.required],
-      email: ["", Validators.required],
-      datho: [, Validators.required],
+      cccd: ["", [Validators.required, Validators.pattern(/^\d{12}$/)]], // Remove Validators.required
+      phone: ["", [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: [
+        "",
+        [Validators.required, Validators.maxLength(50), Validators.email],
+      ],
+      datho: this.dathos[0],
     });
     this.FormYeuCauDacBiet = this.formBuilder.group({
       selectedCategory: ["", Validators.required],

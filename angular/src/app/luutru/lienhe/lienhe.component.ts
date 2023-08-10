@@ -4,6 +4,7 @@ import {
   LienHeServiceProxy,
   MessageDto,
 } from "@shared/service-proxies/service-proxies";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-lienhe",
@@ -13,7 +14,11 @@ import {
 export class LienheComponent implements OnInit {
   contactForm: FormGroup;
   lienHeDto: MessageDto;
-  constructor(private fb: FormBuilder, private _lienhe: LienHeServiceProxy) {}
+  constructor(
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    private _lienhe: LienHeServiceProxy
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -30,7 +35,7 @@ export class LienheComponent implements OnInit {
 
   private initForm(): void {
     this.contactForm = this.fb.group({
-      name: ["", [Validators.required, Validators.maxLength(50)]],
+      name: ["", Validators.required],
       email: [
         "",
         [Validators.required, Validators.maxLength(50), Validators.email],
@@ -39,13 +44,20 @@ export class LienheComponent implements OnInit {
       message: ["", [Validators.required, Validators.maxLength(1000)]],
     });
   }
+  showGui() {
+    this.messageService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Gửi thành công",
+    });
+  }
   onSubmit(): void {
     this.lienHeDto = new MessageDto(); // Initialize the object here
 
-    this.lienHeDto.hoten = this.contactForm.value.name;
-    this.lienHeDto.email = this.contactForm.value.email;
-    this.lienHeDto.phoneNumber = this.contactForm.value.number;
-    this.lienHeDto.noiDung = this.contactForm.value.message;
+    this.lienHeDto.hoten = this.contactForm.value?.name;
+    this.lienHeDto.email = this.contactForm.value?.email;
+    this.lienHeDto.phoneNumber = this.contactForm.value?.number;
+    this.lienHeDto.noiDung = this.contactForm.value?.message;
 
     this._lienhe.clientSendToMessage(this.lienHeDto).subscribe(
       (result) => {

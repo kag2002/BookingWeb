@@ -18,7 +18,7 @@ import {
   styleUrls: ["./xacnhandat.component.css"],
 })
 export class XacnhandatComponent {
-  FormThongTinLienHe: FormGroup;
+  FormXacNhan: FormGroup;
   FormYeuCauDacBiet: FormGroup;
 
   selectedloaiphong: any;
@@ -108,12 +108,19 @@ export class XacnhandatComponent {
   }
 
   private initForm() {
-    this.FormThongTinLienHe = this.formBuilder.group({
+    this.FormXacNhan = this.formBuilder.group({
       name: ["", Validators.required],
-      cccd: ["", Validators.required],
-      phone: [, Validators.required],
-      email: ["", Validators.required],
-      datho: [, Validators.required],
+      cccd: [
+        "",
+        Validators.required,
+        [Validators.required, Validators.pattern(/^\d{12}$/)],
+      ], // Remove Validators.required
+      phone: ["", [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: [
+        "",
+        [Validators.required, Validators.maxLength(50), Validators.email],
+      ],
+      datho: [null, Validators.required],
     });
     this.FormYeuCauDacBiet = this.formBuilder.group({
       selectedCategory: ["", Validators.required],
