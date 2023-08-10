@@ -59,7 +59,7 @@
           ></textarea>
 
           <small
-            style="color: white"
+            style="color: white; display: block; margin-bottom: 5px"
             *ngIf="
               !contactForm.get('message').valid &&
               contactForm.get('message').touched
@@ -68,7 +68,6 @@
           >
 
           <p-button
-            style="display: block; margin-top: 5px"
             type="submit"
             label="Gửi tin"
             class="btn"
