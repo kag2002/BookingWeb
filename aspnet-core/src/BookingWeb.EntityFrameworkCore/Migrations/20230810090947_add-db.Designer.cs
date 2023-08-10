@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingWeb.Migrations
 {
     [DbContext(typeof(BookingWebDbContext))]
-    [Migration("20230728070030_up-db-2")]
-    partial class updb2
+    [Migration("20230810090947_add-db")]
+    partial class adddb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1617,7 +1617,7 @@ namespace BookingWeb.Migrations
                     b.Property<int>("LoaiPhongId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("NgayHuy")
+                    b.Property<DateTime?>("NgayHuy")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PhieuDatPhongId")
@@ -1634,9 +1634,6 @@ namespace BookingWeb.Migrations
 
                     b.Property<int>("SLTreEm")
                         .HasColumnType("int");
-
-                    b.Property<double>("TienPhong")
-                        .HasColumnType("float");
 
                     b.Property<double>("TienPhongQuaHan")
                         .HasColumnType("float");
@@ -2081,6 +2078,55 @@ namespace BookingWeb.Migrations
                     b.ToTable("BwKhachHang");
                 });
 
+            modelBuilder.Entity("BookingWeb.DbEntities.LienHe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HoTen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BwLienHe");
+                });
+
             modelBuilder.Entity("BookingWeb.DbEntities.LoaiKhachHang", b =>
                 {
                     b.Property<int>("Id")
@@ -2328,6 +2374,9 @@ namespace BookingWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CCCD")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -2364,11 +2413,14 @@ namespace BookingWeb.Migrations
                     b.Property<DateTime>("NgayHenTra")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("SDT")
-                        .HasColumnType("bigint");
+                    b.Property<string>("SDT")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
+
+                    b.Property<string>("YeuCauDacBiet")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

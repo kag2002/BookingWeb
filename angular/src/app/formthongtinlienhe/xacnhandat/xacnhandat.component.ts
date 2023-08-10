@@ -11,6 +11,8 @@ import {
   InfoBookingDto,
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
+import * as moment from "moment";
+
 @Component({
   selector: "app-thongtinlienhe",
   templateUrl: "./xacnhandat.component.html",
@@ -38,9 +40,9 @@ export class XacnhandatComponent {
 
   chinhsachchung: ChinhSachChungOutoutDto = new ChinhSachChungOutoutDto();
 
-  infoRoom: GetInfoRoomToBookOutputDto = new GetInfoRoomToBookOutputDto();
-  infoClient: ClientBookRoomOutputDto = new ClientBookRoomOutputDto();
-  infoBooking: InfoBookingDto = new InfoBookingDto();
+  infoRoom: GetInfoRoomToBookOutputDto | undefined;
+  infoClient: ClientBookRoomOutputDto | undefined;
+  infoBooking: InfoBookingDto | undefined;
 
   confirmBook: ConfirmDto = new ConfirmDto();
 
@@ -53,6 +55,10 @@ export class XacnhandatComponent {
   ) {}
 
   ngOnInit() {
+    this.infoBooking = new InfoBookingDto();
+    this.infoClient = new ClientBookRoomOutputDto();
+    this.infoRoom = new GetInfoRoomToBookOutputDto();
+
     this.initAPI();
   }
 
@@ -99,6 +105,9 @@ export class XacnhandatComponent {
     this.bookingInfo.getSearchBookingInfo().subscribe(
       (result) => {
         this.infoBooking = result;
+        this.infoBooking.ngayDat = moment(this.infoBooking.ngayDat); // Chuyển sang đối tượng moment.Moment
+        this.infoBooking.ngayTra = moment(this.infoBooking.ngayTra); // Chuyển sang đối tượng moment.Moment
+        console.log("lay dl2", this.infoBooking);
       },
       (error) => {
         console.log(error);
@@ -106,17 +115,12 @@ export class XacnhandatComponent {
     );
   }
 
-  calculateNumberOfNights(start: Date | null, end: Date | null): number {
-    if (!start || !end) {
-      return 0; // Trả về 0 nếu một trong hai ngày không có giá trị
+  calculateNumberOfNights(start: moment.Moment, end: moment.Moment): number {
+    if (start && end) {
+      const duration = moment.duration(end.diff(start));
+      return duration.asDays();
     }
-
-    const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-    const startTime = start.getTime();
-    const endTime = end.getTime();
-    const diffTime = Math.abs(endTime - startTime);
-    const numberOfNights = Math.ceil(diffTime / oneDay);
-    return numberOfNights;
+    return 0; // Hoặc giá trị mặc định tương ứng
   }
 
   addClientBookRoom() {

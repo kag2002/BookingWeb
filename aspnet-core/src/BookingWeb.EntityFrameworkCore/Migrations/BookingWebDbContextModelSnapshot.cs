@@ -1614,7 +1614,7 @@ namespace BookingWeb.Migrations
                     b.Property<int>("LoaiPhongId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("NgayHuy")
+                    b.Property<DateTime?>("NgayHuy")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PhieuDatPhongId")

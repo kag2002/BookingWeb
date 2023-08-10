@@ -24,7 +24,7 @@ namespace BookingWeb.DbEntities
 
         public double TienPhongQuaHan { get; set; }
 
-        public DateTime NgayHuy { get; set; }
+        public DateTime? NgayHuy { get; set; }
 
         public double ChiPhiHuyPhong { get; set; }
 
