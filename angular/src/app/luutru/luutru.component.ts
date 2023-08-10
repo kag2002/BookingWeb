@@ -97,12 +97,15 @@ export class LuutruComponent {
   onSubmit() {
     this.inforBookingDto.diaDiemid =
       this.formTimPhong.value.timkiemData.locations?.id;
+
     this.iddiadiem = this.formTimPhong.value.timkiemData.locations?.id;
 
     this.inforBookingDto.ngayDat =
       this.formTimPhong.value.timkiemData?.rangeDates[0];
+
     this.inforBookingDto.ngayTra =
       this.formTimPhong.value.timkiemData?.rangeDates[1];
+
     this.inforBookingDto.slNguoiLon =
       this.formTimPhong.value.timkiemData?.adults;
     this.inforBookingDto.slTreEm =

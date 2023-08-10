@@ -12,6 +12,8 @@ using BookingWeb.SessionsDefine;
 using BookingWeb.Authorization.Users;
 using BookingWeb.Modules.ChinhSachChungs.Dto;
 using BookingWeb.Modules.DichVuTienIchChungs.Dto;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace BookingWeb.Modules.Phongs
 {
@@ -597,8 +599,8 @@ namespace BookingWeb.Modules.Phongs
                     SDT = input.SDT,
                     CCCD = input.CCCD,
                     Email = input.Email,
-                    NgayBatDau = input.NgayDat,
-                    NgayHenTra = input.NgayTra,
+                    NgayBatDau = (DateTime)input.NgayDat,
+                    NgayHenTra = (DateTime)input.NgayTra,
                     DatHo = input.DatHo,
                     YeuCauDacBiet = input.YeuCauDacBiet
                 };
@@ -614,6 +616,7 @@ namespace BookingWeb.Modules.Phongs
                     SLTreEm = input.SlTreEm,
                     SLPhong = input.SlPhong,
                     TienPhongQuaHan = 0,
+                    NgayHuy = null,
                     ChiPhiHuyPhong = 0,
                     PhieuDatPhongId = idPhieuDat,
                     PhongId = input.phongId,

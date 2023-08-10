@@ -26,7 +26,7 @@ namespace BookingWeb.Modules.ChiTietDatPhongs.Dto
 
         public double ChiPhiHuyPhong { get; set; }
 
-        public DateTime NgayHuy { get; set; }
+        public DateTime? NgayHuy { get; set; }
 
         public double TongTien { get; set; }
 
