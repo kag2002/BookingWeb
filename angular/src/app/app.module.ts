@@ -153,6 +153,6 @@ import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.co
 
     // PaginatorModule,
   ],
-  providers: [LienHeServiceProxy, ChinhSachChungServiceProxy],
+  providers: [LienHeServiceProxy, ChinhSachChungServiceProxy, DatePipe],
 })
 export class AppModule {}
