@@ -11,7 +11,6 @@ import {
   InfoBookingDto,
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-
 @Component({
   selector: "app-thongtinlienhe",
   templateUrl: "./xacnhandat.component.html",
@@ -127,7 +126,26 @@ export class XacnhandatComponent {
     });
   }
 
+  // calculateNumberOfNights(start: moment.Moment, end: moment.Moment): number {
+  //   const duration = moment.duration(end.diff(start));
+  //   return duration.asDays();
+  // }
+
+  calculateNumberOfNights(start: Date | null, end: Date | null): number {
+    if (!start || !end) {
+      return 0; // Trả về 0 nếu một trong hai ngày không có giá trị
+    }
+
+    const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+    const startTime = start.getTime();
+    const endTime = end.getTime();
+    const diffTime = Math.abs(endTime - startTime);
+    const numberOfNights = Math.ceil(diffTime / oneDay);
+    return numberOfNights;
+  }
+
   addClientBookRoom() {
+    debugger;
     this.confirmBook.hoTen = this.infoClient.hoTen;
     this.confirmBook.cccd = this.infoClient.cccd;
     this.confirmBook.sdt = this.infoClient.sdt;
@@ -142,7 +160,7 @@ export class XacnhandatComponent {
     this.confirmBook.slPhong = this.infoBooking.slPhong;
     this.confirmBook.tongTien =
       (this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *
-      (1 - this.infoRoom.giamGia);
+      (1 - this.infoRoom.giamGia - this.infoRoom.uuDaiDacBiet);
     this.confirmBook.phongId = this.infoRoom.phongId;
 
     this._phongService.confirmBookRoom(this.confirmBook).subscribe(

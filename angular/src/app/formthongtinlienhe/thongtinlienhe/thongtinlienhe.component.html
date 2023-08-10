@@ -22,7 +22,7 @@
       <h5>Chi tiết liên hệ (cho Vé điện tử/Phiếu xác nhận)</h5>
       <form [formGroup]="FormThongTinLienHe" (ngSubmit)="onSubmit()">
         <div class="card flex FormThongTinLienHe">
-          <div style="display: flex; flex-direction: column">
+          <div class="col-lg-12" style="display: flex; flex-direction: column">
             <label for="name">Họ và tên </label>
             <input
               type="text"
@@ -44,7 +44,7 @@
             >
           </div>
           <hr />
-          <div style="display: flex; flex-direction: column">
+          <div class="col-lg-12" style="display: flex; flex-direction: column">
             <label for="cccd">Số CCCD / Hộ chiếu</label>
             <input
               type="text"
@@ -52,6 +52,7 @@
               pInputText
               formControlName="cccd"
               required
+
             /><small
               style="color: red"
               *ngIf="
@@ -63,9 +64,10 @@
             <small *ngIf="!FormThongTinLienHe.get('cccd').valid"
               >Như trên CMND không dấu .</small
             >
+
           </div>
           <hr />
-          <div class="row ThongTinLienHe">
+          <div class="row ThongTinLienHe col-lg-12">
             <div class="col-lg-6">
               <label for="phone">Số điện thoại</label>
               <input
@@ -164,7 +166,7 @@
       <p-button
         label="Đặt"
         (click)="addClientBookRoom()"
-        styleClass="p-button-secondary"
+        styleClass="p-button-danger"
         [routerLink]="[
           '/app/thongtinlienhestart',
           id,
