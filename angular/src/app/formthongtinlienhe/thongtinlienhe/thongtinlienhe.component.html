@@ -165,6 +165,7 @@
         label="Đặt"
         (click)="addClientBookRoom()"
         styleClass="p-button-danger"
+        [disabled]="!FormThongTinLienHe.valid"
         [routerLink]="[
           '/app/thongtinlienhestart',
           id,
@@ -172,7 +173,6 @@
           idloaiphong
         ]"
       ></p-button>
-      <!-- [disabled]="!FormThongTinLienHe.valid" -->
     </div>
     <div class="col-lg-5">
       <!-- PhongConTrong -->

@@ -42,24 +42,22 @@
 }
 
 .slide-main-image {
-  height: 377px;
+  height: 380px;
   border-radius: 5px;
 }
 
 .slide-sub-image {
-  height: 117px;
+  height: 123px;
   border-radius: 3px;
 }
-
+.SubImage {
+  padding: 0 0 5px 5px;
+}
 .slide-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 14px 30px;
-}
-
-.SubImage {
-  padding: 5px;
 }
 
 /* DanhGiaPhong */
@@ -147,6 +145,14 @@
   padding-right: 5px;
 }
 
+.TienIchChung {
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url("../../../assets/img/AnhNen/AnhNenHinhThuc2.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white; */
+  text-align: center;
+}
 .TienIchChung h5 {
   margin-bottom: 40px;
 }
@@ -165,6 +171,9 @@
 }
 .PhongConTrongListItem {
   padding: 42px;
+}
+.DichVuContainer {
+  color: #00a651;
 }
 .GiaLoaiPhong {
   font-size: 20px;

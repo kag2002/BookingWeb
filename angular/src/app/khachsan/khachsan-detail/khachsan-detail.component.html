@@ -6,7 +6,7 @@
       <p class="TenLoaiDonVi">
         {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
       </p>
-      <div style="font-weight: 900; color: gray">
+      <div style="font-weight: 900; color: #8f8f8f">
         {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
       </div>
       <div style="display: flex; padding: 7px 0">
@@ -223,30 +223,6 @@
   </div>
   <!-- EndQuyTacChung -->
 
-  <!-- TienIchChung -->
-  <div class="TienIchChung">
-    <h5>Tiện ích chung</h5>
-    <div class="TienIchChungContainer">
-      <div
-        class="TienIchChungItem"
-        *ngFor="let tienich of selectedkhachsan?.dichVuChung"
-      >
-        <div style="font-size: 17px; font-weight: bold">
-          {{ tienich?.tenDichVu }}
-        </div>
-        <ul>
-          <li
-            style="font-size: 16px; list-style: none"
-            *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
-          >
-            {{ item }}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- EndTienIchChung -->
-
   <!-- PhongConTrong -->
   <div class="PhongConTrong card" id="PhongConTrong">
     <h4>Những phòng còn trống tại {{ selectedkhachsan?.tenDonVi }}</h4>
@@ -290,8 +266,8 @@
             >
             </p-checkbox
             ><br /><br />
-            <h6>Dịch vụ đi kèm</h6>
-            <div style="column-count: 2" class="DichVuContainer">
+            <h6 style="color: #00a651">Dịch vụ đi kèm</h6>
+            <div style="column-count: 4" class="DichVuContainer">
               <div
                 *ngFor="
                   let dichVuItem of loaiphongdetail?.dichVu;
@@ -329,6 +305,30 @@
     </div>
   </div>
   <!-- EndPhongConTrong -->
+
+  <!-- TienIchChung -->
+  <div class="TienIchChung">
+    <h5>Tiện ích chung</h5>
+    <div class="TienIchChungContainer">
+      <div
+        class="TienIchChungItem"
+        *ngFor="let tienich of selectedkhachsan?.dichVuChung"
+      >
+        <div style="font-size: 17px; font-weight: bold">
+          {{ tienich?.tenDichVu }}
+        </div>
+        <ul>
+          <li
+            style="font-size: 16px; list-style: none"
+            *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
+          >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- EndTienIchChung -->
 </div>
 
 <!-- Dang ky email -->

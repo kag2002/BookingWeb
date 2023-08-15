@@ -4,7 +4,6 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   InfoBookingDto,
-  PhongDto,
   PhongSearchinhFilterDto,
   HinhThucPhongServiceProxy,
   SearchingFilterRoomInputDto,

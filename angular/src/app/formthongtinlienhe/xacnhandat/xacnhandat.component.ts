@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
@@ -12,6 +12,7 @@ import {
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import * as moment from "moment";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-thongtinlienhe",
@@ -48,7 +49,8 @@ export class XacnhandatComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
+
+    private messageService: MessageService,
     private _phongService: PhongServiceProxy,
     private bookingInfo: BookingInfoService,
     private _chinhSachChung: ChinhSachChungServiceProxy
@@ -152,4 +154,17 @@ export class XacnhandatComponent {
       }
     );
   }
+  // showMessage() {
+  //   this.messageService.add({
+  //     severity: "success",
+  //     summary: "Success",
+  //     detail: "Đặt thành công",
+  //   });
+
+  //   this.messageService.add({
+  //     severity: "error",
+  //     summary: "Error",
+  //     detail: "Đặt không thành công",
+  //   });
+  // }
 }

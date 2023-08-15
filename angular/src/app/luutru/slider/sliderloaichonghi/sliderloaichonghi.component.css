@@ -1,5 +1,8 @@
 .sliderLoaiChoNghi {
-  padding: 110px 0 150px 0;
+  padding: 60px 0 70px 0;
+  background-size: cover;
+  background-position: center;
+  margin: 10px 0 40px 0;
 }
 .slider {
   justify-content: center;
@@ -10,7 +13,7 @@
   margin: 14px;
 }
 .slide-image {
-  width: 220px;
+  width: 234px;
   height: 200px;
   background-size: cover;
   background-position: center;
@@ -35,20 +38,20 @@
   position: absolute;
   top: 41%;
   transform: translate(0, -50%);
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-
-  font-size: 27px;
+  font-size: 30px;
+  color: black;
   z-index: 1;
   cursor: pointer;
 }
 .cardRightArrow {
-  right: 130px;
+  right: 91px;
 }
 
 .cardLeftArrow {
-  left: 130px;
+  left: 91px;
 }
 
 .numberLoaiChoO {
