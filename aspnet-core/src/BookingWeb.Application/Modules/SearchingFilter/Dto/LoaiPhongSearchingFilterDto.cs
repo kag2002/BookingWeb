@@ -16,6 +16,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public double UuDai { get; set; }
 
+        public string AnhDaiDien { get; set; }
 
     }
 }

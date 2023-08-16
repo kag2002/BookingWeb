@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-
 import { HinhThucPhongServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
@@ -55,6 +54,16 @@ export class SliderloaichonghiComponent implements OnInit {
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/HinhThucPhong/${this.slidesloaichonghi[index]?.anhDaiDien}')`;
+    const slideIndex = this.adjustIndex(index);
+    return `url('/assets/img/HinhThucPhong/${this.slidesloaichonghi[slideIndex]?.anhDaiDien}')`;
+  }
+
+  adjustIndex(index: number): number {
+    if (index < 0) {
+      return this.slidesloaichonghi.length - 1;
+    } else if (index >= this.slidesloaichonghi.length) {
+      return 0;
+    }
+    return index;
   }
 }

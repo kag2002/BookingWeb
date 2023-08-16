@@ -83,23 +83,23 @@
   <!-- DiemNoiBat -->
   <div class="DiemNoiBat">
     <div>
-      <i class="fa-solid fa-bus"></i>
+      <i class="fa-solid fa-bus fa-beat" style="color: #ff7b00"></i>
       <p>Các phương tiện công cộng 250m</p>
     </div>
     <div>
-      <i class="fa-solid fa-bell-concierge"></i>
+      <i class="fa-solid fa-bell-concierge fa-beat" style="color: #3b56de"></i>
       <p>Bàn tiếp tân [24h]</p>
     </div>
     <div>
-      <i class="fa-solid fa-location-dot"></i>
+      <i class="fa-solid fa-location-dot fa-beat" style="color: #ff2e2e"></i>
       <p>Vị trí nội thành</p>
     </div>
     <div>
-      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-wifi fa-beat"></i>
       <p>Wifi miễn phí</p>
     </div>
     <div>
-      <i class="fa-solid fa-trash-can"></i>
+      <i class="fa-solid fa-trash-can fa-beat" style="color: #89beb5"></i>
       <p>Dọn phòng hàng ngày</p>
     </div>
   </div>
@@ -232,12 +232,6 @@
         let loaiphongdetail of selectedkhachsan?.listLoaiPhong;
         let i = index
       "
-      [routerLink]="[
-        '/app/thongtinlienhestart',
-        id,
-        loaiphongdetail?.loaiPhongId
-      ]"
-      style="cursor: pointer"
     >
       <div class="PhongConTrongListItem card">
         <div class="row">
@@ -246,8 +240,7 @@
           </div>
           <div class="col-lg-5">
             Còn trống
-            {{ loaiphongdetail?.tongSLPhong }}&ensp;Trạng thái:
-            {{ loaiphongdetail?.trangThaiPhong }}
+            {{ loaiphongdetail?.tongSLPhong }}
           </div>
           <div class="col-lg-3">
             <i class="fa-solid fa-bed"></i> {{ loaiphongdetail?.sucChua }} người
@@ -256,7 +249,17 @@
 
         <hr />
         <div class="row">
-          <div class="col-lg-9">
+          <div class="col-lg-4" style="margin: auto">
+            <img
+              class="card"
+              style="max-width: 250px; max-height: fit-content"
+              src="../../../assets/img/LoaiPhong/{{
+                loaiphongdetail?.anhDaiDien
+              }}"
+              alt="Fails"
+            />
+          </div>
+          <div class="col-lg-5">
             <p-checkbox
               [disabled]="true"
               (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
@@ -267,7 +270,7 @@
             </p-checkbox
             ><br /><br />
             <h6 style="color: #00a651">Dịch vụ đi kèm</h6>
-            <div style="column-count: 4" class="DichVuContainer">
+            <div style="column-count: 2" class="DichVuContainer">
               <div
                 *ngFor="
                   let dichVuItem of loaiphongdetail?.dichVu;
@@ -283,7 +286,7 @@
             Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
             Giá gói dịch vụ thêm:
             {{ loaiphongdetail?.giaGoiDVThem }}
-            <div class="GiaLoaiPhong" style="color: red">
+            <div class="GiaLoaiPhong" style="color: red; margin-bottom: 20px">
               Giá:&ensp;
               <s>{{
                 loaiphongdetail?.giaPhongTheoDem + loaiphongdetail?.giaGoiDVThem
@@ -298,6 +301,15 @@
               }}
               VNĐ
             </div>
+            <p-button
+              [routerLink]="[
+                '/app/thongtinlienhestart',
+                id,
+                loaiphongdetail?.loaiPhongId
+              ]"
+              label="Chọn phòng này"
+              styleClass="p-button-warning"
+            ></p-button>
           </div>
         </div>
       </div>

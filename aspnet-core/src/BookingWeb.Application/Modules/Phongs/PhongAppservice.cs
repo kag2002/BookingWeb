@@ -136,11 +136,12 @@ namespace BookingWeb.Modules.Phongs
                             UuDai=e.UuDai,
                             UuDaiDB = e.UuDaiDacBiet,
                             GiaGoiDVThem = e.GiaGoiDichVuThem,
+                            AnhDaiDien = e.AnhDaiDien,
                             DichVu = dv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
                             {
                                 DichVuId = q.Id,
                                 TenDichVu = q.TenDichVu,
-                                MoTa = q.MoTa
+                                MoTa = q.MoTa,
                             }).ToList(),
                         }).ToList(),
 
@@ -243,6 +244,7 @@ namespace BookingWeb.Modules.Phongs
                                     MienPhiHuyPhong = e.MienPhiHuyPhong,
                                     GiaPhongTheoDem = e.GiaPhongTheoDem,
                                     GiaGoiDVThem = e.GiaGoiDichVuThem,
+                                    AnhDaiDien = e.AnhDaiDien,
                                     DichVu = dichVu.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
                                     {
                                         DichVuId = q.Id,
@@ -343,6 +345,7 @@ namespace BookingWeb.Modules.Phongs
                             MienPhiHuyPhong = e.MienPhiHuyPhong,
                             GiaPhongTheoDem = e.GiaPhongTheoDem,
                             GiaGoiDVThem = e.GiaGoiDichVuThem,
+                            AnhDaiDien = e.AnhDaiDien,
 
                             DichVu = dv.Where(p => p.LoaiPhongId == e.Id).Select(q => new DichVuSearchingDto
                             {

@@ -9496,6 +9496,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
     uuDai: number;
     uuDaiDB: number;
     giaGoiDVThem: number;
+    anhDaiDien: string | undefined;
     dichVu: DichVuSearchingDto[] | undefined;
 
     constructor(data?: ILoaiPhongSearchingDto) {
@@ -9519,6 +9520,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
             this.uuDai = _data["uuDai"];
             this.uuDaiDB = _data["uuDaiDB"];
             this.giaGoiDVThem = _data["giaGoiDVThem"];
+            this.anhDaiDien = _data["anhDaiDien"];
             if (Array.isArray(_data["dichVu"])) {
                 this.dichVu = [] as any;
                 for (let item of _data["dichVu"])
@@ -9546,6 +9548,7 @@ export class LoaiPhongSearchingDto implements ILoaiPhongSearchingDto {
         data["uuDai"] = this.uuDai;
         data["uuDaiDB"] = this.uuDaiDB;
         data["giaGoiDVThem"] = this.giaGoiDVThem;
+        data["anhDaiDien"] = this.anhDaiDien;
         if (Array.isArray(this.dichVu)) {
             data["dichVu"] = [];
             for (let item of this.dichVu)
@@ -9573,6 +9576,7 @@ export interface ILoaiPhongSearchingDto {
     uuDai: number;
     uuDaiDB: number;
     giaGoiDVThem: number;
+    anhDaiDien: string | undefined;
     dichVu: DichVuSearchingDto[] | undefined;
 }
 
@@ -9581,6 +9585,7 @@ export class LoaiPhongSearchingFilterDto implements ILoaiPhongSearchingFilterDto
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
+    anhDaiDien: string | undefined;
 
     constructor(data?: ILoaiPhongSearchingFilterDto) {
         if (data) {
@@ -9597,6 +9602,7 @@ export class LoaiPhongSearchingFilterDto implements ILoaiPhongSearchingFilterDto
             this.mienPhiHuyPhong = _data["mienPhiHuyPhong"];
             this.giaPhongTheoDem = _data["giaPhongTheoDem"];
             this.uuDai = _data["uuDai"];
+            this.anhDaiDien = _data["anhDaiDien"];
         }
     }
 
@@ -9613,6 +9619,7 @@ export class LoaiPhongSearchingFilterDto implements ILoaiPhongSearchingFilterDto
         data["mienPhiHuyPhong"] = this.mienPhiHuyPhong;
         data["giaPhongTheoDem"] = this.giaPhongTheoDem;
         data["uuDai"] = this.uuDai;
+        data["anhDaiDien"] = this.anhDaiDien;
         return data;
     }
 
@@ -9629,6 +9636,7 @@ export interface ILoaiPhongSearchingFilterDto {
     mienPhiHuyPhong: boolean;
     giaPhongTheoDem: number;
     uuDai: number;
+    anhDaiDien: string | undefined;
 }
 
 export class MessageDto implements IMessageDto {

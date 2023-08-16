@@ -4,7 +4,6 @@ import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
   DiaDiemServiceProxy,
   InfoBookingDto,
-  SearchingFilterServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 
 @Component({
@@ -20,19 +19,21 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
 
   infoBooking: InfoBookingDto;
 
-  constructor(
-    private _diadiemService: DiaDiemServiceProxy,
-    private serviceAntrangchu: BookingInfoService
-  ) {}
+  constructor(private _diadiemService: DiaDiemServiceProxy) {}
+
   ngOnInit(): void {
     this.resetTimer();
-    this._diadiemService.getAllLocations().subscribe((result) => {
-      this.slidesdiadiem = result;
-    });
+    this.loadData();
   }
 
   ngOnDestroy() {
     this.clearTimer();
+  }
+
+  loadData(): void {
+    this._diadiemService.getAllLocations().subscribe((result) => {
+      this.slidesdiadiem = result;
+    });
   }
 
   resetTimer() {
@@ -47,31 +48,29 @@ export class SliderdiadiemComponent implements OnInit, OnDestroy {
     }
   }
 
-  goToPrevious(): void {
-    const newIndex =
-      this.currentIndex === 0
-        ? this.slidesdiadiem.length - 1
-        : this.currentIndex - 1;
+  adjustIndex(index: number): number {
+    if (index < 0) {
+      return this.slidesdiadiem.length - 1;
+    } else if (index >= this.slidesdiadiem.length) {
+      return 0;
+    }
+    return index;
+  }
 
+  goToPrevious(): void {
+    const newIndex = this.adjustIndex(this.currentIndex - 1);
     this.currentIndex = newIndex;
     this.resetTimer();
   }
 
   goToNext(): void {
-    const newIndex =
-      this.currentIndex === this.slidesdiadiem.length - 1
-        ? 0
-        : this.currentIndex + 1;
-
+    const newIndex = this.adjustIndex(this.currentIndex + 1);
     this.currentIndex = newIndex;
     this.resetTimer();
   }
 
   getCurrentSlideUrl(index: number): string {
-    return `url('/assets/img/DiaDiem/${this.slidesdiadiem[index]?.tenFileAnhDD}')`;
-  }
-
-  onSlideClick(index: number): void {
-    // this.router.navigate(["/other", index]);
+    const slideIndex = this.adjustIndex(index);
+    return `url('/assets/img/DiaDiem/${this.slidesdiadiem[slideIndex]?.tenFileAnhDD}')`;
   }
 }

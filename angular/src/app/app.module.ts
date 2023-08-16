@@ -29,7 +29,7 @@ import { RatingModule } from "primeng/rating";
 import { SliderModule } from "primeng/slider";
 import { TableModule } from "primeng/table";
 import { PaginatorModule } from "primeng/paginator";
-
+import { ChartModule } from "primeng/chart";
 // import { AgmCoreModule } from '@agm/core';
 
 // tenants
@@ -149,6 +149,7 @@ import { MessageService } from "primeng/api";
     SliderModule,
     TableModule,
     PaginatorModule,
+    ChartModule,
 
     // PaginatorModule,
   ],

@@ -2175,6 +2175,9 @@ namespace BookingWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AnhDaiDien")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("ChiPhiHuyPhong")
                         .HasColumnType("float");
 

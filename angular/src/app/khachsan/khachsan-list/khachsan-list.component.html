@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" style="justify-content: center">
     <div class="col-lg-3">
       <!-- Form sắp xếp -->
       <div class="SapXep">
@@ -145,7 +145,7 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
           <tr
             [routerLink]="['/app/khachsanstart', item?.phongId]"
-            style="cursor: pointer"
+            style="cursor: pointer; border: 1px solid #dee2e6"
           >
             <!-- Image Khach San -->
             <td>

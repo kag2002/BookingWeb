@@ -13,8 +13,8 @@
 .HinhThucPhongTitle {
   color: white;
   background-color: dodgerblue;
-  border-radius: 12px;
-  padding: 0 12px;
+  border-radius: 14px;
+  padding: 1px 15px;
   margin-right: 5px;
 }
 
@@ -78,7 +78,6 @@
   display: flex;
   flex-direction: column;
   padding: 14px 0;
-
   color: red;
 }
 .GiaPhong h6 {
@@ -86,12 +85,19 @@
   font-size: 20px;
   color: red;
 }
-.GiaPhong a {
+.col-lg-2.GiaPhong > a.btn {
   color: white;
   width: fit-content;
   padding: 10px;
   font-weight: 700;
   background-color: red;
+}
+.col-lg-2.GiaPhong > a.btn:hover {
+  color: white;
+  width: fit-content;
+  padding: 10px;
+  font-weight: 700;
+  background-color: brown;
 }
 /* DetailPhongBottom */
 

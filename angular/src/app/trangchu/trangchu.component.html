@@ -3,14 +3,14 @@
 <div class="header">
   <!-- navigation header -->
   <p-tabView styleClass="nav-header tabview-custom"
-    ><p-tabPanel header="Header III">
+    ><p-tabPanel header="Header I">
       <ng-template pTemplate="header">
         <i class="pi pi-fw pi-home"></i>
         <span>Home</span>
       </ng-template>
       <app-luutru [HienTrangChu]="true"></app-luutru>
     </p-tabPanel>
-    <p-tabPanel>
+    <p-tabPanel header="Header II">
       <ng-template pTemplate="header">
         <i class="pi pi-search"></i>
         <span>Khách sạn</span>
@@ -18,7 +18,7 @@
       <app-khachsan-list></app-khachsan-list>
     </p-tabPanel>
 
-    <p-tabPanel header="Header II">
+    <p-tabPanel header="Header III">
       <ng-template pTemplate="header">
         <i class="pi pi-fw pi-map"></i>
         <span>Địa điểm</span>

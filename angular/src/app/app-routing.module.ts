@@ -14,7 +14,6 @@ import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-det
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
-import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.component";
 
 @NgModule({
   imports: [
@@ -60,18 +59,7 @@ import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.co
               },
             ],
           },
-          // {
-          //   path: "app",
-          //   component: TrangchuComponent,
-          //   canActivate: [AppRouteGuard],
-          //   children: [
-          //     {
-          //       path: ":idloailoc/:iddeloc",
-          //       component: KhachsanListComponent,
-          //       canActivate: [AppRouteGuard],
-          //     },
-          //   ],
-          // },
+
           {
             path: "khachsanlist",
             component: KhachsanListComponent,
@@ -112,8 +100,6 @@ import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.co
             component: ChangePasswordComponent,
             canActivate: [AppRouteGuard],
           },
-
-          // { path: "other/:index", component: DiadiemComponent },
         ],
       },
     ]),

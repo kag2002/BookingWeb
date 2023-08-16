@@ -29,7 +29,7 @@
         [routerLink]="[
           '/app/trangchu',
           2,
-          slidesloaichonghi[currentIndex + i]?.id
+          slidesloaichonghi[(currentIndex + i) % slidesloaichonghi.length]?.id
         ]"
         style="cursor: pointer"
       ></div>
