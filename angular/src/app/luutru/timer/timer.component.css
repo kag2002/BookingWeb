@@ -1,0 +1,42 @@
+.CountDown {
+  padding: 10px;
+  position: fixed;
+  bottom: 5px;
+  right: 20px;
+  z-index: 9999;
+  background-color: cornsilk;
+  color: crimson;
+  font-weight: 700;
+}
+
+.countdownt {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 5px;
+}
+.title-time {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 3px;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: brown;
+  padding: 10px;
+  margin: 1px;
+  border-radius: 5px;
+}
+
+.num {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.text {
+  font-size: 10px;
+  color: white;
+}

@@ -30,7 +30,6 @@ import { SliderModule } from "primeng/slider";
 import { TableModule } from "primeng/table";
 import { PaginatorModule } from "primeng/paginator";
 import { ChartModule } from "primeng/chart";
-// import { AgmCoreModule } from '@agm/core';
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -71,8 +70,8 @@ import {
   LienHeServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
-import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.component";
 import { MessageService } from "primeng/api";
+import { TimerComponent } from './luutru/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +116,7 @@ import { MessageService } from "primeng/api";
     ThongtinlienheComponent,
     ThongtinlienheStartComponent,
     XacnhandatComponent,
-    LocdiadiemComponent,
+    TimerComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'
