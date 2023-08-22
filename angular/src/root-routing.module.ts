@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, ExtraOptions } from "@angular/router";
 
 const routes: Routes = [
   { path: "", redirectTo: "/app/trangchu", pathMatch: "full" },
@@ -15,9 +15,12 @@ const routes: Routes = [
     data: { preload: true },
   },
 ];
-
+const routerOptions: ExtraOptions = {
+  scrollPositionRestoration: "enabled",
+  anchorScrolling: "enabled",
+};
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule],
   providers: [],
 })

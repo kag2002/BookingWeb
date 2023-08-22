@@ -10,7 +10,7 @@
         'background-image': getCurrentSlideUrl(i)
       }"
       tabindex="0"
-      routerLink="/app/khachsanlist"
+      [routerLink]="['/app/khachsanstart', item?.phongId]"
     ></div>
     <div class="slide-content">
       <p class="TenLoaiDonVi">

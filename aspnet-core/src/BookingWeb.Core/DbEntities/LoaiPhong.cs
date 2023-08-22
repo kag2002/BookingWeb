@@ -22,6 +22,8 @@ namespace BookingWeb.DbEntities
 
         public string MoTa { get; set; }
 
+        public string AnhDaiDien { get; set; }
+
         public string TienNghiTrongPhong { get; set; }
 
         public double GiaPhongTheoDem { get; set; }

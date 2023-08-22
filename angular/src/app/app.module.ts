@@ -29,7 +29,7 @@ import { RatingModule } from "primeng/rating";
 import { SliderModule } from "primeng/slider";
 import { TableModule } from "primeng/table";
 import { PaginatorModule } from "primeng/paginator";
-
+import { ChartModule } from "primeng/chart";
 // import { AgmCoreModule } from '@agm/core';
 
 // tenants
@@ -55,7 +55,6 @@ import { FooterComponent } from "./layout/footer.component";
 import { TrangchuComponent } from "./trangchu/trangchu.component";
 import { KhachsanListComponent } from "./khachsan/khachsan-list/khachsan-list.component";
 import { DiadiemComponent } from "./diadiem/diadiem.component";
-import { CaidatComponent } from "./caidat/caidat.component";
 import { LuutruComponent } from "./luutru/luutru.component";
 import { SliderloaichonghiComponent } from "./luutru/slider/sliderloaichonghi/sliderloaichonghi.component";
 import { SliderdiadiemComponent } from "./luutru/slider/sliderdiadiem/sliderdiadiem.component";
@@ -73,6 +72,7 @@ import {
 } from "@shared/service-proxies/service-proxies";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
 import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.component";
+import { MessageService } from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -106,7 +106,6 @@ import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.co
     TrangchuComponent,
     KhachsanListComponent,
     DiadiemComponent,
-    CaidatComponent,
     LuutruComponent,
     SliderloaichonghiComponent,
     SliderdiadiemComponent,
@@ -150,9 +149,15 @@ import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.co
     SliderModule,
     TableModule,
     PaginatorModule,
+    ChartModule,
 
     // PaginatorModule,
   ],
-  providers: [LienHeServiceProxy, ChinhSachChungServiceProxy, DatePipe],
+  providers: [
+    LienHeServiceProxy,
+    ChinhSachChungServiceProxy,
+    DatePipe,
+    MessageService,
+  ],
 })
 export class AppModule {}

@@ -6,7 +6,7 @@
       <p class="TenLoaiDonVi">
         {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
       </p>
-      <div style="font-weight: 900; color: gray">
+      <div style="font-weight: 900; color: #8f8f8f">
         {{ selectedkhachsan?.hinhThucPhong }} & {{ selectedkhachsan?.tenDonVi }}
       </div>
       <div style="display: flex; padding: 7px 0">
@@ -83,23 +83,23 @@
   <!-- DiemNoiBat -->
   <div class="DiemNoiBat">
     <div>
-      <i class="fa-solid fa-bus"></i>
+      <i class="fa-solid fa-bus fa-beat" style="color: #ff7b00"></i>
       <p>Các phương tiện công cộng 250m</p>
     </div>
     <div>
-      <i class="fa-solid fa-bell-concierge"></i>
+      <i class="fa-solid fa-bell-concierge fa-beat" style="color: #3b56de"></i>
       <p>Bàn tiếp tân [24h]</p>
     </div>
     <div>
-      <i class="fa-solid fa-location-dot"></i>
+      <i class="fa-solid fa-location-dot fa-beat" style="color: #ff2e2e"></i>
       <p>Vị trí nội thành</p>
     </div>
     <div>
-      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-wifi fa-beat"></i>
       <p>Wifi miễn phí</p>
     </div>
     <div>
-      <i class="fa-solid fa-trash-can"></i>
+      <i class="fa-solid fa-trash-can fa-beat" style="color: #89beb5"></i>
       <p>Dọn phòng hàng ngày</p>
     </div>
   </div>
@@ -223,6 +223,101 @@
   </div>
   <!-- EndQuyTacChung -->
 
+  <!-- PhongConTrong -->
+  <div class="PhongConTrong card" id="PhongConTrong">
+    <h4>Những phòng còn trống tại {{ selectedkhachsan?.tenDonVi }}</h4>
+    <div
+      class="PhongConTrongList"
+      *ngFor="
+        let loaiphongdetail of selectedkhachsan?.listLoaiPhong;
+        let i = index
+      "
+    >
+      <div class="PhongConTrongListItem card">
+        <div class="row">
+          <div class="col-lg-4">
+            Loại phòng: {{ loaiphongdetail?.loaiPhong }}
+          </div>
+          <div class="col-lg-5">
+            Còn trống
+            {{ loaiphongdetail?.tongSLPhong }}
+          </div>
+          <div class="col-lg-3">
+            <i class="fa-solid fa-bed"></i> {{ loaiphongdetail?.sucChua }} người
+          </div>
+        </div>
+
+        <hr />
+        <div class="row">
+          <div class="col-lg-4" style="margin: auto">
+            <img
+              class="card"
+              style="max-width: 250px; max-height: fit-content"
+              src="../../../assets/img/LoaiPhong/{{
+                loaiphongdetail?.anhDaiDien
+              }}"
+              alt="Fails"
+            />
+          </div>
+          <div class="col-lg-5">
+            <p-checkbox
+              [disabled]="true"
+              (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
+              [ngModel]="loaiphongdetail?.mienPhiHuyPhong"
+              binary="loaiphongdetail?.mienPhiHuyPhong"
+              label="Cho phép hủy phòng"
+            >
+            </p-checkbox
+            ><br /><br />
+            <h6 style="color: #00a651">Dịch vụ đi kèm</h6>
+            <div style="column-count: 2" class="DichVuContainer">
+              <div
+                *ngFor="
+                  let dichVuItem of loaiphongdetail?.dichVu;
+                  let i = index
+                "
+              >
+                {{ dichVuItem.tenDichVu }}: {{ dichVuItem.moTa }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
+            Giá gói dịch vụ thêm:
+            {{ loaiphongdetail?.giaGoiDVThem }}
+            <div class="GiaLoaiPhong" style="color: red; margin-bottom: 20px">
+              Giá:&ensp;
+              <s>{{
+                loaiphongdetail?.giaPhongTheoDem + loaiphongdetail?.giaGoiDVThem
+              }}</s>
+              VNĐ
+              <br />
+              Nay chỉ còn:&ensp;
+              {{
+                loaiphongdetail?.giaPhongTheoDem *
+                  (1 - loaiphongdetail?.uuDai / 100) +
+                  loaiphongdetail?.giaGoiDVThem
+              }}
+              VNĐ
+            </div>
+            <p-button
+              [routerLink]="[
+                '/app/thongtinlienhestart',
+                id,
+                loaiphongdetail?.loaiPhongId
+              ]"
+              label="Chọn phòng này"
+              styleClass="p-button-warning"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+    </div>
+  </div>
+  <!-- EndPhongConTrong -->
+
   <!-- TienIchChung -->
   <div class="TienIchChung">
     <h5>Tiện ích chung</h5>
@@ -246,89 +341,6 @@
     </div>
   </div>
   <!-- EndTienIchChung -->
-
-  <!-- PhongConTrong -->
-  <div class="PhongConTrong card" id="PhongConTrong">
-    <h4>Những phòng còn trống tại {{ selectedkhachsan?.tenDonVi }}</h4>
-    <div
-      class="PhongConTrongList"
-      *ngFor="
-        let loaiphongdetail of selectedkhachsan?.listLoaiPhong;
-        let i = index
-      "
-      [routerLink]="[
-        '/app/thongtinlienhestart',
-        id,
-        loaiphongdetail?.loaiPhongId
-      ]"
-      style="cursor: pointer"
-    >
-      <div class="PhongConTrongListItem card">
-        <div class="row">
-          <div class="col-lg-4">
-            Loại phòng: {{ loaiphongdetail?.loaiPhong }}
-          </div>
-          <div class="col-lg-5">
-            Còn trống
-            {{ loaiphongdetail?.tongSLPhong }}&ensp;Trạng thái:
-            {{ loaiphongdetail?.trangThaiPhong }}
-          </div>
-          <div class="col-lg-3">
-            <i class="fa-solid fa-bed"></i> {{ loaiphongdetail?.sucChua }} người
-          </div>
-        </div>
-
-        <hr />
-        <div class="row">
-          <div class="col-lg-9">
-            <p-checkbox
-              [disabled]="true"
-              (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
-              [ngModel]="loaiphongdetail?.mienPhiHuyPhong"
-              binary="loaiphongdetail?.mienPhiHuyPhong"
-              label="Cho phép hủy phòng"
-            >
-            </p-checkbox
-            ><br /><br />
-            <h6>Dịch vụ đi kèm</h6>
-            <div style="column-count: 2" class="DichVuContainer">
-              <div
-                *ngFor="
-                  let dichVuItem of loaiphongdetail?.dichVu;
-                  let i = index
-                "
-              >
-                {{ dichVuItem.tenDichVu }}: {{ dichVuItem.moTa }}
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3">
-            Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
-            Giá gói dịch vụ thêm:
-            {{ loaiphongdetail?.giaGoiDVThem }}
-            <div class="GiaLoaiPhong" style="color: red">
-              Giá:&ensp;
-              <s>{{
-                loaiphongdetail?.giaPhongTheoDem + loaiphongdetail?.giaGoiDVThem
-              }}</s>
-              VNĐ
-              <br />
-              Nay chỉ còn:&ensp;
-              {{
-                loaiphongdetail?.giaPhongTheoDem *
-                  (1 - loaiphongdetail?.uuDai / 100) +
-                  loaiphongdetail?.giaGoiDVThem
-              }}
-              VNĐ
-            </div>
-          </div>
-        </div>
-      </div>
-      <br /><br />
-    </div>
-  </div>
-  <!-- EndPhongConTrong -->
 </div>
 
 <!-- Dang ky email -->

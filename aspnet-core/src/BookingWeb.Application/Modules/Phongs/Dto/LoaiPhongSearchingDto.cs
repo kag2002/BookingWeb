@@ -29,6 +29,8 @@ namespace BookingWeb.Modules.Phongs.Dto
 
         public double GiaGoiDVThem { get; set; }
 
+        public string AnhDaiDien { get; set; }
+
         public List<DichVuSearchingDto> DichVu { get; set; }
     }
 }

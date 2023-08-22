@@ -100,7 +100,8 @@ namespace BookingWeb.Modules.SearchingFilter
                                 {
                                     LoaiPhongId = e.Id,
                                     GiaPhongTheoDem = e.GiaPhongTheoDem,
-                                    UuDai = e.UuDai
+                                    UuDai = e.UuDai,
+                                    AnhDaiDien = e.AnhDaiDien
 
                                 }).ToList(),
                             };
