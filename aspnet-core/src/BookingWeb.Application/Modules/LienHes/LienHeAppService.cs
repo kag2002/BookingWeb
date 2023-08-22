@@ -91,6 +91,22 @@ namespace BookingWeb.Modules.LienHes
 
                 await _lienHe.InsertAsync(message);
 
+                using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Change to Gmail's SMTP server
+                {
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("your_email", "your_app_password"); // Use your email and app password
+                    smtpClient.EnableSsl = true;
+
+                    var mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress("your_email", "BookingWeb.com"); // Use your email
+                    mailMessage.To.Add(input.Email);
+                    mailMessage.Subject = "Hello " + input.Hoten + ","; // Chủ đề của mail
+                    mailMessage.Body = "Thank you !"; // nội dung email
+                    mailMessage.IsBodyHtml = true;
+
+                    await smtpClient.SendMailAsync(mailMessage);
+                }
+
                 return true;
 
             }
@@ -100,6 +116,8 @@ namespace BookingWeb.Modules.LienHes
             }
         }
 
+
+        //Test send to email
         public async Task<bool> ServerSendToMailClient(MailDto input)
         {
             try
