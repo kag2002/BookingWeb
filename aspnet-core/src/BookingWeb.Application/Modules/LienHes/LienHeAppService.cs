@@ -104,9 +104,9 @@ namespace BookingWeb.Modules.LienHes
         {
             try
             {
-                var serverEmail = "xuantientran662@gmail.com";
+                /*var serverEmail = "xuantientran662@gmail.com";
                 var clientEmail = input.Email;
-                var subject = "Xin chào "+ input.HoTen + " !";
+                var subject = "Xin chào, "+ input.HoTen + " !";
                 var body = "success";
 
                 var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
@@ -116,13 +116,31 @@ namespace BookingWeb.Modules.LienHes
                 };
 
                 client.Send(serverEmail, clientEmail, subject, body);
+                return true;*/
 
-                return true;
+                using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Change to Gmail's SMTP server
+                {
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("your_email", "your_app_password"); // Use your email and app password
+                    smtpClient.EnableSsl = true;
+
+                    var mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress("your_email","BookingWeb.com"); // Use your email
+                    mailMessage.To.Add(input.Email);
+                    mailMessage.Subject = "Hello "+input.HoTen+","; // Chủ đề của mail
+                    mailMessage.Body = "Thank you !"; // nội dung email
+                    mailMessage.IsBodyHtml = true;
+
+                    await smtpClient.SendMailAsync(mailMessage);
+
+                    return true;
+                }
+
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                return false;
+                throw ex;
             }
         }
 
