@@ -1,19 +1,16 @@
 ﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.Phongs.Dto;
-using BookingWeb.Modules.SearchingFilter.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using BookingWeb.SessionsDefine;
 using BookingWeb.Authorization.Users;
 using BookingWeb.Modules.ChinhSachChungs.Dto;
 using BookingWeb.Modules.DichVuTienIchChungs.Dto;
-using System.Globalization;
-using System.Runtime.Serialization;
+using System.Net.Mail;
+using System.Net;
 
 namespace BookingWeb.Modules.Phongs
 {
@@ -627,6 +624,19 @@ namespace BookingWeb.Modules.Phongs
                 try
                 {
                     await CurrentUnitOfWork.SaveChangesAsync();
+
+                    var serverEmail = "xuantientran662@gmail.com";
+                    var clientEmail = input.Email;
+                    var subject = "Thư xác nhận.";
+                    var body = "";
+
+                    var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                    {
+                        Credentials = new NetworkCredential("1d115a4ccaae2c", "d90cefcd50b191"),
+                        EnableSsl = true
+                    };
+
+                    client.Send(serverEmail, clientEmail, subject, body);
 
                 }
                 catch (Exception ex)

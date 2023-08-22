@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.LienHes
@@ -30,19 +32,19 @@ namespace BookingWeb.Modules.LienHes
                 var dto = lst.Select(e => new DanhSachOutputDto
                 {
                     Id = e.Id,
-                    HoTen=e.HoTen,
-                    Email=e.Email,
-                    PhoneNumber=e.PhoneNumber,
-                    NoiDung=e.NoiDung,
-                    userId=e.CreatorUserId
+                    HoTen = e.HoTen,
+                    Email = e.Email,
+                    PhoneNumber = e.PhoneNumber,
+                    NoiDung = e.NoiDung,
+                    userId = e.CreatorUserId
                 }).ToList();
                 return dto;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-    
+
         }
 
         public async Task<List<DanhSachOutputDto>> GetDanhSachLienHeByUserId(int userId)
@@ -56,7 +58,7 @@ namespace BookingWeb.Modules.LienHes
 
                 var lst = await _lienHe.GetAllListAsync();
 
-                var dto = lst.Where(p=>p.CreatorUserId == userId).Select(e => new DanhSachOutputDto
+                var dto = lst.Where(p => p.CreatorUserId == userId).Select(e => new DanhSachOutputDto
                 {
                     Id = e.Id,
                     HoTen = e.HoTen,
@@ -91,12 +93,38 @@ namespace BookingWeb.Modules.LienHes
 
                 return true;
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
+        public async Task<bool> ServerSendToMailClient(MailDto input)
+        {
+            try
+            {
+                var serverEmail = "xuantientran662@gmail.com";
+                var clientEmail = input.Email;
+                var subject = "Xin chào "+ input.HoTen + " !";
+                var body = "success";
+
+                var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                {
+                    Credentials = new NetworkCredential("1d115a4ccaae2c", "d90cefcd50b191"),
+                    EnableSsl = true
+                };
+
+                client.Send(serverEmail, clientEmail, subject, body);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
 
     }
 }
