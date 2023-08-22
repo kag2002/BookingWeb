@@ -6435,7 +6435,7 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     slPhong: number;
     tienPhongQuaHan: number;
     chiPhiHuyPhong: number;
-    ngayHuy: moment.Moment;
+    ngayHuy: moment.Moment | undefined;
     tongTien: number;
     phongId: number;
     phieuDatPhongId: number;
@@ -6510,7 +6510,7 @@ export interface IChiTietDatPhongDto {
     slPhong: number;
     tienPhongQuaHan: number;
     chiPhiHuyPhong: number;
-    ngayHuy: moment.Moment;
+    ngayHuy: moment.Moment | undefined;
     tongTien: number;
     phongId: number;
     phieuDatPhongId: number;
