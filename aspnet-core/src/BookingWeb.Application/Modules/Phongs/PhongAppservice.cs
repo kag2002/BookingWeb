@@ -1,19 +1,16 @@
 ﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.Phongs.Dto;
-using BookingWeb.Modules.SearchingFilter.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using BookingWeb.SessionsDefine;
 using BookingWeb.Authorization.Users;
 using BookingWeb.Modules.ChinhSachChungs.Dto;
 using BookingWeb.Modules.DichVuTienIchChungs.Dto;
-using System.Globalization;
-using System.Runtime.Serialization;
+using System.Net.Mail;
+using System.Net;
 
 namespace BookingWeb.Modules.Phongs
 {
@@ -630,6 +627,38 @@ namespace BookingWeb.Modules.Phongs
                 try
                 {
                     await CurrentUnitOfWork.SaveChangesAsync();
+
+                    /*var serverEmail = "xuantientran662@gmail.com";
+                    var clientEmail = input.Email;
+                    var subject = "Thư xác nhận.";
+                    var body = "";
+
+                    var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                    {
+                        Credentials = new NetworkCredential("1d115a4ccaae2c", "d90cefcd50b191"),
+                        EnableSsl = true
+                    };
+
+                    client.Send(serverEmail, clientEmail, subject, body);*/
+
+                    using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Change to Gmail's SMTP server
+                    {
+                        smtpClient.Port = 587;
+                        smtpClient.Credentials = new NetworkCredential("your_email", "your_app_password"); // Use your email and app password
+                        smtpClient.EnableSsl = true;
+
+                        var mailMessage = new MailMessage();
+                        mailMessage.From = new MailAddress("your_email", "BookingWeb.com"); // Use your email
+                        mailMessage.To.Add(input.Email);
+                        mailMessage.Subject = "Hello " + input.HoTen + ","; // Chủ đề của mail
+                        mailMessage.Body = "Thank you !"; // nội dung email
+                        mailMessage.IsBodyHtml = true;
+
+                        await smtpClient.SendMailAsync(mailMessage);
+
+                        return true;
+                    }
+
 
                 }
                 catch (Exception ex)
