@@ -1,9 +1,5 @@
 .CountDown {
   padding: 10px;
-  position: fixed;
-  bottom: 5px;
-  right: 20px;
-  z-index: 9999;
   background-color: cornsilk;
   color: crimson;
   font-weight: 700;

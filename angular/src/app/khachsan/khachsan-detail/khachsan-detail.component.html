@@ -269,24 +269,30 @@
           <div class="col-lg-8 card">
             <div class="row PhongTrongDetail">
               <div class="col-lg-7" style="list-style: none">
-                <li>Loại phòng: {{ loaiphongdetail?.loaiPhong }}</li>
+                <li>
+                  <h6>Loại phòng: {{ loaiphongdetail?.loaiPhong }}</h6>
+                </li>
                 <li>
                   <i class="fa-solid fa-bed"></i>
                   {{ loaiphongdetail?.sucChua }} người
                 </li>
                 <li>
-                  <p-checkbox
-                    [disabled]="true"
-                    (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
-                    [ngModel]="loaiphongdetail?.mienPhiHuyPhong"
-                    binary="loaiphongdetail?.mienPhiHuyPhong"
-                    label="Cho phép hủy phòng"
+                  <h6
+                    style="color: green; margin-top: 10px"
+                    *ngIf="loaiphongdetail?.mienPhiHuyPhong"
                   >
-                  </p-checkbox>
+                    Miễn phí hủy phòng
+                  </h6>
+                  <h6
+                    style="color: orange; margin-top: 10px"
+                    *ngIf="!loaiphongdetail?.mienPhiHuyPhong"
+                  >
+                    Không miễn phí hủy phòng
+                  </h6>
                 </li>
-                <li>Còn trống {{ loaiphongdetail?.tongSLPhong }}</li>
-                <li>
-                  <h6 style="color: #00a651">Dịch vụ đi kèm</h6>
+
+                <li style="width: 60%">
+                  <h6 style="">Dịch vụ đi kèm</h6>
                   <div style="column-count: 2" class="DichVuContainer">
                     <div
                       *ngFor="
@@ -295,13 +301,13 @@
                       "
                     >
                       {{ dichVuItem.tenDichVu }} <br />
-                      {{ dichVuItem.moTa }}
                     </div>
                   </div>
                 </li>
               </div>
 
               <div class="col-lg-5">
+                <h6>Còn {{ loaiphongdetail?.tongSLPhong }} phòng</h6>
                 <div>
                   Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
                   Giá gói dịch vụ thêm:

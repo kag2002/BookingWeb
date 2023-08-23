@@ -6,7 +6,8 @@ import { Component } from "@angular/core";
   styleUrls: ["./timer.component.css"],
 })
 export class TimerComponent {
-  targetDate: Date = new Date("2023-8-30"); // Set your target date here
+  //Đích đến timer
+  targetDate: Date = new Date("2023-8-30");
   remainingTime: any;
   countdownInterval: any;
 
@@ -17,7 +18,7 @@ export class TimerComponent {
   ngOnDestroy() {
     this.stopCountdown();
   }
-  showCountdown: boolean = true; // Add this property
+  showCountdown: boolean = true;
 
   closeCountdown() {
     this.showCountdown = false;

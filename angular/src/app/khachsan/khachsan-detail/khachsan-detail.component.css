@@ -25,7 +25,8 @@
   display: flex;
 }
 .CardRoomDetail {
-  margin: 140px 0;
+  margin-top: 100px;
+  margin-bottom: 50px;
   position: relative;
 }
 /* Slider */
@@ -169,9 +170,10 @@
 }
 .PhongConTrong h4 {
   color: orangered;
+  margin-bottom: 42px;
 }
 .PhongConTrongListItem {
-  padding: 42px;
+  padding: 0 42px;
 }
 .PhongTrongDetail {
   padding: 20px;
@@ -180,7 +182,7 @@
   margin-bottom: 20px;
 }
 .DichVuContainer {
-  color: #00a651;
+  color: gray;
 }
 .GiaLoaiPhong {
   font-size: 20px;

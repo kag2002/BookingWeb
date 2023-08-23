@@ -50,14 +50,4 @@ export class KhachsanDetailComponent {
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this?.listhinhanh[index]?.tenFileAnh}')`;
   }
-
-  // goToPart(partIdName: any) {
-  //   this.router.navigateByUrl(
-  //     "/app/khachsanstart/" + this.id + "#" + partIdName
-  //   );
-  // }
-  // fragment: string = "PhongConTrong";
-  // changeFragment() {
-  //   this.fragment = "AnotherFragment";
-  // }
 }

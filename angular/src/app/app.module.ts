@@ -74,7 +74,10 @@ import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.
 import { MessageService } from "primeng/api";
 import { TimerComponent } from "./luutru/timer/timer.component";
 import { MapComponent } from "./sharedcomponent/map/map.component";
-import { FormtaokhachsanComponent } from './admin/formtaokhachsan/formtaokhachsan.component';
+import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
+import { HotrokhachhangComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang/hotrokhachhang.component";
+import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang-start/hotrokhachhang-start.component";
+import { FloatingbuttonComponent } from './luutru/floatingbutton/floatingbutton.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +125,9 @@ import { FormtaokhachsanComponent } from './admin/formtaokhachsan/formtaokhachsa
     TimerComponent,
     MapComponent,
     FormtaokhachsanComponent,
+    HotrokhachhangComponent,
+    HotrokhachhangStartComponent,
+    FloatingbuttonComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

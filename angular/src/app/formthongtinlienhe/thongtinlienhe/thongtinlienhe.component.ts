@@ -21,6 +21,7 @@ export class ThongtinlienheComponent {
 
   selectedloaiphong: any;
   selectedphong: any;
+
   id: number;
   idloaiphong: number;
   yeucaus: any[] = [
