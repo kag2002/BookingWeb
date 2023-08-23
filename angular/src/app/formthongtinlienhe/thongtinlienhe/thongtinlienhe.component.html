@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-top: 100px">
   <div style="padding: 20px 7.5px">
     <h3>Đặt phòng khách sạn</h3>
     <p>
@@ -184,10 +184,19 @@
           <div class="PhongConTrongListItem card">
             <div class="row">
               <div class="col-lg-9">
-                {{ selectedloaiphong?.tenLoaiPhong }}
+                <img
+                  class="card"
+                  style="max-width: 100%; max-height: fit-content; padding: 2px"
+                  src="../../../assets/img/LoaiPhong/{{
+                    selectedloaiphong?.anhDaiDien
+                  }}"
+                  alt="Fails"
+                />
               </div>
 
               <div class="col-lg-3">
+                {{ selectedloaiphong?.tenLoaiPhong }}
+                <br />
                 <i class="fa-solid fa-bed"></i>
                 {{ selectedloaiphong?.sucChuaPhong }}
                 người

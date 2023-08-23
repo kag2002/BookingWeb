@@ -1,4 +1,10 @@
-<div class="CountDown card">
+<div class="CountDown card" *ngIf="showCountdown">
+  <i
+    class="fa-solid fa-x close-button"
+    (click)="closeCountdown()"
+    style="color: #ee7253"
+  ></i>
+
   <div class="title-time">BIG SALE</div>
   <hr style="margin: 0" />
   <h1 style="color: red; text-align: center">50%</h1>

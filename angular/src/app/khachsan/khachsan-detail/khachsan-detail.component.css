@@ -25,7 +25,7 @@
   display: flex;
 }
 .CardRoomDetail {
-  margin: 14px 0;
+  margin: 140px 0;
   position: relative;
 }
 /* Slider */
@@ -152,11 +152,6 @@
 }
 
 .TienIchChung {
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    url("../../../assets/img/AnhNen/AnhNenHinhThuc2.jpg");
-  background-size: cover;
-  background-position: center;
-  color: white; */
   text-align: center;
 }
 .TienIchChung h5 {
@@ -177,6 +172,12 @@
 }
 .PhongConTrongListItem {
   padding: 42px;
+}
+.PhongTrongDetail {
+  padding: 20px;
+}
+.PhongTrongDetail div li {
+  margin-bottom: 20px;
 }
 .DichVuContainer {
   color: #00a651;

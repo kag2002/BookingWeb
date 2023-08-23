@@ -17,7 +17,11 @@ export class TimerComponent {
   ngOnDestroy() {
     this.stopCountdown();
   }
+  showCountdown: boolean = true; // Add this property
 
+  closeCountdown() {
+    this.showCountdown = false;
+  }
   startCountdown() {
     this.countdownInterval = setInterval(() => {
       const now = new Date().getTime();

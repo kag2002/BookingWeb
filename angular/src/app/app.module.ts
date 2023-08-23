@@ -30,6 +30,7 @@ import { SliderModule } from "primeng/slider";
 import { TableModule } from "primeng/table";
 import { PaginatorModule } from "primeng/paginator";
 import { ChartModule } from "primeng/chart";
+import { GMapModule } from "primeng/gmap";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -71,7 +72,9 @@ import {
 } from "@shared/service-proxies/service-proxies";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
 import { MessageService } from "primeng/api";
-import { TimerComponent } from './luutru/timer/timer.component';
+import { TimerComponent } from "./luutru/timer/timer.component";
+import { MapComponent } from "./sharedcomponent/map/map.component";
+import { FormtaokhachsanComponent } from './admin/formtaokhachsan/formtaokhachsan.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +120,8 @@ import { TimerComponent } from './luutru/timer/timer.component';
     ThongtinlienheStartComponent,
     XacnhandatComponent,
     TimerComponent,
+    MapComponent,
+    FormtaokhachsanComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'
@@ -149,6 +154,7 @@ import { TimerComponent } from './luutru/timer/timer.component';
     TableModule,
     PaginatorModule,
     ChartModule,
+    GMapModule,
 
     // PaginatorModule,
   ],

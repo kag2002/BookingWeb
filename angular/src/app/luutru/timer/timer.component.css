@@ -7,8 +7,17 @@
   background-color: cornsilk;
   color: crimson;
   font-weight: 700;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
-
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
 .countdownt {
   display: flex;
   justify-content: center;

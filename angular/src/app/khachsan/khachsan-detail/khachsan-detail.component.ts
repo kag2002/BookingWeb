@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Params } from "@angular/router";
 import {
   HinhAnhServiceProxy,
   PhongServiceProxy,
@@ -21,7 +21,7 @@ export class KhachsanDetailComponent {
   value: string;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+
     private _phongService: PhongServiceProxy,
     private _hinhanhService: HinhAnhServiceProxy // private _donvikinhdoanhService: DonViKinhDoanhServiceProxy
   ) {}
