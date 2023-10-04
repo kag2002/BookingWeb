@@ -153,6 +153,7 @@
                 [value]="yeucau"
                 formControlName="selectedCategory"
               ></p-radioButton>
+
               <label [for]="yeucau.key" class="ml-2">{{ yeucau.name }}</label>
             </div>
           </div>
@@ -167,6 +168,7 @@
           width: -webkit-fill-available;
         " -->
       <p-button
+        style="display: contents"
         label="Đặt phòng"
         (click)="addClientBookRoom()"
         styleClass=" p-button-raised p-button-danger"

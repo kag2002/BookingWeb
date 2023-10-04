@@ -32,6 +32,12 @@ import { PaginatorModule } from "primeng/paginator";
 import { ChartModule } from "primeng/chart";
 import { GMapModule } from "primeng/gmap";
 import { InputTextareaModule } from "primeng/inputtextarea";
+import { AngularFireModule } from "@angular/fire/compat";
+
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireStorageModule } from "@angular/fire/compat/storage";
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -79,6 +85,7 @@ import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsa
 import { HotrokhachhangComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang/hotrokhachhang.component";
 import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang-start/hotrokhachhang-start.component";
 import { FloatingbuttonComponent } from "./luutru/floatingbutton/floatingbutton.component";
+import { environment } from "environments/environment";
 
 @NgModule({
   declarations: [
@@ -163,6 +170,8 @@ import { FloatingbuttonComponent } from "./luutru/floatingbutton/floatingbutton.
     ChartModule,
     GMapModule,
     InputTextareaModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     // PaginatorModule,
   ],
   providers: [
