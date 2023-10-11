@@ -86,6 +86,7 @@ import { HotrokhachhangComponent } from "./sharedcomponent/chatboxlive/hotrokhac
 import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang-start/hotrokhachhang-start.component";
 import { FloatingbuttonComponent } from "./luutru/floatingbutton/floatingbutton.component";
 import { environment } from "environments/environment";
+import { DieukhoanComponent } from './dieukhoanchinhsach/dieukhoan/dieukhoan.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { environment } from "environments/environment";
     HotrokhachhangComponent,
     HotrokhachhangStartComponent,
     FloatingbuttonComponent,
+    DieukhoanComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

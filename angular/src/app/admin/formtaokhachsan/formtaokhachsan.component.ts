@@ -1,18 +1,11 @@
 import { Component } from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import {
   DiaDiemFullDto,
   DiaDiemServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
-import { finalize } from "rxjs";
-import { url } from "inspector";
 
 @Component({
   selector: "app-formtaokhachsan",
@@ -29,7 +22,7 @@ export class FormtaokhachsanComponent {
   constructor(
     private fb: FormBuilder,
     private _diadiemService: DiaDiemServiceProxy,
-    private http: HttpClient,
+
     private fireStorage: AngularFireStorage
   ) {}
 
