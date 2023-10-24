@@ -87,6 +87,8 @@ import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotr
 import { FloatingbuttonComponent } from "./luutru/floatingbutton/floatingbutton.component";
 import { environment } from "environments/environment";
 import { DieukhoanComponent } from './dieukhoanchinhsach/dieukhoan/dieukhoan.component';
+import { SliderimageComponent } from './luutru/slider/sliderimage/sliderimage.component';
+import { SwiperxemthemanhComponent } from './khachsan/khachsan-detail/swiperxemthemanh/swiperxemthemanh.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +140,8 @@ import { DieukhoanComponent } from './dieukhoanchinhsach/dieukhoan/dieukhoan.com
     HotrokhachhangStartComponent,
     FloatingbuttonComponent,
     DieukhoanComponent,
+    SliderimageComponent,
+    SwiperxemthemanhComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

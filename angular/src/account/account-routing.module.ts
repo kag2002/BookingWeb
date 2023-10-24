@@ -3,6 +3,7 @@ import { RouterModule } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { AccountComponent } from "./account.component";
+import { DieukhoanComponent } from "@app/dieukhoanchinhsach/dieukhoan/dieukhoan.component";
 
 @NgModule({
   imports: [
@@ -12,6 +13,10 @@ import { AccountComponent } from "./account.component";
         component: AccountComponent,
         children: [
           { path: "login", component: LoginComponent },
+          {
+            path: "chinhsachdieukhoan",
+            component: DieukhoanComponent,
+          },
           { path: "register", component: RegisterComponent },
         ],
       },

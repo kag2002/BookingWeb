@@ -54,6 +54,13 @@
 .SubImage {
   padding: 0 0 5px 5px;
 }
+.show-more-item {
+}
+.show-more-picture {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
 .slide-content {
   display: flex;
   flex-direction: column;
@@ -166,9 +173,22 @@
 .TienIchChungContainer {
   column-count: 4;
 }
+
 .TienIchChungItem {
   display: inline-block;
 }
+
+.TienIchChungItem div {
+  font-size: 17px;
+  font-weight: bold;
+  color: orangered;
+}
+.TienIchChungItem ul li {
+  font-size: 16px;
+  color: #793615;
+  list-style: none;
+}
+
 .PhongConTrong {
   padding: 20px;
 }

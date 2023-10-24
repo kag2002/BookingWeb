@@ -1,4 +1,3 @@
-/* Existing styles... */
 * {
   margin-top: 0;
   padding: 0;
@@ -8,10 +7,9 @@
   position: relative;
 }
 .slide {
-  display: flex; /* Set the display property to flex */
-  flex-direction: row; /* Set the direction to row (default) */
+  display: flex;
   margin: 14px;
-  position: relative; /* Add position: relative for the .slide container */
+  position: relative;
 }
 .slide-image {
   width: 160px;
@@ -26,12 +24,11 @@
   padding: 14px 14px 0 14px;
 }
 .slide-price {
-  display: flex; /* Set .slide-price to flex */
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 14px 14px 0 14px;
-
-  margin-left: auto; /* Move .slide-price to the right by using margin-left: auto */
+  margin-left: auto;
 }
 
 .FormSapXep p {
@@ -136,7 +133,6 @@
   margin-bottom: 0;
 }
 
-/* Hide the default increase and decrease buttons */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

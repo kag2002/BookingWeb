@@ -39,7 +39,6 @@ export class LuutruComponent {
   phongSearchinhFilterDto: PhongSearchinhFilterDto[];
   constructor(
     private _diadiemService: DiaDiemServiceProxy,
-    private messageService: MessageService,
     private formBuilder: FormBuilder,
     private _searchingFilterService: SearchingFilterServiceProxy,
     private bookingInfoService: BookingInfoService
@@ -133,6 +132,4 @@ export class LuutruComponent {
   toggleForm() {
     this.overlayVisible = !this.overlayVisible;
   }
-
-  searchHotels() {}
 }

@@ -21,9 +21,8 @@ export class KhachsanDetailComponent {
   value: string;
   constructor(
     private route: ActivatedRoute,
-
     private _phongService: PhongServiceProxy,
-    private _hinhanhService: HinhAnhServiceProxy // private _donvikinhdoanhService: DonViKinhDoanhServiceProxy
+    private _hinhanhService: HinhAnhServiceProxy
   ) {}
   ngOnInit() {
     //Gán id trên router cho biến id
@@ -49,5 +48,10 @@ export class KhachsanDetailComponent {
   }
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this?.listhinhanh[index]?.tenFileAnh}')`;
+  }
+  showMore: boolean = false;
+
+  toggleShowMore(): void {
+    this.showMore = !this.showMore;
   }
 }

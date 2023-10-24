@@ -1,7 +1,6 @@
 <div id="menu">
   <div id="menu-items">
     <div class="menu-item" (click)="scrollToDieuKhoan()">Điều khoản</div>
-
     <div class="menu-item" (click)="scrollToChinhSach()">Chính sách</div>
   </div>
   <div id="menu-background-pattern"></div>
@@ -104,6 +103,9 @@
 
     <hr />
   </div>
+</div>
+<div class="small text-muted card gologin" [routerLink]="['/account/login']">
+  Đăng nhập
 </div>
 
 <div class="QuyTacChung" id="ChinhSach">

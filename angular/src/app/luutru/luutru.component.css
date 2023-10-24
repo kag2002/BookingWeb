@@ -1,4 +1,6 @@
-/* Common styles */
+.wrapper {
+  overflow-x: hidden;
+}
 .intro-header {
   color: white;
   background-color: #003b95;

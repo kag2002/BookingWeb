@@ -211,11 +211,7 @@ export class KhachsanListComponent implements OnInit {
       .subscribe(
         (result) => {
           this.listkhachsan = result;
-
-          // this.selectedStars = [];
-
           console.log("oke :", this.listkhachsan);
-
           console.log("Loc Success");
         },
         (error) => {

@@ -47,17 +47,38 @@
           *ngFor="let item of [].constructor(6); let i = index"
           class="col-lg-6 SubImage"
         >
+          <!-- Show them anh -->
           <div
-            class="slide-sub-image"
-            [ngStyle]="{
-              'background-image': getCurrentSubSlideUrl(i % listhinhanh.length)
-            }"
-          ></div>
+            *ngIf="i === 3; else regularItem"
+            (click)="toggleShowMore()"
+            class="slide-sub-image show-more-item"
+          >
+            <div
+              class="slide-sub-image"
+              [ngStyle]="{
+                'background-image': getCurrentSubSlideUrl(
+                  i % listhinhanh.length
+                )
+              }"
+            ></div>
+          </div>
+          <ng-template #regularItem>
+            <div
+              class="slide-sub-image"
+              [ngStyle]="{
+                'background-image': getCurrentSubSlideUrl(
+                  i % listhinhanh.length
+                )
+              }"
+            ></div>
+          </ng-template>
         </div>
       </div>
     </div>
     <!-- End image -->
-
+    <div class="show-more-text" *ngIf="showMore">
+      <app-swiperxemthemanh></app-swiperxemthemanh>
+    </div>
     <!-- BottomRoomDetail -->
     <div class="row">
       <div class="col-lg-10 DanhGiaPhong">
@@ -360,14 +381,11 @@
           class="TienIchChungItem"
           *ngFor="let tienich of selectedkhachsan?.dichVuChung"
         >
-          <div style="font-size: 17px; font-weight: bold; color: orangered">
+          <div>
             {{ tienich?.tenDichVu }}
           </div>
           <ul>
-            <li
-              style="font-size: 16px; list-style: none"
-              *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
-            >
+            <li *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)">
               {{ item }}
             </li>
           </ul>

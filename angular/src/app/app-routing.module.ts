@@ -8,14 +8,12 @@ import { TenantsComponent } from "./tenants/tenants.component";
 import { RolesComponent } from "app/roles/roles.component";
 import { ChangePasswordComponent } from "./users/change-password/change-password.component";
 import { TrangchuComponent } from "./trangchu/trangchu.component";
-import { DiadiemComponent } from "./diadiem/diadiem.component";
 import { KhachsanListComponent } from "./khachsan/khachsan-list/khachsan-list.component";
 import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-detail.component";
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
 import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
-import { DieukhoanComponent } from "./dieukhoanchinhsach/dieukhoan/dieukhoan.component";
 
 @NgModule({
   imports: [
@@ -48,11 +46,7 @@ import { DieukhoanComponent } from "./dieukhoanchinhsach/dieukhoan/dieukhoan.com
             data: { permission: "Pages.Tenants" },
             canActivate: [AppRouteGuard],
           },
-          {
-            path: "chinhsachdieukhoan",
-            component: DieukhoanComponent,
-            canActivate: [AppRouteGuard],
-          },
+
           {
             path: "trangchu",
             component: TrangchuComponent,

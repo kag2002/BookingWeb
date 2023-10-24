@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
 import {
   DiaDiemFullDto,
   DiaDiemServiceProxy,
@@ -83,7 +82,7 @@ export class FormtaokhachsanComponent {
       }
     }
   }
-  //End chon loai hinh cu tru
+
   ngOnInit() {
     this.FormTaoKhachSan = this.fb.group({
       locations: [null, Validators.required],
@@ -116,7 +115,6 @@ export class FormtaokhachsanComponent {
   // }
 
   // chọn ảnh khách sạn
-
   selectedFiles: File[] = [];
   imagePreviews: (string | ArrayBuffer | null)[] = [];
 
@@ -126,7 +124,7 @@ export class FormtaokhachsanComponent {
     // Clear any existing image previews
     this.imagePreviews = [];
 
-    // Load image previews for selected files
+    // Show anh da chon
     for (const file of this.selectedFiles) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -135,28 +133,26 @@ export class FormtaokhachsanComponent {
       reader.readAsDataURL(file);
     }
   }
-  // Function to remove an image preview
+  // Loại ảnh khỏi mảng đã chọn
   removeImage(index: number) {
-    // Remove the image preview and corresponding file from the arrays
     this.imagePreviews.splice(index, 1);
     this.selectedFiles.splice(index, 1);
   }
-  // Function to handle the upload button click
+  // Upload lên server
   async onUploadClick() {
-    // Check if any files were selected
     if (this.selectedFiles.length === 0) {
       return;
     }
 
-    // Add a confirmation dialog here if needed
+    // Xac nhận
     const confirmUpload = confirm("Bạn có chắc muốn thêm những ảnh này?");
 
     if (confirmUpload) {
-      // Loop through the selected files and upload them
+      // Duyệt qua mảng và upload
       for (const file of this.selectedFiles) {
         const path = `AnhKhachSan/${file.name}`;
         try {
-          // Use await within the async function
+          // Xử lý bất đồng bộ vs await
           const uploadTask = await this.fireStorage.upload(path, file);
           const url = await uploadTask.ref.getDownloadURL();
           console.log(`Thành công thêm ảnh: ${file.name}, URL: ${url}`);
@@ -164,8 +160,7 @@ export class FormtaokhachsanComponent {
           console.error(`Có lỗi khi tải ${file.name}: ${error.message}`);
         }
       }
-
-      // Clear the selected files array after uploading
+      // Làm mới mảng sau khi upload
       this.selectedFiles = [];
     }
   }

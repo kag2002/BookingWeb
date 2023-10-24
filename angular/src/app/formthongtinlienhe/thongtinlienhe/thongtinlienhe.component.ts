@@ -69,7 +69,7 @@ export class ThongtinlienheComponent {
   private initForm() {
     this.FormThongTinLienHe = this.formBuilder.group({
       name: ["", Validators.required],
-      cccd: ["", [Validators.required, Validators.pattern(/^\d{12}$/)]], // Remove Validators.required
+      cccd: ["", [Validators.required, Validators.pattern(/^\d{12}$/)]],
       phone: ["", [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
         "",

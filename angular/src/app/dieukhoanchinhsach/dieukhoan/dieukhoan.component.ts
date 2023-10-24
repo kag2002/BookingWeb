@@ -6,9 +6,6 @@ import { Component, ElementRef, AfterViewInit } from "@angular/core";
   styleUrls: ["./dieukhoan.component.css"],
 })
 export class DieukhoanComponent implements AfterViewInit {
-  showMenu: boolean = true;
-  showDieuKhoan: boolean = false;
-  showChínhach: boolean = false;
   constructor(private elementRef: ElementRef) {}
 
   ngAfterViewInit() {
