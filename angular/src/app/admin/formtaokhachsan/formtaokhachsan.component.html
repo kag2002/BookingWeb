@@ -2,143 +2,145 @@
   <br />
   <div>
     <h3>Thêm khách sạn</h3>
-    <form [formGroup]="FormTaoKhachSan" (ngSubmit)="onSubmit()">
-      <!-- input thong tin khach san -->
-      <div class="FormInputKhachSan">
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="LoaiHinh">
-              <!-- Loại hình cư trú -->
-              <label>Loại hình</label>
-              <div
-                *ngFor="let sao of loaiHinhCuTruOptions"
-                class="field-checkbox"
-              >
-                <p-radioButton
-                  [inputId]="sao.key"
-                  [value]="sao"
-                  formControlName="selectedLoaiHinh"
-                ></p-radioButton>
-                <label [for]="sao.key" class="ml-2">{{ sao.name }}</label>
-              </div>
-              <!-- End loại hình cư trú -->
-            </div>
-          </div>
-          <div class="col-lg-4" style="display: flex; flex-direction: column">
-            <!-- Tên khách sạn -->
-            <div>
-              <label for="name">Tên khách sạn </label>
-              <input
-                type="text"
-                pInputText
-                formControlName="name"
-                required
-              /><br />
-              <small *ngIf="!FormTaoKhachSan.get('name').valid"
-                >Tên khách sạn sẽ được hiển thị đầu tiên</small
-              ><br />
-
-              <small
-                style="color: red"
-                *ngIf="
-                  !FormTaoKhachSan.get('name').valid &&
-                  FormTaoKhachSan.get('name').touched
-                "
-                >Vui lòng nhập tên
-              </small>
-            </div>
-            <br />
-
-            <!-- Số sao -->
-            <div class="HangSao">
-              <label>Hạng sao</label>
-              <div *ngFor="let sao of hangsaos" class="field-checkbox">
-                <p-radioButton
-                  [inputId]="sao.key"
-                  [value]="sao"
-                  formControlName="selectedSao"
-                ></p-radioButton>
-                <label [for]="sao.key" class="ml-2">{{ sao.name }}</label>
+    <div class="card" style="margin-top: 20px; padding: 20px">
+      <form [formGroup]="FormTaoKhachSan" (ngSubmit)="onSubmit()">
+        <!-- input thong tin khach san -->
+        <div class="FormInputKhachSan">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="LoaiHinh">
+                <!-- Loại hình cư trú -->
+                <label>Loại hình</label>
+                <div
+                  *ngFor="let sao of loaiHinhCuTruOptions"
+                  class="field-checkbox"
+                >
+                  <p-radioButton
+                    [inputId]="sao.key"
+                    [value]="sao"
+                    formControlName="selectedLoaiHinh"
+                  ></p-radioButton>
+                  <label [for]="sao.key" class="ml-2">{{ sao.name }}</label>
+                </div>
+                <!-- End loại hình cư trú -->
               </div>
             </div>
+            <div class="col-lg-4" style="display: flex; flex-direction: column">
+              <!-- Tên khách sạn -->
+              <div>
+                <label for="name">Tên khách sạn </label>
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="name"
+                  required
+                /><br />
+                <small *ngIf="!FormTaoKhachSan.get('name').valid"
+                  >Tên khách sạn sẽ được hiển thị đầu tiên</small
+                ><br />
 
-            <!-- ảnh khách sạn -->
-            <label for="fileInputKhachSan" class="file-input-label">
-              <span>Chọn ảnh khách sạn</span>
-              <input
-                type="file"
-                id="fileInputKhachSan"
-                (change)="onSelectFiles($event)"
-                multiple
-              />
-            </label>
-            <div class="row">
-              <div
-                *ngFor="let preview of imagePreviews; let i = index"
-                class="col-lg-6 slide image-container"
-              >
-                <div class="image-wrapper">
-                  <img
-                    [src]="preview"
-                    alt="Image Preview"
-                    width="150"
-                    height="150"
-                  />
-                  <button (click)="removeImage(i)" class="delete-button">
-                    X
-                  </button>
+                <small
+                  style="color: red"
+                  *ngIf="
+                    !FormTaoKhachSan.get('name').valid &&
+                    FormTaoKhachSan.get('name').touched
+                  "
+                  >Vui lòng nhập tên
+                </small>
+              </div>
+              <br />
+
+              <!-- Số sao -->
+              <div class="HangSao">
+                <label>Hạng sao</label>
+                <div *ngFor="let sao of hangsaos" class="field-checkbox">
+                  <p-radioButton
+                    [inputId]="sao.key"
+                    [value]="sao"
+                    formControlName="selectedSao"
+                  ></p-radioButton>
+                  <label [for]="sao.key" class="ml-2">{{ sao.name }}</label>
                 </div>
               </div>
+
+              <!-- ảnh khách sạn -->
+              <label for="fileInputKhachSan" class="file-input-label">
+                <span>Chọn ảnh khách sạn</span>
+                <input
+                  type="file"
+                  id="fileInputKhachSan"
+                  (change)="onSelectFiles($event)"
+                  multiple
+                />
+              </label>
+              <div class="row">
+                <div
+                  *ngFor="let preview of imagePreviews; let i = index"
+                  class="col-lg-6 slide image-container"
+                >
+                  <div class="image-wrapper">
+                    <img
+                      [src]="preview"
+                      alt="Image Preview"
+                      width="150"
+                      height="150"
+                    />
+                    <button (click)="removeImage(i)" class="delete-button">
+                      X
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add a new button for uploading -->
+              <p-button (click)="onUploadClick()" label="Tải lên"></p-button>
             </div>
 
-            <!-- Add a new button for uploading -->
-            <p-button (click)="onUploadClick()" label="Tải lên"></p-button>
-          </div>
-
-          <div class="col-lg-5" style="display: flex; flex-direction: column">
-            <div>
-              <label for="locationdetail">Địa điểm chi tiết </label>
-              <input
-                type="text"
-                pInputText
-                formControlName="locationdetail"
-                required
-              /><br />
-              <small *ngIf="!FormTaoKhachSan.get('locationdetail').valid"
-                >Địa chỉ chi tiết gồm số nhà,tên đường,...</small
-              >
+            <div class="col-lg-5" style="display: flex; flex-direction: column">
+              <div>
+                <label for="locationdetail">Địa điểm chi tiết </label>
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="locationdetail"
+                  required
+                /><br />
+                <small *ngIf="!FormTaoKhachSan.get('locationdetail').valid"
+                  >Địa chỉ chi tiết gồm số nhà,tên đường,...</small
+                >
+                <br />
+                <small
+                  style="color: red"
+                  *ngIf="
+                    !FormTaoKhachSan.get('locationdetail').valid &&
+                    FormTaoKhachSan.get('locationdetail').touched
+                  "
+                  >Vui lòng nhập địa chỉ chi tiết
+                </small>
+              </div>
+              <hr />
+              <!-- địa điểm -->
+              <div>
+                <label>Khu vực </label> <br />
+                <p-autoComplete
+                  class="TimDiaDiem form-group"
+                  formControlName="locations"
+                  [dropdown]="true"
+                  [suggestions]="suggestionsDiaDiem"
+                  (completeMethod)="searchDiaDiem($event)"
+                  field="tenDiaDiem"
+                  name="selectedDiadiem"
+                  placeholder="Nhập khu vực"
+                ></p-autoComplete>
+              </div>
               <br />
-              <small
-                style="color: red"
-                *ngIf="
-                  !FormTaoKhachSan.get('locationdetail').valid &&
-                  FormTaoKhachSan.get('locationdetail').touched
-                "
-                >Vui lòng nhập địa chỉ chi tiết
-              </small>
+              <app-map></app-map>
             </div>
-            <hr />
-            <!-- địa điểm -->
-            <div>
-              <label>Khu vực </label> <br />
-              <p-autoComplete
-                class="TimDiaDiem form-group"
-                formControlName="locations"
-                [dropdown]="true"
-                [suggestions]="suggestionsDiaDiem"
-                (completeMethod)="searchDiaDiem($event)"
-                field="tenDiaDiem"
-                name="selectedDiadiem"
-                placeholder="Nhập khu vực"
-              ></p-autoComplete>
-            </div>
-            <br />
-            <app-map></app-map>
           </div>
         </div>
-      </div>
-      <!-- End input thong tin khach san -->
-    </form>
+        <!-- End input thong tin khach san -->
+      </form>
+    </div>
   </div>
 
   <!-- thêm loại phòng -->

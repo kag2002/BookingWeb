@@ -11,6 +11,7 @@ using BookingWeb.Modules.ChinhSachChungs.Dto;
 using BookingWeb.Modules.DichVuTienIchChungs.Dto;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookingWeb.Modules.Phongs
 {
@@ -68,8 +69,7 @@ namespace BookingWeb.Modules.Phongs
                 var phong = await _phong.FirstOrDefaultAsync(p=>p.Id == Id);
                 if(phong == null)
                 {
-                    await _httpContextAccessor.HttpContext.Response.WriteAsync($"khong ton tai phong voi id = {Id}");
-                    return null;
+                    throw new Exception("Phong khong ton tai");
                 }
                 else
                 {
@@ -79,9 +79,12 @@ namespace BookingWeb.Modules.Phongs
 
                     var lstDd = await _diaDiem.FirstOrDefaultAsync(p => p.Id == lstDvkd.DiaDiemId);
 
-                    var lp = await _loaiPhong.GetAllListAsync();
-                    var lstLp = lp.Where(p => p.DonViKinhDoanhId == lstDvkd.Id).ToList();
-                    var lstLpIds = lp.Select(p => p.Id).ToList();
+                    //var lp = await _loaiPhong.GetAllListAsync();
+                    //var lstLp = lp.Where(p => p.DonViKinhDoanhId == lstDvkd.Id).ToList(); CODE hoi dai
+
+                    var listLoaiPhong = await this._loaiPhong.GetAll().Where(e => e.DonViKinhDoanhId == lstDvkd.Id).ToListAsync();
+                    //var lstLpIds = lp.Select(p => p.Id).ToList();
+                    var lstLpIds = await this._loaiPhong.GetAll().Select(e => e.Id).ToListAsync();
 
                     var dv = await _dichvu.GetAllListAsync();
 
@@ -121,7 +124,7 @@ namespace BookingWeb.Modules.Phongs
                         DiemDanhGiaTB = phong.DiemDanhGiaTB,
                         DanhGiaSaoTb =phong.DanhGiaSaoTb,
                         /*lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Sum() / lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Count(),*/
-                        ListLoaiPhong = lstLp.Select(e => new LoaiPhongSearchingDto
+                        ListLoaiPhong = listLoaiPhong.Select(e => new LoaiPhongSearchingDto
                         {
                             LoaiPhongId = e.Id,
                             LoaiPhong = e.TenLoaiPhong,

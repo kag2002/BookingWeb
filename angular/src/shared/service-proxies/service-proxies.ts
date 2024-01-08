@@ -156,7 +156,7 @@ export class ChinhSachChungServiceProxy {
      * @param dvkdId (optional) 
      * @return Success
      */
-    getPolicyByDVKDId(dvkdId: number | undefined): Observable<ChinhSachChungOutoutDto> {
+    getPolicyByDVKDId(dvkdId: number | undefined): Observable<ChinhSachChungOutputDto> {
         let url_ = this.baseUrl + "/api/services/app/ChinhSachChung/GetPolicyByDVKDId?";
         if (dvkdId === null)
             throw new Error("The parameter 'dvkdId' cannot be null.");
@@ -179,14 +179,14 @@ export class ChinhSachChungServiceProxy {
                 try {
                     return this.processGetPolicyByDVKDId(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<ChinhSachChungOutoutDto>;
+                    return _observableThrow(e) as any as Observable<ChinhSachChungOutputDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<ChinhSachChungOutoutDto>;
+                return _observableThrow(response_) as any as Observable<ChinhSachChungOutputDto>;
         }));
     }
 
-    protected processGetPolicyByDVKDId(response: HttpResponseBase): Observable<ChinhSachChungOutoutDto> {
+    protected processGetPolicyByDVKDId(response: HttpResponseBase): Observable<ChinhSachChungOutputDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -197,7 +197,7 @@ export class ChinhSachChungServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ChinhSachChungOutoutDto.fromJS(resultData200);
+            result200 = ChinhSachChungOutputDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -211,7 +211,7 @@ export class ChinhSachChungServiceProxy {
     /**
      * @return Success
      */
-    getAllListChinhSach(): Observable<ChinhSachChungOutoutDto[]> {
+    getAllListChinhSach(): Observable<ChinhSachChungOutputDto[]> {
         let url_ = this.baseUrl + "/api/services/app/ChinhSachChung/GetAllListChinhSach";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -230,14 +230,14 @@ export class ChinhSachChungServiceProxy {
                 try {
                     return this.processGetAllListChinhSach(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<ChinhSachChungOutoutDto[]>;
+                    return _observableThrow(e) as any as Observable<ChinhSachChungOutputDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<ChinhSachChungOutoutDto[]>;
+                return _observableThrow(response_) as any as Observable<ChinhSachChungOutputDto[]>;
         }));
     }
 
-    protected processGetAllListChinhSach(response: HttpResponseBase): Observable<ChinhSachChungOutoutDto[]> {
+    protected processGetAllListChinhSach(response: HttpResponseBase): Observable<ChinhSachChungOutputDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -251,7 +251,7 @@ export class ChinhSachChungServiceProxy {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200.push(ChinhSachChungOutoutDto.fromJS(item));
+                    result200.push(ChinhSachChungOutputDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -327,7 +327,7 @@ export class ChinhSachChungServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    updateCsc(body: ChinhSachChungOutoutDto | undefined): Observable<boolean> {
+    updateCsc(body: ChinhSachChungOutputDto | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/services/app/ChinhSachChung/UpdateCsc";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -6731,7 +6731,7 @@ export interface IChinhSachChungInputDto {
     donViKinhDoanhId: number | undefined;
 }
 
-export class ChinhSachChungOutoutDto implements IChinhSachChungOutoutDto {
+export class ChinhSachChungOutputDto implements IChinhSachChungOutputDto {
     id: number;
     kiemTraThongTin: string | undefined;
     buaSang: string | undefined;
@@ -6744,7 +6744,7 @@ export class ChinhSachChungOutoutDto implements IChinhSachChungOutoutDto {
     phuongThucThanhToan: string | undefined;
     donViKinhDoanhId: number | undefined;
 
-    constructor(data?: IChinhSachChungOutoutDto) {
+    constructor(data?: IChinhSachChungOutputDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -6769,9 +6769,9 @@ export class ChinhSachChungOutoutDto implements IChinhSachChungOutoutDto {
         }
     }
 
-    static fromJS(data: any): ChinhSachChungOutoutDto {
+    static fromJS(data: any): ChinhSachChungOutputDto {
         data = typeof data === 'object' ? data : {};
-        let result = new ChinhSachChungOutoutDto();
+        let result = new ChinhSachChungOutputDto();
         result.init(data);
         return result;
     }
@@ -6792,15 +6792,15 @@ export class ChinhSachChungOutoutDto implements IChinhSachChungOutoutDto {
         return data;
     }
 
-    clone(): ChinhSachChungOutoutDto {
+    clone(): ChinhSachChungOutputDto {
         const json = this.toJSON();
-        let result = new ChinhSachChungOutoutDto();
+        let result = new ChinhSachChungOutputDto();
         result.init(json);
         return result;
     }
 }
 
-export interface IChinhSachChungOutoutDto {
+export interface IChinhSachChungOutputDto {
     id: number;
     kiemTraThongTin: string | undefined;
     buaSang: string | undefined;

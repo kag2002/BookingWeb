@@ -3,7 +3,7 @@ import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
 import {
-  ChinhSachChungOutoutDto,
+  ChinhSachChungOutputDto,
   ChinhSachChungServiceProxy,
   ClientBookRoomOutputDto,
   ConfirmDto,
@@ -39,7 +39,7 @@ export class XacnhandatComponent {
     { name: "Tôi đặt cho người khác", key: 2 },
   ];
 
-  chinhsachchung: ChinhSachChungOutoutDto = new ChinhSachChungOutoutDto();
+  chinhsachchung: ChinhSachChungOutputDto = new ChinhSachChungOutputDto();
 
   infoRoom: GetInfoRoomToBookOutputDto | undefined;
   infoClient: ClientBookRoomOutputDto | undefined;

@@ -26,7 +26,6 @@ export class KhachsanListComponent implements OnInit {
   idloailoc: number;
   iddeloc: number;
   rangeValues: number[] = [0, 20000];
-
   lstLoaiPhong: [];
 
   sapxeps: any[] = [
@@ -197,8 +196,7 @@ export class KhachsanListComponent implements OnInit {
       this.formLoc.value.inputminprice;
     this.searchingFilterRoomInputDto.giaPhongLonNhat =
       this.formLoc.value.inputmaxprice;
-    this.searchingFilterRoomInputDto.giaPhongNhoNhat =
-      this.formLoc.value.inputminprice;
+    
     this.searchingFilterRoomInputDto.hinhThucPhongId =
       this.selectedLoaiHinhCuTru;
     this.searchingFilterRoomInputDto.mienPhiHuyPhong =

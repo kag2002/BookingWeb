@@ -49,6 +49,7 @@ export class KhachsanDetailComponent {
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this?.listhinhanh[index]?.tenFileAnh}')`;
   }
+  
   showMore: boolean = false;
 
   toggleShowMore(): void {

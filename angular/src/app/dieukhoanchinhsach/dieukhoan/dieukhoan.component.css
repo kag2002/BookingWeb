@@ -114,6 +114,10 @@
   padding: 12px;
   cursor: pointer;
 }
+.gologin :hover {
+  
+  background-color: #6c757d;
+}
 .QuyTacChung {
   margin: 50px 20px;
   padding: 100px 0 0 0;
