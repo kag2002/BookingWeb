@@ -86,10 +86,12 @@ import { HotrokhachhangComponent } from "./sharedcomponent/chatboxlive/hotrokhac
 import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang-start/hotrokhachhang-start.component";
 import { FloatingbuttonComponent } from "./luutru/floatingbutton/floatingbutton.component";
 import { environment } from "environments/environment";
-import { DieukhoanComponent } from './dieukhoanchinhsach/dieukhoan/dieukhoan.component';
-import { SliderimageComponent } from './luutru/slider/sliderimage/sliderimage.component';
-import { SwiperxemthemanhComponent } from './khachsan/khachsan-detail/swiperxemthemanh/swiperxemthemanh.component';
-
+import { DieukhoanComponent } from "./dieukhoanchinhsach/dieukhoan/dieukhoan.component";
+import { SliderimageComponent } from "./luutru/slider/sliderimage/sliderimage.component";
+import { SwiperxemthemanhComponent } from "./khachsan/khachsan-detail/swiperxemthemanh/swiperxemthemanh.component";
+import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.component";
+import { QuanlyphieudatComponent } from './admin/phieudatlist/quanlyphieudat/quanlyphieudat.component';
+import { PhieudatstartComponent } from './admin/phieudatlist/phieudatstart/phieudatstart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -142,6 +144,9 @@ import { SwiperxemthemanhComponent } from './khachsan/khachsan-detail/swiperxemt
     DieukhoanComponent,
     SliderimageComponent,
     SwiperxemthemanhComponent,
+    PhieudatlistComponent,
+    QuanlyphieudatComponent,
+    PhieudatstartComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

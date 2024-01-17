@@ -14,6 +14,7 @@ import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
 import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
+import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.component";
 
 @NgModule({
   imports: [
@@ -65,7 +66,11 @@ import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsa
             component: FormtaokhachsanComponent,
             canActivate: [AppRouteGuard],
           },
-
+          {
+            path: "Phieudatlist",
+            component: PhieudatlistComponent,
+            canActivate: [AppRouteGuard],
+          },
           {
             path: "khachsanlist",
             component: KhachsanListComponent,

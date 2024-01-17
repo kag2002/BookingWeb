@@ -10,8 +10,19 @@ namespace BookingWeb.Modules.DatPhongs.Dto
     {
         public int Id { get; set; }
 
+        public string HoTen { get; set; }
+
+        public string CCCD { get; set; }
+
+        public string SDT { get; set; }
+
+        public string Email { get; set; }   
         public DateTime NgayBatDau { get; set; }
 
         public DateTime NgayHenTra { get; set; }
+
+        public int DatHo { get; set; }
+
+        public string YeuCauDacBiet { get; set; }
     }
 }

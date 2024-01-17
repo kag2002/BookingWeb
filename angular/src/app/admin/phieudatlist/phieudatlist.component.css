@@ -1,0 +1,30 @@
+.ThemSinhVien form div input {
+  width: 90%;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+.TheSinhVien {
+  padding: 20px;
+}
+.Loc {
+  padding: 20px;
+}
+.LocGioiTinh label {
+  margin: 0;
+}
+td button {
+  color: azure;
+  width: fit-content;
+  border: none;
+  padding: 7px 8px;
+  text-align: center;
+
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

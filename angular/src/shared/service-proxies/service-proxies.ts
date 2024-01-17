@@ -586,7 +586,7 @@ export class DatPhongServiceProxy {
     /**
      * @return Success
      */
-    getAllList(): Observable<PhieuDatPhongDto[]> {
+    getAllList(): Observable<PhieuDatPhongOutputDto[]> {
         let url_ = this.baseUrl + "/api/services/app/DatPhong/GetAllList";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -605,14 +605,14 @@ export class DatPhongServiceProxy {
                 try {
                     return this.processGetAllList(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PhieuDatPhongDto[]>;
+                    return _observableThrow(e) as any as Observable<PhieuDatPhongOutputDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PhieuDatPhongDto[]>;
+                return _observableThrow(response_) as any as Observable<PhieuDatPhongOutputDto[]>;
         }));
     }
 
-    protected processGetAllList(response: HttpResponseBase): Observable<PhieuDatPhongDto[]> {
+    protected processGetAllList(response: HttpResponseBase): Observable<PhieuDatPhongOutputDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -626,7 +626,7 @@ export class DatPhongServiceProxy {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200.push(PhieuDatPhongDto.fromJS(item));
+                    result200.push(PhieuDatPhongOutputDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -10259,69 +10259,16 @@ export interface IPermissionDtoListResultDto {
     items: PermissionDto[] | undefined;
 }
 
-export class PhieuDatPhongDto implements IPhieuDatPhongDto {
-    id: number;
-    ngayBatDau: moment.Moment;
-    ngayHenTra: moment.Moment;
-    khachHang: string | undefined;
-    nhanVien: string | undefined;
-
-    constructor(data?: IPhieuDatPhongDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.ngayBatDau = _data["ngayBatDau"] ? moment(_data["ngayBatDau"].toString()) : <any>undefined;
-            this.ngayHenTra = _data["ngayHenTra"] ? moment(_data["ngayHenTra"].toString()) : <any>undefined;
-            this.khachHang = _data["khachHang"];
-            this.nhanVien = _data["nhanVien"];
-        }
-    }
-
-    static fromJS(data: any): PhieuDatPhongDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PhieuDatPhongDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["ngayBatDau"] = this.ngayBatDau ? this.ngayBatDau.toISOString() : <any>undefined;
-        data["ngayHenTra"] = this.ngayHenTra ? this.ngayHenTra.toISOString() : <any>undefined;
-        data["khachHang"] = this.khachHang;
-        data["nhanVien"] = this.nhanVien;
-        return data;
-    }
-
-    clone(): PhieuDatPhongDto {
-        const json = this.toJSON();
-        let result = new PhieuDatPhongDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPhieuDatPhongDto {
-    id: number;
-    ngayBatDau: moment.Moment;
-    ngayHenTra: moment.Moment;
-    khachHang: string | undefined;
-    nhanVien: string | undefined;
-}
-
 export class PhieuDatPhongOutputDto implements IPhieuDatPhongOutputDto {
     id: number;
+    hoTen: string | undefined;
+    cccd: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
     ngayBatDau: moment.Moment;
     ngayHenTra: moment.Moment;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
 
     constructor(data?: IPhieuDatPhongOutputDto) {
         if (data) {
@@ -10335,8 +10282,14 @@ export class PhieuDatPhongOutputDto implements IPhieuDatPhongOutputDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.hoTen = _data["hoTen"];
+            this.cccd = _data["cccd"];
+            this.sdt = _data["sdt"];
+            this.email = _data["email"];
             this.ngayBatDau = _data["ngayBatDau"] ? moment(_data["ngayBatDau"].toString()) : <any>undefined;
             this.ngayHenTra = _data["ngayHenTra"] ? moment(_data["ngayHenTra"].toString()) : <any>undefined;
+            this.datHo = _data["datHo"];
+            this.yeuCauDacBiet = _data["yeuCauDacBiet"];
         }
     }
 
@@ -10350,8 +10303,14 @@ export class PhieuDatPhongOutputDto implements IPhieuDatPhongOutputDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["hoTen"] = this.hoTen;
+        data["cccd"] = this.cccd;
+        data["sdt"] = this.sdt;
+        data["email"] = this.email;
         data["ngayBatDau"] = this.ngayBatDau ? this.ngayBatDau.toISOString() : <any>undefined;
         data["ngayHenTra"] = this.ngayHenTra ? this.ngayHenTra.toISOString() : <any>undefined;
+        data["datHo"] = this.datHo;
+        data["yeuCauDacBiet"] = this.yeuCauDacBiet;
         return data;
     }
 
@@ -10365,8 +10324,14 @@ export class PhieuDatPhongOutputDto implements IPhieuDatPhongOutputDto {
 
 export interface IPhieuDatPhongOutputDto {
     id: number;
+    hoTen: string | undefined;
+    cccd: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
     ngayBatDau: moment.Moment;
     ngayHenTra: moment.Moment;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
 }
 
 export class PhongDto implements IPhongDto {

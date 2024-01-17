@@ -28,7 +28,7 @@ namespace BookingWeb.Modules.DatPhongs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<PhieuDatPhongDto>> GetAllList()
+        public async Task<List<PhieuDatPhongOutputDto>> GetAllList()
         {
             try
             {
@@ -36,11 +36,18 @@ namespace BookingWeb.Modules.DatPhongs
                 var lstKH = await _khachHang.GetAllListAsync();
                 var lstNV = await _nhanVien.GetAllListAsync();
 
-                var dtoLstDP = lstDatPhong.Select(entity => new PhieuDatPhongDto
+                var dtoLstDP = lstDatPhong.Select(entity => new PhieuDatPhongOutputDto
                 {
                     Id = entity.Id,
+                    HoTen = entity.HoTen,
+                    CCCD = entity.CCCD,
+                    SDT = entity.SDT,
+                    Email = entity.Email,
                     NgayBatDau = entity.NgayBatDau,
                     NgayHenTra = entity.NgayHenTra,
+                    DatHo =     entity.DatHo,
+                    YeuCauDacBiet = entity.YeuCauDacBiet,
+
                     /*KhachHang = lstKH.Where(p => p.Id == entity.KhachHangId).Select(p => p.HoTen).ToString(),
                     NhanVien = lstNV.Where(p => p.Id == entity.NhanVienId).Select(p => p.HoTen).ToString()*/
 
