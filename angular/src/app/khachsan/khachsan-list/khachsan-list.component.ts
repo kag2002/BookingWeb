@@ -56,7 +56,7 @@ export class KhachsanListComponent implements OnInit {
     { label: "KS5sao", value: 5 },
   ];
 
-  maxPrice: number = 20000;
+  maxPrice: number = 100000;
   listkhachsan: PhongSearchinhFilterDto[];
 
   searchingFilterRoomInputDto = new SearchingFilterRoomInputDto();
@@ -196,7 +196,7 @@ export class KhachsanListComponent implements OnInit {
       this.formLoc.value.inputminprice;
     this.searchingFilterRoomInputDto.giaPhongLonNhat =
       this.formLoc.value.inputmaxprice;
-    
+
     this.searchingFilterRoomInputDto.hinhThucPhongId =
       this.selectedLoaiHinhCuTru;
     this.searchingFilterRoomInputDto.mienPhiHuyPhong =

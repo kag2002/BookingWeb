@@ -6,7 +6,7 @@
         <div class="row flex">
           <div>
             <input
-              placeholder="Tìm theo mã sinh viên"
+              placeholder="Tìm theo mã phiếu đặt phòng"
               type="number"
               formControlName="id"
               required
@@ -25,7 +25,7 @@
         <small
           style="color: red; z-index: 1"
           *ngIf="!formLocId.get('id').valid && formLocId.get('id').touched"
-          >Vui lòng nhập mã sinh viên
+          >Vui lòng nhập mã phiếu đặt phòng
         </small>
       </form>
     </div>
@@ -64,7 +64,6 @@
               <th style="width: 10%">CCCD</th>
               <th style="width: 10%">Email</th>
               <th style="width: 10%">Check In</th>
-
               <th style="width: 10%">Check out</th>
               <th style="width: 10%">Yêu cầu</th>
               <th style="width: 10%">Đặt hộ</th>

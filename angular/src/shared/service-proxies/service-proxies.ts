@@ -5375,6 +5375,76 @@ export class TenantServiceProxy {
 }
 
 @Injectable()
+export class ThongKeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getDoanhThu12Thang(): Observable<number[]> {
+        let url_ = this.baseUrl + "/api/services/app/ThongKe/GetDoanhThu12Thang";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDoanhThu12Thang(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDoanhThu12Thang(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<number[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<number[]>;
+        }));
+    }
+
+    protected processGetDoanhThu12Thang(response: HttpResponseBase): Observable<number[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(item);
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class TokenAuthServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -6485,8 +6555,8 @@ export interface IChangeUserLanguageDto {
 export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     id: number;
     trangThaiPhongId: number;
-    checkIn: string | undefined;
-    checkOut: string | undefined;
+    checkIn: moment.Moment;
+    checkOut: moment.Moment;
     slNguoiLon: number;
     slTreEm: number;
     slPhong: number;
@@ -6510,8 +6580,8 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
         if (_data) {
             this.id = _data["id"];
             this.trangThaiPhongId = _data["trangThaiPhongId"];
-            this.checkIn = _data["checkIn"];
-            this.checkOut = _data["checkOut"];
+            this.checkIn = _data["checkIn"] ? moment(_data["checkIn"].toString()) : <any>undefined;
+            this.checkOut = _data["checkOut"] ? moment(_data["checkOut"].toString()) : <any>undefined;
             this.slNguoiLon = _data["slNguoiLon"];
             this.slTreEm = _data["slTreEm"];
             this.slPhong = _data["slPhong"];
@@ -6535,8 +6605,8 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["trangThaiPhongId"] = this.trangThaiPhongId;
-        data["checkIn"] = this.checkIn;
-        data["checkOut"] = this.checkOut;
+        data["checkIn"] = this.checkIn ? this.checkIn.toISOString() : <any>undefined;
+        data["checkOut"] = this.checkOut ? this.checkOut.toISOString() : <any>undefined;
         data["slNguoiLon"] = this.slNguoiLon;
         data["slTreEm"] = this.slTreEm;
         data["slPhong"] = this.slPhong;
@@ -6560,8 +6630,8 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
 export interface IChiTietDatPhongDto {
     id: number;
     trangThaiPhongId: number;
-    checkIn: string | undefined;
-    checkOut: string | undefined;
+    checkIn: moment.Moment;
+    checkOut: moment.Moment;
     slNguoiLon: number;
     slTreEm: number;
     slPhong: number;

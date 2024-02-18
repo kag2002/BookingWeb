@@ -28,6 +28,7 @@ import * as ApiServiceProxies from "./service-proxies";
     ApiServiceProxies.LoaiKhachHangServiceProxy,
     ApiServiceProxies.NhanVienServiceProxy,
     ApiServiceProxies.NhanXetDanhGiaServiceProxy,
+    ApiServiceProxies.ThongKeServiceProxy,
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],
 })

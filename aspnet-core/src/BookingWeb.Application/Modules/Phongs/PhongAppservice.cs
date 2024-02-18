@@ -1,4 +1,4 @@
-﻿using Abp.Domain.Repositories;
+﻿    using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.Phongs.Dto;
 using Microsoft.AspNetCore.Http;
@@ -614,8 +614,8 @@ namespace BookingWeb.Modules.Phongs
                 var chiTietPhieuDat = new ChiTietDatPhong
                 {
                     TrangThaiPhongId = 1,
-                    CheckIn = "Từ 14h" + input.NgayDat.ToString(),
-                    CheckOut = "Trước 12h" + input.NgayTra.ToString(),
+                    CheckIn =  input.NgayDat,
+                    CheckOut =  input.NgayTra,
                     SLNguoiLon = input.SlNguoiLon,
                     SLTreEm = input.SlTreEm,
                     SLPhong = input.SlPhong,

@@ -2,6 +2,7 @@
   "name": "BookingWeb",
   "version": "4.7.1",
   "private": true,
+  "proxy": "http://localhost:4200",
   "license": "MIT",
   "scripts": {
     "pree2e": "webdriver-manager update --standalone false --gecko false",
