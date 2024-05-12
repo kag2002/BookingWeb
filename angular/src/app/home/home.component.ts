@@ -10,6 +10,7 @@ import { ThongKeServiceProxy } from "@shared/service-proxies/service-proxies";
 
 @Component({
   templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
   animations: [appModuleAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -43,7 +44,7 @@ export class HomeComponent extends AppComponentBase {
         labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
         datasets: [
           {
-            label: "Doanh thu tháng",
+            label: "Doanh thu tháng ",
             backgroundColor: documentStyle.getPropertyValue("--blue-500"),
             borderColor: documentStyle.getPropertyValue("--blue-500"),
             data: this.listdoanhthu12thang,

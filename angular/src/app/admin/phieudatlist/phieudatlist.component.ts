@@ -33,19 +33,19 @@ export class PhieudatlistComponent implements OnInit {
   }
 
   reload() {
-    // this.ketquaservice.getAllKetQua().subscribe((result) => {
-    //   this.listketqua = result;
-    //   this.cd.detectChanges();
-    // });
+    this._ChiTietDatPhongService.getAllList().subscribe((result) => {
+      this.listChiTietPhieuDat = result;
+      this.cd.detectChanges();
+    });
   }
   filterid() {
-    // this.ketquaservice
-    //   .getKetQuaStudent(this.formLocId.value.id)
-    //   .subscribe((result) => {
-    //     this.listketqua = result;
-    //     console.log("finnish filter student id");
-    //     this.cd.detectChanges();
-    //   });
+    this._ChiTietDatPhongService
+      .getPhieuById(this.formLocId.value.id)
+      .subscribe((result) => {
+        this.listChiTietPhieuDat = result;
+        console.log("finnish filter student id");
+        this.cd.detectChanges();
+      });
     // this.tongketservice
     //   .getTongKetByStudentId(this.formLocId.value.id)
     //   .subscribe((result) => {

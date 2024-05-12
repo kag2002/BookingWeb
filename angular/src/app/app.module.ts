@@ -32,12 +32,12 @@ import { PaginatorModule } from "primeng/paginator";
 import { ChartModule } from "primeng/chart";
 import { GMapModule } from "primeng/gmap";
 import { InputTextareaModule } from "primeng/inputtextarea";
-import { AngularFireModule } from "@angular/fire/compat";
+// import { AngularFireModule } from "@angular/fire/compat";
 
-import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFireStorageModule } from "@angular/fire/compat/storage";
-import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
-import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
+// import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+// import { AngularFireStorageModule } from "@angular/fire/compat/storage";
+// import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+// import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -90,8 +90,8 @@ import { DieukhoanComponent } from "./dieukhoanchinhsach/dieukhoan/dieukhoan.com
 import { SliderimageComponent } from "./luutru/slider/sliderimage/sliderimage.component";
 import { SwiperxemthemanhComponent } from "./khachsan/khachsan-detail/swiperxemthemanh/swiperxemthemanh.component";
 import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.component";
-import { QuanlyphieudatComponent } from './admin/phieudatlist/quanlyphieudat/quanlyphieudat.component';
-import { PhieudatstartComponent } from './admin/phieudatlist/phieudatstart/phieudatstart.component';
+import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/quanlyphieudat.component";
+import { PhieudatstartComponent } from "./admin/phieudatlist/phieudatstart/phieudatstart.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -181,8 +181,8 @@ import { PhieudatstartComponent } from './admin/phieudatlist/phieudatstart/phieu
     ChartModule,
     GMapModule,
     InputTextareaModule,
-    AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    // AngularFireStorageModule,
+    // AngularFireModule.initializeApp(environment.firebaseConfig),
     // PaginatorModule,
   ],
   providers: [

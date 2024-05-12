@@ -4,7 +4,7 @@ import {
   DiaDiemFullDto,
   DiaDiemServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-import { AngularFireStorage } from "@angular/fire/compat/storage";
+// import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 @Component({
   selector: "app-formtaokhachsan",
@@ -20,10 +20,9 @@ export class FormtaokhachsanComponent {
 
   constructor(
     private fb: FormBuilder,
-    private _diadiemService: DiaDiemServiceProxy,
-
-    private fireStorage: AngularFireStorage
-  ) {}
+    private _diadiemService: DiaDiemServiceProxy
+  ) // private fireStorage: AngularFireStorage
+  {}
 
   // Chon dia diem
   searchDiaDiem(event) {
@@ -153,9 +152,9 @@ export class FormtaokhachsanComponent {
         const path = `AnhKhachSan/${file.name}`;
         try {
           // Xử lý bất đồng bộ vs await
-          const uploadTask = await this.fireStorage.upload(path, file);
-          const url = await uploadTask.ref.getDownloadURL();
-          console.log(`Thành công thêm ảnh: ${file.name}, URL: ${url}`);
+          // const uploadTask = await this.fireStorage.upload(path, file);
+          // const url = await uploadTask.ref.getDownloadURL();
+          // console.log(`Thành công thêm ảnh: ${file.name}, URL: ${url}`);
         } catch (error) {
           console.error(`Có lỗi khi tải ${file.name}: ${error.message}`);
         }

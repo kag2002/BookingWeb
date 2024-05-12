@@ -1,1 +1,147 @@
-<p>quanlyphieudat works!</p>
+<div class="ThemSinhVien container" style="margin-top: 100px">
+  <div class="row TheSinhVien" style="display: flex">
+    <div
+      class="col-lg-6 card"
+      style="
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        margin-right: 35px;
+      "
+    >
+      <p
+        style="
+          background-color: #56a4fe;
+          color: white;
+          padding: 20px;
+          font-size: 23px;
+          font-weight: 700;
+          border-radius: 10px;
+        "
+      >
+        Vui lòng điền đủ thông tin
+      </p>
+      <!-- <pre>
+            {{ formSuaPhieuDat.value | json }}
+          </pre
+        > -->
+      <div class="row">
+        <!-- <div class="col-lg-6">
+            <div>
+              <label for="diemquatrinh">Điểm quá trình </label><br />
+              <input
+                type="number"
+                pInputText
+                formControlName="diemquatrinh"
+                required
+              /><br />
+              <small *ngIf="!formSuaPhieuDat.get('diemquatrinh').valid"
+                >Dựa trên điểm chuyên cần và kiểm tra</small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !formSuaPhieuDat.get('diemquatrinh').valid &&
+                  formSuaPhieuDat.get('diemquatrinh').touched
+                "
+                >Vui lòng nhập điểm quá trình
+              </small>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div>
+              <label for="diemcuoiky">Điểm cuối kì </label><br />
+              <input
+                type="number"
+                pInputText
+                formControlName="diemcuoiky"
+                required
+              /><br />
+              <small *ngIf="!formSuaPhieuDat.get('diemcuoiky').valid"
+                >Điểm dựa trên thi cuối kì và điểm thành phần</small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !formSuaPhieuDat.get('diemcuoiky').valid &&
+                  formSuaPhieuDat.get('diemcuoiky').touched
+                "
+                >Vui lòng nhập điểm cuối kì
+              </small>
+            </div>
+          </div> -->
+        <!-- Ngày nhận -->
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <h6 style="font-weight: bold">Ngày nhận</h6>
+          <input
+            type="date"
+            [value]="
+              infoBooking?.ngayDat
+                ? infoBooking?.ngayDat.format('YYYY-MM-DD')
+                : ''
+            "
+          />
+        </div>
+
+        <!-- Ngày trả -->
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <h6 style="font-weight: bold">Ngày trả</h6>
+          <input
+            type="date"
+            [value]="
+              infoBooking?.ngayTra
+                ? infoBooking?.ngayTra.format('YYYY-MM-DD')
+                : ''
+            "
+          />
+        </div>
+      </div>
+      <form [formGroup]="formSuaPhieuDat">
+        <hr />
+        <!-- [disabled]="!formSuaPhieuDat.valid" -->
+        <button
+          [routerLink]="['/app/updatephieudat', idphieudat]"
+          (click)="update()"
+          style="background-color: #f59e0b"
+        >
+          Cập nhật
+        </button>
+      </form>
+    </div>
+    <div class="col-lg-5 card" style="height: fit-content; padding: 20px">
+      <div>
+        Khách hàng : {{ phieuselected[0]?.hoTen }} &nbsp;Mã khách hàng :{{
+          phieuselected[0]?.id
+        }}
+      </div>
+      <div>Email : {{ phieuselected[0]?.email }}</div>
+
+      <br />
+      <div>Số căn cước : {{ phieuselected[0]?.cccd }}</div>
+
+      <div>Số điện thoại : {{ phieuselected[0]?.sdt }}</div>
+      <div>Đặt hộ : {{ phieuselected[0]?.datHo }}</div>
+      <br />
+      <div>
+        Thời gian <br />
+        Từ : {{ phieuselected[0]?.ngayBatDau }}
+        <br />
+        Đến :
+        {{ phieuselected[0]?.ngayHenTra }}
+      </div>
+      <br />
+
+      <!-- <button
+          [routerLink]="['/app/about']"
+          (click)="delete()"
+          style="background-color: #ef4444"
+        >
+          <i class="pi pi-trash"></i>&nbsp;Xóa
+        </button> -->
+
+      <br />
+    </div>
+  </div>
+</div>

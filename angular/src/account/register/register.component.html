@@ -6,7 +6,7 @@
           <div class="card" style="border-radius: 15px">
             <div [@routerTransition] class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">
-                {{ "Create an account" | localize }}
+                {{ "Tạo tài khoản" | localize }}
               </h2>
               <form
                 autocomplete="off"
@@ -18,7 +18,7 @@
                     type="text"
                     class="form-control form-control-lg"
                     name="name"
-                    placeholder="{{ 'Name' | localize }}"
+                    placeholder="{{ 'Tên' | localize }}"
                     required
                     maxlength="64"
                     [(ngModel)]="model.name"
@@ -36,7 +36,7 @@
                     type="text"
                     class="form-control form-control-lg"
                     name="surname"
-                    placeholder="{{ 'Surname' | localize }}"
+                    placeholder="{{ 'Họ' | localize }}"
                     required
                     maxlength="64"
                     [(ngModel)]="model.surname"
@@ -54,7 +54,7 @@
                     type="email"
                     class="form-control form-control-lg"
                     name="emailAddress"
-                    placeholder="{{ 'EmailAddress' | localize }}"
+                    placeholder="{{ 'Email' | localize }}"
                     required
                     maxlength="256"
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$"
@@ -73,7 +73,7 @@
                     type="email"
                     class="form-control form-control-lg"
                     name="userName"
-                    placeholder=" {{ 'UserName' | localize }}"
+                    placeholder=" {{ 'Tên người dùng' | localize }}"
                     required
                     maxlength="32"
                     [(ngModel)]="model.userName"
@@ -91,7 +91,7 @@
                     type="password"
                     class="form-control form-control-lg"
                     name="password"
-                    placeholder="{{ 'Password' | localize }}"
+                    placeholder="{{ 'Mật khẩu' | localize }}"
                     [(ngModel)]="model.password"
                     required
                     maxlength="32"
@@ -112,8 +112,8 @@
                     id="form2Example3cg"
                   />
                   <label class="form-check-label" for="form2Example3g">
-                    I agree all statements in
-                    <a class="text-body"><u>Terms of service.</u></a>
+                    Tôi đồng ý với tất cả
+                    <a class="text-body"><u>Điều khoản dịch vụ.</u></a>
                   </label>
                 </div>
 
@@ -123,14 +123,14 @@
                     class="btn btn-primary btn-block"
                     [disabled]="!registerForm.form.valid || saving"
                   >
-                    {{ "Register" | localize }}
+                    {{ "Đăng ký" | localize }}
                   </button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">
-                  Have already an account ?
+                  Tôi đã có tài khoản ?
                   <a [routerLink]="['../login']" class="fw-bold"
-                    ><u>Login here.</u></a
+                    ><u>Đăng nhập tại đây.</u></a
                   >
                 </p>
               </form>

@@ -1,0 +1,29 @@
+.ThemSinhVien form div input {
+  width: 90%;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+.TheSinhVien {
+  padding: 20px;
+}
+i {
+  margin-left: 3px;
+}
+.LocHocKi label {
+  margin: 0;
+}
+button {
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  border-radius: 6px;
+  font-weight: bold;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

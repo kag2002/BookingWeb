@@ -29,17 +29,17 @@
         </small>
       </form>
     </div>
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6">
       <div class="card" *ngIf="showTongKet" style="padding: 20px">
-        <!-- Sinh viên : {{ tongketselected[0]?.name }}
+        Sinh viên : {{ tongketselected[0]?.name }}
           <br />
           Điểm tổng kết :
           {{ tongketselected[0]?.diem_TongKet | number : "1.2-2" }}
   
           <br />Xếp loại :
-          {{ tongketselected[0]?.xep_loai }} -->
+          {{ tongketselected[0]?.xep_loai }}
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="row" style="justify-content: center">
@@ -63,7 +63,7 @@
               <th style="width: 10%">SĐT</th>
               <th style="width: 10%">CCCD</th>
               <th style="width: 10%">Email</th>
-              <th style="width: 10%">Check In</th>
+              <th style="width: 10%">Check in</th>
               <th style="width: 10%">Check out</th>
               <th style="width: 10%">Yêu cầu</th>
               <th style="width: 10%">Đặt hộ</th>
@@ -86,7 +86,10 @@
                 <button
                   label="Sửa thông tin"
                   style="background-color: #3b82f6"
-                  [routerLink]="['/app/updatediem', listChiTietPhieuDat[i]?.id]"
+                  [routerLink]="[
+                    '/app/updatephieudat',
+                    listChiTietPhieuDat[i]?.id
+                  ]"
                 >
                   <i class="pi pi-pencil"></i> Sửa
                 </button>

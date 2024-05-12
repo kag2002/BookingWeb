@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
 })
 export class TimerComponent {
   //Đích đến timer
-  targetDate: Date = new Date("2024-04-01");
+  targetDate: Date = new Date("2024-07-01");
   remainingTime: any;
   countdownInterval: any;
 

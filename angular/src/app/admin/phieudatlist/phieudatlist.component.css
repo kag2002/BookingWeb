@@ -1,9 +1,12 @@
-.ThemSinhVien form div input {
+.ThemLichDat {
+  margin-top: 100px;
+}
+.ThemLichDat form div input {
   width: 90%;
   border-radius: 5px;
   border: 1px solid #ced4da;
 }
-.TheSinhVien {
+/* .TheSinhVien {
   padding: 20px;
 }
 .Loc {
@@ -11,14 +14,13 @@
 }
 .LocGioiTinh label {
   margin: 0;
-}
+} */
 td button {
   color: azure;
   width: fit-content;
   border: none;
   padding: 7px 8px;
   text-align: center;
-
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;

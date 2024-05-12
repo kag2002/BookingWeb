@@ -12,8 +12,8 @@ body {
   left: 11%;
   width: 100vw;
   transform: translate(0%, 0%);
-  user-select: none; /* -- Prevent image highlighting -- */
-  margin-top: 90px;
+
+  user-select: none;
 }
 
 #image-track > .image {

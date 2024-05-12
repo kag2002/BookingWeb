@@ -15,6 +15,8 @@ import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/tho
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
 import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
 import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.component";
+import { PhieudatstartComponent } from "./admin/phieudatlist/phieudatstart/phieudatstart.component";
+import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/quanlyphieudat.component";
 
 @NgModule({
   imports: [
@@ -22,41 +24,41 @@ import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.compone
       {
         path: "",
         component: AppComponent,
-        canActivate: [AppRouteGuard],
+        // canActivate: [AppRouteGuard],
         children: [
           {
             path: "home",
             component: HomeComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
           {
             path: "users",
             component: UsersComponent,
             data: { permission: "Pages.Users" },
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
           {
             path: "roles",
             component: RolesComponent,
             data: { permission: "Pages.Roles" },
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
           {
             path: "tenants",
             component: TenantsComponent,
             data: { permission: "Pages.Tenants" },
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
 
           {
             path: "trangchu",
             component: TrangchuComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
             children: [
               {
                 path: ":idloailoc/:iddeloc",
                 component: KhachsanListComponent,
-                canActivate: [AppRouteGuard],
+                // canActivate: [AppRouteGuard],
               },
             ],
           },
@@ -64,44 +66,56 @@ import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.compone
           {
             path: "TaoKhachsan",
             component: FormtaokhachsanComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
           {
             path: "Phieudatlist",
             component: PhieudatlistComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
+          },
+          {
+            path: "updatephieudat",
+            component: PhieudatstartComponent,
+            // canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":idphieudat",
+                component: QuanlyphieudatComponent,
+                canActivate: [AppRouteGuard],
+              },
+            ],
           },
           {
             path: "khachsanlist",
             component: KhachsanListComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
           {
             path: "khachsanstart",
             component: KhachsanStartComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
             children: [
               {
                 path: ":id",
                 component: KhachsanDetailComponent,
-                canActivate: [AppRouteGuard],
+                // canActivate: [AppRouteGuard],
               },
             ],
           },
           {
             path: "thongtinlienhestart",
             component: KhachsanStartComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
             children: [
               {
                 path: ":id/:idloaiphong",
                 component: ThongtinlienheComponent,
-                canActivate: [AppRouteGuard],
+                // canActivate: [AppRouteGuard],
               },
               {
                 path: ":id/:idloaiphong/:idphongxacnhan",
                 component: XacnhandatComponent,
-                canActivate: [AppRouteGuard],
+                // canActivate: [AppRouteGuard],
               },
             ],
           },
@@ -109,7 +123,7 @@ import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.compone
           {
             path: "update-password",
             component: ChangePasswordComponent,
-            canActivate: [AppRouteGuard],
+            // canActivate: [AppRouteGuard],
           },
         ],
       },
