@@ -7,6 +7,7 @@ import {
 import { AppComponentBase } from "@shared/app-component-base";
 import { appModuleAnimation } from "@shared/animations/routerTransition";
 import { ThongKeServiceProxy } from "@shared/service-proxies/service-proxies";
+import { result } from "lodash-es";
 
 @Component({
   templateUrl: "./home.component.html",
@@ -15,10 +16,15 @@ import { ThongKeServiceProxy } from "@shared/service-proxies/service-proxies";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends AppComponentBase {
+  TongSoPhong;
+
   listdoanhthu12thang: any[];
-  data: any;
+  listlapday12thang: any[];
+
+  datadoanhthuthang: any;
   options: any;
-  data2: any;
+
+  datatilelapday: any;
   options2: any;
 
   constructor(
@@ -37,27 +43,18 @@ export class HomeComponent extends AppComponentBase {
     );
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
 
+    this.thongkeservice.tongSoPhong().subscribe((result) => {
+      this.TongSoPhong = result;
+    });
+
     this.thongkeservice.getDoanhThu12Thang().subscribe((result) => {
       this.listdoanhthu12thang = result;
 
-      this.data = {
+      this.datadoanhthuthang = {
         labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
         datasets: [
           {
             label: "Doanh thu tháng ",
-            backgroundColor: documentStyle.getPropertyValue("--blue-500"),
-            borderColor: documentStyle.getPropertyValue("--blue-500"),
-            data: this.listdoanhthu12thang,
-          },
-          // Add other datasets if needed
-        ],
-      };
-
-      this.data2 = {
-        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-        datasets: [
-          {
-            label: "Doanh thu tháng",
             backgroundColor: documentStyle.getPropertyValue("--blue-500"),
             borderColor: documentStyle.getPropertyValue("--blue-500"),
             data: this.listdoanhthu12thang,
@@ -99,6 +96,23 @@ export class HomeComponent extends AppComponentBase {
             },
           },
         },
+      };
+
+      this.cdr.detectChanges();
+    });
+    this.thongkeservice.getTiLeLapDayPhongTheoThang().subscribe((result) => {
+      this.listlapday12thang = result;
+      this.datatilelapday = {
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        datasets: [
+          {
+            label: "Tỉ lệ lấp đầy phòng trên tháng",
+            backgroundColor: documentStyle.getPropertyValue("--red-500"),
+            borderColor: documentStyle.getPropertyValue("--red-500"),
+            data: this.listlapday12thang,
+          },
+          // Add other datasets if needed
+        ],
       };
 
       this.options2 = {

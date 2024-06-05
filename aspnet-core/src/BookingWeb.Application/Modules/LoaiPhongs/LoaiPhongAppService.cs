@@ -27,7 +27,12 @@ namespace BookingWeb.Modules.LoaiPhongs
             _dichVuTienIch = repository1;
             _httpContextAccessor = httpContextAccessor;
         }
-
+        public async Task<string> GetTenPhongById(int id)
+        {
+            var loaiphong = await _loaiPhong.GetAsync(id);
+            return loaiphong.TenLoaiPhong;
+        }
+   
         public async Task<List<LoaiPhongOutputDto>> GetAllKindOfRoom()
         {
             try

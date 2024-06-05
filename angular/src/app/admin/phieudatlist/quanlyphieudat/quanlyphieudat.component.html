@@ -1,12 +1,110 @@
-<div class="ThemSinhVien container" style="margin-top: 100px">
-  <div class="row TheSinhVien" style="display: flex">
+<div class="PhieuInfor container" style="margin-top: 100px">
+  <div class="row ThePhieuDat" style="display: flex">
     <div
       class="col-lg-6 card"
+      style="height: fit-content; margin-right: 35px; padding: 20px"
+    >
+      <div>
+        <div>Mã phiếu: {{ phieuselected?.id }}</div>
+        <hr />
+        <p class="tieudethongtin">Thông tin khách</p>
+        <div>
+          Khách hàng : {{ phieuselected?.hoTen }} &nbsp;Mã khách hàng :{{
+            phieuselected?.id
+          }}
+        </div>
+        <div>Email : {{ phieuselected?.email }}</div>
+
+        <div>Số căn cước : {{ phieuselected?.cccd }}</div>
+        <div>Số điện thoại : {{ phieuselected?.sdt }}</div>
+
+        <hr />
+        <div>
+          <p class="tieudethongtin">Thông tin đặt phòng</p>
+          <div>Tên phòng: {{ phieuselected?.tenPhong }}</div>
+          <div>Trạng thái phòng: {{ phieuselected?.tenTrangThai }}</div>
+
+          <h6
+            style="color: #00a651; margin-top: 10px"
+            *ngIf="phieuselected?.datHo === 1"
+          >
+            Đây là phòng đặt hộ
+          </h6>
+          <div>
+            Người lớn : {{ phieuselected?.slNguoiLon }} - Trẻ em:
+            {{ phieuselected?.slTreEm }}
+          </div>
+          <br />
+          <div>
+            Thời gian <br />
+            Từ : {{ phieuselected?.ngayBatDau }}
+            <br />
+            Đến :
+            {{ phieuselected?.ngayHenTra }}
+          </div>
+          <div *ngIf="phieuselected?.ngayHuy === null">
+            Ngày hủy {{ phieuselected?.ngayHuy }}
+          </div>
+          <br />
+          <div>Số đêm thuê: {{ SoDemThue }}</div>
+          <div *ngIf="phieuselected?.tienPhongQuaHan !== 0">
+            Tiền phòng quá hạn : {{ phieuselected?.tienPhongQuaHan }}
+          </div>
+
+          <div *ngIf="phieuselected?.tienPhongQuaHan !== 0">
+            Chi phí hủy phòng : {{ phieuselected?.chiPhiHuyPhong }}
+          </div>
+          <div *ngIf="phieuselected?.tienPhongQuaHan === 0">
+            Không phát sinh phí hủy phòng
+          </div>
+          <div *ngIf="phieuselected?.yeuCauDacBiet !== null">
+            Yêu cầu đặc biệt : {{ phieuselected?.yeuCauDacBiet }}
+          </div>
+          <div *ngIf="phieuselected?.yeuCauDacBiet === null">
+            Không có yêu cầu đặc biệt
+          </div>
+          <hr />
+          <div>Tổng tiền : {{ phieuselected?.tongTien }}</div>
+        </div>
+
+        <br />
+        <div class="DuyetDon" style="display: flex">
+          <button
+            [routerLink]="['/app/about']"
+            (click)="deny()"
+            class="button-deny"
+          >
+            <i class="pi pi-times"></i>&nbsp;Từ chối
+          </button>
+
+          <button
+            [routerLink]="['/app/about']"
+            (click)="accept()"
+            class="button-accept"
+            style="margin-left: 20px"
+          >
+            <i class="pi pi-check"></i>&nbsp;Chấp nhận
+          </button>
+        </div>
+
+        <!-- <button
+          [routerLink]="['/app/about']"
+          (click)="delete()"
+          style="background-color:#56a4fe"
+        >
+          <i class="pi pi-trash"></i>&nbsp;Xóa
+        </button> -->
+
+        <br />
+      </div>
+    </div>
+    <div
+      class="col-lg-5 card"
       style="
+        height: fit-content;
         display: flex;
         flex-direction: column;
         padding: 20px;
-        margin-right: 35px;
       "
     >
       <p
@@ -26,53 +124,6 @@
           </pre
         > -->
       <div class="row">
-        <!-- <div class="col-lg-6">
-            <div>
-              <label for="diemquatrinh">Điểm quá trình </label><br />
-              <input
-                type="number"
-                pInputText
-                formControlName="diemquatrinh"
-                required
-              /><br />
-              <small *ngIf="!formSuaPhieuDat.get('diemquatrinh').valid"
-                >Dựa trên điểm chuyên cần và kiểm tra</small
-              ><br />
-
-              <small
-                style="color: red"
-                *ngIf="
-                  !formSuaPhieuDat.get('diemquatrinh').valid &&
-                  formSuaPhieuDat.get('diemquatrinh').touched
-                "
-                >Vui lòng nhập điểm quá trình
-              </small>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div>
-              <label for="diemcuoiky">Điểm cuối kì </label><br />
-              <input
-                type="number"
-                pInputText
-                formControlName="diemcuoiky"
-                required
-              /><br />
-              <small *ngIf="!formSuaPhieuDat.get('diemcuoiky').valid"
-                >Điểm dựa trên thi cuối kì và điểm thành phần</small
-              ><br />
-
-              <small
-                style="color: red"
-                *ngIf="
-                  !formSuaPhieuDat.get('diemcuoiky').valid &&
-                  formSuaPhieuDat.get('diemcuoiky').touched
-                "
-                >Vui lòng nhập điểm cuối kì
-              </small>
-            </div>
-          </div> -->
-        <!-- Ngày nhận -->
         <div class="col-lg-6 col-sm-6 col-xs-12">
           <h6 style="font-weight: bold">Ngày nhận</h6>
           <input
@@ -109,39 +160,6 @@
           Cập nhật
         </button>
       </form>
-    </div>
-    <div class="col-lg-5 card" style="height: fit-content; padding: 20px">
-      <div>
-        Khách hàng : {{ phieuselected[0]?.hoTen }} &nbsp;Mã khách hàng :{{
-          phieuselected[0]?.id
-        }}
-      </div>
-      <div>Email : {{ phieuselected[0]?.email }}</div>
-
-      <br />
-      <div>Số căn cước : {{ phieuselected[0]?.cccd }}</div>
-
-      <div>Số điện thoại : {{ phieuselected[0]?.sdt }}</div>
-      <div>Đặt hộ : {{ phieuselected[0]?.datHo }}</div>
-      <br />
-      <div>
-        Thời gian <br />
-        Từ : {{ phieuselected[0]?.ngayBatDau }}
-        <br />
-        Đến :
-        {{ phieuselected[0]?.ngayHenTra }}
-      </div>
-      <br />
-
-      <!-- <button
-          [routerLink]="['/app/about']"
-          (click)="delete()"
-          style="background-color: #ef4444"
-        >
-          <i class="pi pi-trash"></i>&nbsp;Xóa
-        </button> -->
-
-      <br />
     </div>
   </div>
 </div>

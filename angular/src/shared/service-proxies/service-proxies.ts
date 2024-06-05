@@ -450,10 +450,15 @@ export class ChiTietDatPhongServiceProxy {
     }
 
     /**
+     * @param phieuDatPhongId (optional) 
      * @return Success
      */
-    getAllList(): Observable<ChiTietDatPhongDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/GetAllList";
+    getChiTietDatPhongByPhieuDatPhongId(phieuDatPhongId: number | undefined): Observable<ChiTietDatPhongDto> {
+        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/GetChiTietDatPhongByPhieuDatPhongId?";
+        if (phieuDatPhongId === null)
+            throw new Error("The parameter 'phieuDatPhongId' cannot be null.");
+        else if (phieuDatPhongId !== undefined)
+            url_ += "phieuDatPhongId=" + encodeURIComponent("" + phieuDatPhongId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -465,20 +470,20 @@ export class ChiTietDatPhongServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllList(response_);
+            return this.processGetChiTietDatPhongByPhieuDatPhongId(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAllList(response_ as any);
+                    return this.processGetChiTietDatPhongByPhieuDatPhongId(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<ChiTietDatPhongDto[]>;
+                    return _observableThrow(e) as any as Observable<ChiTietDatPhongDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<ChiTietDatPhongDto[]>;
+                return _observableThrow(response_) as any as Observable<ChiTietDatPhongDto>;
         }));
     }
 
-    protected processGetAllList(response: HttpResponseBase): Observable<ChiTietDatPhongDto[]> {
+    protected processGetChiTietDatPhongByPhieuDatPhongId(response: HttpResponseBase): Observable<ChiTietDatPhongDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -489,14 +494,121 @@ export class ChiTietDatPhongServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(ChiTietDatPhongDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
+            result200 = ChiTietDatPhongDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param phieuDatPhongId (optional) 
+     * @return Success
+     */
+    acceptBooking(phieuDatPhongId: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/AcceptBooking?";
+        if (phieuDatPhongId === null)
+            throw new Error("The parameter 'phieuDatPhongId' cannot be null.");
+        else if (phieuDatPhongId !== undefined)
+            url_ += "phieuDatPhongId=" + encodeURIComponent("" + phieuDatPhongId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAcceptBooking(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAcceptBooking(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processAcceptBooking(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param phieuDatPhongId (optional) 
+     * @return Success
+     */
+    denyBooking(phieuDatPhongId: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/DenyBooking?";
+        if (phieuDatPhongId === null)
+            throw new Error("The parameter 'phieuDatPhongId' cannot be null.");
+        else if (phieuDatPhongId !== undefined)
+            url_ += "phieuDatPhongId=" + encodeURIComponent("" + phieuDatPhongId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDenyBooking(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDenyBooking(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processDenyBooking(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -3219,6 +3331,63 @@ export class LoaiPhongServiceProxy {
     }
 
     /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTenPhongById(id: number | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/LoaiPhong/GetTenPhongById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTenPhongById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTenPhongById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<string>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<string>;
+        }));
+    }
+
+    protected processGetTenPhongById(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @return Success
      */
     getAllKindOfRoom(): Observable<LoaiPhongOutputDto[]> {
@@ -3507,6 +3676,63 @@ export class LstTrangThaiPhongServiceProxy {
             else {
                 result200 = <any>null;
             }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTrangThaiById(id: number | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/LstTrangThaiPhong/GetTrangThaiById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTrangThaiById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTrangThaiById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<string>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<string>;
+        }));
+    }
+
+    protected processGetTrangThaiById(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5509,8 +5735,8 @@ export class ThongKeServiceProxy {
     /**
      * @return Success
      */
-    getDoanhThuDiaDiem(): Observable<number[]> {
-        let url_ = this.baseUrl + "/api/services/app/ThongKe/GetDoanhThuDiaDiem";
+    getTiLeLapDayPhongTheoThang(): Observable<number[]> {
+        let url_ = this.baseUrl + "/api/services/app/ThongKe/GetTiLeLapDayPhongTheoThang";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5522,11 +5748,11 @@ export class ThongKeServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetDoanhThuDiaDiem(response_);
+            return this.processGetTiLeLapDayPhongTheoThang(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetDoanhThuDiaDiem(response_ as any);
+                    return this.processGetTiLeLapDayPhongTheoThang(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<number[]>;
                 }
@@ -5535,7 +5761,7 @@ export class ThongKeServiceProxy {
         }));
     }
 
-    protected processGetDoanhThuDiaDiem(response: HttpResponseBase): Observable<number[]> {
+    protected processGetTiLeLapDayPhongTheoThang(response: HttpResponseBase): Observable<number[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5550,6 +5776,116 @@ export class ThongKeServiceProxy {
                 result200 = [] as any;
                 for (let item of resultData200)
                     result200.push(item);
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    tongSoPhong(): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/ThongKe/TongSoPhong";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTongSoPhong(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTongSoPhong(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<number>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<number>;
+        }));
+    }
+
+    protected processTongSoPhong(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getRoomCategoryStatistics(): Observable<LoaiPhongInforDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/ThongKe/GetRoomCategoryStatistics";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRoomCategoryStatistics(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRoomCategoryStatistics(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<LoaiPhongInforDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<LoaiPhongInforDto[]>;
+        }));
+    }
+
+    protected processGetRoomCategoryStatistics(response: HttpResponseBase): Observable<LoaiPhongInforDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(LoaiPhongInforDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -6676,8 +7012,8 @@ export interface IChangeUserLanguageDto {
 export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     id: number;
     trangThaiPhongId: number;
-    checkIn: moment.Moment;
-    checkOut: moment.Moment;
+    tenPhong: string | undefined;
+    tenTrangThai: string | undefined;
     slNguoiLon: number;
     slTreEm: number;
     slPhong: number;
@@ -6686,7 +7022,16 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
     ngayHuy: moment.Moment | undefined;
     tongTien: number;
     phongId: number;
+    loaiPhongId: number;
     phieuDatPhongId: number;
+    hoTen: string | undefined;
+    cccd: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
+    ngayBatDau: moment.Moment;
+    ngayHenTra: moment.Moment;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
 
     constructor(data?: IChiTietDatPhongDto) {
         if (data) {
@@ -6701,8 +7046,8 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
         if (_data) {
             this.id = _data["id"];
             this.trangThaiPhongId = _data["trangThaiPhongId"];
-            this.checkIn = _data["checkIn"] ? moment(_data["checkIn"].toString()) : <any>undefined;
-            this.checkOut = _data["checkOut"] ? moment(_data["checkOut"].toString()) : <any>undefined;
+            this.tenPhong = _data["tenPhong"];
+            this.tenTrangThai = _data["tenTrangThai"];
             this.slNguoiLon = _data["slNguoiLon"];
             this.slTreEm = _data["slTreEm"];
             this.slPhong = _data["slPhong"];
@@ -6711,7 +7056,16 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
             this.ngayHuy = _data["ngayHuy"] ? moment(_data["ngayHuy"].toString()) : <any>undefined;
             this.tongTien = _data["tongTien"];
             this.phongId = _data["phongId"];
+            this.loaiPhongId = _data["loaiPhongId"];
             this.phieuDatPhongId = _data["phieuDatPhongId"];
+            this.hoTen = _data["hoTen"];
+            this.cccd = _data["cccd"];
+            this.sdt = _data["sdt"];
+            this.email = _data["email"];
+            this.ngayBatDau = _data["ngayBatDau"] ? moment(_data["ngayBatDau"].toString()) : <any>undefined;
+            this.ngayHenTra = _data["ngayHenTra"] ? moment(_data["ngayHenTra"].toString()) : <any>undefined;
+            this.datHo = _data["datHo"];
+            this.yeuCauDacBiet = _data["yeuCauDacBiet"];
         }
     }
 
@@ -6726,8 +7080,8 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["trangThaiPhongId"] = this.trangThaiPhongId;
-        data["checkIn"] = this.checkIn ? this.checkIn.toISOString() : <any>undefined;
-        data["checkOut"] = this.checkOut ? this.checkOut.toISOString() : <any>undefined;
+        data["tenPhong"] = this.tenPhong;
+        data["tenTrangThai"] = this.tenTrangThai;
         data["slNguoiLon"] = this.slNguoiLon;
         data["slTreEm"] = this.slTreEm;
         data["slPhong"] = this.slPhong;
@@ -6736,7 +7090,16 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
         data["ngayHuy"] = this.ngayHuy ? this.ngayHuy.toISOString() : <any>undefined;
         data["tongTien"] = this.tongTien;
         data["phongId"] = this.phongId;
+        data["loaiPhongId"] = this.loaiPhongId;
         data["phieuDatPhongId"] = this.phieuDatPhongId;
+        data["hoTen"] = this.hoTen;
+        data["cccd"] = this.cccd;
+        data["sdt"] = this.sdt;
+        data["email"] = this.email;
+        data["ngayBatDau"] = this.ngayBatDau ? this.ngayBatDau.toISOString() : <any>undefined;
+        data["ngayHenTra"] = this.ngayHenTra ? this.ngayHenTra.toISOString() : <any>undefined;
+        data["datHo"] = this.datHo;
+        data["yeuCauDacBiet"] = this.yeuCauDacBiet;
         return data;
     }
 
@@ -6751,8 +7114,8 @@ export class ChiTietDatPhongDto implements IChiTietDatPhongDto {
 export interface IChiTietDatPhongDto {
     id: number;
     trangThaiPhongId: number;
-    checkIn: moment.Moment;
-    checkOut: moment.Moment;
+    tenPhong: string | undefined;
+    tenTrangThai: string | undefined;
     slNguoiLon: number;
     slTreEm: number;
     slPhong: number;
@@ -6761,7 +7124,16 @@ export interface IChiTietDatPhongDto {
     ngayHuy: moment.Moment | undefined;
     tongTien: number;
     phongId: number;
+    loaiPhongId: number;
     phieuDatPhongId: number;
+    hoTen: string | undefined;
+    cccd: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
+    ngayBatDau: moment.Moment;
+    ngayHenTra: moment.Moment;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
 }
 
 export class ChinhSachChungDto implements IChinhSachChungDto {
@@ -7145,6 +7517,7 @@ export class ConfirmDto implements IConfirmDto {
     slPhong: number;
     tongTien: number;
     phongId: number;
+    loaiPhongId: number;
 
     constructor(data?: IConfirmDto) {
         if (data) {
@@ -7170,6 +7543,7 @@ export class ConfirmDto implements IConfirmDto {
             this.slPhong = _data["slPhong"];
             this.tongTien = _data["tongTien"];
             this.phongId = _data["phongId"];
+            this.loaiPhongId = _data["loaiPhongId"];
         }
     }
 
@@ -7195,6 +7569,7 @@ export class ConfirmDto implements IConfirmDto {
         data["slPhong"] = this.slPhong;
         data["tongTien"] = this.tongTien;
         data["phongId"] = this.phongId;
+        data["loaiPhongId"] = this.loaiPhongId;
         return data;
     }
 
@@ -7220,6 +7595,7 @@ export interface IConfirmDto {
     slPhong: number;
     tongTien: number;
     phongId: number;
+    loaiPhongId: number;
 }
 
 export class CreateRoleDto implements ICreateRoleDto {
@@ -9585,6 +9961,61 @@ export interface ILoaiPhongDto {
     giaPhongTheoDem: number;
     giaGoiDichVuThem: number;
     uuDai: number;
+}
+
+export class LoaiPhongInforDto implements ILoaiPhongInforDto {
+    tenLoaiPhong: string | undefined;
+    tongSlPhong: number;
+    slPhongTrong: number;
+    tongSLDat: number;
+
+    constructor(data?: ILoaiPhongInforDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenLoaiPhong = _data["tenLoaiPhong"];
+            this.tongSlPhong = _data["tongSlPhong"];
+            this.slPhongTrong = _data["slPhongTrong"];
+            this.tongSLDat = _data["tongSLDat"];
+        }
+    }
+
+    static fromJS(data: any): LoaiPhongInforDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LoaiPhongInforDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenLoaiPhong"] = this.tenLoaiPhong;
+        data["tongSlPhong"] = this.tongSlPhong;
+        data["slPhongTrong"] = this.slPhongTrong;
+        data["tongSLDat"] = this.tongSLDat;
+        return data;
+    }
+
+    clone(): LoaiPhongInforDto {
+        const json = this.toJSON();
+        let result = new LoaiPhongInforDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ILoaiPhongInforDto {
+    tenLoaiPhong: string | undefined;
+    tongSlPhong: number;
+    slPhongTrong: number;
+    tongSLDat: number;
 }
 
 export class LoaiPhongInputDto implements ILoaiPhongInputDto {

@@ -41,6 +41,11 @@ namespace BookingWeb.Modules.LstTrangThaiPhong
             }
         }
 
+        public async Task<string> GetTrangThaiById(int id)
+        {
+            var tentrangthai = await _trangThaiPhong.GetAsync(id);
+            return tentrangthai.TenTrangThai;
+        }
         public async Task<bool> AddNewStatus(TrangThaiPhongInputDto input)
         {
             try

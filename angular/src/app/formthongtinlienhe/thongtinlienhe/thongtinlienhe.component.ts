@@ -25,10 +25,10 @@ export class ThongtinlienheComponent {
   id: number;
   idloaiphong: number;
   yeucaus: any[] = [
-    { name: "Phòng không hút thuốc", key: "NoSmoke" },
-    { name: "Phòng liên thông", key: "Connect" },
-    { name: "Tầng lầu", key: "TopFloor" },
-    { name: "Khác", key: "More" },
+    { name: "Phòng không hút thuốc", key: "KhongThuoc" },
+    { name: "Phòng liên thông", key: "LienThong" },
+    { name: "Tầng lầu", key: "TangLau" },
+    { name: "Khác", key: "Khac" },
   ];
   dathos: any[] = [
     { name: "Tôi là khách lưu trú", key: 1 },

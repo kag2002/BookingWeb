@@ -148,6 +148,7 @@ export class XacnhandatComponent {
         this.infoBooking.ngayTra
       );
     this.confirmBook.phongId = this.infoRoom.phongId;
+    this.confirmBook.loaiPhongId = this.idloaiphong;
 
     this._phongService.confirmBookRoom(this.confirmBook).subscribe(
       (result) => {

@@ -330,24 +330,26 @@
               <div class="col-lg-5">
                 <h6>Còn {{ loaiphongdetail?.tongSLPhong }} phòng</h6>
                 <div>
-                  Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
+                  Ưu đãi: {{ loaiphongdetail?.uuDai * 100 }}% <br />
                   Giá gói dịch vụ thêm:
                   {{ loaiphongdetail?.giaGoiDVThem }}
                   <div
                     class="GiaLoaiPhong"
                     style="color: red; margin-bottom: 20px"
                   >
-                    Giá:&ensp;
-                    <s>{{
-                      loaiphongdetail?.giaPhongTheoDem +
-                        loaiphongdetail?.giaGoiDVThem
-                    }}</s>
-                    VNĐ
-                    <br />
-                    Nay chỉ còn:&ensp;
+                    <div *ngIf="loaiphongdetail.uuDai !== 0">
+                      Giá:&ensp;
+                      <s>{{
+                        loaiphongdetail?.giaPhongTheoDem +
+                          loaiphongdetail?.giaGoiDVThem
+                      }}</s>
+                      VNĐ
+                    </div>
+
+                    Giá ưu đãi:&ensp;
                     {{
                       loaiphongdetail?.giaPhongTheoDem *
-                        (1 - loaiphongdetail?.uuDai / 100) +
+                        (1 - loaiphongdetail?.uuDai) +
                         loaiphongdetail?.giaGoiDVThem
                     }}
                     VNĐ

@@ -29,7 +29,7 @@ import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/qua
           {
             path: "home",
             component: HomeComponent,
-            // canActivate: [AppRouteGuard],
+            canActivate: [AppRouteGuard],
           },
           {
             path: "users",
@@ -81,7 +81,7 @@ import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/qua
               {
                 path: ":idphieudat",
                 component: QuanlyphieudatComponent,
-                canActivate: [AppRouteGuard],
+                // canActivate: [AppRouteGuard],
               },
             ],
           },

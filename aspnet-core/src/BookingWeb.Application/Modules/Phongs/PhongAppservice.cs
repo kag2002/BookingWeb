@@ -607,6 +607,7 @@ namespace BookingWeb.Modules.Phongs
                     NgayHenTra = (DateTime)input.NgayTra,
                     DatHo = input.DatHo,
                     YeuCauDacBiet = input.YeuCauDacBiet
+
                 };
 
                 var idPhieuDat = await _phieuDatPhong.InsertAndGetIdAsync(newPhieuDat);
@@ -624,6 +625,7 @@ namespace BookingWeb.Modules.Phongs
                     ChiPhiHuyPhong = 0,
                     PhieuDatPhongId = idPhieuDat,
                     PhongId = input.phongId,
+                    LoaiPhongId = input.LoaiPhongId,
                     TongTien = input.TongTien
                 };
 
