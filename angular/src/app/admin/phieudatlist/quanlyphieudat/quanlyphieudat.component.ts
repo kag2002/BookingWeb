@@ -79,10 +79,10 @@ export class QuanlyphieudatComponent {
     //   .subscribe((result) => {});
   }
   deny() {
-    console.log("hh");
+    this._ChiTietDatPhongService.denyBooking(this.idphieudat);
   }
   accept() {
-    console.log("hh");
+    this._ChiTietDatPhongService.acceptBooking(this.idphieudat);
   }
   // delete() {
   //   this._ChiTietDatPhongService(this.idphieudat).subscribe((result) => {});

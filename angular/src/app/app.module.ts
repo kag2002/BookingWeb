@@ -92,6 +92,10 @@ import { SwiperxemthemanhComponent } from "./khachsan/khachsan-detail/swiperxemt
 import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.component";
 import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/quanlyphieudat.component";
 import { PhieudatstartComponent } from "./admin/phieudatlist/phieudatstart/phieudatstart.component";
+import { HosodatComponent } from './admin/hosodat/hosodat.component';
+import { HosodatstartComponent } from './admin/hosodat/hosodatstart/hosodatstart.component';
+import { QuanlyhosodatComponent } from './admin/hosodat/quanlyhosodat/quanlyhosodat.component';
+import { PhanhoiComponent } from './phanhoi/phanhoi.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,6 +151,10 @@ import { PhieudatstartComponent } from "./admin/phieudatlist/phieudatstart/phieu
     PhieudatlistComponent,
     QuanlyphieudatComponent,
     PhieudatstartComponent,
+    HosodatComponent,
+    HosodatstartComponent,
+    QuanlyhosodatComponent,
+    PhanhoiComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'

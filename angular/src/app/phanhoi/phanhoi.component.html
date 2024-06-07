@@ -1,0 +1,32 @@
+<div class="container">
+  <h2
+    class="card"
+    style="
+      color: #fff;
+      background-color: #003b95;
+      text-align: center;
+      padding: 20px;
+      margin-top: 100px;
+    "
+  >
+    Phản hồi từ khách hàng
+  </h2>
+  <div
+    *ngFor="let comment of comments"
+    style="padding: 20px; color: #003b95"
+    class="card"
+  >
+    <div style="display: flex">
+      <div class="col-lg-4">
+        <div>Người dùng: {{ comment.hoTen }}</div>
+        <div>{{ comment.creationDate }}</div>
+      </div>
+      <div class="col-lg-4">
+        <div>Email: {{ comment.email }}</div>
+        <div>Số điện thoại: {{ comment.phoneNumber }}</div>
+      </div>
+    </div>
+    <hr style="margin: 5 30px" />
+    <div style="color: black">{{ comment.noiDung }}</div>
+  </div>
+</div>

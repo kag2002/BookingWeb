@@ -618,6 +618,178 @@ export class ChiTietDatPhongServiceProxy {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @return Success
+     */
+    getAllPhieuDaDuyet(): Observable<PhieuDaDuyetDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/GetAllPhieuDaDuyet";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllPhieuDaDuyet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllPhieuDaDuyet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PhieuDaDuyetDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PhieuDaDuyetDto[]>;
+        }));
+    }
+
+    protected processGetAllPhieuDaDuyet(response: HttpResponseBase): Observable<PhieuDaDuyetDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(PhieuDaDuyetDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param phieuDatPhongId (optional) 
+     * @return Success
+     */
+    deleteBookingFromPhieuDaDuyet(phieuDatPhongId: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/DeleteBookingFromPhieuDaDuyet?";
+        if (phieuDatPhongId === null)
+            throw new Error("The parameter 'phieuDatPhongId' cannot be null.");
+        else if (phieuDatPhongId !== undefined)
+            url_ += "phieuDatPhongId=" + encodeURIComponent("" + phieuDatPhongId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteBookingFromPhieuDaDuyet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteBookingFromPhieuDaDuyet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processDeleteBookingFromPhieuDaDuyet(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param phieuDatPhongId (optional) 
+     * @return Success
+     */
+    finishBooking(phieuDatPhongId: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/ChiTietDatPhong/FinishBooking?";
+        if (phieuDatPhongId === null)
+            throw new Error("The parameter 'phieuDatPhongId' cannot be null.");
+        else if (phieuDatPhongId !== undefined)
+            url_ += "phieuDatPhongId=" + encodeURIComponent("" + phieuDatPhongId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFinishBooking(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFinishBooking(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processFinishBooking(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -7806,6 +7978,7 @@ export class DanhSachOutputDto implements IDanhSachOutputDto {
     phoneNumber: string | undefined;
     noiDung: string | undefined;
     userId: number | undefined;
+    creationDate: string | undefined;
 
     constructor(data?: IDanhSachOutputDto) {
         if (data) {
@@ -7824,6 +7997,7 @@ export class DanhSachOutputDto implements IDanhSachOutputDto {
             this.phoneNumber = _data["phoneNumber"];
             this.noiDung = _data["noiDung"];
             this.userId = _data["userId"];
+            this.creationDate = _data["creationDate"];
         }
     }
 
@@ -7842,6 +8016,7 @@ export class DanhSachOutputDto implements IDanhSachOutputDto {
         data["phoneNumber"] = this.phoneNumber;
         data["noiDung"] = this.noiDung;
         data["userId"] = this.userId;
+        data["creationDate"] = this.creationDate;
         return data;
     }
 
@@ -7860,6 +8035,7 @@ export interface IDanhSachOutputDto {
     phoneNumber: string | undefined;
     noiDung: string | undefined;
     userId: number | undefined;
+    creationDate: string | undefined;
 }
 
 export class DiaDiemDto implements IDiaDiemDto {
@@ -10378,6 +10554,7 @@ export class MessageDto implements IMessageDto {
     email: string | undefined;
     phoneNumber: string | undefined;
     noiDung: string | undefined;
+    creationDate: string | undefined;
 
     constructor(data?: IMessageDto) {
         if (data) {
@@ -10394,6 +10571,7 @@ export class MessageDto implements IMessageDto {
             this.email = _data["email"];
             this.phoneNumber = _data["phoneNumber"];
             this.noiDung = _data["noiDung"];
+            this.creationDate = _data["creationDate"];
         }
     }
 
@@ -10410,6 +10588,7 @@ export class MessageDto implements IMessageDto {
         data["email"] = this.email;
         data["phoneNumber"] = this.phoneNumber;
         data["noiDung"] = this.noiDung;
+        data["creationDate"] = this.creationDate;
         return data;
     }
 
@@ -10426,6 +10605,7 @@ export interface IMessageDto {
     email: string | undefined;
     phoneNumber: string | undefined;
     noiDung: string | undefined;
+    creationDate: string | undefined;
 }
 
 export class NhanVienChangePasswordDto implements INhanVienChangePasswordDto {
@@ -10879,6 +11059,133 @@ export class PermissionDtoListResultDto implements IPermissionDtoListResultDto {
 
 export interface IPermissionDtoListResultDto {
     items: PermissionDto[] | undefined;
+}
+
+export class PhieuDaDuyetDto implements IPhieuDaDuyetDto {
+    id: number;
+    phieuDatPhongId: number;
+    phongId: number;
+    loaiPhongId: number;
+    trangThaiPhongId: number;
+    tenTrangThai: string | undefined;
+    tenPhong: string | undefined;
+    slNguoiLon: number;
+    slTreEm: number;
+    slPhong: number;
+    tienPhongQuaHan: number;
+    ngayHuy: moment.Moment | undefined;
+    chiPhiHuyPhong: number;
+    tongTien: number;
+    hoTen: string | undefined;
+    cccd: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
+    ngayBatDau: moment.Moment;
+    ngayHenTra: moment.Moment;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
+
+    constructor(data?: IPhieuDaDuyetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.phieuDatPhongId = _data["phieuDatPhongId"];
+            this.phongId = _data["phongId"];
+            this.loaiPhongId = _data["loaiPhongId"];
+            this.trangThaiPhongId = _data["trangThaiPhongId"];
+            this.tenTrangThai = _data["tenTrangThai"];
+            this.tenPhong = _data["tenPhong"];
+            this.slNguoiLon = _data["slNguoiLon"];
+            this.slTreEm = _data["slTreEm"];
+            this.slPhong = _data["slPhong"];
+            this.tienPhongQuaHan = _data["tienPhongQuaHan"];
+            this.ngayHuy = _data["ngayHuy"] ? moment(_data["ngayHuy"].toString()) : <any>undefined;
+            this.chiPhiHuyPhong = _data["chiPhiHuyPhong"];
+            this.tongTien = _data["tongTien"];
+            this.hoTen = _data["hoTen"];
+            this.cccd = _data["cccd"];
+            this.sdt = _data["sdt"];
+            this.email = _data["email"];
+            this.ngayBatDau = _data["ngayBatDau"] ? moment(_data["ngayBatDau"].toString()) : <any>undefined;
+            this.ngayHenTra = _data["ngayHenTra"] ? moment(_data["ngayHenTra"].toString()) : <any>undefined;
+            this.datHo = _data["datHo"];
+            this.yeuCauDacBiet = _data["yeuCauDacBiet"];
+        }
+    }
+
+    static fromJS(data: any): PhieuDaDuyetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PhieuDaDuyetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["phieuDatPhongId"] = this.phieuDatPhongId;
+        data["phongId"] = this.phongId;
+        data["loaiPhongId"] = this.loaiPhongId;
+        data["trangThaiPhongId"] = this.trangThaiPhongId;
+        data["tenTrangThai"] = this.tenTrangThai;
+        data["tenPhong"] = this.tenPhong;
+        data["slNguoiLon"] = this.slNguoiLon;
+        data["slTreEm"] = this.slTreEm;
+        data["slPhong"] = this.slPhong;
+        data["tienPhongQuaHan"] = this.tienPhongQuaHan;
+        data["ngayHuy"] = this.ngayHuy ? this.ngayHuy.toISOString() : <any>undefined;
+        data["chiPhiHuyPhong"] = this.chiPhiHuyPhong;
+        data["tongTien"] = this.tongTien;
+        data["hoTen"] = this.hoTen;
+        data["cccd"] = this.cccd;
+        data["sdt"] = this.sdt;
+        data["email"] = this.email;
+        data["ngayBatDau"] = this.ngayBatDau ? this.ngayBatDau.toISOString() : <any>undefined;
+        data["ngayHenTra"] = this.ngayHenTra ? this.ngayHenTra.toISOString() : <any>undefined;
+        data["datHo"] = this.datHo;
+        data["yeuCauDacBiet"] = this.yeuCauDacBiet;
+        return data;
+    }
+
+    clone(): PhieuDaDuyetDto {
+        const json = this.toJSON();
+        let result = new PhieuDaDuyetDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPhieuDaDuyetDto {
+    id: number;
+    phieuDatPhongId: number;
+    phongId: number;
+    loaiPhongId: number;
+    trangThaiPhongId: number;
+    tenTrangThai: string | undefined;
+    tenPhong: string | undefined;
+    slNguoiLon: number;
+    slTreEm: number;
+    slPhong: number;
+    tienPhongQuaHan: number;
+    ngayHuy: moment.Moment | undefined;
+    chiPhiHuyPhong: number;
+    tongTien: number;
+    hoTen: string | undefined;
+    cccd: string | undefined;
+    sdt: string | undefined;
+    email: string | undefined;
+    ngayBatDau: moment.Moment;
+    ngayHenTra: moment.Moment;
+    datHo: number;
+    yeuCauDacBiet: string | undefined;
 }
 
 export class PhieuDatPhongOutputDto implements IPhieuDatPhongOutputDto {

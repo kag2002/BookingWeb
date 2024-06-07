@@ -10,7 +10,7 @@ namespace BookingWeb.EntityFrameworkCore
     public class BookingWebDbContext : AbpZeroDbContext<Tenant, Role, User, BookingWebDbContext>
     {
         public DbSet<ChiTietDatPhong> BwChiTietDatPhong { get; set; }
-
+        public DbSet<PhieuDaDuyet> BwPhieuDaDuyet{ get; set; }
         public DbSet<PhieuDatPhong> BwPhieuDatPhong { get; set; }
 
         public DbSet<DiaDiem> BwDiaDiem { get; set; }

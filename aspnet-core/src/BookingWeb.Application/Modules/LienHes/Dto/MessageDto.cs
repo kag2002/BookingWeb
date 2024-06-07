@@ -15,5 +15,7 @@ namespace BookingWeb.Modules.LienHes.Dto
         public string PhoneNumber { get; set; }
 
         public string NoiDung { get; set; }
+
+        public string CreationDate { get; set; } 
     }
 }

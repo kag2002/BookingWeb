@@ -1,0 +1,121 @@
+<div class="ThemLichDat container">
+  <br />
+  <div class="row">
+    <div class="col-lg-6">
+      <form [formGroup]="formLocId" style="padding: 7.5px">
+        <div class="row flex">
+          <div>
+            <input
+              placeholder="Tìm theo mã phiếu đặt phòng"
+              type="number"
+              formControlName="id"
+              required
+              style="padding: 9px"
+            />
+            <br />
+          </div>
+          <p-button
+            style="display: contents"
+            [disabled]="!formLocId.valid"
+            (click)="filterid()"
+          >
+            <i class="pi pi-search"></i
+          ></p-button>
+        </div>
+        <small
+          style="color: red; z-index: 1"
+          *ngIf="!formLocId.get('id').valid && formLocId.get('id').touched"
+          >Vui lòng nhập mã phiếu đặt phòng
+        </small>
+      </form>
+    </div>
+    <!-- <div class="col-lg-6">
+        <div class="card" *ngIf="showTongKet" style="padding: 20px">
+          Sinh viên : {{ tongketselected[0]?.name }}
+            <br />
+            Điểm tổng kết :
+            {{ tongketselected[0]?.diem_TongKet | number : "1.2-2" }}
+    
+            <br />Xếp loại :
+            {{ tongketselected[0]?.xep_loai }}
+        </div>
+      </div> -->
+  </div>
+
+  <div class="row" style="justify-content: center">
+    <div class="col-lg-12">
+      <div class="card">
+        <p-table
+          [value]="listChiTietPhieuDat"
+          [paginator]="true"
+          [rows]="6"
+          [showCurrentPageReport]="true"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          currentPageReportTemplate="Có tất cả {totalRecords} kết quả"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          editMode="row"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 5%">STT</th>
+              <th style="width: 10%">ID</th>
+              <th style="width: 15%">Họ tên</th>
+              <th style="width: 10%">SĐT</th>
+              <th style="width: 10%">CCCD</th>
+              <th style="width: 10%">Email</th>
+              <th style="width: 10%">Check in</th>
+              <th style="width: 10%">Check out</th>
+              <th style="width: 10%">Yêu cầu</th>
+              <th style="width: 10%">Đặt hộ</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-i="rowIndex" let-customer>
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ listChiTietPhieuDat[i].id }}</td>
+              <td>{{ listChiTietPhieuDat[i].hoTen }}</td>
+              <td>{{ listChiTietPhieuDat[i].sdt }}</td>
+              <td>{{ listChiTietPhieuDat[i].cccd }}</td>
+              <td>{{ listChiTietPhieuDat[i].email }}</td>
+              <td>{{ listChiTietPhieuDat[i].ngayBatDau }}</td>
+              <td>{{ listChiTietPhieuDat[i].ngayHenTra }}</td>
+              <td>{{ listChiTietPhieuDat[i].yeuCauDacBiet }}</td>
+              <td>{{ listChiTietPhieuDat[i].datHo }}</td>
+
+              <td>
+                <button
+                  label="Chi tiết"
+                  style="background-color: #3b82f6"
+                  [routerLink]="[
+                    '/app/updatephieudat',
+                    listChiTietPhieuDat[i]?.id
+                  ]"
+                >
+                  <i class="pi pi-pencil"></i> Duyệt
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="paginatorleft"> </ng-template>
+          <ng-template pTemplate="paginatorright"> </ng-template>
+        </p-table>
+      </div>
+      <div>
+        <p-button label="Tải lại" (click)="reload()"
+          ><i class="pi pi-replay"></i
+        ></p-button>
+        <p-button
+          style="margin-left: 10px"
+          label="Thêm"
+          [routerLink]="['/app/adddiem']"
+          ><i class="pi pi-plus"></i
+        ></p-button>
+      </div>
+      <br />
+    </div>
+
+    <!-- <pre>
+                      {{ FormTaoSinhVien.value | json }}
+                    </pre> -->
+  </div>
+</div>

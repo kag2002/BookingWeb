@@ -17,6 +17,10 @@ import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsa
 import { PhieudatlistComponent } from "./admin/phieudatlist/phieudatlist.component";
 import { PhieudatstartComponent } from "./admin/phieudatlist/phieudatstart/phieudatstart.component";
 import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/quanlyphieudat.component";
+import { HosodatComponent } from "./admin/hosodat/hosodat.component";
+import { HosodatstartComponent } from "./admin/hosodat/hosodatstart/hosodatstart.component";
+import { QuanlyhosodatComponent } from "./admin/hosodat/quanlyhosodat/quanlyhosodat.component";
+import { PhanhoiComponent } from "./phanhoi/phanhoi.component";
 
 @NgModule({
   imports: [
@@ -86,6 +90,23 @@ import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/qua
             ],
           },
           {
+            path: "Hosodat",
+            component: HosodatComponent,
+            // canActivate: [AppRouteGuard],
+          },
+          {
+            path: "updatehosodat",
+            component: HosodatstartComponent,
+            // canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":idhosodat",
+                component: QuanlyhosodatComponent,
+                // canActivate: [AppRouteGuard],
+              },
+            ],
+          },
+          {
             path: "khachsanlist",
             component: KhachsanListComponent,
             // canActivate: [AppRouteGuard],
@@ -118,6 +139,11 @@ import { QuanlyphieudatComponent } from "./admin/phieudatlist/quanlyphieudat/qua
                 // canActivate: [AppRouteGuard],
               },
             ],
+          },
+          {
+            path: "Phanhoi",
+            component: PhanhoiComponent,
+            // canActivate: [AppRouteGuard],
           },
 
           {
