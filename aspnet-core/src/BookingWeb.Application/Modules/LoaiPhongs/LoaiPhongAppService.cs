@@ -2,44 +2,41 @@
 using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.LoaiPhongs.Dto;
-using BookingWeb.Modules.Phongs.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.LoaiPhongs
 {
     public class LoaiPhongAppService : BookingWebAppServiceBase
     {
-        private readonly IRepository<LoaiPhong> _loaiPhong;
-
-        private readonly IRepository<DichVuTienIch> _dichVuTienIch;
-
+        private readonly IRepository<LoaiPhong> _loaiPhongRepository;
+        private readonly IRepository<PhieuDaDuyet> _phieuDaDuyetRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoaiPhongAppService(IRepository<LoaiPhong> repository, IRepository<DichVuTienIch> repository1,
+        public LoaiPhongAppService(
+            IRepository<LoaiPhong> loaiPhongRepository,
+            IRepository<PhieuDaDuyet> phieuDaDuyetRepository,
             IHttpContextAccessor httpContextAccessor)
         {
-            _loaiPhong = repository;
-            _dichVuTienIch = repository1;
+            _loaiPhongRepository = loaiPhongRepository;
+            _phieuDaDuyetRepository = phieuDaDuyetRepository;
             _httpContextAccessor = httpContextAccessor;
         }
+
         public async Task<string> GetTenPhongById(int id)
         {
-            var loaiphong = await _loaiPhong.GetAsync(id);
+            var loaiphong = await _loaiPhongRepository.GetAsync(id);
             return loaiphong.TenLoaiPhong;
         }
-   
+
         public async Task<List<LoaiPhongOutputDto>> GetAllKindOfRoom()
         {
             try
             {
-                var lstRoom = await _loaiPhong.GetAllListAsync();
-                var lstDv = await _dichVuTienIch.GetAllListAsync();
-
+                var lstRoom = await _loaiPhongRepository.GetAllListAsync();
                 var dtoLst = lstRoom.Select(entity => new LoaiPhongOutputDto
                 {
                     Id = entity.Id,
@@ -49,8 +46,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                     TienNghiTrongPhong = entity.TienNghiTrongPhong,
                     GiaPhongTheoDem = entity.GiaPhongTheoDem,
                     GiaGoiDichVuThem = entity.GiaGoiDichVuThem,
-                    UuDai = entity.UuDai,
-                    TenDichVuTienIch = (from i in lstDv where i.LoaiPhongId == entity.Id select i.TenDichVu).ToList()
+                    UuDai = entity.UuDai
                 }).ToList();
 
                 return dtoLst;
@@ -74,9 +70,11 @@ namespace BookingWeb.Modules.LoaiPhongs
                     TienNghiTrongPhong = input.TienNghiTrongPhong,
                     GiaGoiDichVuThem = input.GiaGoiDichVuThem,
                     GiaPhongTheoDem = input.GiaPhongTheoDem,
-                    UuDai = input.UuDai
+                    UuDai = input.UuDai,
+                    TongSlPhong = input.TongSlPhong,
+                    SLPhongTrong = input.TongSlPhong  
                 };
-                await _loaiPhong.InsertAsync(lp);
+                await _loaiPhongRepository.InsertAsync(lp);
 
                 CurrentUnitOfWork.SaveChanges();
                 return true;
@@ -88,11 +86,12 @@ namespace BookingWeb.Modules.LoaiPhongs
             }
         }
 
+
         public async Task<bool> UpdateLP(LoaiPhongDto input)
         {
             try
             {
-                var check = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == input.Id);
+                var check = await _loaiPhongRepository.FirstOrDefaultAsync(p => p.Id == input.Id);
                 if (check != null)
                 {
                     check.TenLoaiPhong = input.TenLoaiPhong;
@@ -103,7 +102,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                     check.GiaGoiDichVuThem = input.GiaGoiDichVuThem;
                     check.UuDai = input.UuDai;
 
-                    await _loaiPhong.UpdateAsync(check);
+                    await _loaiPhongRepository.UpdateAsync(check);
                     return true;
                 }
                 else
@@ -124,22 +123,11 @@ namespace BookingWeb.Modules.LoaiPhongs
         {
             try
             {
-                var checkLP = await _loaiPhong.FirstOrDefaultAsync(p => p.Id == id);
+                var checkLP = await _loaiPhongRepository.FirstOrDefaultAsync(p => p.Id == id);
 
                 if (checkLP != null)
                 {
-                    var dichVu = await _dichVuTienIch.GetAllListAsync();
-                    var checkDv = dichVu.Where(p => p.LoaiPhongId == checkLP.Id).ToList();
-                    if (checkDv.Any())
-                    {
-                        foreach(var i in checkDv)
-                        {
-                            await _dichVuTienIch.DeleteAsync(i);
-                            await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu: {i}");
-                        }
-                    }
-
-                    await _loaiPhong.DeleteAsync(checkLP);
+                    await _loaiPhongRepository.DeleteAsync(checkLP);
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa thuc the loai phong: {checkLP}");
                     return true;
 
@@ -158,6 +146,31 @@ namespace BookingWeb.Modules.LoaiPhongs
             }
         }
 
+        
+        public async Task<bool> UpdateAvailableRooms()
+        {
+            try
+            {
+                var loaiPhongs = await _loaiPhongRepository.GetAllListAsync();
 
+                foreach (var loaiPhong in loaiPhongs)
+                {
+                    // Dem phong da dat
+                    var bookedRoomsCount = await _phieuDaDuyetRepository.CountAsync(p => p.LoaiPhongId == loaiPhong.Id);
+
+                    // Update SLPhongTrong
+                    loaiPhong.SLPhongTrong = loaiPhong.TongSlPhong - bookedRoomsCount;
+
+                    await _loaiPhongRepository.UpdateAsync(loaiPhong);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return false;
+            }
+        }
     }
 }

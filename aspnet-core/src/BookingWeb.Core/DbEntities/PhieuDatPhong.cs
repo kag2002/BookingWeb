@@ -28,6 +28,7 @@ namespace BookingWeb.DbEntities
 
         public string YeuCauDacBiet { get; set; }
 
+        public ICollection<PhieuDaDuyet> PhieuDaDuyets { get; set; }
         public ICollection<ChiTietDatPhong> ChiTietDatPhongs { get; set; }
     }
 }

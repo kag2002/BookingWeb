@@ -92,6 +92,52 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
             }
         }
 
+
+        public async Task<List<PhieuDaDuyetDto>> GetPhieuDaDuyetByCccd(string cccd)
+        {
+            try
+            {
+                var phieuDaDuyetList = await _phieuDaDuyetRepository.GetAllListAsync(e => e.CCCD == cccd);
+                if (phieuDaDuyetList == null || !phieuDaDuyetList.Any())
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync("Records not found");
+                    return null;
+                }
+
+                return phieuDaDuyetList.Select(phieuDaDuyet => new PhieuDaDuyetDto
+                {
+                    Id = phieuDaDuyet.Id,
+                    PhieuDatPhongId = phieuDaDuyet.PhieuDatPhongId,
+                    PhongId = phieuDaDuyet.PhongId,
+                    LoaiPhongId = phieuDaDuyet.LoaiPhongId,
+                    TrangThaiPhongId = phieuDaDuyet.TrangThaiPhongId,
+                    TenTrangThai = phieuDaDuyet.TenTrangThai,
+                    TenPhong = phieuDaDuyet.TenPhong,
+                    SLNguoiLon = phieuDaDuyet.SLNguoiLon,
+                    SLTreEm = phieuDaDuyet.SLTreEm,
+                    SLPhong = phieuDaDuyet.SLPhong,
+                    TienPhongQuaHan = phieuDaDuyet.TienPhongQuaHan,
+                    NgayHuy = phieuDaDuyet.NgayHuy,
+                    ChiPhiHuyPhong = phieuDaDuyet.ChiPhiHuyPhong,
+                    TongTien = phieuDaDuyet.TongTien,
+                    HoTen = phieuDaDuyet.HoTen,
+                    CCCD = phieuDaDuyet.CCCD,
+                    SDT = phieuDaDuyet.SDT,
+                    Email = phieuDaDuyet.Email,
+                    NgayBatDau = phieuDaDuyet.NgayBatDau,
+                    NgayHenTra = phieuDaDuyet.NgayHenTra,
+                    DatHo = phieuDaDuyet.DatHo,
+                    YeuCauDacBiet = phieuDaDuyet.YeuCauDacBiet
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error in GetPhieuDaDuyetByCccd: {ex.Message}");
+                return null;
+            }
+        }
+
+
         public async Task<bool> AcceptBooking(int phieuDatPhongId)
         {
             try
@@ -102,14 +148,20 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
                     throw new Exception("Record not found");
                 }
 
-              
-                chiTietDatPhong.TrangThaiPhongId = 5; 
+                chiTietDatPhong.TrangThaiPhongId = 5;
                 chiTietDatPhong.SLPhong -= 1;
 
+               
                 await _chiTietDatPhongRepository.UpdateAsync(chiTietDatPhong);
 
-                
-                await StoreBookingInPhieuDaDuyet(phieuDatPhongId);
+               
+                var storeResult = await StoreBookingInPhieuDaDuyet(phieuDatPhongId);
+                if (!storeResult)
+                {
+                    throw new Exception("Failed to store booking in PhieuDaDuyet");
+                }
+
+                await DeleteBooking(phieuDatPhongId);
 
                 return true;
             }
@@ -119,6 +171,9 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
                 return false;
             }
         }
+
+
+
 
         public async Task<bool> DenyBooking(int phieuDatPhongId)
         {
@@ -170,49 +225,22 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
                 return false;
             }
         }
-        public async Task<List<PhieuDaDuyetDto>> GetAllPhieuDaDuyet()
-        {
-            try
-            {
-                var phieuDaDuyetList = await _phieuDaDuyetRepository.GetAll().ToListAsync();
-                return phieuDaDuyetList.Select(phieuDaDuyet => new PhieuDaDuyetDto
-                {
-                    Id = phieuDaDuyet.Id,
-                    PhieuDatPhongId = phieuDaDuyet.PhieuDatPhongId,
-                    PhongId = phieuDaDuyet.PhongId,
-                    LoaiPhongId = phieuDaDuyet.LoaiPhongId,
-                    TrangThaiPhongId = phieuDaDuyet.TrangThaiPhongId,
-                    TenTrangThai = phieuDaDuyet.TenTrangThai,
-                    TenPhong = phieuDaDuyet.TenPhong,
-                    SLNguoiLon = phieuDaDuyet.SLNguoiLon,
-                    SLTreEm = phieuDaDuyet.SLTreEm,
-                    SLPhong = phieuDaDuyet.SLPhong,
-                    TienPhongQuaHan = phieuDaDuyet.TienPhongQuaHan,
-                    NgayHuy = phieuDaDuyet.NgayHuy,
-                    ChiPhiHuyPhong = phieuDaDuyet.ChiPhiHuyPhong,
-                    TongTien = phieuDaDuyet.TongTien,
-                    HoTen = phieuDaDuyet.HoTen,
-                    CCCD = phieuDaDuyet.CCCD,
-                    SDT = phieuDaDuyet.SDT,
-                    Email = phieuDaDuyet.Email,
-                    NgayBatDau = phieuDaDuyet.NgayBatDau,
-                    NgayHenTra = phieuDaDuyet.NgayHenTra,
-                    DatHo = phieuDaDuyet.DatHo,
-                    YeuCauDacBiet = phieuDaDuyet.YeuCauDacBiet
-                }).ToList();
-            }
-            catch (Exception ex)
-            {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
-                return null;
-            }
-        }
+
         private async Task<bool> StoreBookingInPhieuDaDuyet(int phieuDatPhongId)
         {
             try
             {
                 var chiTietDatPhong = await _chiTietDatPhongRepository.FirstOrDefaultAsync(e => e.PhieuDatPhongId == phieuDatPhongId);
+                if (chiTietDatPhong == null)
+                {
+                    throw new Exception("ChiTietDatPhong record not found");
+                }
+
                 var phieuDatPhong = await _phieuDatPhongRepository.FirstOrDefaultAsync(chiTietDatPhong.PhieuDatPhongId);
+                if (phieuDatPhong == null)
+                {
+                    throw new Exception("PhieuDatPhong record not found");
+                }
 
                 var phieuDaDuyet = new PhieuDaDuyet
                 {
@@ -247,6 +275,54 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
             }
         }
 
+
+        public async Task<List<PhieuDaDuyetDto>> GetAllPhieuDaDuyet()
+        {
+            try
+            {
+                var phieuDaDuyetList = await _phieuDaDuyetRepository.GetAllListAsync();
+
+                if (phieuDaDuyetList == null || !phieuDaDuyetList.Any())
+                {
+                    await _httpContextAccessor.HttpContext.Response.WriteAsync("No records found in PhieuDaDuyet");
+                    return new List<PhieuDaDuyetDto>();
+                }
+
+                return phieuDaDuyetList.Select(phieuDaDuyet => new PhieuDaDuyetDto
+                {
+                    Id = phieuDaDuyet.Id,
+                    PhieuDatPhongId = phieuDaDuyet.PhieuDatPhongId,
+                    PhongId = phieuDaDuyet.PhongId,
+                    LoaiPhongId = phieuDaDuyet.LoaiPhongId,
+                    TrangThaiPhongId = phieuDaDuyet.TrangThaiPhongId,
+                    TenTrangThai = phieuDaDuyet.TenTrangThai,
+                    TenPhong = phieuDaDuyet.TenPhong,
+                    SLNguoiLon = phieuDaDuyet.SLNguoiLon,
+                    SLTreEm = phieuDaDuyet.SLTreEm,
+                    SLPhong = phieuDaDuyet.SLPhong,
+                    TienPhongQuaHan = phieuDaDuyet.TienPhongQuaHan,
+                    NgayHuy = phieuDaDuyet.NgayHuy,
+                    ChiPhiHuyPhong = phieuDaDuyet.ChiPhiHuyPhong,
+                    TongTien = phieuDaDuyet.TongTien,
+                    HoTen = phieuDaDuyet.HoTen,
+                    CCCD = phieuDaDuyet.CCCD,
+                    SDT = phieuDaDuyet.SDT,
+                    Email = phieuDaDuyet.Email,
+                    NgayBatDau = phieuDaDuyet.NgayBatDau,
+                    NgayHenTra = phieuDaDuyet.NgayHenTra,
+                    DatHo = phieuDaDuyet.DatHo,
+                    YeuCauDacBiet = phieuDaDuyet.YeuCauDacBiet
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error in GetAllPhieuDaDuyet: {ex.Message}");
+                return null;
+            }
+        }
+
+
+
         public async Task<bool> DeleteBookingFromPhieuDaDuyet(int phieuDatPhongId)
         {
             try
@@ -268,7 +344,27 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
 
         public async Task<bool> FinishBooking(int phieuDatPhongId)
         {
-            return await DeleteBookingFromPhieuDaDuyet(phieuDatPhongId);
+            try
+            {
+             
+                var result = await DeleteBookingFromPhieuDaDuyet(phieuDatPhongId);
+
+           
+                if (result)
+                {
+                   
+                    return true;
+                }
+
+               
+                throw new Exception("Failed to delete booking from PhieuDaDuyet");
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error in FinishBooking: {ex.Message}");
+                return false;
+            }
         }
+
     }
 }

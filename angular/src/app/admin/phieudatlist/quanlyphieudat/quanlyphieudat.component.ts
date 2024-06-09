@@ -4,12 +4,11 @@ import { ActivatedRoute, Params } from "@angular/router";
 import {
   ChiTietDatPhongDto,
   ChiTietDatPhongServiceProxy,
-  DatPhongServiceProxy,
   InfoBookingDto,
   PhieuDatPhongOutputDto,
-  PhongInputDto,
 } from "@shared/service-proxies/service-proxies";
 import * as moment from "moment";
+import { MessageService } from "primeng/api";
 @Component({
   selector: "app-quanlyphieudat",
   templateUrl: "./quanlyphieudat.component.html",
@@ -31,6 +30,7 @@ export class QuanlyphieudatComponent {
     // private fb: FormBuilder,
     private route: ActivatedRoute,
     private _ChiTietDatPhongService: ChiTietDatPhongServiceProxy,
+    private messageService: MessageService,
 
     private cd: ChangeDetectorRef
   ) {}
@@ -79,10 +79,36 @@ export class QuanlyphieudatComponent {
     //   .subscribe((result) => {});
   }
   deny() {
-    this._ChiTietDatPhongService.denyBooking(this.idphieudat);
+    this._ChiTietDatPhongService
+      .denyBooking(this.idphieudat)
+      .subscribe((result) => {
+        if (result) {
+          console.log("Booking denied");
+        } else {
+          console.log("Failed to deny booking");
+        }
+      });
   }
   accept() {
-    this._ChiTietDatPhongService.acceptBooking(this.idphieudat);
+    this._ChiTietDatPhongService
+      .acceptBooking(this.idphieudat)
+      .subscribe((result) => {
+        if (result) {
+          this.messageService.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Đặt thành công",
+          });
+          console.log("Booking accepted and added to PhieuDaDuyet");
+        } else {
+          console.log("Failed to accept booking");
+          this.messageService.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Đặt không thành công vui lòng kiểm tra lại",
+          });
+        }
+      });
   }
   // delete() {
   //   this._ChiTietDatPhongService(this.idphieudat).subscribe((result) => {});

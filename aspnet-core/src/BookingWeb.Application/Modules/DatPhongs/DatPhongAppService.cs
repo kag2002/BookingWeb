@@ -67,7 +67,7 @@ namespace BookingWeb.Modules.DatPhongs
         {
             try
             {
-                var phieu = await _datPhong.GetAsync(id); // Assuming there is a method like GetAsync to retrieve by id
+                var phieu = await _datPhong.GetAsync(id); 
 
                 if (phieu != null)
                 {
@@ -84,13 +84,13 @@ namespace BookingWeb.Modules.DatPhongs
                         YeuCauDacBiet = phieu.YeuCauDacBiet
                     };
 
-                    // Return a list containing a single item
+                  
                     return new List<PhieuDatPhongOutputDto> { dtoPhieu };
                 }
                 else
                 {
-                    // Handle the case where the entity with the provided id does not exist
-                    return new List<PhieuDatPhongOutputDto>(); // Return an empty list
+                   
+                    return new List<PhieuDatPhongOutputDto>(); 
                 }
             }
             catch (Exception ex)
@@ -100,7 +100,40 @@ namespace BookingWeb.Modules.DatPhongs
             }
         }
 
+        public async Task<List<PhieuDatPhongOutputDto>> GetPhieuByCccd(string cccd)
+        {
+            try
+            {
+                var phieuList = await _datPhong.GetAllListAsync(p => p.CCCD == cccd);
 
+                if (phieuList != null && phieuList.Any())
+                {
+                    var dtoPhieuList = phieuList.Select(phieu => new PhieuDatPhongOutputDto
+                    {
+                        Id = phieu.Id,
+                        HoTen = phieu.HoTen,
+                        CCCD = phieu.CCCD,
+                        SDT = phieu.SDT,
+                        Email = phieu.Email,
+                        NgayBatDau = phieu.NgayBatDau,
+                        NgayHenTra = phieu.NgayHenTra,
+                        DatHo = phieu.DatHo,
+                        YeuCauDacBiet = phieu.YeuCauDacBiet
+                    }).ToList();
+
+                    return dtoPhieuList;
+                }
+                else
+                {
+                    return new List<PhieuDatPhongOutputDto>();
+                }
+            }
+            catch (Exception ex)
+            {
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                return null;
+            }
+        }
 
         /*public async Task<bool> CreateNewTicket(PhieuDatPhongInputDto input)
         {

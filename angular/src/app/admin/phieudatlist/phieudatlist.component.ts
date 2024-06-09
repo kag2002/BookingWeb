@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import {
-  ChiTietDatPhongDto,
-  ChiTietDatPhongServiceProxy,
   DatPhongServiceProxy,
   PhieuDatPhongOutputDto,
 } from "@shared/service-proxies/service-proxies";
@@ -15,7 +13,7 @@ import {
 export class PhieudatlistComponent implements OnInit {
   listChiTietPhieuDat: PhieuDatPhongOutputDto[];
   formLocId: FormGroup;
-  showTongKet = false;
+  formLoccccd: FormGroup;
 
   constructor(
     private _ChiTietDatPhongService: DatPhongServiceProxy,
@@ -30,6 +28,9 @@ export class PhieudatlistComponent implements OnInit {
     this.formLocId = this.fb.group({
       id: ["", Validators.required],
     });
+    this.formLoccccd = this.fb.group({
+      cccd: ["", Validators.required],
+    });
   }
 
   reload() {
@@ -43,15 +44,18 @@ export class PhieudatlistComponent implements OnInit {
       .getPhieuById(this.formLocId.value.id)
       .subscribe((result) => {
         this.listChiTietPhieuDat = result;
-        console.log("finnish filter student id");
+        console.log("loc thanh cong phieu id");
         this.cd.detectChanges();
       });
-    // this.tongketservice
-    //   .getTongKetByStudentId(this.formLocId.value.id)
-    //   .subscribe((result) => {
-    //     this.tongketselected = result;
-    //     this.cd.detectChanges();
-    //   });
-    this.showTongKet = true;
+  }
+  filtercccd() {
+    this._ChiTietDatPhongService
+      .getPhieuByCccd(this.formLoccccd.value.cccd)
+      .subscribe((result) => {
+        this.listChiTietPhieuDat = result;
+
+        console.log("loc thanh cong cccd ");
+        this.cd.detectChanges();
+      });
   }
 }

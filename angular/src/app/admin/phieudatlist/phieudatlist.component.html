@@ -1,7 +1,7 @@
 <div class="ThemLichDat container">
   <br />
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6" style="display: flex">
       <form [formGroup]="formLocId" style="padding: 7.5px">
         <div class="row flex">
           <div>
@@ -28,18 +28,36 @@
           >Vui lòng nhập mã phiếu đặt phòng
         </small>
       </form>
+
+      <form [formGroup]="formLoccccd" style="padding: 7.5px">
+        <div class="row flex">
+          <div>
+            <input
+              placeholder="Tìm theo số CCCD"
+              type="text"
+              formControlName="cccd"
+              required
+              style="padding: 9px"
+            />
+            <br />
+          </div>
+          <p-button
+            style="display: contents"
+            [disabled]="!formLoccccd.valid"
+            (click)="filtercccd()"
+          >
+            <i class="pi pi-search"></i
+          ></p-button>
+        </div>
+        <small
+          style="color: red; z-index: 1"
+          *ngIf="
+            !formLoccccd.get('cccd').valid && formLoccccd.get('cccd').touched
+          "
+          >Vui lòng nhập số cccd
+        </small>
+      </form>
     </div>
-    <!-- <div class="col-lg-6">
-      <div class="card" *ngIf="showTongKet" style="padding: 20px">
-        Sinh viên : {{ tongketselected[0]?.name }}
-          <br />
-          Điểm tổng kết :
-          {{ tongketselected[0]?.diem_TongKet | number : "1.2-2" }}
-  
-          <br />Xếp loại :
-          {{ tongketselected[0]?.xep_loai }}
-      </div>
-    </div> -->
   </div>
 
   <div class="row" style="justify-content: center">
@@ -58,21 +76,20 @@
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 5%">STT</th>
-              <th style="width: 10%">ID</th>
-              <th style="width: 15%">Họ tên</th>
+
+              <th style="width: 25%">Họ tên</th>
               <th style="width: 10%">SĐT</th>
               <th style="width: 10%">CCCD</th>
               <th style="width: 10%">Email</th>
               <th style="width: 10%">Check in</th>
               <th style="width: 10%">Check out</th>
               <th style="width: 10%">Yêu cầu</th>
-              <th style="width: 10%">Đặt hộ</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-i="rowIndex" let-customer>
             <tr>
               <td>{{ i + 1 }}</td>
-              <td>{{ listChiTietPhieuDat[i].id }}</td>
+
               <td>{{ listChiTietPhieuDat[i].hoTen }}</td>
               <td>{{ listChiTietPhieuDat[i].sdt }}</td>
               <td>{{ listChiTietPhieuDat[i].cccd }}</td>
@@ -80,7 +97,6 @@
               <td>{{ listChiTietPhieuDat[i].ngayBatDau }}</td>
               <td>{{ listChiTietPhieuDat[i].ngayHenTra }}</td>
               <td>{{ listChiTietPhieuDat[i].yeuCauDacBiet }}</td>
-              <td>{{ listChiTietPhieuDat[i].datHo }}</td>
 
               <td>
                 <button
@@ -103,12 +119,6 @@
       <div>
         <p-button label="Tải lại" (click)="reload()"
           ><i class="pi pi-replay"></i
-        ></p-button>
-        <p-button
-          style="margin-left: 10px"
-          label="Thêm"
-          [routerLink]="['/app/adddiem']"
-          ><i class="pi pi-plus"></i
         ></p-button>
       </div>
       <br />
