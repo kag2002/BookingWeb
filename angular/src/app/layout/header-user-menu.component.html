@@ -13,7 +13,7 @@
         class="dropdown-item"
         [routerLink]="['update-password']"
       >
-        <i class="fas fa-user-edit"></i> {{ "UpdatePassword" | localize }}
+        <i class="fas fa-user-edit"></i> {{ "Cập nhật mật khẩu" | localize }}
       </a>
       <a
         *ngIf="userIdLogin !== null"
@@ -21,13 +21,13 @@
         href="javascript:;"
         (click)="logout()"
       >
-        <i class="fas fa-sign-out-alt"></i> {{ "Logout" | localize }}
+        <i class="fas fa-sign-out-alt"></i> {{ "Đăng xuất" | localize }}
       </a>
       <a
         class="dropdown-item"
         href="/account/login"
         *ngIf="userIdLogin === null"
-        >Login</a
+        >Đăng nhập</a
       >
     </div>
   </li>

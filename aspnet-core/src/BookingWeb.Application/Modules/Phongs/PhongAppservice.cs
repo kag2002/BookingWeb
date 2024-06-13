@@ -1,4 +1,4 @@
-﻿    using Abp.Domain.Repositories;
+﻿using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.Phongs.Dto;
 using Microsoft.AspNetCore.Http;
@@ -590,7 +590,7 @@ namespace BookingWeb.Modules.Phongs
             }
         }
 
-        public async Task<bool> ConfirmBookRoom(ConfirmDto input)
+        public async Task<ConfirmBookRoomResultDto> ConfirmBookRoom(ConfirmDto input)
         {
             try
             {
@@ -630,53 +630,50 @@ namespace BookingWeb.Modules.Phongs
                 };
 
                 await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);
+                var idPhieuDatPhong = chiTietPhieuDat.PhieuDatPhongId;
                 try
                 {
                     await CurrentUnitOfWork.SaveChangesAsync();
 
-                    /*var serverEmail = "xuantientran662@gmail.com";
-                    var clientEmail = input.Email;
-                    var subject = "Thư xác nhận.";
-                    var body = "";
-
-                    var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
-                    {
-                        Credentials = new NetworkCredential("1d115a4ccaae2c", "d90cefcd50b191"),
-                        EnableSsl = true
-                    };
-
-                    client.Send(serverEmail, clientEmail, subject, body);*/
-
-                    using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Change to Gmail's SMTP server
+                    using (var smtpClient = new SmtpClient("smtp.gmail.com"))
                     {
                         smtpClient.Port = 587;
-                        smtpClient.Credentials = new NetworkCredential("lethienkhang2002@gmail.com", "hfkinaalbpwwrebr"); // Use your email and app password
+                        smtpClient.Credentials = new NetworkCredential("lethienkhang2002@gmail.com", "hfkinaalbpwwrebr");
                         smtpClient.EnableSsl = true;
 
                         var mailMessage = new MailMessage();
-                        mailMessage.From = new MailAddress("lethienkhang2002@gmail.com", "BookingWeb.com"); // Use your email
+                        mailMessage.From = new MailAddress("lethienkhang2002@gmail.com", "BookingWeb.com");
                         mailMessage.To.Add(input.Email);
-                        mailMessage.Subject = "Hello " + input.HoTen + ","; // Chủ đề của mail
-                        mailMessage.Body = "Cảm ơn vì đã tin tưởng đặt phòng tại StayEase !"; // nội dung email
+                        mailMessage.Subject = "Hello " + input.HoTen + ",";
+                        mailMessage.Body = "Cảm ơn vì đã tin tưởng đặt phòng tại StayEase !";
                         mailMessage.IsBodyHtml = true;
 
                         await smtpClient.SendMailAsync(mailMessage);
-
-                        return true;
                     }
 
-
+                    return new ConfirmBookRoomResultDto
+                    {
+                        Success = true,
+                        IdPhieuDatPhong = idPhieuDatPhong
+                    };
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    return new ConfirmBookRoomResultDto
+                    {
+                        Success = false,
+                        ErrorMessage = ex.Message
+                    };
                 }
-                return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
-                return false;
+                return new ConfirmBookRoomResultDto
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                };
             }
         }
 

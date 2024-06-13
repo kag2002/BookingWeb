@@ -13,6 +13,10 @@ import {
 } from "@shared/service-proxies/service-proxies";
 import * as moment from "moment";
 import { MessageService } from "primeng/api";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: "app-thongtinlienhe",
@@ -47,9 +51,10 @@ export class XacnhandatComponent {
 
   confirmBook: ConfirmDto = new ConfirmDto();
 
+  invoiceHtml: string = "";
+  showInvoice = false;
   constructor(
     private route: ActivatedRoute,
-
     private messageService: MessageService,
     private _phongService: PhongServiceProxy,
     private bookingInfo: BookingInfoService,
@@ -108,7 +113,7 @@ export class XacnhandatComponent {
       (result) => {
         this.infoBooking = result;
         this.infoBooking.ngayDat = moment(this.infoBooking.ngayDat); // Chuyển sang đối tượng moment.Moment
-        this.infoBooking.ngayTra = moment(this.infoBooking.ngayTra); // Chuyển sang đối tượng moment.Moment
+        this.infoBooking.ngayTra = moment(this.infoBooking.ngayTra);
         console.log("lay dl2", this.infoBooking);
       },
       (error) => {
@@ -122,7 +127,7 @@ export class XacnhandatComponent {
       const duration = moment.duration(end.diff(start));
       return duration.asDays();
     }
-    return 0; // Hoặc giá trị mặc định tương ứng
+    return 0;
   }
 
   addClientBookRoom() {
@@ -158,6 +163,7 @@ export class XacnhandatComponent {
           summary: "Success",
           detail: "Đặt thành công",
         });
+        this.generateInvoiceHtml();
       },
       (error) => {
         console.log(error);
@@ -168,5 +174,175 @@ export class XacnhandatComponent {
         });
       }
     );
+  }
+
+  generateInvoiceHtml() {
+    this.invoiceHtml = `
+     
+
+     
+     
+   
+    <div style="display: flex; justify-content: center">
+      <div id="invoice" style="margin: 50px 20px">
+        <img
+          style="width: 166px"
+          src="../../../assets/img/Logo/LogoWeb/LogoWebsite.png"
+          alt=""
+        />
+        <br />
+        <b><h4>Thông tin khách</h4> </b>
+
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">Tên khách hàng</b>
+          <div class="col-lg-8">${this.infoClient.hoTen}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">CCCD</b>
+          <div class="col-lg-8">${this.infoClient.cccd}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">Email</b>
+          <div class="col-lg-8">${this.infoClient.email}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">SĐT</b>
+          <div class="col-lg-8">${this.infoClient.sdt}</div>
+        </div>
+        <hr />
+
+        <br /><br />
+        <b><h4>Thông tin đặt</h4></b>
+        <hr />
+
+        <div class="row">
+          <b class="col-lg-4">Ngày đặt</b>
+          <div class="col-lg-8"> ${this.infoBooking.ngayDat.format(
+            "DD-MM-YYYY"
+          )}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">Ngày trả</b>
+          <div class="col-lg-8">${this.infoBooking.ngayTra.format(
+            "DD-MM-YYYY"
+          )}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">Người lớn</b>
+          <div class="col-lg-8">${this.infoBooking.slNguoiLon}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">Trẻ em</b>
+          <div class="col-lg-8">${this.infoBooking.slTreEm}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4">Số phòng</b>
+          <div class="col-lg-8">${this.infoBooking.slPhong}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <b class="col-lg-4"><h5>Tổng tiền</h5></b>
+          <div class="col-lg-8">${
+            (this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *
+            (1 - this.infoRoom.giamGia - this.infoRoom.uuDaiDacBiet) *
+            this.calculateNumberOfNights(
+              this.infoBooking.ngayDat,
+              this.infoBooking.ngayTra
+            )
+          }</div>
+        </div>
+        <br>
+        <div class="row">
+          <h6 style="text-align: center;">Vui lòng tải thông tin về máy và đến nhận phòng đúng thời hạn</h6>
+        </div>
+      </div>
+    </div>
+  
+    `;
+    this.showInvoice = true;
+  }
+  Preview() {
+    this.generateInvoiceHtml();
+    this.showInvoice = true;
+  }
+  closeInvoice() {
+    this.showInvoice = false;
+    console.log("Invoice closed");
+  }
+  downloadInvoice() {
+    const documentDefinition = {
+      content: [
+        { text: "Thông tin đặt", style: "header" },
+        { text: "Thông tin khách", style: "subheader" },
+        {
+          table: {
+            widths: ["*", "*"],
+            body: [
+              ["Tên khách hàng", this.infoClient.hoTen],
+              ["CCCD", this.infoClient.cccd],
+              ["Email", this.infoClient.email],
+              ["SĐT", this.infoClient.sdt],
+            ],
+          },
+          layout: "lightHorizontalLines",
+        },
+        { text: "Thông tin đặt", style: "subheader", margin: [0, 20, 0, 10] },
+        {
+          table: {
+            widths: ["*", "*"],
+            body: [
+              ["Ngày đặt", this.infoBooking.ngayDat.format("DD-MM-YYYY")],
+              ["Ngày trả", this.infoBooking.ngayTra.format("DD-MM-YYYY")],
+              ["Người lớn", this.infoBooking.slNguoiLon],
+              ["Trẻ em", this.infoBooking.slTreEm],
+              ["Số phòng", this.infoBooking.slPhong],
+              [
+                "Tổng tiền",
+                (this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *
+                  (1 - this.infoRoom.giamGia - this.infoRoom.uuDaiDacBiet) *
+                  this.calculateNumberOfNights(
+                    this.infoBooking.ngayDat,
+                    this.infoBooking.ngayTra
+                  ),
+              ],
+            ],
+          },
+          layout: "lightHorizontalLines",
+        },
+        {
+          text: "Vui lòng tải thông tin về máy và đến nhận phòng đúng thời hạn",
+          style: "note",
+          margin: [0, 20, 0, 0],
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: "center",
+          margin: [0, 0, 0, 10],
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 10, 0, 5],
+        },
+        note: {
+          italics: true,
+          fontSize: 12,
+          color: "gray",
+        },
+      },
+    };
+
+    pdfMake.createPdf(documentDefinition).download("HoaDonStayEase.pdf");
   }
 }

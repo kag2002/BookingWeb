@@ -54,25 +54,29 @@ export class HosodatComponent {
   }
 
   huyphong(phieuDatPhongId: number) {
-    this._ChiTietDatPhongService
-      .deleteBookingFromPhieuDaDuyet(phieuDatPhongId)
-      .subscribe(
-        (result) => {
-          this.reload(); // Reload the data after deletion
-          this.messageService.add({
-            severity: "success",
-            summary: "Success",
-            detail: "Hủy thành công",
-          });
-        },
-        (error) => {
-          this.messageService.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Hủy không thành công vui lòng kiểm tra lại",
-          });
-        }
-      );
+    const confirmDelete = confirm("Bạn có chắc muốn hủy phiếu này?");
+
+    if (confirmDelete) {
+      this._ChiTietDatPhongService
+        .deleteBookingFromPhieuDaDuyet(phieuDatPhongId)
+        .subscribe(
+          (result) => {
+            this.reload(); // Reload the data after deletion
+            this.messageService.add({
+              severity: "success",
+              summary: "Success",
+              detail: "Hủy thành công",
+            });
+          },
+          (error) => {
+            this.messageService.add({
+              severity: "error",
+              summary: "Error",
+              detail: "Hủy không thành công vui lòng kiểm tra lại",
+            });
+          }
+        );
+    }
   }
 
   dathanhtoan(phieuDatPhongId: number) {

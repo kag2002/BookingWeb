@@ -159,13 +159,28 @@
       </div>
 
       <!--End Card Chính sách -->
-      <p-button
-        label="Xác nhận đặt"
+
+      <a
+        href="/app/thongtinlienhestart/{{ id }}/{{ idloaiphong }}/{{
+          idloaiphong
+        }}#ThongTin"
         (click)="addClientBookRoom()"
-        styleClass="p-button-danger"
-      ></p-button>
+        style="margin-right: 30px"
+        class="btnxacnhan btn"
+        >Xác nhận đặt trước</a
+      >
+      <a
+        href="/app/thongtinlienhestart/{{ id }}/{{ idloaiphong }}/{{
+          idloaiphong
+        }}#ThongTin"
+        (click)="Preview()"
+        class="btnpreview btn"
+        >Xem thông tin đặt phòng</a
+      >
+
       <p-toast></p-toast>
     </div>
+
     <br /><br /><br />
 
     <div class="col-lg-5 col-sm-12">
@@ -208,4 +223,18 @@
       <!-- End InforNguoiDat -->
     </div>
   </div>
+</div>
+<div *ngIf="showInvoice" class="container card" id="ThongTin">
+  <div style="margin: 20px 20px 0 20px">
+    <i class="fa-solid fa-x close-button" (click)="closeInvoice()"></i>
+  </div>
+  <h2 style="text-align: center">Thông tin</h2>
+  <div style="margin: 20px" [innerHTML]="invoiceHtml"></div>
+  <img
+    style="width: 236px; display: block; margin-left: auto; margin-right: auto"
+    src="../../../assets/img/QRThanhToan.png"
+    alt=""
+  />
+  <button (click)="downloadInvoice()" class="btn-download">Tải xuống</button
+  ><br />
 </div>

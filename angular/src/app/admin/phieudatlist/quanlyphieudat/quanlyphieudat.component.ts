@@ -79,15 +79,19 @@ export class QuanlyphieudatComponent {
     //   .subscribe((result) => {});
   }
   deny() {
-    this._ChiTietDatPhongService
-      .denyBooking(this.idphieudat)
-      .subscribe((result) => {
-        if (result) {
-          console.log("Booking denied");
-        } else {
-          console.log("Failed to deny booking");
-        }
-      });
+    const confirmDelete = confirm("Bạn có chắc muốn hủy phiếu này?");
+
+    if (confirmDelete) {
+      this._ChiTietDatPhongService
+        .denyBooking(this.idphieudat)
+        .subscribe((result) => {
+          if (result) {
+            console.log("Booking denied");
+          } else {
+            console.log("Failed to deny booking");
+          }
+        });
+    }
   }
   accept() {
     this._ChiTietDatPhongService

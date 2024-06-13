@@ -25,7 +25,7 @@ export class KhachsanListComponent implements OnInit {
   formLoc: FormGroup;
   idloailoc: number;
   iddeloc: number;
-  rangeValues: number[] = [0, 20000];
+  rangeValues: number[] = [0, 15000000];
   lstLoaiPhong: [];
 
   sapxeps: any[] = [

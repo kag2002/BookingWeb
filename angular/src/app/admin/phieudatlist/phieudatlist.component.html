@@ -76,14 +76,13 @@
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 5%">STT</th>
-
               <th style="width: 25%">Họ tên</th>
               <th style="width: 10%">SĐT</th>
               <th style="width: 10%">CCCD</th>
-              <th style="width: 10%">Email</th>
               <th style="width: 10%">Check in</th>
               <th style="width: 10%">Check out</th>
               <th style="width: 10%">Yêu cầu</th>
+              <th style="width: 10%">Đặt hộ</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-i="rowIndex" let-customer>
@@ -93,10 +92,11 @@
               <td>{{ listChiTietPhieuDat[i].hoTen }}</td>
               <td>{{ listChiTietPhieuDat[i].sdt }}</td>
               <td>{{ listChiTietPhieuDat[i].cccd }}</td>
-              <td>{{ listChiTietPhieuDat[i].email }}</td>
               <td>{{ listChiTietPhieuDat[i].ngayBatDau }}</td>
               <td>{{ listChiTietPhieuDat[i].ngayHenTra }}</td>
               <td>{{ listChiTietPhieuDat[i].yeuCauDacBiet }}</td>
+              <td *ngIf="listChiTietPhieuDat[i].datHo !== 1">Đúng</td>
+              <td *ngIf="listChiTietPhieuDat[i].datHo === 1">Không</td>
 
               <td>
                 <button
