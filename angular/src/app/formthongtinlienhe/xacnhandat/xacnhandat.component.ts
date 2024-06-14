@@ -6,6 +6,7 @@ import {
   ChinhSachChungOutputDto,
   ChinhSachChungServiceProxy,
   ClientBookRoomOutputDto,
+  ConfirmBookRoomResultDto,
   ConfirmDto,
   GetInfoRoomToBookOutputDto,
   InfoBookingDto,
@@ -32,6 +33,8 @@ export class XacnhandatComponent {
   id: number;
   idloaiphong: number;
 
+  confirmBookRoomResultDto: ConfirmBookRoomResultDto;
+
   yeucaus: any[] = [
     { name: "Phòng không hút thuốc", key: "NoSmoke" },
     { name: "Phòng liên thông", key: "Connect" },
@@ -53,6 +56,8 @@ export class XacnhandatComponent {
 
   invoiceHtml: string = "";
   showInvoice = false;
+  showPreviewBtn = false;
+
   constructor(
     private route: ActivatedRoute,
     private messageService: MessageService,
@@ -157,13 +162,14 @@ export class XacnhandatComponent {
 
     this._phongService.confirmBookRoom(this.confirmBook).subscribe(
       (result) => {
-        console.log(result);
+        this.confirmBookRoomResultDto = result;
         this.messageService.add({
           severity: "success",
           summary: "Success",
           detail: "Đặt thành công",
         });
         this.generateInvoiceHtml();
+        this.showPreviewBtn = true;
       },
       (error) => {
         console.log(error);
@@ -261,7 +267,18 @@ export class XacnhandatComponent {
         </div>
         <br>
         <div class="row">
-          <h6 style="text-align: center;">Vui lòng tải thông tin về máy và đến nhận phòng đúng thời hạn</h6>
+          <h6 style="text-align: center;">Hãy tải thông tin về máy và đến nhận phòng đúng thời hạn </h6><br>
+          <h6 style="text-align: center;">Vui lòng chuyển trước phí đặt cọc ${
+            ((this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *
+              (1 - this.infoRoom.giamGia - this.infoRoom.uuDaiDacBiet) *
+              this.calculateNumberOfNights(
+                this.infoBooking.ngayDat,
+                this.infoBooking.ngayTra
+              )) /
+            10
+          } VNĐ (10% phí đặt) <br> Nội dung là mã số phiếu của bạn: ${
+      this.confirmBookRoomResultDto.idPhieuDatPhong
+    } <br>Bên khách sạn sẽ gọi điện lại xác nhận khi bạn đã chuyển tiền đặt cọc trong vòng 24h nếu không đặt cọc yêu cầu sẽ bị hủy. Mọi thắc mắc vui lòng gửi đến email stayease.com hoặc điền vào form tại trang chủ</h6>
         </div>
       </div>
     </div>
@@ -299,6 +316,7 @@ export class XacnhandatComponent {
           table: {
             widths: ["*", "*"],
             body: [
+              ["Mã phiếu", this.confirmBookRoomResultDto.idPhieuDatPhong],
               ["Ngày đặt", this.infoBooking.ngayDat.format("DD-MM-YYYY")],
               ["Ngày trả", this.infoBooking.ngayTra.format("DD-MM-YYYY")],
               ["Người lớn", this.infoBooking.slNguoiLon],
@@ -318,7 +336,7 @@ export class XacnhandatComponent {
           layout: "lightHorizontalLines",
         },
         {
-          text: "Vui lòng tải thông tin về máy và đến nhận phòng đúng thời hạn",
+          text: "Cảm ơn vì đã tin tưởng và lựa chọn chúng tôi. Mong chúng ta sẽ cùng đồng hành trong tương lai tới ^^.",
           style: "note",
           margin: [0, 20, 0, 0],
         },

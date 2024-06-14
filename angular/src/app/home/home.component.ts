@@ -17,6 +17,9 @@ import { result } from "lodash-es";
 })
 export class HomeComponent extends AppComponentBase {
   TongSoPhong;
+  TongDoanhThu;
+  SoLuongTaiKhoan;
+  SoKhachHang;
 
   listdoanhthu12thang: any[];
   listlapday12thang: any[];
@@ -45,6 +48,15 @@ export class HomeComponent extends AppComponentBase {
 
     this.thongkeservice.tongSoPhong().subscribe((result) => {
       this.TongSoPhong = result;
+    });
+    this.thongkeservice.getTotalRevenue().subscribe((result) => {
+      this.TongDoanhThu = result;
+    });
+    this.thongkeservice.countTotalAccounts().subscribe((result) => {
+      this.SoLuongTaiKhoan = result;
+    });
+    this.thongkeservice.countUniqueCustomersByCCCD().subscribe((result) => {
+      this.SoKhachHang = result;
     });
 
     this.thongkeservice.getDoanhThu12Thang().subscribe((result) => {

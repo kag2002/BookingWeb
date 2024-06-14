@@ -92,8 +92,12 @@
               <td>{{ listChiTietPhieuDat[i].hoTen }}</td>
               <td>{{ listChiTietPhieuDat[i].sdt }}</td>
               <td>{{ listChiTietPhieuDat[i].cccd }}</td>
-              <td>{{ listChiTietPhieuDat[i].ngayBatDau }}</td>
-              <td>{{ listChiTietPhieuDat[i].ngayHenTra }}</td>
+              <td>
+                {{ listChiTietPhieuDat[i].ngayBatDau.format("DD/MM/YYYY") }}
+              </td>
+              <td>
+                {{ listChiTietPhieuDat[i].ngayHenTra.format("DD/MM/YYYY") }}
+              </td>
               <td>{{ listChiTietPhieuDat[i].yeuCauDacBiet }}</td>
               <td *ngIf="listChiTietPhieuDat[i].datHo !== 1">Đúng</td>
               <td *ngIf="listChiTietPhieuDat[i].datHo === 1">Không</td>
