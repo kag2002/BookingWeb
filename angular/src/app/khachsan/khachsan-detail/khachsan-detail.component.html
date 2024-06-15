@@ -328,7 +328,12 @@
               </div>
 
               <div class="col-lg-5">
-                <h6>Còn {{ loaiphongdetail?.tongSLPhong }} phòng</h6>
+                <h6>
+                  Còn {{ loaiphongdetail?.slPhongTrong }}/{{
+                    loaiphongdetail?.tongSLPhong
+                  }}
+                  phòng
+                </h6>
                 <div>
                   Ưu đãi: {{ loaiphongdetail?.uuDai * 100 }}% <br />
                   Giá gói dịch vụ thêm:
@@ -360,6 +365,7 @@
                       id,
                       loaiphongdetail?.loaiPhongId
                     ]"
+                    [disabled]="loaiphongdetail?.slPhongTrong === 0"
                     label="Chọn phòng này"
                     styleClass="p-button-warning"
                   ></p-button>

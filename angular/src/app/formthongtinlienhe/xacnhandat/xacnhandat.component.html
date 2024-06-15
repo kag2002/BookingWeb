@@ -118,8 +118,8 @@
                     infoBooking?.ngayDat,
                     infoBooking?.ngayTra
                   ) *
-                  (1 - infoRoom?.giamGia - infoRoom?.uuDaiDacBiet)
-                  | number : "1.0-0"
+                  (1 - infoRoom?.giamGia - infoRoom?.uuDaiDacBiet) *
+                  this.infoBooking.slPhong | number : "1.0-0"
               }}
               VNĐ
             </h6>
@@ -142,8 +142,11 @@
           </div>
         </div>
         <div class="row mt-2">
-          <div class="col-lg-12">
+          <div class="col-lg-6">
             Giá dịch vụ: {{ infoRoom?.giaDichVuThem }} VNĐ
+          </div>
+          <div class="col-lg-6">
+            Số lượng phòng: {{ infoBooking?.slPhong }} VNĐ
           </div>
         </div>
         <div class="row mt-2">
@@ -235,7 +238,11 @@
     style="width: 236px; display: block; margin-left: auto; margin-right: auto"
     src="../../../assets/img/QRThanhToan.png"
     alt=""
-  />
+  /><br />
+  <div>
+    Mọi thắc mắc vui lòng gửi đến email stayease.com hoặc điền vào form tại
+    trang chủ
+  </div>
   <button (click)="downloadInvoice()" class="btn-download">Tải xuống</button
   ><br />
 </div>

@@ -123,7 +123,6 @@ namespace BookingWeb.Modules.Phongs
                         LuoDatPhong = phong.LuotDatPhong,
                         DiemDanhGiaTB = phong.DiemDanhGiaTB,
                         DanhGiaSaoTb =phong.DanhGiaSaoTb,
-                        /*lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Sum() / lstNx.Where(p => lstCtIds.Contains(p.ChiTietDatPhongId)).Select(p => p.DanhGiaSao).ToList().Count(),*/
                         ListLoaiPhong = listLoaiPhong.Select(e => new LoaiPhongSearchingDto
                         {
                             LoaiPhongId = e.Id,
@@ -524,7 +523,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                /*var infoRoom = await _httpContextAccessor.HttpContext.Session.GetObjectAsync<InfoBookingDto>("InfoBooking");*/
+               
 
                 var info = await _loaiPhong.FirstOrDefaultAsync(p=>p.Id ==  loaiPhongId);
 
@@ -564,8 +563,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
-                /*
-                var infoRoom = await GetInfoRoomToBook(input.loaiPhongId);*/
+              
 
                 
                 var infoBookingCofirm = new ClientBookRoomOutputDto
@@ -578,8 +576,7 @@ namespace BookingWeb.Modules.Phongs
                     YeuCauDacBiet = input.YeuCauDacBiet
                 };
 
-/*
-                await _httpContextAccessor.HttpContext.Session.SetObjectAsync("infoBookingConFirm", infoBookingCofirm);*/
+
                 return infoBookingCofirm;
 
             }
@@ -632,14 +629,14 @@ namespace BookingWeb.Modules.Phongs
                 {
                     await CurrentUnitOfWork.SaveChangesAsync();
 
-                    using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Change to Gmail's SMTP server
+                    using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Chuyển tới Gmail's SMTP server
                     {
                         smtpClient.Port = 587;
                         smtpClient.Credentials = new NetworkCredential("lethienkhang2002@gmail.com", "hfkinaalbpwwrebr"); // Use your email and app password
                         smtpClient.EnableSsl = true;
 
                         var mailMessage = new MailMessage();
-                        mailMessage.From = new MailAddress("lethienkhang2002@gmail.com", "BookingWeb.com"); // Use your email
+                        mailMessage.From = new MailAddress("lethienkhang2002@gmail.com", "StayEase.com"); // Use your email
                         mailMessage.To.Add(input.Email);
                         mailMessage.Subject = "Hello " + input.HoTen + ","; // Chủ đề của mail
                         mailMessage.Body = "Cảm ơn vì đã tin tưởng đặt phòng tại StayEase !"; // nội dung email

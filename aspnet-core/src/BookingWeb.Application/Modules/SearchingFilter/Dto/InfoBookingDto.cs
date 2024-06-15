@@ -18,7 +18,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 
         public int SlTreEm { get; set; }
 
-       /* public List<> TreEm { get; set; }*/
+  
 
         public int SlPhong { get; set; }
     }

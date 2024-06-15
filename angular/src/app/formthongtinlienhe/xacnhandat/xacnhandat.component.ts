@@ -156,7 +156,8 @@ export class XacnhandatComponent {
       this.calculateNumberOfNights(
         this.infoBooking.ngayDat,
         this.infoBooking.ngayTra
-      );
+      ) *
+      this.infoBooking.slPhong;
     this.confirmBook.phongId = this.infoRoom.phongId;
     this.confirmBook.loaiPhongId = this.idloaiphong;
 
@@ -262,23 +263,25 @@ export class XacnhandatComponent {
             this.calculateNumberOfNights(
               this.infoBooking.ngayDat,
               this.infoBooking.ngayTra
-            )
+            ) *
+            this.infoBooking.slPhong
           }</div>
         </div>
         <br>
         <div class="row">
           <h6 style="text-align: center;">Hãy tải thông tin về máy và đến nhận phòng đúng thời hạn </h6><br>
-          <h6 style="text-align: center;">Vui lòng chuyển trước phí đặt cọc ${
+          <h6 style="text-align: center;">Vui lòng quét mã QR để chuyển trước phí đặt cọc ${
             ((this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *
               (1 - this.infoRoom.giamGia - this.infoRoom.uuDaiDacBiet) *
               this.calculateNumberOfNights(
                 this.infoBooking.ngayDat,
                 this.infoBooking.ngayTra
-              )) /
+              ) *
+              this.infoBooking.slPhong) /
             10
-          } VNĐ (10% phí đặt) <br> Nội dung là mã số phiếu của bạn: ${
+          } VNĐ (10% phí đặt) <br> Nội dung chuyển khoản là mã số phiếu của bạn: ${
       this.confirmBookRoomResultDto.idPhieuDatPhong
-    } <br>Bên khách sạn sẽ gọi điện lại xác nhận khi bạn đã chuyển tiền đặt cọc trong vòng 24h nếu không đặt cọc yêu cầu sẽ bị hủy. Mọi thắc mắc vui lòng gửi đến email stayease.com hoặc điền vào form tại trang chủ</h6>
+    } <br><br>Bên khách sạn sẽ gọi điện lại xác nhận khi bạn đã chuyển tiền đặt cọc trong vòng 24h nếu không đặt cọc yêu cầu sẽ bị hủy.</h6>
         </div>
       </div>
     </div>
@@ -329,7 +332,8 @@ export class XacnhandatComponent {
                   this.calculateNumberOfNights(
                     this.infoBooking.ngayDat,
                     this.infoBooking.ngayTra
-                  ),
+                  ) *
+                  this.infoBooking.slPhong,
               ],
             ],
           },

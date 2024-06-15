@@ -8,12 +8,7 @@ namespace BookingWeb.Modules.SearchingFilter.Dto
 {
     public class SearchingFilterRoomInputDto
     {
-        /*        public int pageIndex { get; set; }
-
-                public int pageSize { get; set; }
-
-
-        */
+      
 
         public List<PhongSearchinhFilterDto>? lst { get; set; }
 

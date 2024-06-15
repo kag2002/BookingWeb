@@ -10658,6 +10658,8 @@ export class LoaiPhongOutputDto implements ILoaiPhongOutputDto {
     giaPhongTheoDem: number;
     giaGoiDichVuThem: number;
     uuDai: number;
+    tongSlPhong: number;
+    slPhongTrong: number;
     tenDichVuTienIch: string[] | undefined;
 
     constructor(data?: ILoaiPhongOutputDto) {
@@ -10679,6 +10681,8 @@ export class LoaiPhongOutputDto implements ILoaiPhongOutputDto {
             this.giaPhongTheoDem = _data["giaPhongTheoDem"];
             this.giaGoiDichVuThem = _data["giaGoiDichVuThem"];
             this.uuDai = _data["uuDai"];
+            this.tongSlPhong = _data["tongSlPhong"];
+            this.slPhongTrong = _data["slPhongTrong"];
             if (Array.isArray(_data["tenDichVuTienIch"])) {
                 this.tenDichVuTienIch = [] as any;
                 for (let item of _data["tenDichVuTienIch"])
@@ -10704,6 +10708,8 @@ export class LoaiPhongOutputDto implements ILoaiPhongOutputDto {
         data["giaPhongTheoDem"] = this.giaPhongTheoDem;
         data["giaGoiDichVuThem"] = this.giaGoiDichVuThem;
         data["uuDai"] = this.uuDai;
+        data["tongSlPhong"] = this.tongSlPhong;
+        data["slPhongTrong"] = this.slPhongTrong;
         if (Array.isArray(this.tenDichVuTienIch)) {
             data["tenDichVuTienIch"] = [];
             for (let item of this.tenDichVuTienIch)
@@ -10729,6 +10735,8 @@ export interface ILoaiPhongOutputDto {
     giaPhongTheoDem: number;
     giaGoiDichVuThem: number;
     uuDai: number;
+    tongSlPhong: number;
+    slPhongTrong: number;
     tenDichVuTienIch: string[] | undefined;
 }
 

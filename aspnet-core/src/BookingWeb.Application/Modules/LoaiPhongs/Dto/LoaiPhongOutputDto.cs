@@ -24,6 +24,10 @@ namespace BookingWeb.Modules.LoaiPhongs.Dto
 
         public double UuDai { get; set; }
 
+        public int TongSlPhong { get; set; }
+
+        public int SLPhongTrong { get; set; }
+
         public List<string> TenDichVuTienIch { get; set; }
 
     }

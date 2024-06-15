@@ -149,7 +149,7 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
                 }
 
                 chiTietDatPhong.TrangThaiPhongId = 5;
-                chiTietDatPhong.SLPhong -= 1;
+               
 
                
                 await _chiTietDatPhongRepository.UpdateAsync(chiTietDatPhong);
@@ -179,38 +179,46 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
         {
             try
             {
+            
                 var chiTietDatPhong = await _chiTietDatPhongRepository.FirstOrDefaultAsync(e => e.PhieuDatPhongId == phieuDatPhongId);
                 if (chiTietDatPhong == null)
                 {
-                    throw new Exception("Record not found");
+                    throw new Exception("Record not found in ChiTietDatPhong");
                 }
 
                
                 chiTietDatPhong.TrangThaiPhongId = 4;
                 await _chiTietDatPhongRepository.UpdateAsync(chiTietDatPhong);
 
-               
-                await DeleteBooking(phieuDatPhongId);
+                
+                var deleteResult = await DeleteBooking(phieuDatPhongId);
+                if (!deleteResult)
+                {
+                    throw new Exception("Failed to delete booking from PhieuDatPhong");
+                }
 
                 return true;
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error in DenyBooking: {ex.Message}");
                 return false;
             }
         }
+
 
         private async Task<bool> DeleteBooking(int phieuDatPhongId)
         {
             try
             {
+               
                 var chiTietDatPhong = await _chiTietDatPhongRepository.FirstOrDefaultAsync(e => e.PhieuDatPhongId == phieuDatPhongId);
                 if (chiTietDatPhong != null)
                 {
                     await _chiTietDatPhongRepository.DeleteAsync(chiTietDatPhong);
                 }
 
+            
                 var phieuDatPhong = await _phieuDatPhongRepository.FirstOrDefaultAsync(phieuDatPhongId);
                 if (phieuDatPhong != null)
                 {
@@ -221,10 +229,11 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
             }
             catch (Exception ex)
             {
-                await _httpContextAccessor.HttpContext.Response.WriteAsync($"error : {ex.Message}");
+                await _httpContextAccessor.HttpContext.Response.WriteAsync($"Error in DeleteBooking: {ex.Message}");
                 return false;
             }
         }
+
 
         private async Task<bool> StoreBookingInPhieuDaDuyet(int phieuDatPhongId)
         {

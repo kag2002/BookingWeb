@@ -3,6 +3,7 @@ using Abp.Domain.Repositories;
 using BookingWeb.DbEntities;
 using BookingWeb.Modules.LoaiPhongs.Dto;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,9 @@ namespace BookingWeb.Modules.LoaiPhongs
                     TienNghiTrongPhong = entity.TienNghiTrongPhong,
                     GiaPhongTheoDem = entity.GiaPhongTheoDem,
                     GiaGoiDichVuThem = entity.GiaGoiDichVuThem,
-                    UuDai = entity.UuDai
+                    UuDai = entity.UuDai,
+                    TongSlPhong = entity.TongSlPhong,
+                    SLPhongTrong = entity.SLPhongTrong
                 }).ToList();
 
                 return dtoLst;
@@ -72,7 +75,7 @@ namespace BookingWeb.Modules.LoaiPhongs
                     GiaPhongTheoDem = input.GiaPhongTheoDem,
                     UuDai = input.UuDai,
                     TongSlPhong = input.TongSlPhong,
-                    SLPhongTrong = input.TongSlPhong  
+                    SLPhongTrong = input.TongSlPhong
                 };
                 await _loaiPhongRepository.InsertAsync(lp);
 
@@ -85,7 +88,6 @@ namespace BookingWeb.Modules.LoaiPhongs
                 return false;
             }
         }
-
 
         public async Task<bool> UpdateLP(LoaiPhongDto input)
         {
@@ -146,7 +148,6 @@ namespace BookingWeb.Modules.LoaiPhongs
             }
         }
 
-        
         public async Task<bool> UpdateAvailableRooms()
         {
             try
@@ -155,8 +156,11 @@ namespace BookingWeb.Modules.LoaiPhongs
 
                 foreach (var loaiPhong in loaiPhongs)
                 {
-                    // Dem phong da dat
-                    var bookedRoomsCount = await _phieuDaDuyetRepository.CountAsync(p => p.LoaiPhongId == loaiPhong.Id);
+                    // Sum SLPhong of booked rooms for the current LoaiPhongId
+                    var bookedRoomsCount = await _phieuDaDuyetRepository
+                        .GetAll()
+                        .Where(p => p.LoaiPhongId == loaiPhong.Id)
+                        .SumAsync(p => p.SLPhong);
 
                     // Update SLPhongTrong
                     loaiPhong.SLPhongTrong = loaiPhong.TongSlPhong - bookedRoomsCount;

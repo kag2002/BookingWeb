@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import {
   ChiTietDatPhongDto,
   ChiTietDatPhongServiceProxy,
@@ -29,6 +29,7 @@ export class QuanlyphieudatComponent {
   constructor(
     // private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private _ChiTietDatPhongService: ChiTietDatPhongServiceProxy,
     private messageService: MessageService,
 
@@ -113,6 +114,10 @@ export class QuanlyphieudatComponent {
           });
         }
       });
+    this.router.navigate(["/app/Phieudatlist"]).then(() => {
+      // Reload the browser after navigation
+      window.location.reload();
+    });
   }
   // delete() {
   //   this._ChiTietDatPhongService(this.idphieudat).subscribe((result) => {});
