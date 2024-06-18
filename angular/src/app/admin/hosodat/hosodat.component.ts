@@ -5,6 +5,7 @@ import {
   PhieuDaDuyetDto,
 } from "@shared/service-proxies/service-proxies";
 import { MessageService } from "primeng/api";
+import { ExcelExportService } from "../../../app/service/excel-export.service";
 @Component({
   selector: "app-hosodat",
   templateUrl: "./hosodat.component.html",
@@ -20,7 +21,8 @@ export class HosodatComponent {
     private _ChiTietDatPhongService: ChiTietDatPhongServiceProxy,
     private cd: ChangeDetectorRef,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private excelExportService: ExcelExportService
   ) {}
 
   ngOnInit(): void {
@@ -96,6 +98,12 @@ export class HosodatComponent {
           detail: "Thanh toán không thành công vui lòng kiểm tra lại",
         });
       }
+    );
+  }
+  exportToExcel() {
+    this.excelExportService.exportAsExcelFile(
+      this.listPhieuDaDuyet,
+      "PhieuDaDuyet"
     );
   }
 }

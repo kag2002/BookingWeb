@@ -91,7 +91,12 @@
       </div>
       <div class="col-lg-2 GiaPhong">
         <p>Giá mỗi đêm chỉ từ</p>
-        <h6>VNĐ:{{ selectedkhachsan?.listLoaiPhong[0].giaPhongTheoDem }}</h6>
+        <h6>
+          VNĐ:{{
+            selectedkhachsan?.listLoaiPhong[0].giaPhongTheoDem
+              | number : "1.0-0"
+          }}
+        </h6>
         <a href="/app/khachsanstart/{{ id }}#PhongConTrong" class="btn"
           >Đặt phòng</a
         >
@@ -346,7 +351,7 @@
                       Giá:&ensp;
                       <s>{{
                         loaiphongdetail?.giaPhongTheoDem +
-                          loaiphongdetail?.giaGoiDVThem
+                          loaiphongdetail?.giaGoiDVThem | number : "1.0-0"
                       }}</s>
                       VNĐ
                     </div>
@@ -355,7 +360,7 @@
                     {{
                       loaiphongdetail?.giaPhongTheoDem *
                         (1 - loaiphongdetail?.uuDai) +
-                        loaiphongdetail?.giaGoiDVThem
+                        loaiphongdetail?.giaGoiDVThem | number : "1.0-0"
                     }}
                     VNĐ
                   </div>

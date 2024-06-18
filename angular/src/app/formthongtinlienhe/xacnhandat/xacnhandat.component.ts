@@ -254,6 +254,7 @@ export class XacnhandatComponent {
           <b class="col-lg-4">Số phòng</b>
           <div class="col-lg-8">${this.infoBooking.slPhong}</div>
         </div>
+        
         <hr />
         <div class="row">
           <b class="col-lg-4"><h5>Tổng tiền</h5></b>
@@ -265,6 +266,13 @@ export class XacnhandatComponent {
               this.infoBooking.ngayTra
             ) *
             this.infoBooking.slPhong
+          }</div>
+        </div>
+        <hr/>
+        <div class="row">
+          <b class="col-lg-4">Địa chỉ</b>
+          <div class="col-lg-8">${
+            this.confirmBookRoomResultDto.diaChiChiTiet
           }</div>
         </div>
         <br>
@@ -325,6 +333,7 @@ export class XacnhandatComponent {
               ["Người lớn", this.infoBooking.slNguoiLon],
               ["Trẻ em", this.infoBooking.slTreEm],
               ["Số phòng", this.infoBooking.slPhong],
+              ["Địa chỉ", this.confirmBookRoomResultDto.diaChiChiTiet],
               [
                 "Tổng tiền",
                 (this.infoRoom.giaPhongTheoDem + this.infoRoom.giaDichVuThem) *

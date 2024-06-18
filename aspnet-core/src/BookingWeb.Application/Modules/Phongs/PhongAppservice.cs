@@ -591,6 +591,7 @@ namespace BookingWeb.Modules.Phongs
         {
             try
             {
+                // Create a new booking record
                 var newPhieuDat = new PhieuDatPhong
                 {
                     HoTen = input.HoTen,
@@ -603,8 +604,10 @@ namespace BookingWeb.Modules.Phongs
                     YeuCauDacBiet = input.YeuCauDacBiet
                 };
 
+              
                 var idPhieuDat = await _phieuDatPhong.InsertAndGetIdAsync(newPhieuDat);
 
+                
                 var chiTietPhieuDat = new ChiTietDatPhong
                 {
                     TrangThaiPhongId = 1,
@@ -622,8 +625,14 @@ namespace BookingWeb.Modules.Phongs
                     TongTien = input.TongTien
                 };
 
+              
                 await _chiTietDatPhong.InsertAsync(chiTietPhieuDat);
                 var idPhieuDatPhong = chiTietPhieuDat.PhieuDatPhongId;
+
+              
+                var phong = await _phong.FirstOrDefaultAsync(input.phongId);
+                var donViKinhDoanh = await _donViKinhDoanh.FirstOrDefaultAsync((int)phong.DonViKinhDoanhId);
+                var diaChiChiTiet = donViKinhDoanh.DiaChiChiTiet;
 
                 try
                 {
@@ -639,7 +648,25 @@ namespace BookingWeb.Modules.Phongs
                         mailMessage.From = new MailAddress("lethienkhang2002@gmail.com", "StayEase.com"); // Use your email
                         mailMessage.To.Add(input.Email);
                         mailMessage.Subject = "Hello " + input.HoTen + ","; // Chủ đề của mail
-                        mailMessage.Body = "Cảm ơn vì đã tin tưởng đặt phòng tại StayEase !"; // nội dung email
+                        mailMessage.Body = $@"
+                    Cảm ơn vì đã tin tưởng đặt phòng tại StayEase!
+                    <br><br>
+                    Thông tin đặt phòng của bạn:
+                    <br><br>
+                    Họ tên: {input.HoTen}<br>
+                    Số điện thoại: {input.SDT}<br>
+                    Email: {input.Email}<br>
+                    Ngày đặt: {input.NgayDat:dd/MM/yyyy}<br>
+                    Ngày trả: {input.NgayTra:dd/MM/yyyy}<br>
+                    Số người lớn: {input.SlNguoiLon}<br>
+                    Số trẻ em: {input.SlTreEm}<br>
+                    Số phòng: {input.SlPhong}<br>
+                    Tổng tiền: {input.TongTien:C}<br>
+                    Địa chỉ: {diaChiChiTiet}<br>
+                    Yêu cầu đặc biệt: {input.YeuCauDacBiet}
+                    <br><br>
+                    Cảm ơn và hẹn gặp lại!
+                "; // Nội dung email
                         mailMessage.IsBodyHtml = true;
 
                         await smtpClient.SendMailAsync(mailMessage);
@@ -648,7 +675,8 @@ namespace BookingWeb.Modules.Phongs
                     return new ConfirmBookRoomResultDto
                     {
                         Success = true,
-                        IdPhieuDatPhong = idPhieuDatPhong
+                        IdPhieuDatPhong = idPhieuDatPhong,
+                          DiaChiChiTiet = diaChiChiTiet
                     };
                 }
                 catch (Exception ex)
@@ -671,6 +699,8 @@ namespace BookingWeb.Modules.Phongs
                 };
             }
         }
+
+
 
 
     }

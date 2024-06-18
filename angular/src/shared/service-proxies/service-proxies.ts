@@ -8012,6 +8012,7 @@ export class ConfirmBookRoomResultDto implements IConfirmBookRoomResultDto {
     success: boolean;
     idPhieuDatPhong: number | undefined;
     errorMessage: string | undefined;
+    diaChiChiTiet: string | undefined;
 
     constructor(data?: IConfirmBookRoomResultDto) {
         if (data) {
@@ -8027,6 +8028,7 @@ export class ConfirmBookRoomResultDto implements IConfirmBookRoomResultDto {
             this.success = _data["success"];
             this.idPhieuDatPhong = _data["idPhieuDatPhong"];
             this.errorMessage = _data["errorMessage"];
+            this.diaChiChiTiet = _data["diaChiChiTiet"];
         }
     }
 
@@ -8042,6 +8044,7 @@ export class ConfirmBookRoomResultDto implements IConfirmBookRoomResultDto {
         data["success"] = this.success;
         data["idPhieuDatPhong"] = this.idPhieuDatPhong;
         data["errorMessage"] = this.errorMessage;
+        data["diaChiChiTiet"] = this.diaChiChiTiet;
         return data;
     }
 
@@ -8057,6 +8060,7 @@ export interface IConfirmBookRoomResultDto {
     success: boolean;
     idPhieuDatPhong: number | undefined;
     errorMessage: string | undefined;
+    diaChiChiTiet: string | undefined;
 }
 
 export class ConfirmDto implements IConfirmDto {

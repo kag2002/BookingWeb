@@ -11,6 +11,7 @@ namespace BookingWeb.Modules.Phongs.Dto
         public bool Success { get; set; }
         public int? IdPhieuDatPhong { get; set; }
         public string ErrorMessage { get; set; }
+        public string DiaChiChiTiet { get; set; }
     }
 }
 

@@ -52,7 +52,8 @@
               <th style="width: 25%">Họ tên</th>
               <th style="width: 10%">SĐT</th>
               <th style="width: 10%">CCCD</th>
-              <th style="width: 20%">Email</th>
+
+              <th style="width: 20%">Tổng tiền <br />(Còn sau cọc)</th>
               <th style="width: 10%">Check in</th>
               <th style="width: 10%">Check out</th>
               <th style="width: 10%">Yêu cầu</th>
@@ -65,7 +66,12 @@
               <td>{{ listPhieuDaDuyet[i].hoTen }}</td>
               <td>{{ listPhieuDaDuyet[i].sdt }}</td>
               <td>{{ listPhieuDaDuyet[i].cccd }}</td>
-              <td>{{ listPhieuDaDuyet[i].email }}</td>
+
+              <td>
+                {{
+                  (listPhieuDaDuyet[i].tongTien * 90) / 100 | number : "1.0-0"
+                }}
+              </td>
               <td>{{ listPhieuDaDuyet[i].ngayBatDau.format("DD/MM/YYYY") }}</td>
               <td>{{ listPhieuDaDuyet[i].ngayHenTra.format("DD/MM/YYYY") }}</td>
               <td>{{ listPhieuDaDuyet[i].yeuCauDacBiet }}</td>
@@ -83,7 +89,7 @@
                   style="background-color: #3b82f6"
                   (click)="dathanhtoan(listPhieuDaDuyet[i].phieuDatPhongId)"
                 >
-                  <i class="pi pi-check"></i> Đã thanh toán
+                  <i class="pi pi-check"></i> Thanh toán
                 </button>
               </td>
             </tr>
@@ -97,6 +103,10 @@
         <p-button label="Tải lại" (click)="reload()"
           ><i class="pi pi-replay"></i
         ></p-button>
+        &nbsp;
+        <button (click)="exportToExcel()" class="buttonexcel btnexcel">
+          <i class="pi pi-file-excel"></i>Xuất Excel
+        </button>
       </div>
       <br />
     </div>

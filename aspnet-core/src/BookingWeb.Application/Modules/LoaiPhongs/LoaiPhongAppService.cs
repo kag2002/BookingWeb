@@ -156,13 +156,13 @@ namespace BookingWeb.Modules.LoaiPhongs
 
                 foreach (var loaiPhong in loaiPhongs)
                 {
-                    // Sum SLPhong of booked rooms for the current LoaiPhongId
+                  
                     var bookedRoomsCount = await _phieuDaDuyetRepository
                         .GetAll()
                         .Where(p => p.LoaiPhongId == loaiPhong.Id)
                         .SumAsync(p => p.SLPhong);
 
-                    // Update SLPhongTrong
+                   
                     loaiPhong.SLPhongTrong = loaiPhong.TongSlPhong - bookedRoomsCount;
 
                     await _loaiPhongRepository.UpdateAsync(loaiPhong);
